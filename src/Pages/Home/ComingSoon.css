@@ -1,0 +1,35 @@
+.comingsoon_screen {
+    background-image: url(../../assets/images/train_high_gym_coming_soon.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    text-align: center;
+}
+.dark_overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 0;
+}
+.main_title {
+    z-index: 1;
+    color: var(--theme-white);
+    position: relative;
+    text-transform: uppercase;
+    font-size: 4rem;
+}
+
+@media screen and (max-width: 768px) {
+    .main_title {
+        font-size: 2rem;
+    }    
+}

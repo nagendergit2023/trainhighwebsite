@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
+:root {
+  --theme-font: 'Rubik', sans-serif;
+  --theme-white: #ffffff;
+}
+
+body {
+  font-family: var(--theme-font);
+}
