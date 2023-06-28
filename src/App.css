@@ -8,3 +8,16 @@
 body {
   font-family: var(--theme-font);
 }
+
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  min-height: 100vh;
+}
+
+.card-icon {
+  margin-bottom: 20px;
+  font-size: 42px;
+}

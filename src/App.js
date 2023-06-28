@@ -9,6 +9,8 @@ import Contact from './Pages/Contact/Contact';
 import Services from './Pages/Services/Services';
 import Admin from './Pages/Admin/Admin';
 import ComingSoon from './Pages/Home/ComingSoon';
+import NewMembership from "./Pages/Admin/NewMembership";
+import MembershipList from "./Pages/Admin/MembershipList";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
       <Route path="/services" element={<Services/>} />  
       <Route path="/contact-us" element={<Contact/>} />       
       <Route path="/admin-panel" element={<Admin/>} />      
+      <Route path="/new-membership" element={<NewMembership/>} />      
+      <Route path="/membership-list" element={<MembershipList/>} />      
     </Routes>
     <Footer />
     </>
