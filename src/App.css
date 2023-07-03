@@ -21,3 +21,14 @@ body {
   margin-bottom: 20px;
   font-size: 42px;
 }
+
+.customer-photo {
+  height: 250px;
+  width: 250px;
+  display: flex;
+  margin: 0 auto;
+}
+
+.customer-photo img {
+  object-fit: cover;
+}

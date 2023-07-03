@@ -11,6 +11,7 @@ import Admin from './Pages/Admin/Admin';
 import ComingSoon from './Pages/Home/ComingSoon';
 import NewMembership from "./Pages/Admin/NewMembership";
 import MembershipList from "./Pages/Admin/MembershipList";
+import Login from "./Pages/Admin/Login";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Route path="/admin-panel" element={<Admin/>} />      
       <Route path="/new-membership" element={<NewMembership/>} />      
       <Route path="/membership-list" element={<MembershipList/>} />      
+      <Route path="/login" element={<Login/>} />      
     </Routes>
     <Footer />
     </>

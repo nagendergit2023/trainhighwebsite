@@ -1,9 +1,10 @@
 import React from 'react';
 import { Navbar, Nav, Offcanvas, Container } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
-        <Navbar expand="lg" className="bg-light shadow sticky-top">
+        <Navbar expand="lg" bg="dark" data-bs-theme="dark" className="shadow sticky-top py-lg-3">
           <Container>
             <Navbar.Brand href="/">Logo</Navbar.Brand>
             <Navbar.Toggle />
@@ -18,11 +19,11 @@ function Header() {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link href="/" className="px-3 mx-2">Home</Nav.Link>
-                  <Nav.Link href="/about-us" className="px-3 mx-2">About Us</Nav.Link>
-                  <Nav.Link href="/services" className="px-3 mx-2">Services</Nav.Link>
-                  <Nav.Link href="/contact-us" className="px-3 mx-2">Contact Us</Nav.Link>
-                  <Nav.Link href="/admin-panel" className="px-3 mx-2">Admin</Nav.Link>
+                  <Link to="/home" className="nav-link px-3 mx-2">Home</Link>
+                  <Link to="/about-us" className="nav-link px-3 mx-2">About Us</Link>
+                  <Link to="/services" className="nav-link px-3 mx-2">Services</Link>
+                  <Link to="/contact-us" className="nav-link px-3 mx-2">Contact Us</Link>
+                  <Link to="/login" className="nav-link px-3 mx-2">Admin</Link>
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
