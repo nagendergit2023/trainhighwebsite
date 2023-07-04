@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Col, Container, FloatingLabel, Form, Image, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 // import CustomerPhoto from "../../assets/images/customer_photo.png";
 import CustomerPhoto from "../../assets/images/train_high_gym_coming_soon_1.webp";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function NewMembership() {
+  const [startDate, setStartDate] = useState(new Date());
   return (
     <section>
       <Container>
@@ -89,7 +92,37 @@ function NewMembership() {
       </Form.Select>
     </FloatingLabel>
                 </Col>
-                <Col lg={4} className="mx-auto ">
+                
+                <Col lg={6}>
+                <FloatingLabel controlId="floatingSelect" label="Select Membership" className="mb-3">
+      <Form.Select aria-label="Floating label select example">
+        <option value="1">1 Month</option>
+        <option value="2">3 Months</option>
+        <option value="3">6 Month</option>
+        <option value="4">12 Month</option>
+      </Form.Select>
+    </FloatingLabel>
+                </Col>
+                <Col lg={3}>
+                {/* <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} /> */}
+                <FloatingLabel
+        controlId="floatingInput"
+        label="Start Date"
+        className="mb-3"
+      >
+        <Form.Control type="text" placeholder="Start Date" />
+      </FloatingLabel>
+                </Col>
+                <Col lg={3}>
+                <FloatingLabel
+        controlId="floatingInput"
+        label="End Date"
+        className="mb-3"
+      >
+        <Form.Control type="text" placeholder="End Date" />
+      </FloatingLabel>
+                </Col>
+                <Col lg={4} className="mx-auto my-4">
                 <Link to="/new-membership" className="btn btn-secondary w-100 py-2">Add New Member</Link>
                 </Col>
               </Row>
