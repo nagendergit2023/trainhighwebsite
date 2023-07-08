@@ -12,11 +12,15 @@ import ComingSoon from './Pages/Home/ComingSoon';
 import NewMembership from "./Pages/Admin/NewMembership";
 import MembershipList from "./Pages/Admin/MembershipList";
 import Login from "./Pages/Admin/Login";
+import TaxInvoice from './Pages/Admin/TaxInvoice';
 
 function App() {
   return (
     <>
-    <Header />
+    {window.location.pathname !== "/" ? (
+          <Header />
+) : null}
+    
     <Routes> 
     <Route path="/" element={<ComingSoon/>} />  
       <Route path="/home" element={<Home/>} />
@@ -27,8 +31,12 @@ function App() {
       <Route path="/new-membership" element={<NewMembership/>} />      
       <Route path="/membership-list" element={<MembershipList/>} />      
       <Route path="/login" element={<Login/>} />      
+      <Route path="/tax-invoice" element={<TaxInvoice/>} />      
     </Routes>
-    <Footer />
+    {window.location.pathname !== "/" ? (
+          <Footer />
+) : null}
+    
     </>
   );
 }
