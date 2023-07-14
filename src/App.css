@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
 :root {
   --theme-font: 'Rubik', sans-serif;
+  --theme-font-marker: 'Permanent Marker', sans-serif;
   --theme-white: #ffffff;
 }
 
@@ -15,6 +17,10 @@ body {
   justify-content: space-between;
   align-items: stretch;
   min-height: 100vh;
+}
+
+.inner-section {
+  margin-top: 70px;
 }
 
 .card-icon {
@@ -31,4 +37,60 @@ body {
 
 .customer-photo img {
   object-fit: cover;
+}
+
+.admin-icon {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.admin-icon path {
+  stroke: var(--theme-white);
+}
+
+.carousel-inner, .carousel-inner img {
+  height: 100vh;
+  object-fit: cover;
+}
+
+nav .nav-link {
+  transition: all ease-in-out 2s;
+}
+
+nav .nav-link:focus, .nav-link:hover {
+  border-bottom: 2px solid var(--theme-white);
+}
+
+footer .nav-link:focus, .nav-link:hover {
+  border-bottom: 0px solid var(--theme-white);
+}
+
+.innerpage {
+  margin-top: 60px;
+}
+
+.section-title {
+  font-family: var(--theme-font-marker);
+  text-align: center;
+}
+
+.social-icon-wrap.social-icon-wrap {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.social-icon {
+  font-size: 24px;
+}
+
+@media screen and (max-width: 768px) {
+
+  .carousel-inner, .carousel-inner img {
+    height: 75vh;
+    object-fit: cover;
+}
+  
 }

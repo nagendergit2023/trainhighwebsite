@@ -3,7 +3,7 @@ import { Button, Col, Container, FloatingLabel, Form, Row, Table } from "react-b
 
 function MembershipList() {
   return (
-    <section>
+    <section className="py-5 inner-section">
       <Container>
         <Row>
           <Col lg={12} className="mb-lg-4">

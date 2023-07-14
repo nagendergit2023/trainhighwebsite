@@ -9,7 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 function NewMembership() {
   const [startDate, setStartDate] = useState(new Date());
   return (
-    <section>
+    <section className="py-5 inner-section">
       <Container>
         <Row className="justify-content-center align-items-center">
           <Col lg={12}>
