@@ -8,21 +8,10 @@ function About() {
     <section className="py-lg-5 py-3">
       <Container>
         <Row className="justify-content-center ">
-          <Col lg={5}>
-            <a href="#" className="text-decoration-none text-dark">
-            <h1 className="section-title mb-3">about us</h1>
-            </a>
-            <a href="#" className="text-decoration-none text-dark">
-            <h1 className="section-title mb-3">our story</h1>
-            </a>
-            <a href="#" className="text-decoration-none text-dark">
-            <h1 className="section-title mb-3">approach</h1>
-            </a>
-            <a href="#" className="text-decoration-none text-dark">
-            <h1 className="section-title">our plan</h1>
-            </a>
+          <Col lg={6}>
+           
           </Col>
-          <Col lg={5}>
+          <Col lg={6}>
             <div className="mb-2">
             <p className="text-capitalize mb-0 fw-bold">our story</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget augue.</p>
