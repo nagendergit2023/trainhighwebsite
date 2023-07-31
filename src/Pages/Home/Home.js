@@ -12,8 +12,8 @@ function Home() {
   return (
     <>
     <MainCarousel />
-    <Quotes/>
     <AboutUs />
+    <Quotes/>
     <Training />
     <Trainers />
     <Location />

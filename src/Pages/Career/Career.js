@@ -1,10 +1,8 @@
 import React from 'react'
-import Col from 'react-bootstrap/esm/Col'
-import Container from 'react-bootstrap/esm/Container'
-import Row from 'react-bootstrap/esm/Row'
+import { Col, Container, Row } from "react-bootstrap";
 import Hero from './../../Components/Hero/Hero';
 
-function Contact() {
+function Career() {
   return (
     <>
     <Hero />
@@ -12,7 +10,7 @@ function Contact() {
       <Container>
         <Row>
           <Col lg={12}>
-            <h1>Contact</h1>
+            <h1>Careers</h1>
           </Col>
         </Row>
       </Container>
@@ -21,4 +19,4 @@ function Contact() {
   )
 }
 
-export default Contact
+export default Career

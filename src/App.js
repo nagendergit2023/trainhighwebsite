@@ -13,6 +13,8 @@ import NewMembership from "./Pages/Admin/NewMembership";
 import MembershipList from "./Pages/Admin/MembershipList";
 import Login from "./Pages/Admin/Login";
 import TaxInvoice from './Pages/Admin/TaxInvoice';
+import Training from "./Pages/Training/Training";
+import Career from './Pages/Career/Career';
 
 function App() {
   return (
@@ -25,7 +27,8 @@ function App() {
     <Route path="/" element={<ComingSoon/>} />  
       <Route path="/home" element={<Home/>} />
       <Route path="/about-us" element={<About/>} />              
-      <Route path="/training" element={<Services/>} />  
+      <Route path="/training" element={<Training/>} />  
+      <Route path="/careers" element={<Career/>} />  
       <Route path="/contact-us" element={<Contact/>} />       
       <Route path="/admin-panel" element={<Admin/>} />      
       <Route path="/new-membership" element={<NewMembership/>} />      

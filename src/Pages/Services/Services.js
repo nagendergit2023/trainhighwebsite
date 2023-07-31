@@ -2,9 +2,12 @@ import React from 'react';
 import Col from 'react-bootstrap/esm/Col';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
+import Hero from "../../Components/Hero/Hero";
 
 function Services() {
   return (
+    <>
+    <Hero />
     <section>
       <Container>
         <Row>
@@ -14,6 +17,8 @@ function Services() {
         </Row>
       </Container>
     </section>
+    </>
+    
   )
 }
 

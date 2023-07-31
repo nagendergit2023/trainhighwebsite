@@ -9,9 +9,12 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import { Link } from "react-router-dom";
+import Hero from './../../Components/Hero/Hero';
 
 function Training() {
     return (
+        <>
+        <Hero />
         <section className="bg-dark text-white py-lg-5 py-3">
             <Container>
                 <Row className="justify-content-center ">
@@ -115,6 +118,8 @@ function Training() {
 
             </Container>
         </section>
+        </>
+        
     )
 }
 
