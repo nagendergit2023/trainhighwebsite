@@ -5,10 +5,13 @@ import { Col } from 'react-bootstrap';
 import { Card } from 'react-bootstrap';
 import { FloatingLabel, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Hero from "../../Components/Hero/Hero";
 
 function Login() {
   return (
-    <section className="py-5 inner-section">
+    <>
+    <Hero/>
+    <section className="inner-section">
       <Container>
         <Row className="justify-content-center align-items-center">
           <Col lg={5}>
@@ -34,6 +37,8 @@ function Login() {
         </Row>
       </Container>
     </section>
+    </>
+    
   )
 }
 

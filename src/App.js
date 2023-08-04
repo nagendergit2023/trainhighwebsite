@@ -15,6 +15,10 @@ import Login from "./Pages/Admin/Login";
 import TaxInvoice from './Pages/Admin/TaxInvoice';
 import Training from "./Pages/Training/Training";
 import Career from './Pages/Career/Career';
+import Cardio from './Pages/Training/Cardio';
+import Boxing from './Pages/Training/Boxing';
+import Crossfit from './Pages/Training/Crossfit';
+import Strength from './Pages/Training/Strength';
 
 function App() {
   return (
@@ -27,7 +31,10 @@ function App() {
     <Route path="/" element={<ComingSoon/>} />  
       <Route path="/home" element={<Home/>} />
       <Route path="/about-us" element={<About/>} />              
-      <Route path="/training" element={<Training/>} />  
+      <Route path="/boxing-training" element={<Boxing/>} />  
+      <Route path="/cardio-training" element={<Cardio/>} />  
+      <Route path="/crossfit-training" element={<Crossfit/>} />  
+      <Route path="/strength-training" element={<Strength/>} />  
       <Route path="/careers" element={<Career/>} />  
       <Route path="/contact-us" element={<Contact/>} />       
       <Route path="/admin-panel" element={<Admin/>} />      

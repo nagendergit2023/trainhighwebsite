@@ -21,7 +21,8 @@ body {
 }
 
 .inner-section {
-  margin-top: 70px;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .card-icon {
@@ -123,6 +124,10 @@ a {
   text-align: center;
   z-index: 1;
   transition: all ease-in-out .3s;
+}
+
+.text-justify {
+  text-align: justify;
 }
 
 @media screen and (max-width: 768px) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navbar, Nav, Offcanvas, Container } from 'react-bootstrap';
+import { Navbar, Nav, Offcanvas, Container, NavDropdown } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { GrUserAdmin } from "react-icons/gr";
 
@@ -28,20 +28,20 @@ function Header() {
             <Nav className="justify-content-end flex-grow-1 pe-3">
               <Link to="/home" className="nav-link px-3 mx-2">Home</Link>
               <Link to="/about-us" className="nav-link px-3 mx-2">About Us</Link>
-              <div class="nav-item show dropdown">
-                <Link class="dropdown-toggle nav-link mx-2" to="/training">Training</Link>
-                <div class="dropdown-menu">
-                  <Link to="/training" class="dropdown-item">Action</Link>
-                  <Link to="/training" class="dropdown-item">Another action</Link>
-                  <Link to="/training" class="dropdown-item">Something else here</Link>
-                  <Link to="/training" class="dropdown-item">Something else here</Link>
-                  <Link to="/training" class="dropdown-item">Something else here</Link>
-                </div>
-              </div>
+              <NavDropdown title="Trainings" id="collasible-nav-dropdown">
+              <NavDropdown.Item href="/boxing-training">Boxing</NavDropdown.Item>
+              <NavDropdown.Item href="/crossfit-training">
+                Crossfit
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/cardio-training">Cardio</NavDropdown.Item>              
+              <NavDropdown.Item href="/strength-training">
+                Strength
+              </NavDropdown.Item>
+            </NavDropdown>
               <Link to="/careers" className="nav-link px-3 mx-2">Careers</Link>
               <Link to="/contact-us" className="nav-link px-3 mx-2">Contact Us</Link>
-              <Link to="/login" className="btn btn-dark px-3 mx-2 border border-light text-white">
-                <GrUserAdmin className="admin-icon" />Admin
+              <Link to="/login" className="nav-link mx-4 text-white rounded border-0" title="Admin Login">
+                <GrUserAdmin className="admin-icon me-0" />
               </Link>
             </Nav>
           </Offcanvas.Body>

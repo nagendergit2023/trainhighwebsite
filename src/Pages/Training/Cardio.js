@@ -1,16 +1,14 @@
-import React from 'react';
-import Col from 'react-bootstrap/esm/Col';
-import Container from 'react-bootstrap/esm/Container';
-import Row from 'react-bootstrap/esm/Row';
-import Hero from "../../Components/Hero/Hero";
+import React from 'react'
+import { Container } from 'react-bootstrap';
+import Hero from './../../Components/Hero/Hero';
+import { Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import CardioTraining from "../../assets/images/trainings/cardio_training.png";
 
-function About() {
+function Cardio() {
   return (
     <>
-    {window.location.pathname !== "/home" ? (
-          <Hero />
-) : null}    
+    <Hero />
     <section className="py-lg-5 py-3">      
       <Container>
         <Row className="justify-content-center ">
@@ -19,7 +17,7 @@ function About() {
           </Col>
           <Col lg={6}>
             <div className="my-lg-2 my-4">
-            <p className="text-capitalize fw-bold">our mission</p>
+            <p className="text-capitalize fw-bold">Cardio Training</p>
             <p className="text-justify">Lorem ipsum dolor sit amet, consectetur  elit. Quisque eget augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget augue. Lorem dolor sit amet, adipiscing elit. Quisque eget ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget augue.</p>
             <p className="text-justify">Lorem ipsum dolor sit amet, consectetur  elit. Quisque eget augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
             <p className="text-justify">Lorem ipsum dolor sit amet, consectetur  elit. Quisque eget augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget augue. Lorem dolor sit amet, adipiscing elit. Quisque eget ipsum dolor sit amet, consectetur adipiscing elit. Quisque eget augue.</p>
@@ -29,8 +27,7 @@ function About() {
       </Container>
     </section>
     </>
-    
   )
 }
 
-export default About;
+export default Cardio

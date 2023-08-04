@@ -42,7 +42,7 @@ function Footer() {
       <p className="mb-0">trainhighgym@gmail.com</p>
       </div>
       </Col>
-      <Col lg={6} className="text-end">
+      <Col lg={6} className="text-lg-end text-start">
         <p className="mt-4 fw-bold">FOLLOW US</p>
       <ul className="list-inline mt-0 mb-0">
 					<li className="list-inline-item"> 

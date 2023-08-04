@@ -12,9 +12,12 @@ import { Link } from "react-router-dom";
 import Hero from './../../Components/Hero/Hero';
 
 function Training() {
+    
     return (
         <>
-        <Hero />
+        {window.location.pathname !== "/home" ? (
+          <Hero />
+) : null}
         <section className="bg-dark text-white py-lg-5 py-3">
             <Container>
                 <Row className="justify-content-center ">
@@ -27,7 +30,16 @@ function Training() {
 
             <Container>
                 <Swiper
-                    slidesPerView={4}
+                    breakpoints={{
+                        640: {
+                          width: 640,
+                          slidesPerView: 1,
+                        },                        
+                        768: {
+                          width: 768,
+                          slidesPerView: 3,
+                        },
+                      }}
                     spaceBetween={30}
                     pagination={{
                         clickable: true,
@@ -36,7 +48,7 @@ function Training() {
                     className="mySwiper text-center pb-5"
                 >
                     <SwiperSlide>
-                        <Link to="/">
+                        <Link to="/boxing-training">
                             <Card>
                                 <Card.Img variant="top" src={BoxingTraining} />
                                 <Card.Body>
@@ -45,7 +57,7 @@ function Training() {
                             </Card></Link>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <Link to="/">
+                        <Link to="/crossfit-training">
                             <Card>
                                 <Card.Img variant="top" src={CrossfitTraining} />
                                 <Card.Body>
@@ -55,7 +67,7 @@ function Training() {
                         </Link>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <Link to="/">
+                        <Link to="/cardio-training">
                             <Card>
                                 <Card.Img variant="top" src={CardioTraining} />
                                 <Card.Body>
@@ -65,7 +77,7 @@ function Training() {
                         </Link>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <Link to="/">
+                        <Link to="/strength-training">
                             <Card>
                                 <Card.Img variant="top" src={StrengthTraining} />
                                 <Card.Body>
@@ -75,17 +87,16 @@ function Training() {
                         </Link>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <Link to="/">
+                        <Link to="/boxing-training">
                             <Card>
                                 <Card.Img variant="top" src={BoxingTraining} />
                                 <Card.Body>
                                     <Card.Title className="text-center mb-0">Boxing</Card.Title>
                                 </Card.Body>
-                            </Card>
-                        </Link>
+                            </Card></Link>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <Link to="/">
+                        <Link to="/crossfit-training">
                             <Card>
                                 <Card.Img variant="top" src={CrossfitTraining} />
                                 <Card.Body>
@@ -95,7 +106,7 @@ function Training() {
                         </Link>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <Link to="/">
+                        <Link to="/cardio-training">
                             <Card>
                                 <Card.Img variant="top" src={CardioTraining} />
                                 <Card.Body>
@@ -105,7 +116,7 @@ function Training() {
                         </Link>
                     </SwiperSlide>
                     <SwiperSlide>
-                        <Link to="/">
+                        <Link to="/strength-training">
                             <Card>
                                 <Card.Img variant="top" src={StrengthTraining} />
                                 <Card.Body>
