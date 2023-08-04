@@ -1,0 +1,11 @@
+.parallax {
+    background-image: url("../../assets/images/train_high_gym_coming_soon_1.webp");
+    min-height: 300px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
