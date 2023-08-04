@@ -1,9 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
 
 :root {
-  --theme-font: 'Rubik', sans-serif;
-  --theme-font-marker: 'Permanent Marker', sans-serif;
+  --theme-font: "Rubik", sans-serif;
   --theme-white: #ffffff;
 }
 
@@ -48,7 +46,8 @@ body {
   stroke: var(--theme-white);
 }
 
-.carousel-inner, .carousel-inner img {
+.carousel-inner,
+.carousel-inner img {
   height: 100vh;
   object-fit: cover;
 }
@@ -57,11 +56,13 @@ nav .nav-link {
   transition: all ease-in-out 2s;
 }
 
-nav .nav-link:focus, .nav-link:hover {
+nav .nav-link:focus,
+.nav-link:hover {
   border-bottom: 2px solid var(--theme-white);
 }
 
-footer .nav-link:focus, .nav-link:hover {
+footer .nav-link:focus,
+.nav-link:hover {
   border-bottom: 0px solid var(--theme-white);
 }
 
@@ -87,10 +88,21 @@ footer .nav-link:focus, .nav-link:hover {
 }
 
 @media screen and (max-width: 768px) {
-
-  .carousel-inner, .carousel-inner img {
+  .carousel-inner,
+  .carousel-inner img {
     height: 75vh;
     object-fit: cover;
+  }
 }
-  
+.ant-space {
+  display: block !important;
+}
+.ant-picker {
+  /* position: absolute !important; */
+  top: 1px !important;
+  width: 99%;
+  /* border: none; */
+  margin-left: 2px;
+  padding-top: 17px;
+  padding-bottom: 17px;
 }
