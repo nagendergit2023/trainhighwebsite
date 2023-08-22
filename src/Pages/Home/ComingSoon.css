@@ -34,6 +34,21 @@
     animation: infiniteFlip 4s infinite;
 }
 
+.social-icon {
+    color: var(--theme-white);
+    font-size: 36px;
+}
+
+.social-icon-wrapper {
+    border: 1px solid var(--theme-white);
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @keyframes infiniteFlip {
     0% {
         transform: rotateY(0deg);
@@ -52,5 +67,19 @@
     }    
     .infinite-flip {
         width: 75% !important;
+    }
+    .social-icon {
+        color: var(--theme-white);
+        font-size: 26px;
+    }
+    
+    .social-icon-wrapper {
+        border: 1px solid var(--theme-white);
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
