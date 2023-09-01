@@ -10,10 +10,10 @@ function Footer() {
   return (
    <>
     <footer className="bg-dark text-white">
-	<Container>
+	{/* <Container>
 		<Row className="justify-content-center align-items-center">
 			<Col lg={12} className="text-center border-bottom py-5">
-				<img className="rounded-circle footer-logo" src={TrainHighGymLogo} alt="logo" />
+				<img className="rounded-circle footer-logo" src={TrainHighGymLogo} alt="logo" /> */}
 				{/* <p className="mt-3 text-white">Speedily say has suitable disposal add boy. On forth doubt miles of child. Exercise joy man children rejoiced.</p>
 				<ul className="nav justify-content-between text-primary-hover mt-3 mt-md-0">
 					<li className="nav-item"><a className="nav-link p-2 text-white" href="#">About</a></li>
@@ -23,7 +23,7 @@ function Footer() {
 					<li className="nav-item"><a className="nav-link p-2 text-white" href="#">Contact us</a></li>
 					<li className="nav-item"><a className="nav-link p-2 text-white" href="#">Cookies</a></li>
 				</ul> */}
-			</Col>
+			{/* </Col>
 		</Row>	
     <Row>
       
@@ -63,9 +63,12 @@ function Footer() {
 				</ul>
       </Col>
       </Row>	
-	</Container>
+	</Container> */}
   
-      <div className="bg-black py-3 text-center mt-5 small"> Copyright ©{moment().format('YYYY')} Train High Gym. All Rights Reserved.</div>
+      {/* <div className="bg-black py-3 text-center mt-lg-5 small"> */}
+      <div className="bg-black py-3 text-center small">
+		Copyright ©{moment().format('YYYY')} Train High Gym. All Rights Reserved.
+		</div>
 
 </footer>
    </>
