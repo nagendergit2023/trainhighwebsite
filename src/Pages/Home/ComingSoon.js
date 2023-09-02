@@ -9,6 +9,7 @@ import { BiLogoFacebook, BiLogoWhatsapp, BiPhoneCall, BiLogoInstagram } from 're
 import { TbRulerMeasure } from "react-icons/tb";
 import { PiLockers } from "react-icons/pi";
 import { LuShowerHead, LuParkingSquare } from "react-icons/lu";
+import { RiFoggyLine } from "react-icons/ri";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import Location from "../../Components/Location/Location";
 
@@ -76,8 +77,8 @@ function ComingSoon() {
       <section className="trainings">
       <h4 className="main_title py-lg-5 py-4 small">facilties</h4>
         <Container className="mb-5">
-        <Row>
-          <Col lg={3} xs={6} className="d-flex justify-content-center align-items-center mb-4">
+        <Row className=" justify-content-center">
+          <Col lg xs={6} className="d-flex justify-content-center align-items-center mb-4">
           <div className="text-center">
           <a href="https://instagram.com/trainhighgym?igshid=NjIwNzIyMDk2Mg==" className="social-icon-wrapper text-white" target="_blank">
             <TbRulerMeasure className="social-icon" />
@@ -85,7 +86,7 @@ function ComingSoon() {
           <p className="text-white text-center mt-2">20,000 Sq. Ft.</p>
           </div>
           </Col>
-          <Col lg={3} xs={6} className="d-flex justify-content-center align-items-center mb-4">
+          <Col lg xs={6} className="d-flex justify-content-center align-items-center mb-4">
           <div className="text-center">
             <a href="" className="social-icon-wrapper text-white">
           <LuShowerHead className="social-icon" /> 
@@ -94,7 +95,7 @@ function ComingSoon() {
             </div>
           
          </Col>
-         <Col lg={3} xs={6} className="d-flex justify-content-center align-items-center mb-4">
+         <Col lg xs={6} className="d-flex justify-content-center align-items-center mb-4">
          <div className="text-center">
         <a href="" className="social-icon-wrapper text-white">
           <PiLockers className="social-icon" /> 
@@ -102,12 +103,20 @@ function ComingSoon() {
           <p className="text-white text-center mt-2">Lockers</p>
         </div>
           </Col>
-          <Col lg={3} xs={6} className="d-flex justify-content-center align-items-center mb-4">
+          <Col lg xs={6} className="d-flex justify-content-center align-items-center mb-4">
           <div className="text-center">
           <a href="" className="social-icon-wrapper text-white">
           <LuParkingSquare className="social-icon" /> 
           </a>
           <p className="text-white text-center mt-2">Parking</p>
+          </div>
+          </Col>
+          <Col lg xs={6} className="d-flex justify-content-center align-items-center mb-4">
+          <div className="text-center">
+          <a href="" className="social-icon-wrapper text-white">
+          <RiFoggyLine className="social-icon" /> 
+          </a>
+          <p className="text-white text-center mt-2">Steam Bath</p>
           </div>
           </Col>
         </Row>

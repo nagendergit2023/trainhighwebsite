@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
 
 :root {
-  --theme-font: "Lato", sans-serif;
+  --theme-font: "Mulish", sans-serif;
   --theme-font-marker: "Permanent Marker", sans-serif;
   --theme-white: #ffffff;
 }
@@ -105,9 +106,9 @@ footer .nav-link:focus,
   align-items: center;
 }
 
-.social-icon {
+/* .social-icon {
   font-size: 24px;
-}
+} */
 
 .btn,
 .card,
