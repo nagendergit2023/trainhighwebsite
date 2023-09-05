@@ -4,6 +4,7 @@ import TrainHighGymLogo from "../../assets/images/train_high_gym_logo.png";
 import GetApiCall from "../../helpers/GetApi";
 import PostApiCall from "../../helpers/PostApi";
 import { useLocation } from "react-router-dom";
+import Hero from "../../Components/Hero/Hero";
 
 function TaxInvoice() {
   let location = useLocation();
@@ -83,122 +84,125 @@ function TaxInvoice() {
       .then(() => {});
   };
   return (
-    <section className="py-5 inner-section">
-      <Container>
-        <Button onClick={DownloadInvoicePdf}>Download</Button>
-        <Row
-          className="border"
-          id="orderform"
-          style={{
-            width: "100%",
-            height: "100%",
-            padding: "30px",
-          }}
-        >
-          <Col className="mt-3">
-            <img src={TrainHighGymLogo} className="w-25" />
-          </Col>
-          <Col className="mt-3 text-end">
-            <h4 className="fw-bold mb-2">INVOICE</h4>
-            <p className="mb-2">GSTIN - {Gst} </p>
+    <>
+      <Hero />
+      <section className="py-5 inner-section">
+        <Container>
+          <Button onClick={DownloadInvoicePdf}>Download</Button>
+          <Row
+            className="border"
+            id="orderform"
+            style={{
+              width: "100%",
+              height: "100%",
+              padding: "30px",
+            }}
+          >
+            <Col className="mt-3">
+              <img src={TrainHighGymLogo} className="w-25" />
+            </Col>
+            <Col className="mt-3 text-end">
+              <h4 className="fw-bold mb-2">INVOICE</h4>
+              <p className="mb-2">GSTIN - {Gst} </p>
 
-            <p className="mb-2">Invoice Date - {invoiceDate}</p>
+              <p className="mb-2">Invoice Date - {invoiceDate}</p>
 
-            <p className="mb-2">Invoice Number - {invoiceNumber}</p>
-          </Col>
-          <Col lg={12}>
-            <hr />
-          </Col>
-          <Col lg={12}>
-            <p className="mb-2">
-              <span
-                className="d-inline-block fw-bold"
-                style={{ width: "150px" }}
-              >
-                Membership ID
-              </span>{" "}
-              - {memberShip}
-            </p>
-            <p className="mb-2">
-              <span
-                className="d-inline-block fw-bold"
-                style={{ width: "150px" }}
-              >
-                Name
-              </span>{" "}
-              - {name}
-            </p>
-            <p className="mb-2">
-              <span
-                className="d-inline-block fw-bold"
-                style={{ width: "150px" }}
-              >
-                Address
-              </span>{" "}
-              - {address}
-            </p>
-            <p className="mb-2">
-              <span
-                className="d-inline-block fw-bold"
-                style={{ width: "150px" }}
-              >
-                Mobile
-              </span>{" "}
-              - {mobile}
-            </p>
-            <p className="mb-2">
-              <span
-                className="d-inline-block fw-bold"
-                style={{ width: "150px" }}
-              >
-                E-mail
-              </span>{" "}
-              - {"  "}
-              {email}
-            </p>
-          </Col>
-          <Col lg={12}>
-            <hr />
-          </Col>
-          <Col lg={12}>
-            <p className="fw-bold text-center">Payment Summary</p>
-            <Table striped>
-              <tbody>
-                <tr>
-                  <td>Subtotal</td>
-                  <td className="text-end fw-bold">
-                    Rs. <span>{amount}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>SGST 5%</td>
-                  <td className="text-end fw-bold">
-                    Rs. <span>{sgst}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>CGST 5%</td>
-                  <td className="text-end fw-bold">
-                    Rs. <span>{cgst}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="fw-bold">Total</td>
-                  <td className="text-end fw-bold">
-                    Rs. <span>{totalamount}</span>
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
-          </Col>
-          <Col lg={12} className="mt-3">
-            <p className="small">
-              This is a computer generated invoice no signature required.
-            </p>
-          </Col>
-        </Row>
-      </Container>
-    </section>
+              <p className="mb-2">Invoice Number - {invoiceNumber}</p>
+            </Col>
+            <Col lg={12}>
+              <hr />
+            </Col>
+            <Col lg={12}>
+              <p className="mb-2">
+                <span
+                  className="d-inline-block fw-bold"
+                  style={{ width: "150px" }}
+                >
+                  Membership ID
+                </span>{" "}
+                - {memberShip}
+              </p>
+              <p className="mb-2">
+                <span
+                  className="d-inline-block fw-bold"
+                  style={{ width: "150px" }}
+                >
+                  Name
+                </span>{" "}
+                - {name}
+              </p>
+              <p className="mb-2">
+                <span
+                  className="d-inline-block fw-bold"
+                  style={{ width: "150px" }}
+                >
+                  Address
+                </span>{" "}
+                - {address}
+              </p>
+              <p className="mb-2">
+                <span
+                  className="d-inline-block fw-bold"
+                  style={{ width: "150px" }}
+                >
+                  Mobile
+                </span>{" "}
+                - {mobile}
+              </p>
+              <p className="mb-2">
+                <span
+                  className="d-inline-block fw-bold"
+                  style={{ width: "150px" }}
+                >
+                  E-mail
+                </span>{" "}
+                - {"  "}
+                {email}
+              </p>
+            </Col>
+            <Col lg={12}>
+              <hr />
+            </Col>
+            <Col lg={12}>
+              <p className="fw-bold text-center">Payment Summary</p>
+              <Table striped>
+                <tbody>
+                  <tr>
+                    <td>Subtotal</td>
+                    <td className="text-end fw-bold">
+                      Rs. <span>{amount}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>SGST 5%</td>
+                    <td className="text-end fw-bold">
+                      Rs. <span>{sgst}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>CGST 5%</td>
+                    <td className="text-end fw-bold">
+                      Rs. <span>{cgst}</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="fw-bold">Total</td>
+                    <td className="text-end fw-bold">
+                      Rs. <span>{totalamount}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Col>
+            <Col lg={12} className="mt-3">
+              <p className="small">
+                This is a computer generated invoice no signature required.
+              </p>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+    </>
   );
 }
 

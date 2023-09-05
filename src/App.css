@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Rubik&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Mulish&display=swap");
 
 :root {
   --theme-font: "Mulish", sans-serif;
@@ -142,7 +142,38 @@ a {
 .text-justify {
   text-align: justify;
 }
+.upload-image-component:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+  height: 50%;
+  opacity: 0;
+  transition: 0.5s ease;
+  background: #000 url(../src/assets/images/UploadImage.png) center no-repeat;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+.upload-image-component:hover input[type="file"] {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.upload-image-component:hover input:before {
+  opacity: 1;
+}
 
+.img-upload-input {
+  border: 1px solid grey;
+  width: 100%;
+  border-radius: 5px;
+}
+.table-userimage {
+  width: 100px;
+}
 @media screen and (max-width: 768px) {
   .carousel-inner,
   .carousel-inner img {
