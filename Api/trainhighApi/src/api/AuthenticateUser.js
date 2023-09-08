@@ -14,7 +14,7 @@ const users = [
   },
 ];
 const sql = require("mysql");
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { VarChar } = require("mssql");
 const con = require("../utilites/db");
