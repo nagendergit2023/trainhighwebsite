@@ -1,0 +1,21 @@
+{
+"apps" : [{
+    "name": "Trainhighgym-API",
+    "script": "./server.js",
+    "log_date_format"  : "YYYY-MM-DD HH:mm Z",
+      "watch": "../",
+      "env": {
+        "DB_HOST": "68.178.154.1",
+        "DB_USER": "trainhighgym_db_usr",
+        "DB_PASS": "nXRA.0OQqdzQ",
+        "DB_NAME": "trainhighgym_db",
+        "REACT_NAME": "",
+        "REACT_EMAIL_USER": "",
+        "REACT_EMAIl_PASSWORD": "",
+        "REACT_NODE_PATH": "",
+        "REACT_API_ROUTE": "/trainhighgym-api",
+        "PORT": 8044,
+        "PRIVATE_KEY":"sb%$uyv#456@trainhighgym%^&po"
+}
+}]
+}

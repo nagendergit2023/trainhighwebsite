@@ -1,5 +1,5 @@
 const http = require("http");
-const app = require("./app");
+const app = require("./src/app");
 // const express = require("express");
 // const app = express();
 // const dbConfig = require("./config.json");
