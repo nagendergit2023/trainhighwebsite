@@ -1,6 +1,0 @@
-{
-"apps" : [{
-    "name": "Trainhighgym-API",
-    "script": "./server.js"
-  }]
-}

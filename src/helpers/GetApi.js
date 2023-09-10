@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useContext } from "react";
 // import { store } from "../Store";
 
-var urlString = "http://localhost:3306/trainhighgym-api/";
+var urlString = "http://68.178.170.174:3307/trainhighgym-api/";
 
 const GetApiCall = {
   getRequest(url) {

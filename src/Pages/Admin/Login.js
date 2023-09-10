@@ -10,26 +10,26 @@ import PostApiCall from "../../helpers/PostApi";
 import Hero from "../../Components/Hero/Hero";
 
 function Login() {
-  // useEffect(() => {
-  //   console.log("manmeet");
-  //   PostApiCall.postRequest(
-  //     {
-  //       username: "user1",
-  //       password:
-  //         "$2b$10$2aWrrIweEzUV8e43llzex.ayVf75Q5BGdTs5uRZwH5T7ndVyHKZfe",
-  //       action: "",
-  //       actiondate: "",
-  //       userid: "",
-  //     },
-  //     "AuthenticateUser"
-  //   ).then((results) => {
-  //     results.json().then((obj) => {
-  //       if (results.status == 200 || results.status == 201) {
-  //         //   console.log(obj.data[0].VariantImage.split("#")[2]);
-  //       }
-  //     });
-  //   });
-  // });
+  useEffect(() => {
+    console.log("manmeet");
+    PostApiCall.postRequest(
+      {
+        username: "user1",
+        password:
+          "$2b$10$2aWrrIweEzUV8e43llzex.ayVf75Q5BGdTs5uRZwH5T7ndVyHKZfe",
+        action: "",
+        actiondate: "",
+        userid: "",
+      },
+      "AuthenticateUser"
+    ).then((results) => {
+      results.json().then((obj) => {
+        if (results.status == 200 || results.status == 201) {
+          //   console.log(obj.data[0].VariantImage.split("#")[2]);
+        }
+      });
+    });
+  });
   return (
     <>
       <Hero />
