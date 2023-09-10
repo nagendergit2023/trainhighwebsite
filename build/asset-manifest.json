@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.26a1c604.css",
-    "main.js": "/static/js/main.63b8d8e0.js",
+    "main.css": "/static/css/main.95de4c00.css",
+    "main.js": "/static/js/main.3e6d742d.js",
     "static/js/703.07a39499.chunk.js": "/static/js/703.07a39499.chunk.js",
     "static/js/513.0e0327e7.chunk.js": "/static/js/513.0e0327e7.chunk.js",
     "static/js/787.1881d373.chunk.js": "/static/js/787.1881d373.chunk.js",
@@ -14,15 +14,16 @@
     "static/media/train_high_gym_coming_soon_3.webp": "/static/media/train_high_gym_coming_soon_3.92d58505de439e339f12.webp",
     "static/media/train_high_gym_coming_soon_1.webp": "/static/media/train_high_gym_coming_soon_1.346b41290984b00bba89.webp",
     "static/media/train_high_gym_coming_soon_2.webp": "/static/media/train_high_gym_coming_soon_2.b8cbcb7a93369648f8cd.webp",
+    "static/media/No_Image_Available.jpg": "/static/media/No_Image_Available.e1ce751ef1b590f719f9.jpg",
     "index.html": "/index.html",
-    "main.26a1c604.css.map": "/static/css/main.26a1c604.css.map",
-    "main.63b8d8e0.js.map": "/static/js/main.63b8d8e0.js.map",
+    "main.95de4c00.css.map": "/static/css/main.95de4c00.css.map",
+    "main.3e6d742d.js.map": "/static/js/main.3e6d742d.js.map",
     "703.07a39499.chunk.js.map": "/static/js/703.07a39499.chunk.js.map",
     "513.0e0327e7.chunk.js.map": "/static/js/513.0e0327e7.chunk.js.map",
     "787.1881d373.chunk.js.map": "/static/js/787.1881d373.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.26a1c604.css",
-    "static/js/main.63b8d8e0.js"
+    "static/css/main.95de4c00.css",
+    "static/js/main.3e6d742d.js"
   ]
 }
