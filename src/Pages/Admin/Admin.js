@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Col from "react-bootstrap/esm/Col";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
@@ -16,7 +16,7 @@ function Admin() {
           <Row className="justify-content-center align-items-center">
             <Col lg={3}>
               <Link to="/membership-list" className="text-decoration-none">
-                <Card className="text-center shadow">
+                <Card className="text-center shadow mb-3 mb-lg-0">
                   <Card.Body>
                     <AiOutlineUnorderedList className="card-icon" />
                     <Card.Title className="text-capitalize mb-0">

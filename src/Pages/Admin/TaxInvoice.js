@@ -5,6 +5,7 @@ import GetApiCall from "../../helpers/GetApi";
 import PostApiCall from "../../helpers/PostApi";
 import { useLocation } from "react-router-dom";
 import Hero from "../../Components/Hero/Hero";
+import moment from "moment";
 
 function TaxInvoice() {
   let location = useLocation();
@@ -28,7 +29,7 @@ function TaxInvoice() {
     if (location.state != null) {
       PostApiCall.postRequest(
         {
-          whereClause: `where fld_id = ${location.state[0].recordid}`,
+          whereClause: `where fld_id = ${location.state[0].fld_id}`,
         },
         "GetInvoiceDetails"
       ).then((results) => {
@@ -40,7 +41,7 @@ function TaxInvoice() {
               setName(obj.data[0].fld_name);
               setAddress(obj.data[0].fld_address);
               setMobile(obj.data[0].fld_mobile_number);
-              setEmail("");
+              setEmail(obj.data[0].fld_email);
               setGst(obj.data[0].fld_gst);
               setInvoiceDate(obj.data[0].fld_invoice_date);
               setInvoiceNumber(obj.data[0].fld_invoice_number);
@@ -88,12 +89,19 @@ function TaxInvoice() {
       <Hero />
       <section className="py-5 inner-section">
         <Container>
-          <Button onClick={DownloadInvoicePdf}>Download</Button>
+          <Col lg={12} className="text-center mb-4">
+            <Button
+              className="btn btn-secondary w-25"
+              onClick={DownloadInvoicePdf}
+            >
+              Download
+            </Button>
+          </Col>
           <Row
             className="border"
             id="orderform"
             style={{
-              width: "100%",
+              // width: "100%",
               height: "100%",
               padding: "30px",
             }}
@@ -105,7 +113,7 @@ function TaxInvoice() {
               <h4 className="fw-bold mb-2">INVOICE</h4>
               <p className="mb-2">GSTIN - {Gst} </p>
 
-              <p className="mb-2">Invoice Date - {invoiceDate}</p>
+              <p className="mb-2">Invoice Date - {moment(invoiceDate).format("MM-DD-YYYY")}</p>
 
               <p className="mb-2">Invoice Number - {invoiceNumber}</p>
             </Col>

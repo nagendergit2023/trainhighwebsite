@@ -185,11 +185,11 @@ a {
   display: block !important;
 }
 .ant-picker {
-  /* position: absolute !important; */
-  top: 1px !important;
-  width: 99%;
-  /* border: none; */
-  margin-left: 2px;
+  width: 100%;
   padding-top: 17px;
   padding-bottom: 17px;
+}
+.navbar-logo {
+  width: 60px;
+  border-radius: 35px;
 }

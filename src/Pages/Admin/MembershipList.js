@@ -37,49 +37,58 @@ function MembershipList() {
         title: "S No.",
         dataIndex: "SNo",
         sorter: (a, b) => a.SNo - b.SNo,
+        width: "90px",
       },
       {
         title: "Member Image",
         dataIndex: "MemberImage",
+        width: "150px",
       },
       {
         title: "Member Name",
         dataIndex: "MemberName",
         sorter: (a, b) => a.MemberName - b.MemberName,
+        width: "100px",
       },
       {
         title: "Address",
         dataIndex: "Address",
         sorter: (a, b) => a.Address - b.Address,
+        width: "140px",
       },
       {
         title: "Start Date",
         dataIndex: "StartDate",
         sorter: (a, b) => a.StartDate - b.StartDate,
+        width: "140px",
       },
       {
         title: "Mobile No.",
         dataIndex: "MobileNo",
         sorter: (a, b) => a.MobileNo - b.MobileNo,
+        width: "140px",
       },
       {
         title: "Membership",
         dataIndex: "Membership",
         sorter: (a, b) => a.Membership - b.Membership,
+        width: "100px",
       },
       {
         title: "Status",
         dataIndex: "Status",
         sorter: (a, b) => a.Status - b.Status,
+        width: "100px",
       },
       {
         title: "Actions",
         dataIndex: "Action",
+        width: "150px",
       },
     ],
     rows: memberList
       .filter((filtered) => {
-        console.log(String(filtered.fld_name).includes(searchFieldText));
+        // console.log(String(filtered.fld_name).includes(searchFieldText));
         if (searchFieldText == "") {
           return filtered;
         }
@@ -111,7 +120,7 @@ function MembershipList() {
           StartDate: moment(data.fld_start_date).format("ll"),
           MobileNo: data.fld_mobile_number,
           Membership: data.fld_membership,
-          Status: "",
+          Status: data.fld_status,
           Action: (
             <div className="d-flex align-items-center gap-2 justify-content-evenly">
               <Link to="/new-membership" state={{ data: data, type: "renew" }}>
@@ -119,7 +128,7 @@ function MembershipList() {
                   Renew
                 </Button>
               </Link>
-              <Link to="/new-membership" state={{ data: data }}>
+              <Link to="/new-membership" state={{ data: data, type: "update" }}>
                 <Button variant="secondary" className="" size="sm">
                   Edit
                 </Button>
@@ -146,21 +155,22 @@ function MembershipList() {
                       controlId="floatingInput"
                       label="Search by Name, Membership ID or Mobile Number"
                       className="mb-3"
-                      value={searchField}
-                      onChange={(e) => {
-                        setSearchField(e.target.value);
-                      }}
+                      style={{ fontSize: "15px" }}
                     >
                       <Form.Control
                         type="text"
                         placeholder="name@example.com"
+                        value={searchField}
+                        onChange={(e) => {
+                          setSearchField(e.target.value);
+                        }}
                       />
                     </FloatingLabel>
                   </Col>
                   <Col lg={2}>
                     <Button
                       variant="secondary"
-                      className="w-100 py-3"
+                      className="w-100 py-3 mb-3 mb-lg-0"
                       onClick={() => setSearchFieldText(searchField)}
                     >
                       Search
@@ -173,6 +183,8 @@ function MembershipList() {
               <Table
                 bordered={true}
                 striped
+                // scroll={{ x: 400 }}
+                scroll={{ x: "400", y: 800 }}
                 columns={data.columns}
                 dataSource={data.rows}
                 onChange={onChange}

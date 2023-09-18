@@ -13,18 +13,22 @@ import CustomerPhoto from "../../assets/images/train_high_gym_coming_soon_1.webp
 // import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
 import PostApiCall from "../../helpers/PostApi";
-import { DatePicker, Space } from "antd";
+import { DatePicker, Space, notification } from "antd";
 import dayjs from "dayjs";
 import axios from "axios";
 import GetApiCall from "../../helpers/GetApi";
 import moment from "moment";
 import Hero from "../../Components/Hero/Hero";
+import uploadimage from "../../assets/images/Upload User Image.png";
 
 function NewMembership() {
   let location = useLocation();
   let navigate = useNavigate();
+  const [membership, setMembership] = useState("1");
+  const [type, setType] = useState("");
+  const [oldmembershipid, setOldmembershipid] = useState(null);
   const [id, setId] = useState(null);
-  const [startDate, setStartDate] = useState(null);
+  const [startDate, setStartDate] = useState(new Date());
   const [pincode, setPincode] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -37,21 +41,25 @@ function NewMembership() {
   const [applicationNumber, setApplicationNumber] = useState("");
   const [membershipNumber, setMembershipNumber] = useState("");
   const [selectedLogo, setSelectedLogo] = useState("");
+  const [status, setStatus] = useState("");
+  const [email, setEmail] = useState("");
+  const [amountPerMonth, setAmountPerMonth] = useState(null);
   const [ImageApiUrl, setImageApiUrl] = useState(
-    "http://localhost:3306/trainhighgym-api/AddImage"
+    "http://68.178.170.174:3308/trainhighgym-api/AddImage"
   );
   const [previewUrl, setPreviewUrl] = useState("");
   const DATE_FORMAT = "YYYY-MM-DD";
-  const onChangeEndDate = (date) => {
-    if (date) {
-      setEndDate(date);
-    }
-  };
-  const onChangeStartDate = (date) => {
-    if (date) {
-      setStartDate(date);
-    }
-  };
+  // const onChangeEndDate = (date) => {
+  //   if (date) {
+  //     setEndDate(date);
+  //   }
+  // };
+  // const onChangeStartDate = (date) => {
+  //   console.log(date);
+  //   if (date) {
+  //     setStartDate(date);
+  //   }
+  // };
   const handlePincodeChange = async (e) => {
     const value = e.target.value;
     setPincode(value);
@@ -97,7 +105,7 @@ function NewMembership() {
     </label>
   );
   useEffect(() => {
-    if (location.state != null) {
+    if (location.state != null && location.state.type == "update") {
       setId(location.state.data.fld_id);
       setName(location.state.data.fld_name);
       setMobile(location.state.data.fld_mobile_number);
@@ -112,6 +120,11 @@ function NewMembership() {
       setEndDate(moment(location.state.data.fld_end_date).format("YYYY-DD-MM"));
       setApplicationNumber(location.state.data.fld_application_number);
       setMembershipNumber(location.state.data.fld_membership_number);
+      setStatus(location.state.data.fld_status);
+      setEmail(location.state.data.fld_email);
+      setAmountPerMonth(location.state.data.fld_amount_permnth);
+      setOldmembershipid(location.state.data.fld_old_membership);
+      setType(location.state.data.fld_type);
     } else if (location.state != null && location.state.type == "renew") {
       setName(location.state.data.fld_name);
       setMobile(location.state.data.fld_mobile_number);
@@ -124,8 +137,19 @@ function NewMembership() {
         moment(location.state.data.fld_start_date).format("YYYY-DD-MM")
       );
       setEndDate(moment(location.state.data.fld_end_date).format("YYYY-DD-MM"));
-      setApplicationNumber(location.state.data.fld_application_number);
+      // setApplicationNumber(location.state.data.fld_application_number);
+
       setMembershipNumber(location.state.data.fld_membership_number);
+      setStatus(location.state.data.fld_status);
+      setOldmembershipid(location.state.data.fld_id);
+      setType("New");
+      GetApiCall.getRequest("GetSerialNumber").then((results) => {
+        results.json().then((obj) => {
+          if (results.status == 200 || results.status == 201) {
+            setApplicationNumber(obj.appNumber);
+          }
+        });
+      });
     } else {
       GetApiCall.getRequest("GetSerialNumber").then((results) => {
         results.json().then((obj) => {
@@ -138,31 +162,119 @@ function NewMembership() {
     }
   }, []);
   const SaveForm = () => {
-    PostApiCall.postRequest(
-      {
-        id: id,
-        name: name,
-        mobile: mobile,
-        address: address,
-        application: applicationNumber,
-        membershipnumber: membershipNumber,
-        membership: memberShip,
-        pincode: pincode,
-        state: state,
-        city: selectedCity,
-        startDate: startDate,
-        endDate: endDate,
-      },
-      "AddUserDetails"
-    ).then((results) => {
-      results.json().then((obj) => {
-        if (results.status == 200 || results.status == 201) {
-          navigate("/tax-invoice", {
-            state: obj,
+    if (name != "") {
+      if (mobile == null) {
+        if (address == "") {
+          if (email == "") {
+            if (status == "") {
+              if (amountPerMonth == null) {
+                if (startDate == null) {
+                  if (memberShip == "") {
+                    PostApiCall.postRequest(
+                      {
+                        id: id,
+                        name: name,
+                        mobile: mobile,
+                        address: address,
+                        application: applicationNumber,
+                        membershipnumber: membershipNumber,
+                        membership: memberShip,
+                        pincode: pincode,
+                        state: state,
+                        city: selectedCity,
+                        startDate: startDate,
+                        endDate: endDate,
+                        email: email,
+                        userstatus: status,
+                        amount: amountPerMonth,
+                        type: type,
+                        oldmembership: oldmembershipid,
+                      },
+                      "AddUserDetails"
+                    ).then((results) => {
+                      results.json().then((obj) => {
+                        if (results.status == 200 || results.status == 201) {
+                          navigate("/tax-invoice", {
+                            state: obj,
+                          });
+                        }
+                      });
+                    });
+                  } else {
+                    notification.error({
+                      message: `Notification error`,
+                      description: "Please Select Membership Period",
+                    });
+                  }
+                } else {
+                  notification.error({
+                    message: `Notification error`,
+                    description: "Please Enter Start Date",
+                  });
+                }
+              } else {
+                notification.error({
+                  message: `Notification error`,
+                  description: "Please Enter Fee Per Month",
+                });
+              }
+            } else {
+              notification.error({
+                message: `Notification error`,
+                description: "Please Select Status Of Member",
+              });
+            }
+          } else {
+            notification.error({
+              message: `Notification error`,
+              description: "Please Enter Email",
+            });
+          }
+        } else {
+          notification.error({
+            message: `Notification error`,
+            description: "Please Enter Address",
           });
         }
+      } else {
+        notification.error({
+          message: `Notification error`,
+          description: "Please Enter Mobile Number",
+        });
+      }
+    } else {
+      notification.error({
+        message: `Notification error`,
+        description: "Please Enter Name",
       });
-    });
+    }
+  };
+  const calculateEndDate = () => {
+    let newEndDate;
+
+    if (memberShip === "1") {
+      newEndDate = startDate.add(1, "month");
+    } else if (memberShip === "2") {
+      newEndDate = startDate.add(3, "months");
+    } else if (memberShip === "3") {
+      newEndDate = startDate.add(6, "months");
+    } else if (memberShip === "4") {
+      newEndDate = startDate.add(12, "months");
+    }
+    console.log(newEndDate, memberShip);
+    setEndDate(newEndDate);
+  };
+  const onChangeMembership = (event) => {
+    setMemberShip(event.target.value);
+    calculateEndDate();
+  };
+
+  const onChangeStartDate = (date, dateString) => {
+    if (date) {
+      setStartDate(dayjs(dateString));
+    }
+    // setStartDate(dayjs(dateString));
+    calculateEndDate();
   };
   return (
     <>
@@ -187,7 +299,7 @@ function NewMembership() {
                             ""
                           )}`;
                           form.append("file", imageFile);
-                          form.append("foldername", "restaurant");
+                          form.append("foldername", "profileimages");
                           form.append("filename", filename);
                           let response;
                           response = fetch(ImageApiUrl, {
@@ -199,7 +311,7 @@ function NewMembership() {
                               // setRestaurantLogo(imageurl + filename);
                             });
                         }}
-                        src={selectedLogo == "" ? previewUrl : selectedLogo}
+                        src={selectedLogo == "" ? uploadimage : selectedLogo}
                       />
 
                       {/* <Image src={CustomerPhoto} thumbnail /> */}
@@ -316,26 +428,55 @@ function NewMembership() {
                       </Form.Select>
                     </FloatingLabel>
                   </Col>
-
                   <Col lg={6}>
                     <FloatingLabel
+                      controlId="floatingInput"
+                      label="Email"
+                      className="mb-3"
+                    >
+                      <Form.Control
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="example@gmail.com"
+                      />
+                    </FloatingLabel>
+                  </Col>
+                  <Col lg={3}>
+                    <FloatingLabel
                       controlId="floatingSelect"
-                      label="Select Membership"
+                      label="Status"
                       className="mb-3"
                     >
                       <Form.Select
                         aria-label="Floating label select example"
                         onChange={(e) => {
-                          setMemberShip(e.target.value);
+                          setStatus(e.target.value);
                         }}
                       >
-                        <option value="1">1 Month</option>
-                        <option value="2">3 Months</option>
-                        <option value="3">6 Month</option>
-                        <option value="4">12 Month</option>
+                        <option selected>Select</option>
+                        <option value="Active">Active</option>
+                        <option value="InActive">In Active</option>
                       </Form.Select>
                     </FloatingLabel>
                   </Col>
+                  <Col lg={3}>
+                    <FloatingLabel
+                      controlId="floatingInput"
+                      label="Amount Per Month"
+                      className="mb-3"
+                    >
+                      <Form.Control
+                        type="text"
+                        value={amountPerMonth}
+                        onChange={(e) => {
+                          setAmountPerMonth(e.target.value);
+                        }}
+                        placeholder="example@gmail.com"
+                      />
+                    </FloatingLabel>
+                  </Col>
+
                   <Col lg={3}>
                     {/* <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} /> */}
                     {/* <FloatingLabel
@@ -359,6 +500,8 @@ function NewMembership() {
                             value: dayjs().add(-1, "month"),
                           },
                         ]}
+                        className="mx-0 mb-3 mb-lg-0"
+                        placeholder="Start Date"
                         onChange={onChangeStartDate}
                       />
                     </Space>
@@ -368,6 +511,8 @@ function NewMembership() {
                   <Col lg={3}>
                     <Space direction="vertical" size={12}>
                       <DatePicker
+                        disabled
+                        placeholder="End Date"
                         format={DATE_FORMAT}
                         presets={[
                           {
@@ -383,7 +528,7 @@ function NewMembership() {
                             value: dayjs().add(-1, "month"),
                           },
                         ]}
-                        onChange={onChangeEndDate}
+                        // onChange={onChangeEndDate}
                       />
                     </Space>
                     {/* <FloatingLabel
@@ -393,6 +538,23 @@ function NewMembership() {
                   >
                     <Form.Control type="text" placeholder="End Date" />
                   </FloatingLabel> */}
+                  </Col>
+                  <Col lg={6}>
+                    <FloatingLabel
+                      controlId="floatingSelect"
+                      label="Select Membership"
+                      className="mb-3"
+                    >
+                      <Form.Select
+                        aria-label="Floating label select example"
+                        onChange={onChangeMembership}
+                      >
+                        <option value="1">1 Month</option>
+                        <option value="2">3 Months</option>
+                        <option value="3">6 Month</option>
+                        <option value="4">12 Month</option>
+                      </Form.Select>
+                    </FloatingLabel>
                   </Col>
                   <Col lg={4} className="mx-auto my-4">
                     <Link
