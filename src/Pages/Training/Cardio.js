@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container } from 'react-bootstrap';
-import Hero from './../../Components/Hero/Hero';
+import Hero from './../../Components/Hero/Hero.js';
 import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import CardioTraining from "../../assets/images/trainings/cardio_training.png";

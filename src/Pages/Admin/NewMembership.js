@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, FloatingLabel, Form, Row } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import PostApiCall from "../../helpers/PostApi";
+import PostApiCall from "../../helpers/PostApi.js";
 import { DatePicker, Space, notification } from "antd";
 import dayjs from "dayjs";
 import axios from "axios";
-import GetApiCall from "../../helpers/GetApi";
+import GetApiCall from "../../helpers/GetApi.js";
 import moment from "moment";
-import Hero from "../../Components/Hero/Hero";
+import Hero from "../../Components/Hero/Hero.js";
 import uploadimage from "../../assets/images/Upload User Image.png";
 
 function NewMembership() {

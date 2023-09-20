@@ -9,12 +9,12 @@ import {
   // Table,
 } from "react-bootstrap";
 import { Table } from "antd";
-import GetApiCall from "../../helpers/GetApi";
+import GetApiCall from "../../helpers/GetApi.js";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import noimage from "../../assets/images/No_Image_Available.jpg";
 import { Image } from "antd";
-import Hero from "../../Components/Hero/Hero";
+import Hero from "../../Components/Hero/Hero.js";
 
 function MembershipList() {
   const [memberList, setMemberList] = useState([]);

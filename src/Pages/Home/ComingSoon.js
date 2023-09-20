@@ -5,13 +5,14 @@ import BoxingTraining from "../../assets/images/trainings/boxing.png";
 import CrossfitTraining from "../../assets/images/trainings/crossfit_training.png";
 import CardioTraining from "../../assets/images/trainings/cardio_training.png";
 import StrengthTraining from "../../assets/images/trainings/strength_training.png";
-import { BiLogoFacebook, BiLogoWhatsapp, BiPhoneCall, BiLogoInstagram } from 'react-icons/bi';
-import { TbRulerMeasure } from "react-icons/tb";
-import { PiLockers } from "react-icons/pi";
-import { LuShowerHead, LuParkingSquare } from "react-icons/lu";
-import { RiFoggyLine } from "react-icons/ri";
+// import { BiLogoInstagram
+// import { TbRulerMeasure } from "react-icons/tb";
+// import { PiLockers } from "react-icons/pi";
+// import { LuShowerHead, LuParkingSquare } from "react-icons/lu";
+// import { RiFoggyLine } from "react-icons/ri";
 import { Card, Col, Container, Row } from "react-bootstrap";
-import Location from "../../Components/Location/Location";
+import Location from "../../Components/Location/Location.js";
+// import { AiOutlineInstagram } from 'react-icons/ai';
 
 function ComingSoon() {
   return (
@@ -21,7 +22,8 @@ function ComingSoon() {
         <p className="main_title">OPENING SOON!</p>
         <div className="d-flex align-items-center gap-4 position-relative z-1 ">
           <a href="https://instagram.com/trainhighgym?igshid=NjIwNzIyMDk2Mg==" className="social-icon-wrapper text-white" target="_blank">
-            <BiLogoInstagram className="social-icon" />
+          {/* <BiLogoInstagram className="social-icon" /> */}
+            {/* <AiOutlineInstagram className="social-icon" /> */}
           </a>
           {/* <a href="" className="social-icon-wrapper text-white">
           <BiLogoFacebook className="social-icon" /> 
@@ -81,7 +83,7 @@ function ComingSoon() {
           <Col lg xs={6} className="d-flex justify-content-center align-items-center mb-4">
           <div className="text-center">
           <a href="https://instagram.com/trainhighgym?igshid=NjIwNzIyMDk2Mg==" className="social-icon-wrapper text-white" target="_blank">
-            <TbRulerMeasure className="social-icon" />
+            {/* <TbRulerMeasure className="social-icon" /> */}
           </a>
           <p className="text-white text-center mt-2">20,000 Sq. Ft.</p>
           </div>
@@ -89,7 +91,7 @@ function ComingSoon() {
           <Col lg xs={6} className="d-flex justify-content-center align-items-center mb-4">
           <div className="text-center">
             <a href="" className="social-icon-wrapper text-white">
-          <LuShowerHead className="social-icon" /> 
+          {/* <LuShowerHead className="social-icon" />  */}
           </a>
             <p className="text-white text-center mt-2">Showers</p>
             </div>
@@ -98,7 +100,7 @@ function ComingSoon() {
          <Col lg xs={6} className="d-flex justify-content-center align-items-center mb-4">
          <div className="text-center">
         <a href="" className="social-icon-wrapper text-white">
-          <PiLockers className="social-icon" /> 
+          {/* <PiLockers className="social-icon" />  */}
           </a>
           <p className="text-white text-center mt-2">Lockers</p>
         </div>
@@ -106,7 +108,7 @@ function ComingSoon() {
           <Col lg xs={6} className="d-flex justify-content-center align-items-center mb-4">
           <div className="text-center">
           <a href="" className="social-icon-wrapper text-white">
-          <LuParkingSquare className="social-icon" /> 
+          {/* <LuParkingSquare className="social-icon" />  */}
           </a>
           <p className="text-white text-center mt-2">Parking</p>
           </div>
@@ -114,7 +116,7 @@ function ComingSoon() {
           <Col lg xs={6} className="d-flex justify-content-center align-items-center mb-4">
           <div className="text-center">
           <a href="" className="social-icon-wrapper text-white">
-          <RiFoggyLine className="social-icon" /> 
+          {/* <RiFoggyLine className="social-icon" />  */}
           </a>
           <p className="text-white text-center mt-2">Steam Bath</p>
           </div>

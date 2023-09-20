@@ -1,31 +1,29 @@
-import { Routes, Route } from 'react-router-dom';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from './Components/Header/Header';
-import Footer from './Components/Footer/Footer';
-import Home from './Pages/Home/Home';
-import About from './Pages/About/About';
-import Contact from './Pages/Contact/Contact';
-import Services from './Pages/Services/Services';
-import Admin from './Pages/Admin/Admin';
-import ComingSoon from './Pages/Home/ComingSoon';
-import NewMembership from "./Pages/Admin/NewMembership";
-import MembershipList from "./Pages/Admin/MembershipList";
-import Login from "./Pages/Admin/Login";
-import TaxInvoice from './Pages/Admin/TaxInvoice';
-import Training from "./Pages/Training/Training";
-import Career from './Pages/Career/Career';
-import Cardio from './Pages/Training/Cardio';
-import Boxing from './Pages/Training/Boxing';
-import Crossfit from './Pages/Training/Crossfit';
-import Strength from './Pages/Training/Strength';
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Header from "./Components/Header/Header.js";
+import Footer from "./Components/Footer/Footer.js";
+import Home from "./Pages/Home/Home.js";
+import About from "./Pages/About/About.js";
+import Contact from "./Pages/Contact/Contact.js";
+import Services from "./Pages/Services/Services.js";
+import Admin from "./Pages/Admin/Admin.js";
+import ComingSoon from "./Pages/Home/ComingSoon.js";
+import NewMembership from "./Pages/Admin/NewMembership.js";
+import MembershipList from "./Pages/Admin/MembershipList.js";
+import Login from "./Pages/Admin/Login.js";
+import TaxInvoice from "./Pages/Admin/TaxInvoice.js";
+import Training from "./Pages/Training/Training.js";
+import Career from "./Pages/Career/Career.js";
+import Cardio from "./Pages/Training/Cardio.js";
+import Boxing from "./Pages/Training/Boxing.js";
+import Crossfit from "./Pages/Training/Crossfit.js";
+import Strength from "./Pages/Training/Strength.js";
 
 function App() {
   return (
     <>
-      {window.location.pathname !== "/" ? (
-        <Header />
-      ) : null}
+      {window.location.pathname !== "/" ? <Header /> : null}
 
       <Routes>
         <Route path="/" element={<ComingSoon />} />
@@ -47,7 +45,6 @@ function App() {
       {/* {window.location.pathname !== "/" ? (
           <Footer />
 ) : null} */}
-
     </>
   );
 }

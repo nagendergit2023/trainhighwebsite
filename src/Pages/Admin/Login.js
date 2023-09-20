@@ -5,9 +5,9 @@ import { Col } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 import { FloatingLabel, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import GetApiCall from "../../helpers/GetApi";
-import PostApiCall from "../../helpers/PostApi";
-import Hero from "../../Components/Hero/Hero";
+// import GetApiCall from "../../helpers/GetApi";
+import PostApiCall from "../../helpers/PostApi.js";
+import Hero from "../../Components/Hero/Hero.js";
 import { Button, Divider, notification, Space } from "antd";
 
 function Login() {

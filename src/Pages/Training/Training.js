@@ -9,7 +9,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import { Link } from "react-router-dom";
-import Hero from './../../Components/Hero/Hero';
+import Hero from './../../Components/Hero/Hero.js';
 
 function Training() {
     

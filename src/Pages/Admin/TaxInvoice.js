@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
 import TrainHighGymLogo from "../../assets/images/train_high_gym_logo.png";
-import GetApiCall from "../../helpers/GetApi";
-import PostApiCall from "../../helpers/PostApi";
+import GetApiCall from "../../helpers/GetApi.js";
+import PostApiCall from "../../helpers/PostApi.js";
 import { useLocation } from "react-router-dom";
-import Hero from "../../Components/Hero/Hero";
+import Hero from "../../Components/Hero/Hero.js";
 import moment from "moment";
 
 function TaxInvoice() {

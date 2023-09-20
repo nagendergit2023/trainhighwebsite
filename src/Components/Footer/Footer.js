@@ -1,10 +1,10 @@
 import React from 'react'
 import { Col, Container, Row } from "react-bootstrap";
-import { AiOutlineYoutube } from "react-icons/ai";
-import { BiLogoFacebook, BiLogoInstagram } from "react-icons/bi";
-import TrainHighGymLogo from "../../assets/images/train_high_gym_logo.png";
+// import { AiOutlineYoutube } from 'react-icons/ai';
+// import { BiLogoFacebook, BiLogoInstagram } from "react-icons/bi";
+// import TrainHighGymLogo from "../../assets/images/train_high_gym_logo.png";
 import moment from 'moment';
-import { SlCallEnd, SlEnvolope, SlLocationPin } from "react-icons/sl";
+// import { SlCallEnd, SlEnvolope, SlLocationPin } from "react-icons/sl";
 
 function Footer() {
   return (

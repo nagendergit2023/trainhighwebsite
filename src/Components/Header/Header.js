@@ -7,7 +7,7 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { GrUserAdmin } from "react-icons/gr";
+// import { GrUserAdmin } from "react-icons/gr";
 import image1 from "../../assets/images/train_high_gym_logo.png";
 
 function Header() {
