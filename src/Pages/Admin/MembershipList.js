@@ -23,7 +23,7 @@ function MembershipList() {
   useEffect(() => {
     GetApiCall.getRequest("GetMemberList").then((results) => {
       results.json().then((obj) => {
-        if (results.status == 200 || results.status == 201) {
+        if (results.status === 200 || results.status === 201) {
           setMemberList(obj.data);
           // setMembershipNumber(obj.membershipNumber);
           //   console.log(obj.data[0].VariantImage.split("#")[2]);
@@ -89,7 +89,7 @@ function MembershipList() {
     rows: memberList
       .filter((filtered) => {
         // console.log(String(filtered.fld_name).includes(searchFieldText));
-        if (searchFieldText == "") {
+        if (searchFieldText === "") {
           return filtered;
         }
         if (
@@ -116,10 +116,10 @@ function MembershipList() {
           SNo: i + 1,
           MemberImage: <Image width={100} src={noimage} />,
           MemberName: data.fld_name,
-          Address: (data.fld_address, data.fld_city),
+          Address: (data.fld_address),
           StartDate: moment(data.fld_start_date).format("ll"),
           MobileNo: data.fld_mobile_number,
-          Membership: data.fld_membership,
+          Membership: data.membership_months,
           Status: data.fld_status,
           Action: (
             <div className="d-flex align-items-center gap-2 justify-content-evenly">

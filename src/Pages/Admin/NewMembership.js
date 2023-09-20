@@ -1,17 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  Col,
-  Container,
-  FloatingLabel,
-  Form,
-  Image,
-  Row,
-} from "react-bootstrap";
+import { Col, Container, FloatingLabel, Form, Row } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-// import CustomerPhoto from "../../assets/images/customer_photo.png";
-import CustomerPhoto from "../../assets/images/train_high_gym_coming_soon_1.webp";
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
 import PostApiCall from "../../helpers/PostApi";
 import { DatePicker, Space, notification } from "antd";
 import dayjs from "dayjs";
@@ -24,11 +13,10 @@ import uploadimage from "../../assets/images/Upload User Image.png";
 function NewMembership() {
   let location = useLocation();
   let navigate = useNavigate();
-  const [membership, setMembership] = useState("1");
   const [type, setType] = useState("");
   const [oldmembershipid, setOldmembershipid] = useState(null);
   const [id, setId] = useState(null);
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
   const [pincode, setPincode] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -45,25 +33,13 @@ function NewMembership() {
   const [email, setEmail] = useState("");
   const [amountPerMonth, setAmountPerMonth] = useState(null);
   const [ImageApiUrl, setImageApiUrl] = useState(
-    "http://68.178.170.174:3308/trainhighgym-api/AddImage"
+    "http://68.178.170.174:3309/trainhighgym-api/AddImage"
   );
-  const [previewUrl, setPreviewUrl] = useState("");
+  // const [previewUrl, setPreviewUrl] = useState("");
   const DATE_FORMAT = "YYYY-MM-DD";
-  // const onChangeEndDate = (date) => {
-  //   if (date) {
-  //     setEndDate(date);
-  //   }
-  // };
-  // const onChangeStartDate = (date) => {
-  //   console.log(date);
-  //   if (date) {
-  //     setStartDate(date);
-  //   }
-  // };
   const handlePincodeChange = async (e) => {
-    const value = e.target.value;
+    const value = e || e.target.value;
     setPincode(value);
-
     try {
       const response = await axios.get(
         `https://api.postalpincode.in/pincode/${value}`
@@ -74,7 +50,7 @@ function NewMembership() {
         response.data[0] &&
         response.data[0].Status === "Success"
       ) {
-        const { City, State } = response.data[0].PostOffice[0];
+        const { State } = response.data[0].PostOffice[0];
         setCity(response.data[0].PostOffice);
         setState(State);
       } else {
@@ -93,7 +69,12 @@ function NewMembership() {
       className="custom-file-upload img-upload-input p-2 fas w-100"
     >
       <div className="img-wrap img-upload upload-image-component">
-        <img htmlFor="photo-upload" src={src} className="img-upload-input" />
+        <img
+          htmlFor="photo-upload"
+          alt=""
+          src={src}
+          className="img-upload-input"
+        />
       </div>
       <input
         accept="image/*"
@@ -105,7 +86,8 @@ function NewMembership() {
     </label>
   );
   useEffect(() => {
-    if (location.state != null && location.state.type == "update") {
+    if (location.state !== null && location.state.type === "update") {
+      handlePincodeChange(location.state.data.fld_pincode);
       setId(location.state.data.fld_id);
       setName(location.state.data.fld_name);
       setMobile(location.state.data.fld_mobile_number);
@@ -114,10 +96,9 @@ function NewMembership() {
       setState(location.state.data.fld_state);
       setSelectedCity(location.state.data.fld_city);
       setMemberShip(location.state.data.fld_membership);
-      setStartDate(
-        moment(location.state.data.fld_start_date).format("YYYY-DD-MM")
-      );
-      setEndDate(moment(location.state.data.fld_end_date).format("YYYY-DD-MM"));
+      console.log(location.state.data.fld_start_date);
+      setStartDate("2023-09-25");
+      setEndDate(moment(location.state.data.fld_end_date));
       setApplicationNumber(location.state.data.fld_application_number);
       setMembershipNumber(location.state.data.fld_membership_number);
       setStatus(location.state.data.fld_status);
@@ -125,7 +106,7 @@ function NewMembership() {
       setAmountPerMonth(location.state.data.fld_amount_permnth);
       setOldmembershipid(location.state.data.fld_old_membership);
       setType(location.state.data.fld_type);
-    } else if (location.state != null && location.state.type == "renew") {
+    } else if (location.state !== null && location.state.type === "renew") {
       setName(location.state.data.fld_name);
       setMobile(location.state.data.fld_mobile_number);
       setAddress(location.state.data.fld_address);
@@ -133,10 +114,8 @@ function NewMembership() {
       setState(location.state.data.fld_state);
       setSelectedCity(location.state.data.fld_city);
       setMemberShip(location.state.data.fld_membership);
-      setStartDate(
-        moment(location.state.data.fld_start_date).format("YYYY-DD-MM")
-      );
-      setEndDate(moment(location.state.data.fld_end_date).format("YYYY-DD-MM"));
+      setStartDate(moment(location.state.data.fld_start_date));
+      setEndDate(moment(location.state.data.fld_end_date));
       // setApplicationNumber(location.state.data.fld_application_number);
 
       setMembershipNumber(location.state.data.fld_membership_number);
@@ -145,7 +124,7 @@ function NewMembership() {
       setType("New");
       GetApiCall.getRequest("GetSerialNumber").then((results) => {
         results.json().then((obj) => {
-          if (results.status == 200 || results.status == 201) {
+          if (results.status === 200 || results.status === 201) {
             setApplicationNumber(obj.appNumber);
           }
         });
@@ -153,7 +132,7 @@ function NewMembership() {
     } else {
       GetApiCall.getRequest("GetSerialNumber").then((results) => {
         results.json().then((obj) => {
-          if (results.status == 200 || results.status == 201) {
+          if (results.status === 200 || results.status === 201) {
             setApplicationNumber(obj.appNumber);
             setMembershipNumber(obj.membershipNumber);
           }
@@ -162,14 +141,14 @@ function NewMembership() {
     }
   }, []);
   const SaveForm = () => {
-    if (name != "") {
-      if (mobile == null) {
-        if (address == "") {
-          if (email == "") {
-            if (status == "") {
-              if (amountPerMonth == null) {
-                if (startDate == null) {
-                  if (memberShip == "") {
+    if (name !== "") {
+      if (mobile !== null) {
+        if (address !== "") {
+          if (email !== "") {
+            if (status !== "") {
+              if (amountPerMonth !== null) {
+                if (startDate !== null) {
+                  if (memberShip !== "" && memberShip != null) {
                     PostApiCall.postRequest(
                       {
                         id: id,
@@ -193,7 +172,7 @@ function NewMembership() {
                       "AddUserDetails"
                     ).then((results) => {
                       results.json().then((obj) => {
-                        if (results.status == 200 || results.status == 201) {
+                        if (results.status === 200 || results.status === 201) {
                           navigate("/tax-invoice", {
                             state: obj,
                           });
@@ -249,32 +228,29 @@ function NewMembership() {
       });
     }
   };
-  const calculateEndDate = () => {
-    let newEndDate;
 
-    if (memberShip === "1") {
-      newEndDate = startDate.add(1, "month");
-    } else if (memberShip === "2") {
-      newEndDate = startDate.add(3, "months");
-    } else if (memberShip === "3") {
-      newEndDate = startDate.add(6, "months");
-    } else if (memberShip === "4") {
-      newEndDate = startDate.add(12, "months");
+  const onChangeStartDate = (date) => {
+    setStartDate(date); // Update the start date
+    if (memberShip !== "") {
+      end(memberShip, date);
     }
-    console.log(newEndDate, memberShip);
-    setEndDate(newEndDate);
   };
-  const onChangeMembership = (event) => {
-    setMemberShip(event.target.value);
-    calculateEndDate();
-  };
-
-  const onChangeStartDate = (date, dateString) => {
-    if (date) {
-      setStartDate(dayjs(dateString));
+  const onChangeMembership = (value) => {
+    setMemberShip(value);
+    if (startDate !== null) {
+      end(value, startDate);
     }
-    // setStartDate(dayjs(dateString));
-    calculateEndDate();
+  };
+  const end = (value, start) => {
+    if (value === "1") {
+      setEndDate(start.add(1, "month"));
+    } else if (value === "2") {
+      setEndDate(start.add(3, "month"));
+    } else if (value === "3") {
+      setEndDate(start.add(6, "month"));
+    } else if (value === "4") {
+      setEndDate(start.add(12, "month"));
+    }
   };
   return (
     <>
@@ -299,7 +275,7 @@ function NewMembership() {
                             ""
                           )}`;
                           form.append("file", imageFile);
-                          form.append("foldername", "profileimages");
+                          // form.append("foldername", "profileimages");
                           form.append("filename", filename);
                           let response;
                           response = fetch(ImageApiUrl, {
@@ -311,7 +287,7 @@ function NewMembership() {
                               // setRestaurantLogo(imageurl + filename);
                             });
                         }}
-                        src={selectedLogo == "" ? uploadimage : selectedLogo}
+                        src={selectedLogo === "" ? uploadimage : selectedLogo}
                       />
 
                       {/* <Image src={CustomerPhoto} thumbnail /> */}
@@ -450,6 +426,7 @@ function NewMembership() {
                     >
                       <Form.Select
                         aria-label="Floating label select example"
+                        value={status}
                         onChange={(e) => {
                           setStatus(e.target.value);
                         }}
@@ -514,20 +491,7 @@ function NewMembership() {
                         disabled
                         placeholder="End Date"
                         format={DATE_FORMAT}
-                        presets={[
-                          {
-                            label: "Yesterday",
-                            value: dayjs().add(-1, "d"),
-                          },
-                          {
-                            label: "Last Week",
-                            value: dayjs().add(-7, "d"),
-                          },
-                          {
-                            label: "Last Month",
-                            value: dayjs().add(-1, "month"),
-                          },
-                        ]}
+                        value={endDate}
                         // onChange={onChangeEndDate}
                       />
                     </Space>
@@ -547,8 +511,10 @@ function NewMembership() {
                     >
                       <Form.Select
                         aria-label="Floating label select example"
-                        onChange={onChangeMembership}
+                        value={memberShip}
+                        onChange={(e) => onChangeMembership(e.target.value)}
                       >
+                        <option selected>Select</option>
                         <option value="1">1 Month</option>
                         <option value="2">3 Months</option>
                         <option value="3">6 Month</option>

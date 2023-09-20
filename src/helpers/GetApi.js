@@ -1,5 +1,3 @@
-import React from "react";
-import { useEffect, useContext } from "react";
 // import { store } from "../Store";
 
 var urlString = "http://68.178.170.174:3308/trainhighgym-api/";
