@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.a38dc1d7.css",
-    "main.js": "/static/js/main.ae6ddc65.js",
+    "main.css": "/static/css/main.75d13c4a.css",
+    "main.js": "/static/js/main.40065805.js",
     "static/js/787.1881d373.chunk.js": "/static/js/787.1881d373.chunk.js",
     "static/media/cardio_training.png": "/static/media/cardio_training.3126604b216d06c573d4.png",
     "static/media/crossfit_training.png": "/static/media/crossfit_training.98cf8d2e131281821657.png",
@@ -15,12 +15,12 @@
     "static/media/No_Image_Available.jpg": "/static/media/No_Image_Available.e1ce751ef1b590f719f9.jpg",
     "static/media/Upload User Image.png": "/static/media/Upload User Image.1f537bfdffd3bf9902c7.png",
     "index.html": "/index.html",
-    "main.a38dc1d7.css.map": "/static/css/main.a38dc1d7.css.map",
-    "main.ae6ddc65.js.map": "/static/js/main.ae6ddc65.js.map",
+    "main.75d13c4a.css.map": "/static/css/main.75d13c4a.css.map",
+    "main.40065805.js.map": "/static/js/main.40065805.js.map",
     "787.1881d373.chunk.js.map": "/static/js/787.1881d373.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a38dc1d7.css",
-    "static/js/main.ae6ddc65.js"
+    "static/css/main.75d13c4a.css",
+    "static/js/main.40065805.js"
   ]
 }

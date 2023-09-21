@@ -1,6 +1,6 @@
 {
     "apps" : [{
         "name": "Trainhighgym-Website",
-        "script": "./src/index.js"
+        "script": "./server.js"
       }]
     }
