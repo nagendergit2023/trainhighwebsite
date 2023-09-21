@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ComingSoon.css";
 import TrainHighGymLogo from "../../assets/images/train_high_gym_logo.png";
 import BoxingTraining from "../../assets/images/trainings/boxing.png";
@@ -16,6 +16,9 @@ import { AiOutlineInstagram } from "react-icons/ai";
 // import { AiOutlineInstagram } from 'react-icons/ai';
 
 function ComingSoon() {
+  useEffect(() => {
+    sessionStorage.removeItem("access");
+  }, []);
   return (
     <div className="comingsoon_body">
       <section className="comingsoon_screen">
@@ -28,7 +31,7 @@ function ComingSoon() {
             target="_blank"
           >
             {/* <BiLogoInstagram className="social-icon" /> */}
-            <AiOutlineInstagram className="social-icon" />
+            <AiOutlineInstagram className="social-icon " />
           </a>
           {/* <a href="" className="social-icon-wrapper text-white">
           <BiLogoFacebook className="social-icon" /> 

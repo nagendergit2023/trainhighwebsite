@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CalculateBMI from "../../Components/CalculateBMI/CalculateBMI.js";
 import Location from "../../Components/Location/Location.js";
 import MainCarousel from "../../Components/MainCarousel/MainCarousel.js";
@@ -8,6 +8,9 @@ import Training from "../Training/Training.js";
 import Trainers from "./../../Components/Trainers/Trainers.js";
 
 function Home() {
+  useEffect(() => {
+    sessionStorage.removeItem("access");
+  }, []);
   return (
     <>
       <MainCarousel />

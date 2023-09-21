@@ -19,6 +19,7 @@ import Cardio from "./Pages/Training/Cardio.js";
 import Boxing from "./Pages/Training/Boxing.js";
 import Crossfit from "./Pages/Training/Crossfit.js";
 import Strength from "./Pages/Training/Strength.js";
+import { PrivateRoute } from "./PrivateRoute";
 
 function App() {
   return (
@@ -35,11 +36,40 @@ function App() {
         <Route path="/strength-training" element={<Strength />} />
         <Route path="/careers" element={<Career />} />
         <Route path="/contact-us" element={<Contact />} />
-        <Route path="/admin-panel" element={<Admin />} />
-        <Route path="/new-membership" element={<NewMembership />} />
-        <Route path="/membership-list" element={<MembershipList />} />
+        <Route
+          path="/admin-panel"
+          element={
+            <PrivateRoute>
+              <Admin />
+            </PrivateRoute>
+          }
+        />
+        {/* <Route path="/admin-panel" element={<Admin />} /> */}
+        <Route
+          path="/new-membership"
+          element={
+            <PrivateRoute>
+              <NewMembership />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/membership-list"
+          element={
+            <PrivateRoute>
+              <MembershipList />
+            </PrivateRoute>
+          }
+        />
         <Route path="/login" element={<Login />} />
-        <Route path="/tax-invoice" element={<TaxInvoice />} />
+        <Route
+          path="/tax-invoice"
+          element={
+            <PrivateRoute>
+              <TaxInvoice />
+            </PrivateRoute>
+          }
+        />
       </Routes>
       <Footer />
       {/* {window.location.pathname !== "/" ? (
