@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.8055d2ef.css",
+    "main.js": "/static/js/main.71633b0d.js",
+    "static/js/703.07a39499.chunk.js": "/static/js/703.07a39499.chunk.js",
+    "static/js/513.5cc27642.chunk.js": "/static/js/513.5cc27642.chunk.js",
+    "static/js/787.1881d373.chunk.js": "/static/js/787.1881d373.chunk.js",
+    "static/media/cardio_training.png": "/static/media/cardio_training.3126604b216d06c573d4.png",
+    "static/media/crossfit_training.png": "/static/media/crossfit_training.98cf8d2e131281821657.png",
+    "static/media/strength_training.png": "/static/media/strength_training.21033632f660a63b56ee.png",
+    "static/media/boxing.png": "/static/media/boxing.2d29f6f3a9afc80808eb.png",
+    "static/media/train_high_gym_coming_soon.webp": "/static/media/train_high_gym_coming_soon.a8bd7f7fe8a1d3312bd8.webp",
+    "static/media/train_high_gym_logo.png": "/static/media/train_high_gym_logo.75668cdca92b388ae16d.png",
+    "static/media/train_high_gym_coming_soon_3.webp": "/static/media/train_high_gym_coming_soon_3.92d58505de439e339f12.webp",
+    "static/media/train_high_gym_coming_soon_1.webp": "/static/media/train_high_gym_coming_soon_1.346b41290984b00bba89.webp",
+    "static/media/train_high_gym_coming_soon_2.webp": "/static/media/train_high_gym_coming_soon_2.b8cbcb7a93369648f8cd.webp",
+    "static/media/No_Image_Available.jpg": "/static/media/No_Image_Available.e1ce751ef1b590f719f9.jpg",
+    "static/media/Upload User Image.png": "/static/media/Upload User Image.1f537bfdffd3bf9902c7.png",
+    "index.html": "/index.html",
+    "main.8055d2ef.css.map": "/static/css/main.8055d2ef.css.map",
+    "main.71633b0d.js.map": "/static/js/main.71633b0d.js.map",
+    "703.07a39499.chunk.js.map": "/static/js/703.07a39499.chunk.js.map",
+    "513.5cc27642.chunk.js.map": "/static/js/513.5cc27642.chunk.js.map",
+    "787.1881d373.chunk.js.map": "/static/js/787.1881d373.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8055d2ef.css",
+    "static/js/main.71633b0d.js"
+  ]
+}
