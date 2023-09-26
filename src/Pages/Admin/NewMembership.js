@@ -9,6 +9,7 @@ import GetApiCall from "../../helpers/GetApi.js";
 import moment from "moment";
 import Hero from "../../Components/Hero/Hero.js";
 import uploadimage from "../../assets/images/Upload User Image.png";
+moment.locale("en");
 
 function NewMembership() {
   let location = useLocation();
@@ -32,13 +33,27 @@ function NewMembership() {
   const [status, setStatus] = useState("");
   const [email, setEmail] = useState("");
   const [amountPerMonth, setAmountPerMonth] = useState(null);
-  const [ImageApiUrl, setImageApiUrl] = useState(
+  const [ImageApiUrl] = useState(
     "http://68.178.170.174:3309/trainhighgym-api/AddImage"
   );
   // const [previewUrl, setPreviewUrl] = useState("");
-  const DATE_FORMAT = "YYYY-MM-DD";
+
+  const presets = [
+    {
+      label: "Yesterday",
+      value: moment().subtract(1, "day"),
+    },
+    {
+      label: "Last Week",
+      value: moment().subtract(7, "day"),
+    },
+    {
+      label: "Last Month",
+      value: moment().subtract(1, "month"),
+    },
+  ];
   const handlePincodeChange = async (e) => {
-    const value = e || e.target.value;
+    const value = typeof e === 'object' ? e.target.value : e;
     setPincode(value);
     try {
       const response = await axios.get(
@@ -96,9 +111,8 @@ function NewMembership() {
       setState(location.state.data.fld_state);
       setSelectedCity(location.state.data.fld_city);
       setMemberShip(location.state.data.fld_membership);
-      console.log(location.state.data.fld_start_date);
-      setStartDate("2023-09-25");
-      setEndDate(moment(location.state.data.fld_end_date));
+      setStartDate(location.state.data.fld_start_date);
+      setEndDate(location.state.data.fld_end_date);
       setApplicationNumber(location.state.data.fld_application_number);
       setMembershipNumber(location.state.data.fld_membership_number);
       setStatus(location.state.data.fld_status);
@@ -231,14 +245,22 @@ function NewMembership() {
 
   const onChangeStartDate = (date) => {
     setStartDate(date); // Update the start date
-    if (memberShip !== "") {
-      end(memberShip, date);
+    if (date && memberShip) {
+      const calculatedEndDate = moment(date).add(memberShip, "months");
+      setEndDate(calculatedEndDate);
+    } else {
+      setEndDate(null);
     }
   };
+
   const onChangeMembership = (value) => {
     setMemberShip(value);
-    if (startDate !== null) {
-      end(value, startDate);
+
+    if (startDate && value) {
+      const calculatedEndDate = moment(startDate).add(value, "months");
+      setEndDate(calculatedEndDate);
+    } else {
+      setEndDate(null);
     }
   };
   const end = (value, start) => {
@@ -269,7 +291,6 @@ function NewMembership() {
                           const imageFile = e.target.files[0];
                           setSelectedLogo(URL.createObjectURL(imageFile));
                           const form = new FormData();
-                          console.log(URL.createObjectURL(imageFile));
                           let filename = `UserLogo-${imageFile.name.replace(
                             / /g,
                             ""
@@ -277,14 +298,12 @@ function NewMembership() {
                           form.append("file", imageFile);
                           // form.append("foldername", "profileimages");
                           form.append("filename", filename);
-                          let response;
-                          response = fetch(ImageApiUrl, {
+                          let response = fetch(ImageApiUrl, {
                             method: "POST",
                             body: form,
                           })
                             .then((response) => response.json())
                             .then((data) => {
-                              // setRestaurantLogo(imageurl + filename);
                             });
                         }}
                         src={selectedLogo === "" ? uploadimage : selectedLogo}
@@ -455,7 +474,7 @@ function NewMembership() {
                   </Col>
 
                   <Col lg={3}>
-                    {/* <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} /> */}
+                    {/* <DatePicker defaultValue={startDate} onChange={(date) => setStartDate(date)} /> */}
                     {/* <FloatingLabel
                     controlId="floatingInput"
                     label="Start Date"
@@ -463,20 +482,10 @@ function NewMembership() {
                   > */}
                     <Space direction="vertical" size={12}>
                       <DatePicker
-                        presets={[
-                          {
-                            label: "Yesterday",
-                            value: dayjs().add(-1, "d"),
-                          },
-                          {
-                            label: "Last Week",
-                            value: dayjs().add(-7, "d"),
-                          },
-                          {
-                            label: "Last Month",
-                            value: dayjs().add(-1, "month"),
-                          },
-                        ]}
+                        prestes={presets}
+                        defaultValue={!startDate ? null : moment(startDate)}
+                        value={!startDate ? null : moment(startDate)}
+                        format={"YYYY-MM-DD"}
                         className="mx-0 mb-3 mb-lg-0"
                         placeholder="Start Date"
                         onChange={onChangeStartDate}
@@ -490,9 +499,8 @@ function NewMembership() {
                       <DatePicker
                         disabled
                         placeholder="End Date"
-                        format={DATE_FORMAT}
-                        value={endDate}
-                        // onChange={onChangeEndDate}
+                        defaultValue={!endDate ? null : moment(endDate)}
+                        value={!endDate ? null : moment(endDate)}
                       />
                     </Space>
                     {/* <FloatingLabel

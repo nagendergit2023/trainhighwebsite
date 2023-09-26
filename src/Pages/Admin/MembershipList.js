@@ -6,7 +6,6 @@ import {
   FloatingLabel,
   Form,
   Row,
-  // Table,
 } from "react-bootstrap";
 import { Table } from "antd";
 import GetApiCall from "../../helpers/GetApi.js";
@@ -26,7 +25,6 @@ function MembershipList() {
         if (results.status === 200 || results.status === 201) {
           setMemberList(obj.data);
           // setMembershipNumber(obj.membershipNumber);
-          //   console.log(obj.data[0].VariantImage.split("#")[2]);
         }
       });
     });
@@ -88,7 +86,6 @@ function MembershipList() {
     ],
     rows: memberList
       .filter((filtered) => {
-        // console.log(String(filtered.fld_name).includes(searchFieldText));
         if (searchFieldText === "") {
           return filtered;
         }
@@ -116,7 +113,7 @@ function MembershipList() {
           SNo: i + 1,
           MemberImage: <Image width={100} src={noimage} />,
           MemberName: data.fld_name,
-          Address: (data.fld_address),
+          Address: data.fld_address,
           StartDate: moment(data.fld_start_date).format("ll"),
           MobileNo: data.fld_mobile_number,
           Membership: data.membership_months,
@@ -137,9 +134,6 @@ function MembershipList() {
           ),
         };
       }),
-  };
-  const onChange = (pagination, filters, sorter, extra) => {
-    console.log("params", pagination, filters, sorter, extra);
   };
   return (
     <>
@@ -183,85 +177,11 @@ function MembershipList() {
               <Table
                 bordered={true}
                 striped
-                // scroll={{ x: 400 }}
                 scroll={{ x: "400", y: 800 }}
                 columns={data.columns}
                 dataSource={data.rows}
-                onChange={onChange}
+                // onChange={onChange}/
               />
-              {/* <Table striped bordered hover className="w-100">
-              <thead>
-                <tr>
-                  <th>S No.</th>
-                  <th>Member Name</th>
-                  <th>Address</th>
-                  <th>Start Date</th>
-                  <th>Mobile No.</th>
-                  <th>Membership</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>
-                    <div className="d-flex align-items-center gap-2 justify-content-evenly">
-                      <Button variant="secondary" className="" size="sm">
-                        Renew
-                      </Button>
-                      <Button variant="secondary" className="" size="sm">
-                        Edit
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>
-                    <div className="d-flex align-items-center gap-2 justify-content-evenly">
-                      <Button variant="secondary" className="" size="sm">
-                        Renew
-                      </Button>
-                      <Button variant="secondary" className="" size="sm">
-                        Edit
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>
-                    <div className="d-flex align-items-center gap-2 justify-content-evenly">
-                      <Button variant="secondary" className="" size="sm">
-                        Renew
-                      </Button>
-                      <Button variant="secondary" className="" size="sm">
-                        Edit
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </Table> */}
             </Col>
           </Row>
         </Container>

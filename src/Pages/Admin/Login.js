@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 import { FloatingLabel, Form } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 // import GetApiCall from "../../helpers/GetApi";
 import PostApiCall from "../../helpers/PostApi.js";
 import Hero from "../../Components/Hero/Hero.js";
-import { Button, Divider, notification, Space } from "antd";
+import { notification } from "antd";
 
 function Login() {
   let navigate = useNavigate();
@@ -26,7 +26,7 @@ function Login() {
       "AuthenticateUser"
     ).then((results) => {
       results.json().then((obj) => {
-        if (results.status == 200 || results.status == 201) {
+        if (results.status === 200 || results.status === 201) {
           sessionStorage.setItem("access", obj.token);
           navigate("/admin-panel");
         } else {

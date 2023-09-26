@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
 import TrainHighGymLogo from "../../assets/images/train_high_gym_logo.png";
-import GetApiCall from "../../helpers/GetApi.js";
 import PostApiCall from "../../helpers/PostApi.js";
 import { useLocation } from "react-router-dom";
 import Hero from "../../Components/Hero/Hero.js";
@@ -9,14 +8,11 @@ import moment from "moment";
 
 function TaxInvoice() {
   let location = useLocation();
-  const [invoiceDetails, setInvoiceDetails] = useState([]);
   const [invoiceDate, setInvoiceDate] = useState(null);
-  const [pincode, setPincode] = useState("");
   const [amount, setAmount] = useState(null);
   const [totalamount, setTotalAmount] = useState(null);
   const [cgst, setCgst] = useState(null);
   const [sgst, setSgst] = useState(null);
-  const [state, setState] = useState("");
   const [Gst, setGst] = useState("");
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -24,7 +20,6 @@ function TaxInvoice() {
   const [memberShip, setMemberShip] = useState("");
   const [email, setEmail] = useState(null);
   const [invoiceNumber, setInvoiceNumber] = useState("");
-  const [membershipNumber, setMembershipNumber] = useState("");
   useEffect(() => {
     if (location.state != null) {
       PostApiCall.postRequest(
@@ -34,9 +29,8 @@ function TaxInvoice() {
         "GetInvoiceDetails"
       ).then((results) => {
         results.json().then((obj) => {
-          if (results.status == 200 || results.status == 201) {
+          if (results.status === 200 || results.status === 201) {
             if (obj.data.length > 0) {
-              setInvoiceDetails(obj.data);
               setMemberShip(obj.data[0].fld_membership_number);
               setName(obj.data[0].fld_name);
               setAddress(obj.data[0].fld_address);
@@ -107,13 +101,15 @@ function TaxInvoice() {
             }}
           >
             <Col className="mt-3">
-              <img src={TrainHighGymLogo} className="w-25" />
+              <img src={TrainHighGymLogo} className="w-25" alt="logo" />
             </Col>
             <Col className="mt-3 text-end">
               <h4 className="fw-bold mb-2">INVOICE</h4>
               <p className="mb-2">GSTIN - {Gst} </p>
 
-              <p className="mb-2">Invoice Date - {moment(invoiceDate).format("MM-DD-YYYY")}</p>
+              <p className="mb-2">
+                Invoice Date - {moment(invoiceDate).format("MM-DD-YYYY")}
+              </p>
 
               <p className="mb-2">Invoice Number - {invoiceNumber}</p>
             </Col>

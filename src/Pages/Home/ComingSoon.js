@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import "./ComingSoon.css";
-import TrainHighGymLogo from "../../assets/images/train_high_gym_logo.png";
 import BoxingTraining from "../../assets/images/trainings/boxing.png";
 import CrossfitTraining from "../../assets/images/trainings/crossfit_training.png";
 import CardioTraining from "../../assets/images/trainings/cardio_training.png";
 import StrengthTraining from "../../assets/images/trainings/strength_training.png";
-// import { BiLogoInstagram
 import { TbRulerMeasure } from "react-icons/tb";
 import { PiLockers } from "react-icons/pi";
 import { LuShowerHead, LuParkingSquare } from "react-icons/lu";
@@ -13,7 +11,6 @@ import { RiFoggyLine } from "react-icons/ri";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import Location from "../../Components/Location/Location.js";
 import { AiOutlineInstagram } from "react-icons/ai";
-// import { AiOutlineInstagram } from 'react-icons/ai';
 
 function ComingSoon() {
   useEffect(() => {
@@ -26,6 +23,7 @@ function ComingSoon() {
         <p className="main_title">OPENING SOON!</p>
         <div className="d-flex align-items-center gap-4 position-relative z-1 ">
           <a
+            rel="noreferrer"
             href="https://instagram.com/trainhighgym?igshid=NjIwNzIyMDk2Mg=="
             className="social-icon-wrapper text-white"
             target="_blank"
@@ -94,6 +92,7 @@ function ComingSoon() {
             >
               <div className="text-center">
                 <a
+                  rel="noreferrer"
                   href="https://instagram.com/trainhighgym?igshid=NjIwNzIyMDk2Mg=="
                   className="social-icon-wrapper text-white"
                   target="_blank"
@@ -109,7 +108,12 @@ function ComingSoon() {
               className="d-flex justify-content-center align-items-center mb-4"
             >
               <div className="text-center">
-                <a href="" className="social-icon-wrapper text-white">
+                <a
+                  href="#"
+                  onclick="myFunction(); return false;"
+                  rel="noreferrer"
+                  className="social-icon-wrapper text-white"
+                >
                   <LuShowerHead className="social-icon" />
                 </a>
                 <p className="text-white text-center mt-2">Showers</p>
@@ -121,7 +125,11 @@ function ComingSoon() {
               className="d-flex justify-content-center align-items-center mb-4"
             >
               <div className="text-center">
-                <a href="" className="social-icon-wrapper text-white">
+                <a
+                  href=""
+                  rel="noreferrer"
+                  className="social-icon-wrapper text-white"
+                >
                   <PiLockers className="social-icon" />
                 </a>
                 <p className="text-white text-center mt-2">Lockers</p>
@@ -133,7 +141,12 @@ function ComingSoon() {
               className="d-flex justify-content-center align-items-center mb-4"
             >
               <div className="text-center">
-                <a href="" className="social-icon-wrapper text-white">
+                <a
+                  href="#"
+                  onclick="myFunction(); return false;"
+                  rel="noreferrer"
+                  className="social-icon-wrapper text-white"
+                >
                   <LuParkingSquare className="social-icon" />
                 </a>
                 <p className="text-white text-center mt-2">Parking</p>
@@ -145,7 +158,12 @@ function ComingSoon() {
               className="d-flex justify-content-center align-items-center mb-4"
             >
               <div className="text-center">
-                <a href="" className="social-icon-wrapper text-white">
+                <a
+                  href="#"
+                  onclick="myFunction(); return false;"
+                  rel="noreferrer"
+                  className="social-icon-wrapper text-white"
+                >
                   <RiFoggyLine className="social-icon" />
                 </a>
                 <p className="text-white text-center mt-2">Steam Bath</p>

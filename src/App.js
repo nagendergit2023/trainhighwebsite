@@ -6,14 +6,12 @@ import Footer from "./Components/Footer/Footer.js";
 import Home from "./Pages/Home/Home.js";
 import About from "./Pages/About/About.js";
 import Contact from "./Pages/Contact/Contact.js";
-import Services from "./Pages/Services/Services.js";
 import Admin from "./Pages/Admin/Admin.js";
 import ComingSoon from "./Pages/Home/ComingSoon.js";
 import NewMembership from "./Pages/Admin/NewMembership.js";
 import MembershipList from "./Pages/Admin/MembershipList.js";
 import Login from "./Pages/Admin/Login.js";
 import TaxInvoice from "./Pages/Admin/TaxInvoice.js";
-import Training from "./Pages/Training/Training.js";
 import Career from "./Pages/Career/Career.js";
 import Cardio from "./Pages/Training/Cardio.js";
 import Boxing from "./Pages/Training/Boxing.js";
@@ -44,7 +42,6 @@ function App() {
             </PrivateRoute>
           }
         />
-        {/* <Route path="/admin-panel" element={<Admin />} /> */}
         <Route
           path="/new-membership"
           element={
