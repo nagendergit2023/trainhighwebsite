@@ -1,4 +1,4 @@
-var urlString = "http://68.178.170.174:3309/trainhighgym-api/";
+var urlString = "http://trainhighgym.com:3307/trainhighgym-api/";
 // var urlString = "http://localhost:3307/trainhighgym-api/";
 var access = sessionStorage.getItem("access");
 const GetApiCall = {
