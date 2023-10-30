@@ -110,7 +110,7 @@ function ComingSoon() {
               <div className="text-center">
                 <a
                   href="#"
-                  onclick="myFunction(); return false;"
+                  // onClick="myFunction(); return false;"
                   rel="noreferrer"
                   className="social-icon-wrapper text-white"
                 >
@@ -126,7 +126,7 @@ function ComingSoon() {
             >
               <div className="text-center">
                 <a
-                  href=""
+                  href="#"
                   rel="noreferrer"
                   className="social-icon-wrapper text-white"
                 >
@@ -143,7 +143,7 @@ function ComingSoon() {
               <div className="text-center">
                 <a
                   href="#"
-                  onclick="myFunction(); return false;"
+                  // onClick="myFunction(); return false;"
                   rel="noreferrer"
                   className="social-icon-wrapper text-white"
                 >
@@ -160,7 +160,7 @@ function ComingSoon() {
               <div className="text-center">
                 <a
                   href="#"
-                  onclick="myFunction(); return false;"
+                  // onClick="myFunction(); return false;"
                   rel="noreferrer"
                   className="social-icon-wrapper text-white"
                 >
