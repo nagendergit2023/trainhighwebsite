@@ -32,7 +32,7 @@
     z-index: 1;
     color: var(--theme-white);
     position: relative;
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-size: 3.8rem;
     font-family: var(--theme-font-marker);
     text-align: center;

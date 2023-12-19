@@ -20,7 +20,7 @@ function ComingSoon() {
     <div className="comingsoon_body">
       <section className="comingsoon_screen">
         {/* <img src={TrainHighGymLogo} className="main_title img-fluid w-25 rounded-circle infinite-flip" /> */}
-        <p className="main_title">OPENING SOON!</p>
+        <p className="main_title">Pre Registration Started!</p>
         <div className="d-flex align-items-center gap-4 position-relative z-1 ">
           <a
             rel="noreferrer"
