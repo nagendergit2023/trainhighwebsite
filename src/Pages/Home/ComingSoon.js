@@ -5,12 +5,16 @@ import CrossfitTraining from "../../assets/images/trainings/crossfit_training.pn
 import CardioTraining from "../../assets/images/trainings/cardio_training.png";
 import StrengthTraining from "../../assets/images/trainings/strength_training.png";
 import { TbRulerMeasure } from "react-icons/tb";
-import { PiLockers } from "react-icons/pi";
-import { LuShowerHead, LuParkingSquare } from "react-icons/lu";
+import { PiLockers, PiWhatsappLogo } from "react-icons/pi";
+import { LuShowerHead, LuParkingSquare, LuPhone } from "react-icons/lu";
 import { RiFoggyLine } from "react-icons/ri";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import Location from "../../Components/Location/Location.js";
-import { AiOutlineInstagram } from "react-icons/ai";
+import {
+  AiFillPhone,
+  AiOutlineInstagram,
+  AiOutlineWhatsApp,
+} from "react-icons/ai";
 
 function ComingSoon() {
   useEffect(() => {
@@ -33,13 +37,21 @@ function ComingSoon() {
           </a>
           {/* <a href="" className="social-icon-wrapper text-white">
           <BiLogoFacebook className="social-icon" /> 
-          </a>
-          <a href="" className="social-icon-wrapper text-white">
-          <BiPhoneCall className="social-icon" /> 
-          </a>
-          <a href="" className="social-icon-wrapper text-white">
-          <BiLogoWhatsapp className="social-icon" /> 
           </a> */}
+          <a
+            href="tel:+91 8076751741"
+            className="social-icon-wrapper text-white"
+            target="_blank"
+          >
+            <LuPhone className="social-icon" />
+          </a>
+          <a
+            href="https://wa.me/+918076751741"
+            className="social-icon-wrapper text-white"
+            target="_blank"
+          >
+            <AiOutlineWhatsApp className="social-icon" />
+          </a>
         </div>
       </section>
       <section className="trainings">
