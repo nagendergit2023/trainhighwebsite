@@ -1,95 +1,107 @@
 .comingsoon_body {
-    background-image: url(../../assets/images/train_high_gym_coming_soon.webp);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center; 
-    min-height: 100vh;  
-    background-attachment: fixed; 
-    scroll-behavior: smooth;
-    position: relative;
+  background-image: url(../../assets/images/train_high_gym_coming_soon.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  min-height: 100vh;
+  background-attachment: fixed;
+  scroll-behavior: smooth;
+  position: relative;
 }
 
-.comingsoon_screen {       
-    min-height: 100vh;    
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 1.5rem;
-    text-align: center;
-    flex-direction: column;
+.comingsoon_screen {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1.5rem;
+  text-align: center;
+  flex-direction: column;
 }
 .dark_overlay {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.9);
-    z-index: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 0;
 }
 .main_title {
-    z-index: 1;
-    color: var(--theme-white);
-    position: relative;
-    text-transform: capitalize;
-    font-size: 3.8rem;
-    font-family: var(--theme-font-marker);
-    text-align: center;
+  z-index: 1;
+  color: var(--theme-white);
+  position: relative;
+  text-transform: capitalize;
+  font-size: 3.8rem;
+  font-family: var(--theme-font-marker);
+  text-align: center;
 }
 
 .main_title.small {
-    z-index: 1;
-    color: var(--theme-white);
-    position: relative;
-    text-transform: uppercase;
-    font-size: 2rem;
-    font-family: var(--theme-font-marker);
-    text-align: center;
+  z-index: 1;
+  color: var(--theme-white);
+  position: relative;
+  text-transform: uppercase;
+  font-size: 2rem;
+  font-family: var(--theme-font-marker);
+  text-align: center;
 }
 
 .infinite-flip {
-    animation: infiniteFlip 4s infinite;
+  animation: infiniteFlip 4s infinite;
 }
 
 .social-icon {
-    color: var(--theme-white);
-    font-size: 36px;
+  color: var(--theme-white);
+  font-size: 36px;
 }
 
 .social-icon-wrapper {
-    border: 2px solid var(--theme-white);
-    border-radius: 50%;
-    height: 70px;
-    width: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
+  border: 2px solid var(--theme-white);
+  border-radius: 50%;
+  height: 70px;
+  width: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }
 
 .trainings {
-    z-index: 1;
-    position: relative;
+  z-index: 1;
+  position: relative;
+}
+.call-contact-btn {
+  font-size: 2rem;
+  border: 2px solid var(--theme-white);
+  border-radius: 12px;
+  padding: 8px;
+}
+.call-contact-btn a {
+  color: var(--theme-white);
 }
 
 @keyframes infiniteFlip {
-    0% {
-        transform: rotateY(0deg);
-    }
-    50% {
-        transform: rotateY(180deg);
-    }
-    100% {
-        transform: rotateY(0deg);
-    }
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(180deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
 }
 
 @media screen and (max-width: 768px) {
-    .main_title {
-        font-size: 2rem;
-    }    
-    .infinite-flip {
-        width: 75% !important;
-    }
+  .main_title {
+    font-size: 2rem;
+  }
+  .infinite-flip {
+    width: 75% !important;
+  }
+  .call-contact-btn {
+    font-size: 1.5rem;
+  }
 }
