@@ -26,8 +26,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={<ComingSoon />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/about-us" element={<About />} />
+        {/* <Route path="/home" element={<Home />} /> */}
+        {/* <Route path="/about-us" element={<About />} />
         <Route path="/boxing-training" element={<Boxing />} />
         <Route path="/cardio-training" element={<Cardio />} />
         <Route path="/crossfit-training" element={<Crossfit />} />
@@ -66,7 +66,7 @@ function App() {
               <TaxInvoice />
             </PrivateRoute>
           }
-        />
+        /> */}
       </Routes>
       <Footer />
       {/* {window.location.pathname !== "/" ? (
