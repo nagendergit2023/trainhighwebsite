@@ -24,7 +24,7 @@ function ComingSoon() {
     <div className="comingsoon_body">
       <section className="comingsoon_screen">
         {/* <img src={TrainHighGymLogo} className="main_title img-fluid w-25 rounded-circle infinite-flip" /> */}
-        <p className="main_title mb-0">Pre Registration Started!</p>
+        <p className="main_title mb-0">Now Open!</p>
         <p className="main_title mb-lg-0">Call Us Now!</p>
         <p className="main_title call-contact-btn">
           <a href="tel:+91 8076751741">+91 80767 51741</a>
