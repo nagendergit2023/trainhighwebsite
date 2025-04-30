@@ -6,7 +6,7 @@ import SliderThree from "../../assets/images/train_high_gym_coming_soon_3.webp";
 
 function MainCarousel() {
   return (
-    <Carousel interval={3000}>
+    <Carousel interval={3000} fade>
       <Carousel.Item>
         <img
           className="d-block w-100"

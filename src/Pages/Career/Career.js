@@ -1,16 +1,14 @@
 import React from 'react'
 import { Col, Container, Row } from "react-bootstrap";
-import Hero from './../../Components/Hero/Hero.js';
 
 function Career() {
   return (
     <>
-    <Hero />
     <section>
       <Container>
         <Row>
-          <Col lg={12}>
-            <h1>Careers</h1>
+          <Col lg={12} className='h-100vh text-center'>
+            <h1>Sorry, No Job Openings at this moment!</h1>
           </Col>
         </Row>
       </Container>

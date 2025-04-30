@@ -1,9 +1,13 @@
 import React from 'react'
 import { Card, Col, Container, Row } from "react-bootstrap";
-import BoxingTraining from "../../assets/images/trainings/boxing.png";
-import CrossfitTraining from "../../assets/images/trainings/crossfit_training.png";
-import CardioTraining from "../../assets/images/trainings/cardio_training.png";
-import StrengthTraining from "../../assets/images/trainings/strength_training.png";
+import BoxingTraining from "../../assets/images/trainings/boxing.jpg";
+import CrossfitTraining from "../../assets/images/trainings/crossfit_training.jpg";
+import Aerobics from "../../assets/images/trainings/aerobics_dance.jpg";
+import StrengthTraining from "../../assets/images/trainings/strength_training.jpg";
+import YogaTraining from "../../assets/images/trainings/yoga.jpg";
+import RopeClimbing from "../../assets/images/trainings/rope_climbing.jpg";
+import WallClimbing from "../../assets/images/trainings/wall_climbing.jpg";
+import PilatesTraining from "../../assets/images/trainings/pilates.jpg";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -15,118 +19,56 @@ function Training() {
     
     return (
         <>
-        {window.location.pathname !== "/home" ? (
+        {/* {window.location.pathname !== "/" ? (
           <Hero />
-) : null}
-        <section className="bg-dark text-white py-lg-5 py-3">
+) : null} */}
+        <section className="bg-black text-white py-lg-5 py-3 trainings">
             <Container>
                 <Row className="justify-content-center ">
-                    <Col lg={6}>
+                    <Col lg={9}>
                         <h2 className="section-title">our trainings</h2>
-                        <p className="text-center px-lg-5 px-2 mb-5">Choose training according to your goal.</p>
+                        <p className="text-center px-lg-5 px-2 mb-5">
+                        Choose training that matches your goals. Whether for muscle-building, fitness, perfect shape or learning something new, the right training helps you to achieve your goal.
+                        </p>
                     </Col>
                 </Row>
             </Container>
 
             <Container>
-                <Swiper
-                    breakpoints={{
-                        640: {
-                          width: 640,
-                          slidesPerView: 1,
-                        },                        
-                        768: {
-                          width: 768,
-                          slidesPerView: 3,
-                        },
-                      }}
-                    spaceBetween={30}
-                    pagination={{
-                        clickable: true,
-                    }}
-                    modules={[Pagination]}
-                    className="mySwiper text-center pb-5"
-                >
-                    <SwiperSlide>
-                        <Link to="/boxing-training">
-                            <Card>
-                                <Card.Img variant="top" src={BoxingTraining} />
-                                <Card.Body>
-                                    <Card.Title className="text-center mb-0">Boxing</Card.Title>
-                                </Card.Body>
-                            </Card></Link>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <Link to="/crossfit-training">
-                            <Card>
-                                <Card.Img variant="top" src={CrossfitTraining} />
-                                <Card.Body>
-                                    <Card.Title className="text-center mb-0">Crossfit</Card.Title>
-                                </Card.Body>
-                            </Card>
-                        </Link>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <Link to="/cardio-training">
-                            <Card>
-                                <Card.Img variant="top" src={CardioTraining} />
-                                <Card.Body>
-                                    <Card.Title className="text-center mb-0">Cardio</Card.Title>
-                                </Card.Body>
-                            </Card>
-                        </Link>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <Link to="/strength-training">
-                            <Card>
-                                <Card.Img variant="top" src={StrengthTraining} />
-                                <Card.Body>
-                                    <Card.Title className="text-center mb-0">Strength</Card.Title>
-                                </Card.Body>
-                            </Card>
-                        </Link>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <Link to="/boxing-training">
-                            <Card>
-                                <Card.Img variant="top" src={BoxingTraining} />
-                                <Card.Body>
-                                    <Card.Title className="text-center mb-0">Boxing</Card.Title>
-                                </Card.Body>
-                            </Card></Link>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <Link to="/crossfit-training">
-                            <Card>
-                                <Card.Img variant="top" src={CrossfitTraining} />
-                                <Card.Body>
-                                    <Card.Title className="text-center mb-0">Crossfit</Card.Title>
-                                </Card.Body>
-                            </Card>
-                        </Link>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <Link to="/cardio-training">
-                            <Card>
-                                <Card.Img variant="top" src={CardioTraining} />
-                                <Card.Body>
-                                    <Card.Title className="text-center mb-0">Cardio</Card.Title>
-                                </Card.Body>
-                            </Card>
-                        </Link>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <Link to="/strength-training">
-                            <Card>
-                                <Card.Img variant="top" src={StrengthTraining} />
-                                <Card.Body>
-                                    <Card.Title className="text-center mb-0">Strength</Card.Title>
-                                </Card.Body>
-                            </Card>
-                        </Link>
-                    </SwiperSlide>
-                </Swiper>
-
+            <Row className="justify-content-center ">
+            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
+            <img className='img-fluid rounded' src={BoxingTraining} />
+            <h1 className='text-effect'>Boxing</h1>
+            </Col>
+            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
+            <img className='img-fluid rounded' src={CrossfitTraining} />
+            <h1 className='text-effect'>Crossfit</h1>
+            </Col>
+            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
+            <img className='img-fluid rounded' src={Aerobics} />
+            <h1 className='text-effect'>Aerobics</h1>
+            </Col>
+            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
+            <img className='img-fluid rounded' src={StrengthTraining} />
+            <h1 className='text-effect'>Strength</h1>
+            </Col>
+            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
+            <img className='img-fluid rounded' src={YogaTraining} />
+            <h1 className='text-effect'>Yoga</h1>
+            </Col>
+            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
+            <img className='img-fluid rounded' src={RopeClimbing} />
+            <h1 className='text-effect'>Ropes</h1>
+            </Col>
+            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
+            <img className='img-fluid rounded' src={WallClimbing} />
+            <h1 className='text-effect'>Wall Climbing</h1>
+            </Col>
+            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
+            <img className='img-fluid rounded' src={PilatesTraining} />
+            <h1 className='text-effect'>Pilates</h1>
+            </Col>
+            </Row>
             </Container>
         </section>
         </>

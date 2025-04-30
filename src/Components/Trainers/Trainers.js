@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 import { Card, Col, Container, Row } from "react-bootstrap";
-import BoxingTraining from "../../assets/images/trainings/boxing.png";
-import CrossfitTraining from "../../assets/images/trainings/crossfit_training.png";
-import CardioTraining from "../../assets/images/trainings/cardio_training.png";
-import StrengthTraining from "../../assets/images/trainings/strength_training.png";
+import BoxingTraining from "../../assets/images/trainings/boxing.jpg";
+import CrossfitTraining from "../../assets/images/trainings/crossfit_training.jpg";
+import CardioTraining from "../../assets/images/trainings/cardio_training.jpg";
+import StrengthTraining from "../../assets/images/trainings/strength_training.jpg";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 function Trainers() {
   return (
-    <section className="bg-light pt-lg-5 pb-lg-2 pt-3 pb-3">
+    <section className="bg-light pt-lg-2 pb-lg-2 pt-3 pb-3">
     <Container fluid>
         <Swiper
              breakpoints={{
@@ -30,7 +30,7 @@ function Trainers() {
                 },
               }}
               autoplay={true}
-            spaceBetween={2}
+            spaceBetween={3}
             // pagination={{
             //     clickable: true,
             // }}

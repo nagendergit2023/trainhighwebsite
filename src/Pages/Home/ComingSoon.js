@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import "./ComingSoon.css";
-import BoxingTraining from "../../assets/images/trainings/boxing.png";
-import CrossfitTraining from "../../assets/images/trainings/crossfit_training.png";
-import CardioTraining from "../../assets/images/trainings/cardio_training.png";
-import StrengthTraining from "../../assets/images/trainings/strength_training.png";
+import BoxingTraining from "../../assets/images/trainings/boxing.jpg";
+import CrossfitTraining from "../../assets/images/trainings/crossfit_training.jpg";
+import CardioTraining from "../../assets/images/trainings/cardio_training.jpg";
+import StrengthTraining from "../../assets/images/trainings/strength_training.jpg";
 import { TbRulerMeasure } from "react-icons/tb";
 import { PiLockers, PiWhatsappLogo } from "react-icons/pi";
 import { LuShowerHead, LuParkingSquare, LuPhone } from "react-icons/lu";

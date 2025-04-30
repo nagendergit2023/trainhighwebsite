@@ -11,7 +11,7 @@ function Hero() {
         <Row>
           <Col lg={12} className="text-center position-relative ">
             <h2 className="text-capitalize">
-              {location.pathname.replace("/", "").replace(/-/, " ")}
+              {location.pathname.replace("/", "").replace(/-/g, " ")}
             </h2>
           </Col>
         </Row>

@@ -6,6 +6,8 @@ import Quotes from "../../Components/Quotes/Quotes.js";
 import AboutUs from "../../Pages/About/About.js";
 import Training from "../Training/Training.js";
 import Trainers from "./../../Components/Trainers/Trainers.js";
+import HeroMain from "../../Components/HeroMain/HeroMain.js";
+import { Header } from "antd/es/layout/layout.js";
 
 function Home() {
   useEffect(() => {
@@ -13,13 +15,14 @@ function Home() {
   }, []);
   return (
     <>
-      <MainCarousel />
+      {/* <MainCarousel /> */}
+      <HeroMain />
       <AboutUs />
-      <Quotes />
       <Training />
+      <CalculateBMI />     
+      <Quotes />       
       <Trainers />
-      <Location />
-      <CalculateBMI />
+      <Location />      
     </>
   );
 }

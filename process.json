@@ -2,6 +2,7 @@
     "apps" : [{
         "name": "Trainhighgym-Website",
         "script": "npm",
-        "args": "start"
+        "args": "start",
+        "watch": true
       }]
 }

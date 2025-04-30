@@ -28,44 +28,10 @@
   background-color: rgba(0, 0, 0, 0.9);
   z-index: 0;
 }
-.main_title {
-  z-index: 1;
-  color: var(--theme-white);
-  position: relative;
-  text-transform: capitalize;
-  font-size: 3.8rem;
-  font-family: var(--theme-font-marker);
-  text-align: center;
-}
 
-.main_title.small {
-  z-index: 1;
-  color: var(--theme-white);
-  position: relative;
-  text-transform: uppercase;
-  font-size: 2rem;
-  font-family: var(--theme-font-marker);
-  text-align: center;
-}
 
 .infinite-flip {
   animation: infiniteFlip 4s infinite;
-}
-
-.social-icon {
-  color: var(--theme-white);
-  font-size: 36px;
-}
-
-.social-icon-wrapper {
-  border: 2px solid var(--theme-white);
-  border-radius: 50%;
-  height: 70px;
-  width: 70px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
 }
 
 .trainings {

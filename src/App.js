@@ -18,22 +18,35 @@ import Boxing from "./Pages/Training/Boxing.js";
 import Crossfit from "./Pages/Training/Crossfit.js";
 import Strength from "./Pages/Training/Strength.js";
 import { PrivateRoute } from "./PrivateRoute";
+import Whyjoin from "./Pages/Whyjoin/Whyjoin.js";
+import Events from "./Pages/Events/Events.js";
+import Training from "./Pages/Training/Training.js";
+import FAQs from "./Pages/Faqs/Faq.js";
+import TrainingHome from "./Pages/Training/TrainingHome.js";
+import Blogs from "./Pages/Blogs/Blogs.js";
+import Franchise from "./Pages/Franchise/Franchise.js";
 
 function App() {
   return (
     <>
-      {window.location.pathname !== "/" ? <Header /> : null}
+      {window.location.pathname !== "/home" ? <Header /> : null}
 
       <Routes>
-        <Route path="/" element={<ComingSoon />} />
-        {/* <Route path="/home" element={<Home />} /> */}
-        {/* <Route path="/about-us" element={<About />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/about-us" element={<About />} />
+        <Route path="/trainings" element={<TrainingHome />} />
+        <Route path="/why-to-join" element={<Whyjoin />} />
+        <Route path="/careers" element={<Career />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/contact-us" element={<Contact />} />
+        <Route path="/frequently-asked-questions" element={<FAQs />} />
+        <Route path="/franchise" element={<Franchise />} />
+        <Route path="/blogs" element={<Blogs />} />
+        {/* 
         <Route path="/boxing-training" element={<Boxing />} />
         <Route path="/cardio-training" element={<Cardio />} />
         <Route path="/crossfit-training" element={<Crossfit />} />
         <Route path="/strength-training" element={<Strength />} />
-        <Route path="/careers" element={<Career />} />
-        <Route path="/contact-us" element={<Contact />} />
         <Route
           path="/admin-panel"
           element={

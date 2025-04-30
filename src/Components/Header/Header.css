@@ -1,0 +1,12 @@
+
+/* .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+} */
+
+@media screen and (max-width: 768px) {
+
+.nav-link {
+    font-size: 24px;
+}
+
+}

@@ -1,0 +1,58 @@
+.hero-section-main {
+    background-image: url('../../assets/images/train_high_gym_coming_soon_3.jpg');
+    background-size: contain;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    position: relative;
+}
+
+.hero-section-main::before {
+    content: "";
+    background-color: rgba(0,0,0,.5);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.btn-rounded-pill {
+    background-color: #000;
+    color: #fff;
+    border-radius: 50rem !important;
+    width: auto;
+    margin: 0 auto;
+    padding-left: 25px;
+    padding-right: 25px;
+    transition: all ease-in-out .3s;
+}
+
+.btn-rounded-pill2 {
+    background-color: #000;
+    color: #fff;
+    border-radius: 50rem !important;
+    width: auto;
+    display: inline-block;
+    margin: 0 auto;
+    transition: all ease-in-out .3s;
+    padding: 15px 30px;
+}
+
+@media screen and (max-width: 768px) {
+    .btn-rounded-pill2 {
+        background-color: #000;
+        color: #fff;
+        border-radius: 50rem !important;
+        width: 80%;
+        display: inline-block;
+        margin: 0 auto;
+        transition: all ease-in-out .3s;
+    }
+    .hero-section-main {
+        background-position: center;
+        background-size: cover;
+    }
+}

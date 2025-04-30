@@ -7,8 +7,8 @@ function Quotes() {
     <section className="py-5 bg-dark text-white parallax">
         <Container>
             <Row className="justify-content-center align-items-center">
-                <Col lg={6} className="">
-                    <h2 className="text-center">"For me exercise is more than just physical - it's therapeutic."</h2>
+                <Col lg={12} className="">
+                    <h2 className="text-center">"Yoga In Daily Routine To Stay Fit & Positive"</h2>
                 </Col>
             </Row>
         </Container>

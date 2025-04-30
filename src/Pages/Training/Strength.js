@@ -3,7 +3,7 @@ import Hero from "./../../Components/Hero/Hero.js";
 import { Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
-import StrengthTraining from "../../assets/images/trainings/strength_training.png";
+import StrengthTraining from "../../assets/images/trainings/strength_training.jpg";
 
 function Strength() {
   return (
