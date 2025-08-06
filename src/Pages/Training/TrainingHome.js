@@ -9,6 +9,9 @@ import RopeClimbing from "../../assets/images/trainings/rope_climbing.jpg";
 import WallClimbing from "../../assets/images/trainings/wall_climbing.jpg";
 import PilatesTraining from "../../assets/images/trainings/pilates.jpg";
 import KidsFitness from "../../assets/images/trainings/kids_fitness.jpg";
+import TaekwondoTraining from "../../assets/images/trainings/taekwondo.jpg";
+import CalisthenicsTraining from "../../assets/images/trainings/calisthenics.jpg";
+import GymnasticsTraining from "../../assets/images/trainings/gymnastics.jpg";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -46,8 +49,16 @@ function TrainingHome() {
                             <h1 className='text-effect text-white'>Crossfit</h1>
                         </Col>
                         <Col lg={4} className='mb-lg-4 mb-3 position-relative'>
-                            <img className='img-fluid rounded' src={Aerobics} />
-                            <h1 className='text-effect text-white'>Aerobics</h1>
+                            <img className='img-fluid rounded' src={CalisthenicsTraining} />
+                            <h1 className='text-effect text-white'>Calesthanics</h1>
+                        </Col>
+                        <Col lg={4} className='mb-lg-4 mb-3 position-relative'>
+                            <img className='img-fluid rounded' src={GymnasticsTraining} />
+                            <h1 className='text-effect text-white'>Gymnatics</h1>
+                        </Col>
+                        <Col lg={4} className='mb-lg-4 mb-3 position-relative'>
+                            <img className='img-fluid rounded' src={PilatesTraining} />
+                            <h1 className='text-effect text-white'>Pilates</h1>
                         </Col>
                         <Col lg={4} className='mb-lg-4 mb-3 position-relative'>
                             <img className='img-fluid rounded' src={StrengthTraining} />
@@ -64,10 +75,14 @@ function TrainingHome() {
                         <Col lg={4} className='mb-lg-4 mb-3 position-relative'>
                             <img className='img-fluid rounded' src={WallClimbing} />
                             <h1 className='text-effect text-white'>Wall Climbing</h1>
+                        </Col>                        
+                        <Col lg={4} className='mb-lg-4 mb-3 position-relative'>
+                            <img className='img-fluid rounded' src={Aerobics} />
+                            <h1 className='text-effect text-white'>Group</h1>
                         </Col>
                         <Col lg={4} className='mb-lg-4 mb-3 position-relative'>
-                            <img className='img-fluid rounded' src={PilatesTraining} />
-                            <h1 className='text-effect text-white'>Pilates</h1>
+                            <img className='img-fluid rounded' src={TaekwondoTraining} />
+                            <h1 className='text-effect text-white'>Taekwondo</h1>
                         </Col>
                         <Col lg={4} className='mb-lg-4 mb-3 position-relative'>
                             <img className='img-fluid rounded' src={KidsFitness} />

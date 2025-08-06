@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.2766fe8d.css",
-    "main.js": "/static/js/main.0e79b111.js",
+    "main.js": "/static/js/main.a79af0c0.js",
     "static/js/703.07a39499.chunk.js": "/static/js/703.07a39499.chunk.js",
     "static/js/541.e083f02d.chunk.js": "/static/js/541.e083f02d.chunk.js",
     "static/js/787.1881d373.chunk.js": "/static/js/787.1881d373.chunk.js",
@@ -26,6 +26,9 @@
     "static/media/pilates.jpg": "/static/media/pilates.b481e055e5ee7f0ed519.jpg",
     "static/media/dedicated_floors.jpg": "/static/media/dedicated_floors.118c4145463fd9c2236c.jpg",
     "static/media/trainers_coaches.jpg": "/static/media/trainers_coaches.f92b0487bb515ba40d9a.jpg",
+    "static/media/taekwondo.jpg": "/static/media/taekwondo.c137eb5072ad3c8b753f.jpg",
+    "static/media/gymnastics.jpg": "/static/media/gymnastics.de25ce7ac9e206712d6f.jpg",
+    "static/media/calisthenics.jpg": "/static/media/calisthenics.1378c71aec84fdf5be14.jpg",
     "static/media/train_high_gym_coming_soon_3.webp": "/static/media/train_high_gym_coming_soon_3.92d58505de439e339f12.webp",
     "static/media/train_high_gym_coming_soon_1.webp": "/static/media/train_high_gym_coming_soon_1.346b41290984b00bba89.webp",
     "static/media/train_high_gym_coming_soon_2.webp": "/static/media/train_high_gym_coming_soon_2.b8cbcb7a93369648f8cd.webp",
@@ -36,13 +39,13 @@
     "static/media/Upload User Image.png": "/static/media/Upload User Image.1f537bfdffd3bf9902c7.png",
     "index.html": "/index.html",
     "main.2766fe8d.css.map": "/static/css/main.2766fe8d.css.map",
-    "main.0e79b111.js.map": "/static/js/main.0e79b111.js.map",
+    "main.a79af0c0.js.map": "/static/js/main.a79af0c0.js.map",
     "703.07a39499.chunk.js.map": "/static/js/703.07a39499.chunk.js.map",
     "541.e083f02d.chunk.js.map": "/static/js/541.e083f02d.chunk.js.map",
     "787.1881d373.chunk.js.map": "/static/js/787.1881d373.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2766fe8d.css",
-    "static/js/main.0e79b111.js"
+    "static/js/main.a79af0c0.js"
   ]
 }

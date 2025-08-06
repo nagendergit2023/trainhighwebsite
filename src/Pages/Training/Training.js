@@ -8,6 +8,10 @@ import YogaTraining from "../../assets/images/trainings/yoga.jpg";
 import RopeClimbing from "../../assets/images/trainings/rope_climbing.jpg";
 import WallClimbing from "../../assets/images/trainings/wall_climbing.jpg";
 import PilatesTraining from "../../assets/images/trainings/pilates.jpg";
+import TaekwondoTraining from "../../assets/images/trainings/taekwondo.jpg";
+import CalisthenicsTraining from "../../assets/images/trainings/calisthenics.jpg";
+import GymnasticsTraining from "../../assets/images/trainings/gymnastics.jpg";
+import KidsFitness from "../../assets/images/trainings/kids_fitness.jpg";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -45,9 +49,17 @@ function Training() {
             <h1 className='text-effect'>Crossfit</h1>
             </Col>
             <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
-            <img className='img-fluid rounded' src={Aerobics} />
-            <h1 className='text-effect'>Aerobics</h1>
+            <img className='img-fluid rounded' src={CalisthenicsTraining} />
+            <h1 className='text-effect'>Calesthanics</h1>
             </Col>
+            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
+            <img className='img-fluid rounded' src={GymnasticsTraining} />
+            <h1 className='text-effect'>Gymnatics</h1>
+            </Col>
+            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
+            <img className='img-fluid rounded' src={PilatesTraining} />
+            <h1 className='text-effect'>Pilates</h1>
+            </Col>           
             <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
             <img className='img-fluid rounded' src={StrengthTraining} />
             <h1 className='text-effect'>Strength</h1>
@@ -65,8 +77,16 @@ function Training() {
             <h1 className='text-effect'>Wall Climbing</h1>
             </Col>
             <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
-            <img className='img-fluid rounded' src={PilatesTraining} />
-            <h1 className='text-effect'>Pilates</h1>
+            <img className='img-fluid rounded' src={Aerobics} />
+            <h1 className='text-effect'>Group Classes</h1>
+            </Col>
+            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
+            <img className='img-fluid rounded' src={TaekwondoTraining} />
+            <h1 className='text-effect'>Taekwondo</h1>
+            </Col>
+            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
+            <img className='img-fluid rounded' src={KidsFitness} />
+            <h1 className='text-effect'>Kids</h1>
             </Col>
             </Row>
             </Container>
