@@ -24,7 +24,7 @@ function FAQs() {
                   <Accordion.Body>
                     <div className="mb-3">
                       <h5>1. What are the operating hours of Train High Gym?</h5>
-                      <p>Train High Gym is open daily from <strong>6:00 AM to 11:00 PM</strong>, including weekends.</p>
+                      <p>Train High Gym is open from <strong>6:00 AM to 11:00 PM</strong> Monday through Saturday, and from <strong>6:00 AM to 10:00 PM</strong> on Sunday.</p>
                     </div>
 
                     <div className="mb-3">
