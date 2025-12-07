@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import { Card, Col, Container, Row } from "react-bootstrap";
 import BoxingTraining from "../../assets/images/trainings/boxing.jpg";
 import CrossfitTraining from "../../assets/images/trainings/crossfit_training.jpg";
@@ -12,88 +12,115 @@ import TaekwondoTraining from "../../assets/images/trainings/taekwondo.jpg";
 import CalisthenicsTraining from "../../assets/images/trainings/calisthenics.jpg";
 import GymnasticsTraining from "../../assets/images/trainings/gymnastics.jpg";
 import KidsFitness from "../../assets/images/trainings/kids_fitness.jpg";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
 import { Link } from "react-router-dom";
-import Hero from './../../Components/Hero/Hero.js';
 
 function Training() {
-    
     return (
         <>
-        {/* {window.location.pathname !== "/" ? (
-          <Hero />
-) : null} */}
         <section className="bg-black text-white py-lg-5 py-3 trainings">
             <Container>
-                <Row className="justify-content-center ">
+                <Row className="justify-content-center">
                     <Col lg={9}>
                         <h2 className="section-title">our trainings</h2>
                         <p className="text-center px-lg-5 px-2 mb-5">
-                        Choose training that matches your goals. Whether for muscle-building, fitness, perfect shape or learning something new, the right training helps you to achieve your goal.
+                            Choose training that matches your goals. Whether for muscle-building, fitness, perfect shape or learning something new, the right training helps you to achieve your goal.
                         </p>
                     </Col>
                 </Row>
             </Container>
 
             <Container>
-            <Row className="justify-content-center ">
-            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
-            <img className='img-fluid rounded' src={BoxingTraining} />
-            <h1 className='text-effect'>Boxing</h1>
-            </Col>
-            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
-            <img className='img-fluid rounded' src={CrossfitTraining} />
-            <h1 className='text-effect'>Crossfit</h1>
-            </Col>
-            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
-            <img className='img-fluid rounded' src={CalisthenicsTraining} />
-            <h1 className='text-effect'>Calesthanics</h1>
-            </Col>
-            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
-            <img className='img-fluid rounded' src={GymnasticsTraining} />
-            <h1 className='text-effect'>Gymnatics</h1>
-            </Col>
-            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
-            <img className='img-fluid rounded' src={PilatesTraining} />
-            <h1 className='text-effect'>Pilates</h1>
-            </Col>           
-            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
-            <img className='img-fluid rounded' src={StrengthTraining} />
-            <h1 className='text-effect'>Strength</h1>
-            </Col>
-            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
-            <img className='img-fluid rounded' src={YogaTraining} />
-            <h1 className='text-effect'>Yoga</h1>
-            </Col>
-            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
-            <img className='img-fluid rounded' src={RopeClimbing} />
-            <h1 className='text-effect'>Ropes</h1>
-            </Col>
-            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
-            <img className='img-fluid rounded' src={WallClimbing} />
-            <h1 className='text-effect'>Wall Climbing</h1>
-            </Col>
-            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
-            <img className='img-fluid rounded' src={Aerobics} />
-            <h1 className='text-effect'>Group Classes</h1>
-            </Col>
-            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
-            <img className='img-fluid rounded' src={TaekwondoTraining} />
-            <h1 className='text-effect'>Taekwondo</h1>
-            </Col>
-            <Col lg={6} className='mb-lg-4 mb-3 position-relative'>
-            <img className='img-fluid rounded' src={KidsFitness} />
-            <h1 className='text-effect'>Kids</h1>
-            </Col>
-            </Row>
+                <Row className="justify-content-center">
+
+                    <Col xs={6} md={6} lg={4} className='mb-lg-4 mb-3 position-relative wow animate__fadeInUp' data-wow-delay="0.1s">
+                        <Link to='/boxing' className='text-white'>
+                            <img className='img-fluid rounded' src={BoxingTraining} />
+                            <h3 className='text-effect'>Boxing</h3>
+                        </Link>
+                    </Col>
+
+                    <Col xs={6} md={6} lg={4} className='mb-lg-4 mb-3 position-relative wow animate__fadeInUp' data-wow-delay="0.2s">
+                        <Link to='/crossfit' className='text-white'>
+                            <img className='img-fluid rounded' src={CrossfitTraining} />
+                            <h3 className='text-effect'>Crossfit</h3>
+                        </Link>
+                    </Col>
+
+                    <Col xs={6} md={6} lg={4} className='mb-lg-4 mb-3 position-relative wow animate__fadeInUp' data-wow-delay="0.3s">
+                        <Link to='/calesthanics' className='text-white'>
+                            <img className='img-fluid rounded' src={CalisthenicsTraining} />
+                            <h3 className='text-effect'>Calesthanics</h3>
+                        </Link>
+                    </Col>
+
+                    <Col xs={6} md={6} lg={4} className='mb-lg-4 mb-3 position-relative wow animate__fadeInUp' data-wow-delay="0.4s">
+                        <Link to='/gymnatics' className='text-white'>
+                            <img className='img-fluid rounded' src={GymnasticsTraining} />
+                            <h3 className='text-effect'>Gymnatics</h3>
+                        </Link>
+                    </Col>
+
+                    <Col xs={6} md={6} lg={4} className='mb-lg-4 mb-3 position-relative wow animate__fadeInUp' data-wow-delay="0.5s">
+                        <Link to='/pilates' className='text-white'>
+                            <img className='img-fluid rounded' src={PilatesTraining} />
+                            <h3 className='text-effect'>Pilates</h3>
+                        </Link>
+                    </Col>
+
+                    <Col xs={6} md={6} lg={4} className='mb-lg-4 mb-3 position-relative wow animate__fadeInUp' data-wow-delay="0.6s">
+                        <Link to='/strength' className='text-white'>
+                            <img className='img-fluid rounded' src={StrengthTraining} />
+                            <h3 className='text-effect'>Strength</h3>
+                        </Link>
+                    </Col>
+
+                    <Col xs={6} md={6} lg={4} className='mb-lg-4 mb-3 position-relative wow animate__fadeInUp' data-wow-delay="0.7s">
+                        <Link to='/yoga' className='text-white'>
+                            <img className='img-fluid rounded' src={YogaTraining} />
+                            <h3 className='text-effect'>Yoga</h3>
+                        </Link>
+                    </Col>
+
+                    <Col xs={6} md={6} lg={4} className='mb-lg-4 mb-3 position-relative wow animate__fadeInUp' data-wow-delay="0.8s">
+                        <Link to='/ropes' className='text-white'>
+                            <img className='img-fluid rounded' src={RopeClimbing} />
+                            <h3 className='text-effect'>Ropes</h3>
+                        </Link>
+                    </Col>
+
+                    <Col xs={6} md={6} lg={4} className='mb-lg-4 mb-3 position-relative wow animate__fadeInUp' data-wow-delay="0.9s">
+                        <Link to='/wall-climbing' className='text-white'>
+                            <img className='img-fluid rounded' src={WallClimbing} />
+                            <h3 className='text-effect'>Wall Climbing</h3>
+                        </Link>
+                    </Col>
+
+                    <Col xs={6} md={6} lg={4} className='mb-lg-4 mb-3 position-relative wow animate__fadeInUp' data-wow-delay="1.0s">
+                        <Link to='/group-classes' className='text-white'>
+                            <img className='img-fluid rounded' src={Aerobics} />
+                            <h3 className='text-effect'>Group Classes</h3>
+                        </Link>
+                    </Col>
+
+                    <Col xs={6} md={6} lg={4} className='mb-lg-4 mb-3 position-relative wow animate__fadeInUp' data-wow-delay="1.1s">
+                        <Link to='/taekwondo' className='text-white'>
+                            <img className='img-fluid rounded' src={TaekwondoTraining} />
+                            <h3 className='text-effect'>Taekwondo</h3>
+                        </Link>
+                    </Col>
+
+                    <Col xs={6} md={6} lg={4} className='mb-lg-4 mb-3 position-relative wow animate__fadeInUp' data-wow-delay="1.2s">
+                        <Link to='/kids-fitness' className='text-white'>
+                            <img className='img-fluid rounded' src={KidsFitness} />
+                            <h3 className='text-effect'>Kids</h3>
+                        </Link>
+                    </Col>
+
+                </Row>
             </Container>
         </section>
         </>
-        
-    )
+    );
 }
 
 export default Training;

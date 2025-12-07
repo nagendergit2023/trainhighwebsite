@@ -3,12 +3,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Mulish&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 
 :root {
   --theme-font: "Rubik", sans-serif;
-  --theme-font-marker: "Permanent Marker", sans-serif;
+  --theme-font-marker: "Russo One", sans-serif;
   --theme-white: #ffffff;
   --theme-black: #000000;
+  --theme-golden: #c99219;
 }
 
 body {
@@ -98,6 +101,7 @@ nav .nav-link {
   font-family: var(--theme-font-marker);
   text-align: center;
   font-size: 2.6rem;
+  text-transform: uppercase;
 }
 
 .social-icon-wrap.social-icon-wrap {
@@ -113,8 +117,8 @@ nav .nav-link {
   font-size: 24px;
 } */
 
-.btn,
-.card,
+/* .btn,
+.card, */
 .card-img-top {
   border-radius: 0 !important;
 }
@@ -170,7 +174,7 @@ a {
 }
 
 .img-upload-input {
-  border: 1px solid grey;
+  border: 0px solid grey;
   width: 100%;
   border-radius: 5px;
 }
@@ -196,13 +200,6 @@ a {
   opacity: 1;
 }
 
-@media screen and (max-width: 768px) {
-  .carousel-inner,
-  .carousel-inner img {
-    height: 75vh;
-    object-fit: cover;
-  }
-}
 .ant-space {
   display: block !important;
 }
@@ -212,6 +209,48 @@ a {
   padding-bottom: 17px;
 }
 .navbar-logo {
-  width: 110px;
+  width: 85px;
   border-radius: 50%;
 }
+.w-lg-50 {
+  width: 50% !important;
+}
+
+.form-control:focus.form-control:focus {
+  border-color: var(--theme-golden);
+  box-shadow: none;
+}
+
+.btn.btn {
+  color: var(--theme-golden);
+}
+
+
+@media screen and (max-width: 768px) {
+  .carousel-inner,
+  .carousel-inner img {
+    height: 75vh;
+    object-fit: cover;
+  }
+  .navbar-logo {
+    width: 100px;
+    border-radius: 50%;
+}
+.w-sm-100 {
+  width: 100% !important;
+}
+.offcanvas-body .social-icon-wrap.social-icon-wrap {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 50% !important;
+    border: 2px solid var(--theme-white);
+}
+.offcanvas-body p {
+  font-size: 24px;
+}
+}
+

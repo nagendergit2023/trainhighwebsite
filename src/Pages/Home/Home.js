@@ -7,6 +7,7 @@ import AboutUs from "../../Pages/About/About.js";
 import Training from "../Training/Training.js";
 import Trainers from "./../../Components/Trainers/Trainers.js";
 import HeroMain from "../../Components/HeroMain/HeroMain.js";
+import ContactUs from "../../Components/ContactUs/ContactUs.js";
 import { Header } from "antd/es/layout/layout.js";
 
 function Home() {
@@ -21,8 +22,9 @@ function Home() {
       <Training />
       <CalculateBMI />     
       <Quotes />       
-      <Trainers />
+      {/* <Trainers /> */}
       <Location />      
+      <ContactUs/> 
     </>
   );
 }

@@ -20,8 +20,8 @@
 }
 
 .btn-rounded-pill {
-    background-color: #000;
-    color: #fff;
+    background-color: var(--theme-black);
+    color: var(--theme-golden);
     border-radius: 50rem !important;
     width: auto;
     margin: 0 auto;
@@ -29,6 +29,13 @@
     padding-right: 25px;
     transition: all ease-in-out .3s;
 }
+
+.btn-rounded-pill:hover, .btn-rounded-pill:focus  {
+background-color: var(--theme-black);
+color: var(--theme-golden);
+border-color: var(--theme-golden);
+}
+
 
 .btn-rounded-pill2 {
     background-color: #000;
@@ -39,6 +46,16 @@
     margin: 0 auto;
     transition: all ease-in-out .3s;
     padding: 15px 30px;
+}
+
+.cursor {
+  display: inline-block;
+  animation: blink 0.7s steps(1) infinite;
+  font-family: var(--theme-font);
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
 }
 
 @media screen and (max-width: 768px) {
