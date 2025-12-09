@@ -269,7 +269,7 @@ function CalculateBMI() {
           </Col>
 
           {/* RESULT TABLE */}
-          <Col lg={6}>
+          {/* <Col lg={6}>
             <Table striped bordered hover size="sm" className="health-table">
               <thead>
                 <tr>
@@ -322,7 +322,7 @@ function CalculateBMI() {
                 </tr>
               </tbody>
             </Table>
-          </Col>
+          </Col> */}
         </Row>
       </Container>
 

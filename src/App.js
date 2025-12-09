@@ -56,10 +56,10 @@ function App() {
         <Route path="/frequently-asked-questions" element={<FAQs />} />
         <Route path="/franchise" element={<Franchise />} />
         <Route path="/admin-panel" element={<Admin />} />
-        <Route path="/dashboard" element={<Dashboard/>} />
-        <Route path="/new-membership" element={<NewMembership/>} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/new-membership" element={<NewMembership />} />
         <Route path="/enquiry-list" element={<EnquiryList />} />
-        <Route path="/membership-list" element={<MembershipList/>} />
+        <Route path="/membership-list" element={<MembershipList />} />
         <Route path="/member-profile" element={<MembersProfile />} />
         <Route path="/members/dashboard" element={<MembersDashboard />} />
         <Route path="/members/account" element={<MembersAccount />} />
@@ -71,7 +71,8 @@ function App() {
         <Route path="/trainers/workout" element={<TrainersWorkout />} />
         <Route path="/trainers/nutrition" element={<TrainersNutrition />} />
         <Route path="/new-batch" element={<NewBatch />} />
-      
+        <Route path="/blogs" element={<Blogs />} />
+
         {/* <Route
           path="/admin-panel"
           element={
@@ -117,7 +118,12 @@ function App() {
       {/* {window.location.pathname !== "/home" && !window.location.pathname.startsWith("/members/") ? (
   <Footer />
 ) : null} */}
- {!window.location.pathname.startsWith("/members/") && !window.location.pathname.startsWith("/trainers/") ? (<Footer />) : (<AppFooter/>)}
+      {!window.location.pathname.startsWith("/members/") &&
+      !window.location.pathname.startsWith("/trainers/") ? (
+        <Footer />
+      ) : (
+        <AppFooter />
+      )}
     </>
   );
 }
