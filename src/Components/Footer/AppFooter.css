@@ -1,0 +1,64 @@
+.bottom-bar {
+  background: linear-gradient(145deg, #111, #1a1a1a);
+  border-top: 1px solid #333;
+  padding: 0.6rem 0;
+  z-index: 1030;
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.bottom-btn {
+  color: #aaa;
+  background: transparent;
+  border: none;
+  text-align: center;
+  flex: 1;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.bottom-btn .icon {
+  font-size: 1.5rem;
+  transition: transform 0.25s ease, color 0.3s ease;
+}
+
+.bottom-btn:hover .icon {
+  color: #0d6efd;
+  transform: translateY(-3px) scale(1.05);
+}
+
+.bottom-btn:focus {
+  outline: none;
+}
+
+.bottom-btn.active {
+  color: var(--theme-golden);
+}
+
+.bottom-btn.active .icon {
+  color: var(--theme-golden);
+  transform: translateY(-4px) scale(1.2);
+  filter: drop-shadow(0 0 4px rgba(201, 146, 25, 0.6));
+}
+
+.bottom-btn small {
+  font-size: 0.75rem;
+  margin-top: 2px;
+  letter-spacing: 0.3px;
+}
+
+@media (max-width: 768px) {
+  .bottom-btn .icon {
+    font-size: 1.8rem;
+  }
+}

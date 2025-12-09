@@ -1,0 +1,172 @@
+/* Title */
+.weekly-title {
+  font-weight: 800;
+  color: var(--theme-black);
+  letter-spacing: 0.6px;
+  text-shadow: 0 1px 0 rgba(13,110,253,0.05);
+}
+
+/* Card styling */
+.custom-accordion-item {
+  border: none;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(13,110,253,0.06);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  background: linear-gradient(180deg, #eeeeee 0%, #eeeeee 100%);
+}
+
+/* Slight lift on hover */
+.custom-accordion-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(13,110,253,0.10);
+}
+
+/* Header button */
+.accordion-button {
+  background: linear-gradient(90deg, #eef4ff 0%, #ffffff 100%);
+  color: var(--theme-black);
+  font-weight: 600;
+  padding: 1rem 1.25rem;
+  border: none;
+  display:flex;
+  gap: 0.75rem;
+  align-items:center;
+}
+
+/* collapsed header state (when closed) */
+.accordion-button.collapsed {
+  color: var(--theme-black);
+  background: linear-gradient(90deg, #f7f9ff 0%, #ffffff 100%);
+}
+
+/* remove default ::after (bootstrap arrow) if present */
+.accordion-button::after { display: none; }
+
+/* Left side of header */
+.day-left {
+  display:flex;
+  align-items:center;
+  gap:0.75rem;
+}
+
+/* emoji */
+.day-emoji {
+  font-size: 1.25rem;
+  display:inline-block;
+}
+
+.day-name {
+  display: inline-block;
+  min-width: 60px;
+  min-height: 60px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--theme-black), var(--theme-golden));
+  border-radius: 999px; /* fully rounded pill */
+  padding: 6px 12px;
+  box-shadow: 0 2px 6px rgba(13, 110, 253, 0.3);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Optional: subtle hover/active effect */
+.day-name:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(13, 110, 253, 0.4);
+}
+
+/* chevron rotation */
+.chevron {
+  transition: transform 0.25s ease;
+  color: currentColor;
+}
+.accordion-button:not(.collapsed) .chevron {
+  transform: rotate(180deg);
+}
+
+/* Body: custom collapse animation using max-height */
+.accordion-collapse.collapse-custom {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.36s cubic-bezier(.2,.8,.2,1), padding 0.2s ease;
+}
+
+.accordion-collapse.collapse-custom.open {
+  max-height: 320px; /* enough height for content - adjust if needed */
+}
+
+.accordion-body {
+  padding: 1rem 1.25rem;
+  background: linear-gradient(180deg, #fbfdff 0%, #f7fbff 100%);
+  border-top: 1px solid rgba(13,110,253,0.06);
+  color: #333;
+}
+
+/* Buttons in body */
+.btn-pill {
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  font-weight: 600;
+}
+
+/* Outline primary hover */
+.btn-outline-primary:hover {
+  background-color: var(--theme-black);
+  color: #fff;
+}
+
+.workout-info {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-top: 10px;
+}
+
+/* Left side column */
+.workout-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 80px;
+}
+
+/* Workout name (top) */
+.workout-name {
+  font-weight: 600;
+  color: var(--theme-black);
+  font-size: 1.2rem;
+}
+
+/* Exercises (below) */
+.workout-exercises {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Duration on the right side */
+.workout-duration {
+  font-weight: 600;
+  color: #198754; /* Bootstrap green */
+  align-self: center;
+  padding: 0px 0px;
+  border-radius: 20px;
+  font-size: 18px;
+}
+
+
+/* small responsive tweaks */
+@media (max-width: 575px) {
+  .accordion-body { font-size: 0.95rem; }
+  .day-name { font-size: 0.95rem; }
+}

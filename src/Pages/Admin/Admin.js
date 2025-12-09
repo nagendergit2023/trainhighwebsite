@@ -1,8 +1,13 @@
 import React, { useEffect } from "react";
 import { Col, Container, Row, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { AiOutlineUnorderedList, AiOutlineUserAdd } from "react-icons/ai";
+import { AiOutlineDashboard, AiOutlineUnorderedList, AiOutlineUserAdd } from "react-icons/ai";
 import Hero from "../../Components/Hero/Hero.js";
+import user from "../../assets/images/user_5397249.png";
+import addUser from "../../assets/images/add_user_5397249.png";
+import dashboard from "../../assets/images/dashboard_5397249.png";
+import enquiry from "../../assets/images/question_4774995.png";
+import addClasses from "../../assets/images/classes_5397250.png";
 
 function Admin() {
   return (
@@ -11,25 +16,50 @@ function Admin() {
       <section className="py-5 inner-section">
         <Container>
           <Row className="justify-content-center align-items-center">
-            <Col lg={3}>
-              <Link to="/membership-list" className="text-decoration-none">
-                <Card className="text-center shadow mb-3 mb-lg-0">
+            <Col lg={3} md={6} sm={6} xs={6}>
+              <Link to="/dashboard" className="text-decoration-none">
+                <Card className="text-center border-0 mb-3 mb-lg-0">
                   <Card.Body>
-                    <AiOutlineUnorderedList className="card-icon" />
-                    <Card.Title className="text-capitalize mb-0">
-                      view all
+                    <img src={dashboard} className="w-lg-50 w-sm-100 mb-2"  />
+                    <Card.Title className="text-capitalize mb-0 h6">
+                      Dashboard
                     </Card.Title>
                   </Card.Body>
                 </Card>
               </Link>
             </Col>
-            <Col lg={3}>
-              <Link to="/new-membership" className="text-decoration-none">
-                <Card className="text-center shadow">
+            <Col lg={3} md={6} sm={6} xs={6}>
+              <Link to="/membership-list" className="text-decoration-none">
+                <Card className="text-center border-0 mb-3 mb-lg-0">
                   <Card.Body>
-                    <AiOutlineUserAdd className="card-icon" />
-                    <Card.Title className="text-capitalize mb-0">
-                      new membership
+                    <img src={user} className="w-lg-50 w-sm-100 mb-2" />
+                    <Card.Title className="text-capitalize mb-0 h6">
+                      members list
+                    </Card.Title>
+                  </Card.Body>
+                </Card>
+              </Link>
+            </Col>
+            <Col lg={3} md={6} sm={6} xs={6}>
+              <Link to="/new-membership" className="text-decoration-none">
+                <Card className="text-center border-0 mb-3 mb-lg-0">
+                  <Card.Body>
+                    <img src={addClasses} className="w-lg-50 w-sm-100 mb-2" />
+                    <Card.Title className="text-capitalize mb-0 h6">
+                      batches & classes
+                    </Card.Title>
+                  </Card.Body>
+                </Card>
+              </Link>
+            </Col>
+
+             <Col lg={3} md={6} sm={6} xs={6}>
+              <Link to="/enquiry-list" className="text-decoration-none">
+                <Card className="text-center border-0 mb-3 mb-lg-0">
+                  <Card.Body>
+                    <img src={enquiry} className="w-lg-50 w-sm-100 mb-2" />
+                    <Card.Title className="text-capitalize mb-0 h6">
+                      enquiry
                     </Card.Title>
                   </Card.Body>
                 </Card>

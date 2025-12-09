@@ -3,6 +3,26 @@
     filter: invert(1) grayscale(100%) brightness(200%);
 } */
 
+
+.nav-link:focus, .nav-link:hover  {
+  color: var(--theme-golden);
+}
+
+/* Smooth hide/show animation */
+.navbar-hide {
+  top: -120px; /* or -100% if navbar has fixed height */
+  transition: top 0.3s ease-in-out;
+}
+
+.navbar-show {
+  top: 0;
+  transition: top 0.3s ease-in-out;
+}
+
+.navbar {
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
 @media screen and (max-width: 768px) {
 
 .nav-link {

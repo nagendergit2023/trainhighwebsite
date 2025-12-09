@@ -30,6 +30,13 @@
     transition: all ease-in-out .3s;
 }
 
+.btn-rounded-pill:hover, .btn-rounded-pill:focus  {
+background-color: var(--theme-black);
+color: var(--theme-golden);
+border-color: var(--theme-golden);
+}
+
+
 .btn-rounded-pill2 {
     background-color: #000;
     color: #fff;

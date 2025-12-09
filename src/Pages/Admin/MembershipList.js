@@ -38,22 +38,34 @@ function MembershipList() {
         width: "90px",
       },
       {
-        title: "Member Image",
-        dataIndex: "MemberImage",
-        width: "150px",
+        title: "ID",
+        dataIndex: "Membership",
+        sorter: (a, b) => a.Membership - b.Membership,
+        width: "120px",
       },
+      // {
+      //   title: "Profile Photo",
+      //   dataIndex: "MemberImage",
+      //   width: "150px",
+      // },
       {
-        title: "Member Name",
+        title: "Name",
         dataIndex: "MemberName",
         sorter: (a, b) => a.MemberName - b.MemberName,
-        width: "100px",
+        width: "180px",
       },
       {
-        title: "Address",
-        dataIndex: "Address",
-        sorter: (a, b) => a.Address - b.Address,
-        width: "140px",
+        title: "Mobile No.",
+        dataIndex: "MobileNo",
+        sorter: (a, b) => a.MobileNo - b.MobileNo,
+        width: "180px",
       },
+      // {
+      //   title: "Address",
+      //   dataIndex: "Address",
+      //   sorter: (a, b) => a.Address - b.Address,
+      //   width: "140px",
+      // },
       {
         title: "Start Date",
         dataIndex: "StartDate",
@@ -61,17 +73,17 @@ function MembershipList() {
         width: "140px",
       },
       {
-        title: "Mobile No.",
-        dataIndex: "MobileNo",
-        sorter: (a, b) => a.MobileNo - b.MobileNo,
+        title: "End Date",
+        dataIndex: "StartDate",
+        sorter: (a, b) => a.StartDate - b.StartDate,
         width: "140px",
       },
-      {
-        title: "Membership",
-        dataIndex: "Membership",
-        sorter: (a, b) => a.Membership - b.Membership,
-        width: "100px",
-      },
+      //   title: "Start Date",
+      //   dataIndex: "EndDate",
+      //   sorter: (a, b) => a.EndDate - b.EndDate,
+      //   width: "140px",
+      // },
+
       {
         title: "Status",
         dataIndex: "Status",
@@ -122,12 +134,27 @@ function MembershipList() {
             <div className="d-flex align-items-center gap-2 justify-content-evenly">
               <Link to="/new-membership" state={{ data: data, type: "renew" }}>
                 <Button variant="secondary" className="" size="sm">
-                  Renew
+                  Renew Membership
                 </Button>
               </Link>
               <Link to="/new-membership" state={{ data: data, type: "update" }}>
                 <Button variant="secondary" className="" size="sm">
                   Edit
+                </Button>
+              </Link>
+              <Link to="/new-membership" state={{ data: data, type: "renew" }}>
+                <Button variant="secondary" className="" size="sm">
+                  Transfer Membership
+                </Button>
+              </Link>
+              <Link to="/" state={{ data: data, type: "update" }}>
+                <Button variant="secondary" className="" size="sm">
+                  Assign Trainer
+                </Button>
+              </Link>
+              <Link to="/" state={{ data: data, type: "update" }}>
+                <Button variant="secondary" className="" size="sm">
+                  Change Trainer
                 </Button>
               </Link>
             </div>
@@ -144,7 +171,7 @@ function MembershipList() {
             <Col lg={12} className="mb-lg-4">
               <Form>
                 <Row>
-                  <Col lg={10}>
+                  <Col lg={8}>
                     <FloatingLabel
                       controlId="floatingInput"
                       label="Search by Name, Membership ID or Mobile Number"
@@ -170,6 +197,15 @@ function MembershipList() {
                       Search
                     </Button>
                   </Col>
+                  <Col lg={2}>
+                    <Button
+                      variant="secondary"
+                      className="w-100 py-3 mb-3 mb-lg-0"
+                      onClick={() => setSearchFieldText(searchField)}
+                    >
+                      Add New Member
+                    </Button>
+                  </Col>
                 </Row>
               </Form>
             </Col>
@@ -180,7 +216,7 @@ function MembershipList() {
                 scroll={{ x: "400", y: 800 }}
                 columns={data.columns}
                 dataSource={data.rows}
-                // onChange={onChange}/
+              // onChange={onChange}/
               />
             </Col>
           </Row>

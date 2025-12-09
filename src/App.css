@@ -9,6 +9,7 @@
   --theme-font-marker: "Permanent Marker", sans-serif;
   --theme-white: #ffffff;
   --theme-black: #000000;
+  --theme-golden: #c99219;
 }
 
 body {
@@ -113,8 +114,8 @@ nav .nav-link {
   font-size: 24px;
 } */
 
-.btn,
-.card,
+/* .btn,
+.card, */
 .card-img-top {
   border-radius: 0 !important;
 }
@@ -170,7 +171,7 @@ a {
 }
 
 .img-upload-input {
-  border: 1px solid grey;
+  border: 0px solid grey;
   width: 100%;
   border-radius: 5px;
 }
@@ -196,13 +197,6 @@ a {
   opacity: 1;
 }
 
-@media screen and (max-width: 768px) {
-  .carousel-inner,
-  .carousel-inner img {
-    height: 75vh;
-    object-fit: cover;
-  }
-}
 .ant-space {
   display: block !important;
 }
@@ -215,3 +209,23 @@ a {
   width: 110px;
   border-radius: 50%;
 }
+.w-lg-50 {
+  width: 50% !important;
+}
+
+
+@media screen and (max-width: 768px) {
+  .carousel-inner,
+  .carousel-inner img {
+    height: 75vh;
+    object-fit: cover;
+  }
+  .navbar-logo {
+    width: 75px;
+    border-radius: 50%;
+}
+.w-sm-100 {
+  width: 100% !important;
+}
+}
+
