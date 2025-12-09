@@ -6,12 +6,12 @@ import "./Blogs.css";
 function Blogs() {
   return (
     <>
-    <section className="py-lg-5 py-3">
+    {/* <section className="py-lg-5 py-3">
            <Container>
              <Row className="justify-content-center align-items-center">
-               {/* <Col lg={6}>
+               <Col lg={6}>
               <img  src={CardioTraining} className="img-fluid w-100 rounded " alt="" />
-             </Col> */}
+             </Col>
                <Col lg={12}>
                  <div className="my-lg-0 my-2">
                    <h2 className="section-title text-center">Guide. Support. Unite.</h2>
@@ -61,7 +61,16 @@ function Blogs() {
           </Col>
         </Row>
       </Container>
-    </section>
+    </section> */}
+    <section className=''>
+          <Container>
+            <Row>
+              <Col lg={12} className='text-center text-dark'>
+                <h1>Sorry, No blogs at this moment!</h1>
+              </Col>
+            </Row>
+          </Container>
+        </section>
     </>    
   )
 }

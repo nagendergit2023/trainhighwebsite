@@ -7,13 +7,14 @@ import {
   Form,
   Row,
   Table,
+  Modal,
 } from "react-bootstrap";
+import Notiflix from "notiflix";
 import "./CalculateBMI.css";
 
 const ACTIVITY_FACTORS = {
   2: 1.2,
   1: 1.375,
-  3: 1.375,
   4: 1.55,
   5: 1.725,
   6: 1.9,
@@ -35,7 +36,8 @@ function CalculateBMI() {
   const [activityLevel, setActivityLevel] = useState("");
   const [waist, setWaist] = useState("");
   const [hip, setHip] = useState("");
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   const handleCalculate = (e) => {
     e.preventDefault();
@@ -80,7 +82,7 @@ function CalculateBMI() {
     // TDEE
     const tdee = (bmr * ACTIVITY_FACTORS[activityLevel]).toFixed(0);
 
-    // Body Fat % (BMI method)
+    // Body Fat %
     const bodyFat =
       gender === "1"
         ? (1.2 * bmiValue + 0.23 * a - 16.2).toFixed(1)
@@ -96,7 +98,7 @@ function CalculateBMI() {
     // Waist-Hip Ratio
     const whr = waist && hip ? (waist / hip).toFixed(2) : "0";
 
-    // Segmental Analysis
+    // Segmental Muscle Mass
     const segmentalAnalysis = {
       leftArm: (w * 0.035).toFixed(1),
       rightArm: (w * 0.035).toFixed(1),
@@ -115,13 +117,15 @@ function CalculateBMI() {
       whr,
       segmentalAnalysis,
     });
+
+    setShowModal(true); // OPEN MODAL ONLY IF VALID
   };
 
   return (
     <section className="py-lg-5 py-3">
       <Container>
         <Row className="justify-content-center mb-4">
-          <Col lg={8} className="text-center">
+          <Col lg={6} className="text-center">
             <h2 className="section-title">Body Analysis</h2>
             <p>
               Effortless and fast BMI/BMR calculation to help you track your
@@ -136,9 +140,14 @@ function CalculateBMI() {
             <Form className="mb-4" onSubmit={handleCalculate}>
               <Row>
                 <Col lg={6}>
-                  <FloatingLabel controlId="heightInput" label="Height (cm)" className="mb-3">
+                  <FloatingLabel
+                    controlId="heightInput"
+                    label="Height (cm)"
+                    className="mb-3"
+                  >
                     <Form.Control
                       type="number"
+                      placeholder=""
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
                     />
@@ -146,9 +155,14 @@ function CalculateBMI() {
                 </Col>
 
                 <Col lg={6}>
-                  <FloatingLabel controlId="weightInput" label="Weight (kg)" className="mb-3">
+                  <FloatingLabel
+                    controlId="weightInput"
+                    label="Weight (kg)"
+                    className="mb-3"
+                  >
                     <Form.Control
                       type="number"
+                      placeholder=""
                       value={weight}
                       onChange={(e) => setWeight(e.target.value)}
                     />
@@ -156,9 +170,14 @@ function CalculateBMI() {
                 </Col>
 
                 <Col lg={6}>
-                  <FloatingLabel controlId="ageInput" label="Age" className="mb-3">
+                  <FloatingLabel
+                    controlId="ageInput"
+                    label="Age"
+                    className="mb-3"
+                  >
                     <Form.Control
                       type="number"
+                      placeholder=""
                       value={age}
                       onChange={(e) => setAge(e.target.value)}
                     />
@@ -166,8 +185,15 @@ function CalculateBMI() {
                 </Col>
 
                 <Col lg={6}>
-                  <FloatingLabel controlId="genderInput" label="Gender" className="mb-3">
-                    <Form.Select value={gender} onChange={(e) => setGender(e.target.value)}>
+                  <FloatingLabel
+                    controlId="genderInput"
+                    label="Gender"
+                    className="mb-3"
+                  >
+                    <Form.Select
+                      value={gender}
+                      onChange={(e) => setGender(e.target.value)}
+                    >
                       <option value="">Select Gender</option>
                       <option value="1">Male</option>
                       <option value="2">Female</option>
@@ -176,9 +202,14 @@ function CalculateBMI() {
                 </Col>
 
                 <Col lg={6}>
-                  <FloatingLabel controlId="waistInput" label="Waist (cm)" className="mb-3">
+                  <FloatingLabel
+                    controlId="waistInput"
+                    label="Waist (cm)"
+                    className="mb-3"
+                  >
                     <Form.Control
                       type="number"
+                      placeholder=""
                       value={waist}
                       onChange={(e) => setWaist(e.target.value)}
                     />
@@ -186,9 +217,14 @@ function CalculateBMI() {
                 </Col>
 
                 <Col lg={6}>
-                  <FloatingLabel controlId="hipInput" label="Hip (cm)" className="mb-3">
+                  <FloatingLabel
+                    controlId="hipInput"
+                    label="Hip (cm)"
+                    className="mb-3"
+                  >
                     <Form.Control
                       type="number"
+                      placeholder=""
                       value={hip}
                       onChange={(e) => setHip(e.target.value)}
                     />
@@ -196,7 +232,11 @@ function CalculateBMI() {
                 </Col>
 
                 <Col lg={12}>
-                  <FloatingLabel controlId="activityInput" label="Activity Level" className="mb-3">
+                  <FloatingLabel
+                    controlId="activityInput"
+                    label="Activity Level"
+                    className="mb-3"
+                  >
                     <Form.Select
                       value={activityLevel}
                       onChange={(e) => setActivityLevel(e.target.value)}
@@ -204,15 +244,23 @@ function CalculateBMI() {
                       <option value="">Select Activity Level</option>
                       <option value="2">Little or no exercise</option>
                       <option value="1">Light exercise (1–3 days/week)</option>
-                      <option value="4">Moderate exercise (3–5 days/week)</option>
+                      <option value="4">
+                        Moderate exercise (3–5 days/week)
+                      </option>
                       <option value="5">Heavy exercise (6–7 days/week)</option>
-                      <option value="6">Very heavy exercise / physical job</option>
+                      <option value="6">
+                        Very heavy exercise / physical job
+                      </option>
                     </Form.Select>
                   </FloatingLabel>
                 </Col>
 
                 <Col lg={6} className="mx-auto">
-                  <Button variant="dark" type="submit" className="w-100 py-2 btn-lg rounded">
+                  <Button
+                    variant="dark"
+                    type="submit"
+                    className="w-100 py-2 btn-lg rounded"
+                  >
                     Calculate
                   </Button>
                 </Col>
@@ -230,22 +278,41 @@ function CalculateBMI() {
                 </tr>
               </thead>
               <tbody>
-                <tr><td>BMI</td><td>{result?.bmiValue || 0}</td></tr>
-                <tr><td>BMR</td><td>{result?.bmr || 0}</td></tr>
-                <tr><td>TDEE</td><td>{result?.tdee || 0} Cal</td></tr>
-                <tr><td>Body Fat Percentage</td><td>{result?.bodyFat || 0}%</td></tr>
-                <tr><td>Visceral Fat Range</td><td>{result?.visceralFat || 0}</td></tr>
-                <tr><td>Waist-Hip Ratio</td><td>{result?.whr || 0}</td></tr>
+                <tr>
+                  <td>BMI</td>
+                  <td>{result?.bmiValue || 0}</td>
+                </tr>
+                <tr>
+                  <td>BMR</td>
+                  <td>{result?.bmr || 0}</td>
+                </tr>
+                <tr>
+                  <td>TDEE</td>
+                  <td>{result?.tdee || 0} Cal</td>
+                </tr>
+                <tr>
+                  <td>Body Fat Percentage</td>
+                  <td>{result?.bodyFat || 0}%</td>
+                </tr>
+                <tr>
+                  <td>Visceral Fat Range</td>
+                  <td>{result?.visceralFat || 0}</td>
+                </tr>
+                <tr>
+                  <td>Waist-Hip Ratio</td>
+                  <td>{result?.whr || 0}</td>
+                </tr>
 
                 <tr>
                   <td>Segmental Analysis</td>
                   <td>
                     {result?.segmentalAnalysis ? (
                       <>
-                        L-Arm: {result.segmentalAnalysis.leftArm} kg, 
-                        R-Arm: {result.segmentalAnalysis.rightArm} kg, <br/>
-                        L-Leg: {result.segmentalAnalysis.leftLeg} kg, 
-                        R-Leg: {result.segmentalAnalysis.rightLeg} kg,<br/>
+                        L-Arm: {result.segmentalAnalysis.leftArm} kg, R-Arm:{" "}
+                        {result.segmentalAnalysis.rightArm} kg, <br />
+                        L-Leg: {result.segmentalAnalysis.leftLeg} kg, R-Leg:{" "}
+                        {result.segmentalAnalysis.rightLeg} kg,
+                        <br />
                         Trunk: {result.segmentalAnalysis.trunk} kg
                       </>
                     ) : (
@@ -258,6 +325,87 @@ function CalculateBMI() {
           </Col>
         </Row>
       </Container>
+
+      {/* MODAL POPUP */}
+      <Modal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        size="lg"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Body Analysis Result</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <p>
+            <strong>Your BMI is {result.bmiValue}</strong>, which falls in the{" "}
+            <strong>{result.bmiCategory}</strong>. Your estimated BMR is{" "}
+            <strong>{result.bmr} kcal/day</strong>. Your total body fat is{" "}
+            <strong>{result.bodyFat} percent</strong>. Visceral Fat in your body
+            fat is <strong>{result.visceralFat} percent</strong>. Based on your
+            activity level, your daily calorie need (TDEE) is approximately{" "}
+            <strong>{result.tdee} kcal/day</strong>.
+          </p>
+          <Table striped bordered hover size="sm" className="health-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>BMI</td>
+                <td>{result?.bmiValue || 0}</td>
+              </tr>
+              <tr>
+                <td>BMR</td>
+                <td>{result?.bmr || 0} kcal/day</td>
+              </tr>
+              <tr>
+                <td>TDEE</td>
+                <td>{result?.tdee || 0} kcal/day</td>
+              </tr>
+              <tr>
+                <td>Body Fat %</td>
+                <td>{result?.bodyFat || 0}%</td>
+              </tr>
+              <tr>
+                <td>Visceral Fat</td>
+                <td>{result?.visceralFat || 0}%</td>
+              </tr>
+              <tr>
+                <td>Waist-Hip Ratio</td>
+                <td>{result?.whr || 0}</td>
+              </tr>
+
+              <tr>
+                <td>Segmental Analysis</td>
+                <td>
+                  {result?.segmentalAnalysis ? (
+                    <>
+                      L-Arm: {result.segmentalAnalysis.leftArm} kg, R-Arm:{" "}
+                      {result.segmentalAnalysis.rightArm} kg <br />
+                      L-Leg: {result.segmentalAnalysis.leftLeg} kg, R-Leg:{" "}
+                      {result.segmentalAnalysis.rightLeg} kg <br />
+                      Trunk: {result.segmentalAnalysis.trunk} kg
+                    </>
+                  ) : (
+                    "0"
+                  )}
+                </td>
+              </tr>
+            </tbody>
+          </Table>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </section>
   );
 }

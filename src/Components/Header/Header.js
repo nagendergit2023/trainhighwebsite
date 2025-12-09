@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import {
-  Navbar,
-  Nav,
-  Offcanvas,
-  Container,
-} from "react-bootstrap";
+import { Navbar, Nav, Offcanvas, Container, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import image1 from "../../assets/images/train_high_gym_logo.png";
 import "./Header.css";
+import {
+  BiLogoFacebook,
+  BiLogoInstagram,
+  BiLogoLinkedin,
+} from "react-icons/bi";
+import { AiOutlineYoutube } from "react-icons/ai";
 
 function Header() {
   const [scroll, setScroll] = useState(false);
@@ -64,11 +65,12 @@ function Header() {
     <Navbar
       expand="lg"
       data-bs-theme="dark"
-      className={`py-0 bg-black ${
-        scroll ? "shadow sticky-top" : ""
-      } ${visible ? "navbar-show" : "navbar-hide"}`} // 👈 Toggle visibility classes
+      className={`py-0 bg-black ${scroll ? "shadow sticky-top" : ""} ${
+        visible ? "navbar-show" : "navbar-hide"
+      }`} // 👈 Toggle visibility classes
       style={{
-        transition: "transform 0.3s ease-in-out, background-color 0.3s ease-in-out",
+        transition:
+          "transform 0.3s ease-in-out, background-color 0.3s ease-in-out",
       }}
     >
       <Container>
@@ -76,28 +78,48 @@ function Header() {
           <img src={image1} className="navbar-logo" alt="Logo" />
         </Navbar.Brand>
         <Navbar.Toggle onClick={handleShow} />
-        
+
         <Navbar.Offcanvas
           show={showOffcanvas}
           onHide={handleClose}
           placement="end"
           className="text-bg-dark"
         >
-          <Offcanvas.Header closeButton className="btn-close-light" closeVariant="white">
+          <Offcanvas.Header
+            closeButton
+            className="btn-close-light"
+            closeVariant="white"
+          >
             <Offcanvas.Title className="text-uppercase">Menu</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className="justify-content-end flex-grow-1 pe-3 text-uppercase fw-bold">
-              <Link to="/trainings" className="nav-link px-3 mx-2 py-lg-0 py-3" onClick={handleClose}>
+              <Link
+                to="/trainings"
+                className="nav-link px-3 mx-2 py-lg-0 py-3"
+                onClick={handleClose}
+              >
                 Trainings
               </Link>
-              <Link to="/why-to-join" className="nav-link px-3 mx-2 py-lg-0 py-3" onClick={handleClose}>
+              <Link
+                to="/why-to-join"
+                className="nav-link px-3 mx-2 py-lg-0 py-3"
+                onClick={handleClose}
+              >
                 Why to Join
               </Link>
-              <Link to="/events" className="nav-link px-3 mx-2 py-lg-0 py-3" onClick={handleClose}>
+              <Link
+                to="/events"
+                className="nav-link px-3 mx-2 py-lg-0 py-3"
+                onClick={handleClose}
+              >
                 Events
               </Link>
-              <Link to="/franchise" className="nav-link px-3 mx-2 py-lg-0 py-3" onClick={handleClose}>
+              <Link
+                to="/franchise"
+                className="nav-link px-3 mx-2 py-lg-0 py-3"
+                onClick={handleClose}
+              >
                 Franchise
               </Link>
               <a
@@ -109,23 +131,68 @@ function Header() {
               >
                 Careers
               </a>
-              <Link to="/contact-us" className="nav-link px-3 mx-2 py-lg-0 py-3" onClick={handleClose}>
+              <Link
+                to="/contact-us"
+                className="nav-link px-3 mx-2 py-lg-0 py-3"
+                onClick={handleClose}
+              >
                 Contact Us
               </Link>
 
-               {/* Mobile Login Button */}
-              <Link
+              {/* Mobile Login Button */}
+              {/* <Link
                 to="/login"
                 className="d-flex d-lg-none nav-link px-3 mx-2 py-lg-0 py-3"
                 onClick={handleClose}
               >
                 Login
-              </Link>
+              </Link> */}
+              <Col lg={12} className="mx-4 pt-4 d-lg-none d-block">
+                <p className="fw-bold">FOLLOW US</p>
+                <ul className="list-inline mt-0 mb-0">
+                  <li className="list-inline-item">
+                    <a
+                      className="btn btn-white btn-sm shadow px-2 text-instagram bg-dark social-icon-wrap"
+                      href="https://instagram.com/trainhighgym?igshid=NjIwNzIyMDk2Mg=="
+                      target="_blank"
+                    >
+                      <BiLogoInstagram className="social-icon text-white" />
+                    </a>
+                  </li>
+                  <li className="list-inline-item">
+                    <a
+                      className="btn btn-white btn-sm shadow px-2 text-linkedin bg-dark social-icon-wrap"
+                      href="https://in.linkedin.com/in/train-high-gym-266a86370"
+                      target="_blank"
+                    >
+                      <BiLogoLinkedin className="social-icon text-white" />
+                    </a>
+                  </li>
+                  <li className="list-inline-item">
+                    <a
+                      className="btn btn-white btn-sm shadow px-2 text-linkedin bg-dark social-icon-wrap"
+                      href="https://www.youtube.com/@TrainHighGym"
+                      target="_blank"
+                    >
+                      <AiOutlineYoutube className="social-icon text-white" />
+                    </a>
+                  </li>
+                  <li className="list-inline-item">
+                    <a
+                      className="btn btn-white btn-sm shadow px-2 text-facebook bg-dark social-icon-wrap"
+                      href="https://www.facebook.com/p/TRAIN-HIGH-GYM-61550363817019/"
+                      target="_blank"
+                    >
+                      <BiLogoFacebook className="social-icon text-white" />
+                    </a>
+                  </li>
+                </ul>
+              </Col>
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>
         {/* Desktop Login Button */}
-        <div className="d-none d-lg-flex ms-auto">
+        {/* <div className="d-none d-lg-flex ms-auto">
           <Link
             to="/login"
             className="btn btn-outline-light ms-3 px-4 py-2 fw-bold"
@@ -133,7 +200,7 @@ function Header() {
           >
             Login
           </Link>
-          </div>
+          </div> */}
       </Container>
     </Navbar>
   );

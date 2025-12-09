@@ -1,0 +1,127 @@
+import React, { useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import PostApiCall from "../../helpers/PostApi";
+import { notification } from "antd";
+import Notiflix from "notiflix";
+
+
+function ContactUs() {
+     const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState(null);
+  const [message, setMessage] = useState("");
+
+  const contactus = () => {
+    if (name != "" && mobile != null && mobile != "" && email != "") {
+      Notiflix.Loading.circle();
+      PostApiCall.postRequest(
+        {
+          name: name,
+          mobile: mobile,
+          email: "trainhighgym@gmail.com",
+          senderemail: email,
+          desciption: message,
+        },
+        "contactus"
+      ).then((results) => {
+        results.json().then((obj) => {
+          if (results.status === 200 || results.status === 201) {
+            setName("");
+            setEmail("");
+            setMobile(null);
+            setMessage("");
+            Notiflix.Loading.remove();
+            notification.success({
+              message: `Thanks for your interest! We’ll be in touch shortly to help you get started.`,
+            });
+          } else {
+            notification.error({
+              message: `Please Contact Team`,
+            });
+          }
+        });
+      });
+    } else {
+      notification.error({
+        message: `Please Fill Mandatory Fields`,
+      });
+      return;
+    }
+  };
+  return (
+    <section>
+        <Container>
+          <Row className="justify-content-center">
+            <Col lg={12} className="text-center my-4">
+              <h1 className="section-title px-lg-0 px-3">
+                get in touch with us
+              </h1>
+              <p>WE ARE ALWAYS READY TO HEAR FROM YOU</p>
+            </Col>
+            <Col lg={4}>
+              <div className="form-floating mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="floatingInput"
+                  placeholder="Full Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <label for="floatingInput">Full Name *</label>
+              </div>
+            </Col>
+            <Col lg={4}>
+              <div className="form-floating mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="floatingInput"
+                  placeholder="Mobile Number"
+                  value={mobile}
+                  onChange={(e) => setMobile(e.target.value)}
+                />
+                <label for="floatingInput">Mobile Number *</label>
+              </div>
+            </Col>
+            <Col lg={4}>
+              <div className="form-floating mb-3">
+                <input
+                  type="email"
+                  className="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <label for="floatingInput">Email address *</label>
+              </div>
+            </Col>
+            <Col lg={12}>
+              <div className="form-floating mb-3">
+                <textarea
+                  className="form-control block w-full"
+                  placeholder="Leave a message here"
+                  id="floatingTextarea2"
+                  style={{ height: "100px" }}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                ></textarea>
+                <label for="floatingTextarea2">Message</label>
+              </div>
+            </Col>
+            <Col lg={3} className="text-end mb-5">
+              <button
+                onClick={() => contactus()}
+                className="w-100 py-2 btn-lg rounded btn btn-dark"
+              >
+                Submit
+              </button>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+  )
+}
+
+export default ContactUs;

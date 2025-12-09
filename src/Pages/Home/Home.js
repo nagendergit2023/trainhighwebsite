@@ -7,7 +7,8 @@ import AboutUs from "../../Pages/About/About.js";
 import Training from "../Training/Training.js";
 // import Trainers from "./../../Components/Trainers/Trainers.js";
 import HeroMain from "../../Components/HeroMain/HeroMain.js";
-// import { Header } from "antd/es/layout/layout.js";
+import ContactUs from "../../Components/ContactUs/ContactUs.js";
+import { Header } from "antd/es/layout/layout.js";
 
 function Home() {
   useEffect(() => {
@@ -19,10 +20,11 @@ function Home() {
       <HeroMain />
       <AboutUs />
       <Training />
-      <CalculateBMI />     
-      <Quotes />       
+      <CalculateBMI />
+      <Quotes />
       {/* <Trainers /> */}
-      <Location />      
+      <Location />
+      <ContactUs />
     </>
   );
 }
