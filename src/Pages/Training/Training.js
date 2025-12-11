@@ -40,7 +40,7 @@ function Training() {
               className="mb-lg-4 mb-3 position-relative wow animate__fadeInUp"
               data-wow-delay="0.1s"
             >
-              <Link to="/boxing" className="text-white">
+              <Link to="" className="text-white">
                 <img className="img-fluid rounded" src={BoxingTraining} />
                 <h3 className="text-effect">Boxing</h3>
               </Link>
@@ -53,7 +53,7 @@ function Training() {
               className="mb-lg-4 mb-3 position-relative wow animate__fadeInUp"
               data-wow-delay="0.2s"
             >
-              <Link to="/crossfit" className="text-white">
+              <Link to="" className="text-white">
                 <img className="img-fluid rounded" src={CrossfitTraining} />
                 <h3 className="text-effect">Crossfit</h3>
               </Link>
@@ -66,7 +66,7 @@ function Training() {
               className="mb-lg-4 mb-3 position-relative wow animate__fadeInUp"
               data-wow-delay="0.3s"
             >
-              <Link to="/calesthanics" className="text-white">
+              <Link to="" className="text-white">
                 <img className="img-fluid rounded" src={CalisthenicsTraining} />
                 <h3 className="text-effect">Calesthanics</h3>
               </Link>
@@ -79,7 +79,7 @@ function Training() {
               className="mb-lg-4 mb-3 position-relative wow animate__fadeInUp"
               data-wow-delay="0.4s"
             >
-              <Link to="/gymnatics" className="text-white">
+              <Link to="" className="text-white">
                 <img className="img-fluid rounded" src={GymnasticsTraining} />
                 <h3 className="text-effect">Gymnatics</h3>
               </Link>
@@ -92,7 +92,7 @@ function Training() {
               className="mb-lg-4 mb-3 position-relative wow animate__fadeInUp"
               data-wow-delay="0.5s"
             >
-              <Link to="/pilates" className="text-white">
+              <Link to="" className="text-white">
                 <img className="img-fluid rounded" src={PilatesTraining} />
                 <h3 className="text-effect">Pilates</h3>
               </Link>
@@ -105,7 +105,7 @@ function Training() {
               className="mb-lg-4 mb-3 position-relative wow animate__fadeInUp"
               data-wow-delay="0.6s"
             >
-              <Link to="/strength" className="text-white">
+              <Link to="" className="text-white">
                 <img className="img-fluid rounded" src={StrengthTraining} />
                 <h3 className="text-effect">Strength</h3>
               </Link>
@@ -118,7 +118,7 @@ function Training() {
               className="mb-lg-4 mb-3 position-relative wow animate__fadeInUp"
               data-wow-delay="0.7s"
             >
-              <Link to="/yoga" className="text-white">
+              <Link to="" className="text-white">
                 <img className="img-fluid rounded" src={YogaTraining} />
                 <h3 className="text-effect">Yoga</h3>
               </Link>
@@ -131,7 +131,7 @@ function Training() {
               className="mb-lg-4 mb-3 position-relative wow animate__fadeInUp"
               data-wow-delay="0.8s"
             >
-              <Link to="/ropes" className="text-white">
+              <Link to="" className="text-white">
                 <img className="img-fluid rounded" src={RopeClimbing} />
                 <h3 className="text-effect">Ropes</h3>
               </Link>
@@ -144,7 +144,7 @@ function Training() {
               className="mb-lg-4 mb-3 position-relative wow animate__fadeInUp"
               data-wow-delay="0.9s"
             >
-              <Link to="/wall-climbing" className="text-white">
+              <Link to="" className="text-white">
                 <img className="img-fluid rounded" src={WallClimbing} />
                 <h3 className="text-effect">Wall Climbing</h3>
               </Link>
@@ -157,7 +157,7 @@ function Training() {
               className="mb-lg-4 mb-3 position-relative wow animate__fadeInUp"
               data-wow-delay="1.0s"
             >
-              <Link to="/group-classes" className="text-white">
+              <Link to="" className="text-white">
                 <img className="img-fluid rounded" src={Aerobics} />
                 <h3 className="text-effect">Group Classes</h3>
               </Link>
@@ -170,7 +170,7 @@ function Training() {
               className="mb-lg-4 mb-3 position-relative wow animate__fadeInUp"
               data-wow-delay="1.1s"
             >
-              <Link to="/taekwondo" className="text-white">
+              <Link to="" className="text-white">
                 <img className="img-fluid rounded" src={TaekwondoTraining} />
                 <h3 className="text-effect">Taekwondo</h3>
               </Link>
@@ -183,7 +183,7 @@ function Training() {
               className="mb-lg-4 mb-3 position-relative wow animate__fadeInUp"
               data-wow-delay="1.2s"
             >
-              <Link to="/kids-fitness" className="text-white">
+              <Link to="" className="text-white">
                 <img className="img-fluid rounded" src={KidsFitness} />
                 <h3 className="text-effect">Kids</h3>
               </Link>

@@ -60,12 +60,12 @@ function App() {
         <Route path="/new-membership" element={<NewMembership />} />
         <Route path="/enquiry-list" element={<EnquiryList />} />
         <Route path="/membership-list" element={<MembershipList />} />
-        <Route path="/member-profile" element={<MembersProfile />} />
+        <Route path="/members/profile" element={<MembersProfile />} />
         <Route path="/members/dashboard" element={<MembersDashboard />} />
         <Route path="/members/account" element={<MembersAccount />} />
         <Route path="/members/workout" element={<MembersWorkout />} />
         <Route path="/members/nutrition" element={<MembersNutrition />} />
-        <Route path="/trainers-profile" element={<TrainersProfile />} />
+        <Route path="/trainers/profile" element={<TrainersProfile />} />
         <Route path="/trainers/dashboard" element={<TrainersDashboard />} />
         <Route path="/trainers/account" element={<TrainersAccount />} />
         <Route path="/trainers/workout" element={<TrainersWorkout />} />

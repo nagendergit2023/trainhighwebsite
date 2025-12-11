@@ -12,6 +12,7 @@
   --theme-white: #ffffff;
   --theme-black: #000000;
   --theme-golden: #c99219;
+  --theme-grey: #dddddd;
 }
 
 body {
@@ -251,4 +252,7 @@ a {
   .offcanvas-body p {
     font-size: 24px;
   }
+  .section-title {
+  font-size: 2rem;
+}
 }
