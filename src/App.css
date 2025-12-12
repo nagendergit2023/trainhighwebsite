@@ -193,7 +193,7 @@ a {
 }
 
 .trainings img {
-  opacity: 0.5;
+  opacity: 0.8;
   transition: all ease-in-out 0.3s;
 }
 
@@ -224,6 +224,18 @@ a {
 
 .btn.btn {
   color: var(--theme-golden);
+}
+
+.carousel-img {
+  height: 320px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.carousel-title {
+  position: absolute;
+  left:0;
+  bottom: 0;
 }
 
 @media screen and (max-width: 768px) {
