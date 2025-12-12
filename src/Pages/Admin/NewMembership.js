@@ -541,7 +541,7 @@ function NewMembership() {
                   <Col lg={4} className="ms-auto my-2">
                     <Link
                       to="/new-membership"
-                      className="btn btn-secondary w-100 py-2 btn-lg"
+                      className="btn btn-dark w-100 py-2 btn-lg"
                       onClick={SaveForm}
                     >
                       {location.state == null

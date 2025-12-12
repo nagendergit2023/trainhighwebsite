@@ -85,7 +85,7 @@ function TaxInvoice() {
         <Container>
           <Col lg={12} className="text-center mb-4">
             <Button
-              className="btn btn-secondary w-25"
+              className="btn btn-dark w-25"
               onClick={DownloadInvoicePdf}
             >
               Download
