@@ -328,6 +328,7 @@ function NewMembership() {
                         type="text"
                         value={applicationNumber}
                         disabled
+                        placeholder="" 
                       />
                     </FloatingLabel>
                   </Col>
@@ -341,6 +342,7 @@ function NewMembership() {
                         type="text"
                         value={membershipNumber}
                         disabled
+                        placeholder="" 
                       />
                     </FloatingLabel>
                   </Col>
@@ -354,6 +356,7 @@ function NewMembership() {
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        placeholder="" 
                       />
                     </FloatingLabel>
                   </Col>
@@ -367,6 +370,7 @@ function NewMembership() {
                         type="text"
                         value={mobile}
                         onChange={(e) => setMobile(e.target.value)}
+                        placeholder="" 
                       />
                     </FloatingLabel>
                   </Col>
@@ -380,6 +384,7 @@ function NewMembership() {
                         type="text"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
+                        placeholder="" 
                       />
                     </FloatingLabel>
                   </Col>
@@ -393,6 +398,7 @@ function NewMembership() {
                         type="text"
                         value={pincode}
                         onChange={handlePincodeChange}
+                        placeholder="" 
                       />
                     </FloatingLabel>
                   </Col>
@@ -402,7 +408,11 @@ function NewMembership() {
                       label="State"
                       className="mb-3"
                     >
-                      <Form.Control type="text" value={state} disabled />
+                      <Form.Control 
+                      type="text" 
+                      value={state}
+                      placeholder="" 
+                      disabled />
                     </FloatingLabel>
                   </Col>
                   <Col lg={6}>
@@ -415,7 +425,7 @@ function NewMembership() {
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="example@gmail.com"
+                        placeholder=""
                       />
                     </FloatingLabel>
                   </Col>
@@ -451,7 +461,7 @@ function NewMembership() {
                       className="mb-3"
                     >
                       <Form.Select
-                        aria-label="Floating label select example"
+                        aria-label=""
                         value={status}
                         onChange={(e) => {
                           setStatus(e.target.value);
@@ -534,7 +544,7 @@ function NewMembership() {
                         onChange={(e) => {
                           setAmountPerMonth(e.target.value);
                         }}
-                        placeholder="example@gmail.com"
+                        placeholder=""
                       />
                     </FloatingLabel>
                   </Col>

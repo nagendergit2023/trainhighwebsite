@@ -42,10 +42,12 @@ body {
   width: 250px;
   display: flex;
   margin: 0 auto;
+  cursor: pointer;
 }
 
 .customer-photo img {
   object-fit: cover;
+  cursor: pointer;
 }
 
 .admin-icon {
