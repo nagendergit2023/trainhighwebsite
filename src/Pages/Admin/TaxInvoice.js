@@ -24,7 +24,7 @@ function TaxInvoice() {
     if (location.state != null) {
       PostApiCall.postRequest(
         {
-          whereClause: `where fld_id = ${location.state[0].fld_id}`,
+          whereClause: `where fld_id = ${location.state[0]?.fld_id}`,
         },
         "GetInvoiceDetails"
       ).then((results) => {
@@ -84,10 +84,7 @@ function TaxInvoice() {
       <section className="py-5 inner-section">
         <Container>
           <Col lg={12} className="text-center mb-4">
-            <Button
-              className="btn btn-dark w-25"
-              onClick={DownloadInvoicePdf}
-            >
+            <Button className="btn btn-dark w-25" onClick={DownloadInvoicePdf}>
               Download
             </Button>
           </Col>

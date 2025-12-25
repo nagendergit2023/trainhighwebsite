@@ -1,5 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Container, Row, Col, Card, FloatingLabel, Form } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  FloatingLabel,
+  Form,
+} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import PostApiCall from "../../helpers/PostApi";
 import { notification } from "antd";
@@ -105,7 +112,14 @@ function Login() {
       results.json().then((obj) => {
         if (results.status === 200 || results.status === 201) {
           sessionStorage.setItem("access", obj.token);
-          navigate("/admin-panel");
+          localStorage.setItem("user", JSON.stringify(obj.user));
+          navigate(
+            obj.user?.role === "ADMIN"
+              ? "/admin-panel"
+              : obj.user?.role === "STAFF" || obj.user?.role === "TRAINER"
+              ? "/trainers/dashboard"
+              : "/members/dashboard"
+          );
         } else {
           notification.error({
             message: "Invalid OTP",
@@ -147,7 +161,7 @@ function Login() {
             <Card className="rounded shadow-sm">
               <Card.Body>
                 <h3 className="fw-bold">Hello,</h3>
-                  <h3 className="mb-lg-4 fw-bold">Welcome Back!</h3>
+                <h3 className="mb-lg-4 fw-bold">Welcome Back!</h3>
 
                 {!otpSent ? (
                   /* --------------------------
@@ -185,7 +199,7 @@ function Login() {
                   -------------------------- */
                   <Form onSubmit={handleVerifyOtp}>
                     <p className="text-muted mb-2">
-                      Enter the 6-digit OTP sent to:  
+                      Enter the 6-digit OTP sent to:
                       <strong> {mobileNumber} </strong>
                     </p>
 

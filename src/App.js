@@ -36,9 +36,11 @@ import AppFooter from "./Components/Footer/AppFooter.js";
 import EnquiryList from "./Pages/Admin/EnquiryList.js";
 import TrainersDashboard from "./Pages/Trainers/Dashboard.js";
 import TrainersAccount from "./Pages/Trainers/Account.js";
-import TrainersWorkout from "./Pages/Trainers/Workout.js";
+// import TrainersWorkout from "./Pages/Trainers/Workout.js";
 import TrainersNutrition from "./Pages/Trainers/Nutrition.js";
 import NewBatch from "./Pages/BatchClasses/NewBatchClass.js";
+import TrainerMembersList from "./Pages/Trainers/TrainerMembersList.jsx";
+import TrainerMemberPlans from "./Pages/Trainers/TrainerMemberPlans.jsx";
 
 function App() {
   return (
@@ -68,10 +70,16 @@ function App() {
         <Route path="/trainers/profile" element={<TrainersProfile />} />
         <Route path="/trainers/dashboard" element={<TrainersDashboard />} />
         <Route path="/trainers/account" element={<TrainersAccount />} />
-        <Route path="/trainers/workout" element={<TrainersWorkout />} />
+        {/* <Route path="/trainers/workout" element={<TrainersWorkout />} /> */}
         <Route path="/trainers/nutrition" element={<TrainersNutrition />} />
         <Route path="/new-batch" element={<NewBatch />} />
         <Route path="/blogs" element={<Blogs />} />
+
+        <Route path="/trainer/members" element={<TrainerMembersList />} />
+        <Route
+          path="/trainer/member/:memberId/plans"
+          element={<TrainerMemberPlans />}
+        />
 
         {/* <Route
           path="/admin-panel"
@@ -82,12 +90,12 @@ function App() {
           }
         /> */}
         <Route path="/login" element={<Login />} />
-        {/* 
+
         <Route path="/boxing-training" element={<Boxing />} />
         <Route path="/cardio-training" element={<Cardio />} />
         <Route path="/crossfit-training" element={<Crossfit />} />
         <Route path="/strength-training" element={<Strength />} />
-        
+
         <Route
           path="/new-membership"
           element={
@@ -104,7 +112,7 @@ function App() {
             </PrivateRoute>
           }
         />
-        
+
         <Route
           path="/tax-invoice"
           element={
@@ -112,7 +120,7 @@ function App() {
               <TaxInvoice />
             </PrivateRoute>
           }
-        /> */}
+        />
       </Routes>
       {/* <Footer /> */}
       {/* {window.location.pathname !== "/home" && !window.location.pathname.startsWith("/members/") ? (

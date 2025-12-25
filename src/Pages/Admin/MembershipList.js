@@ -9,13 +9,14 @@ import {
 } from "react-bootstrap";
 import { Table } from "antd";
 import GetApiCall from "../../helpers/GetApi.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import moment from "moment";
 import noimage from "../../assets/images/No_Image_Available.jpg";
 import { Image } from "antd";
 import Hero from "../../Components/Hero/Hero.js";
 
 function MembershipList() {
+  let navigate = useNavigate();
   const [memberList, setMemberList] = useState([]);
   const [searchField, setSearchField] = useState("");
   const [searchFieldText, setSearchFieldText] = useState("");
@@ -74,7 +75,7 @@ function MembershipList() {
       },
       {
         title: "End Date",
-        dataIndex: "StartDate",
+        dataIndex: "EndDate",
         sorter: (a, b) => a.StartDate - b.StartDate,
         width: "140px",
       },
@@ -127,8 +128,9 @@ function MembershipList() {
           MemberName: data.fld_name,
           Address: data.fld_address,
           StartDate: moment(data.fld_start_date).format("ll"),
+          EndDate: moment(data.fld_end_date).format("ll"),
           MobileNo: data.fld_mobile_number,
-          Membership: data.membership_months,
+          Membership: data.fld_membership_number,
           Status: data.fld_status,
           Action: (
             <div className="d-flex align-items-center gap-2 justify-content-evenly">
@@ -201,7 +203,7 @@ function MembershipList() {
                     <Button
                       variant="secondary"
                       className="w-100 py-3 mb-3 mb-lg-0"
-                      onClick={() => setSearchFieldText(searchField)}
+                      onClick={() => navigate("/new-membership")}
                     >
                       Add New Member
                     </Button>
@@ -216,7 +218,7 @@ function MembershipList() {
                 scroll={{ x: "400", y: 800 }}
                 columns={data.columns}
                 dataSource={data.rows}
-              // onChange={onChange}/
+                // onChange={onChange}/
               />
             </Col>
           </Row>

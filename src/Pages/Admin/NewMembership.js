@@ -53,7 +53,7 @@ function NewMembership() {
     },
   ];
   const handlePincodeChange = async (e) => {
-    const value = typeof e === 'object' ? e.target.value : e;
+    const value = typeof e === "object" ? e.target.value : e;
     setPincode(value);
     try {
       const response = await axios.get(
@@ -284,286 +284,287 @@ function NewMembership() {
               <Form onSubmit={SaveForm}>
                 <Row>
                   <Col lg={3}>
-                  <Row>
-                  <Col lg={12} className="text-center mb-3">
-                    <a href="#" className="customer-photo">
-                      <ImgUpload
-                        onChange={(e) => {
-                          e.preventDefault();
-                          const imageFile = e.target.files[0];
-                          setSelectedLogo(URL.createObjectURL(imageFile));
-                          const form = new FormData();
-                          let filename = `UserLogo-${imageFile.name.replace(
-                            / /g,
-                            ""
-                          )}`;
-                          form.append("file", imageFile);
-                          // form.append("foldername", "profileimages");
-                          form.append("filename", filename);
-                          let response = fetch(ImageApiUrl, {
-                            method: "POST",
-                            body: form,
-                          })
-                            .then((response) => response.json())
-                            .then((data) => {
-                            });
-                        }}
-                        src={selectedLogo === "" ? uploadimage : selectedLogo}
-                      />
+                    <Row>
+                      <Col lg={12} className="text-center mb-3">
+                        <a href="#" className="customer-photo">
+                          <ImgUpload
+                            onChange={(e) => {
+                              e.preventDefault();
+                              const imageFile = e.target.files[0];
+                              setSelectedLogo(URL.createObjectURL(imageFile));
+                              const form = new FormData();
+                              let filename = `UserLogo-${imageFile.name.replace(
+                                / /g,
+                                ""
+                              )}`;
+                              form.append("file", imageFile);
+                              // form.append("foldername", "profileimages");
+                              form.append("filename", filename);
+                              let response = fetch(ImageApiUrl, {
+                                method: "POST",
+                                body: form,
+                              })
+                                .then((response) => response.json())
+                                .then((data) => {});
+                            }}
+                            src={
+                              selectedLogo === "" ? uploadimage : selectedLogo
+                            }
+                          />
 
-                      {/* <Image src={CustomerPhoto} thumbnail /> */}
-                    </a>
-                  </Col>
-                  </Row>
+                          {/* <Image src={CustomerPhoto} thumbnail /> */}
+                        </a>
+                      </Col>
+                    </Row>
                   </Col>
                   <Col lg={9}>
-                  <Row>
-                  <Col lg={6}>
-                    <FloatingLabel
-                      controlId="floatingInput"
-                      label="Application Number"
-                      className="mb-3"
-                    >
-                      <Form.Control
-                        type="text"
-                        value={applicationNumber}
-                        disabled
-                        placeholder="" 
-                      />
-                    </FloatingLabel>
-                  </Col>
-                  <Col lg={6}>
-                    <FloatingLabel
-                      controlId="floatingInput"
-                      label="Membership Number"
-                      className="mb-3"
-                    >
-                      <Form.Control
-                        type="text"
-                        value={membershipNumber}
-                        disabled
-                        placeholder="" 
-                      />
-                    </FloatingLabel>
-                  </Col>
-                  <Col lg={6}>
-                    <FloatingLabel
-                      controlId="floatingInput"
-                      label="Full Name"
-                      className="mb-3"
-                    >
-                      <Form.Control
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="" 
-                      />
-                    </FloatingLabel>
-                  </Col>
-                  <Col lg={6}>
-                    <FloatingLabel
-                      controlId="floatingInput"
-                      label="Mobile Number"
-                      className="mb-3"
-                    >
-                      <Form.Control
-                        type="text"
-                        value={mobile}
-                        onChange={(e) => setMobile(e.target.value)}
-                        placeholder="" 
-                      />
-                    </FloatingLabel>
-                  </Col>
-                  <Col lg={6}>
-                    <FloatingLabel
-                      controlId="floatingInput"
-                      label="Full Address"
-                      className="mb-3"
-                    >
-                      <Form.Control
-                        type="text"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        placeholder="" 
-                      />
-                    </FloatingLabel>
-                  </Col>
-                  <Col lg={3}>
-                    <FloatingLabel
-                      controlId="floatingInput"
-                      label="Pincode"
-                      className="mb-3"
-                    >
-                      <Form.Control
-                        type="text"
-                        value={pincode}
-                        onChange={handlePincodeChange}
-                        placeholder="" 
-                      />
-                    </FloatingLabel>
-                  </Col>
-                  <Col lg={3}>
-                    <FloatingLabel
-                      controlId="floatingSelect"
-                      label="State"
-                      className="mb-3"
-                    >
-                      <Form.Control 
-                      type="text" 
-                      value={state}
-                      placeholder="" 
-                      disabled />
-                    </FloatingLabel>
-                  </Col>
-                  <Col lg={6}>
-                    <FloatingLabel
-                      controlId="floatingInput"
-                      label="Email"
-                      className="mb-3"
-                    >
-                      <Form.Control
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder=""
-                      />
-                    </FloatingLabel>
-                  </Col>
-                  <Col lg={3}>
-                    <FloatingLabel
-                      controlId="floatingSelect"
-                      label="Select City"
-                      className="mb-3"
-                    >
-                      <Form.Select
-                        aria-label="Floating label select example"
-                        onChange={(e) => {
-                          setSelectedCity(e.target.value);
-                        }}
-                      >
-                        {city.length > 0
-                          ? city.map((data) => {
-                              return (
-                                <option value={data.Block + "-" + data.Name}>
-                                  {data.Block + "-" + data.Name}
-                                </option>
-                              );
-                            })
-                          : ""}
-                      </Form.Select>
-                    </FloatingLabel>
-                  </Col>
-                  
-                  <Col lg={3}>
-                    <FloatingLabel
-                      controlId="floatingSelect"
-                      label="Status"
-                      className="mb-3"
-                    >
-                      <Form.Select
-                        aria-label=""
-                        value={status}
-                        onChange={(e) => {
-                          setStatus(e.target.value);
-                        }}
-                      >
-                        <option selected>Select</option>
-                        <option value="Active">Active</option>
-                        <option value="InActive">In Active</option>
-                      </Form.Select>
-                    </FloatingLabel>
-                  </Col>
-                  
+                    <Row>
+                      <Col lg={6}>
+                        <FloatingLabel
+                          controlId="floatingInput"
+                          label="Application Number"
+                          className="mb-3"
+                        >
+                          <Form.Control
+                            type="text"
+                            value={applicationNumber}
+                            disabled
+                            placeholder=""
+                          />
+                        </FloatingLabel>
+                      </Col>
+                      <Col lg={6}>
+                        <FloatingLabel
+                          controlId="floatingInput"
+                          label="Membership Number"
+                          className="mb-3"
+                        >
+                          <Form.Control
+                            type="text"
+                            value={membershipNumber}
+                            disabled
+                            placeholder=""
+                          />
+                        </FloatingLabel>
+                      </Col>
+                      <Col lg={6}>
+                        <FloatingLabel
+                          controlId="floatingInput"
+                          label="Full Name"
+                          className="mb-3"
+                        >
+                          <Form.Control
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder=""
+                          />
+                        </FloatingLabel>
+                      </Col>
+                      <Col lg={6}>
+                        <FloatingLabel
+                          controlId="floatingInput"
+                          label="Mobile Number"
+                          className="mb-3"
+                        >
+                          <Form.Control
+                            type="text"
+                            value={mobile}
+                            onChange={(e) => setMobile(e.target.value)}
+                            placeholder=""
+                          />
+                        </FloatingLabel>
+                      </Col>
+                      <Col lg={6}>
+                        <FloatingLabel
+                          controlId="floatingInput"
+                          label="Full Address"
+                          className="mb-3"
+                        >
+                          <Form.Control
+                            type="text"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            placeholder=""
+                          />
+                        </FloatingLabel>
+                      </Col>
+                      <Col lg={3}>
+                        <FloatingLabel
+                          controlId="floatingInput"
+                          label="Pincode"
+                          className="mb-3"
+                        >
+                          <Form.Control
+                            type="text"
+                            value={pincode}
+                            onChange={handlePincodeChange}
+                            placeholder=""
+                          />
+                        </FloatingLabel>
+                      </Col>
+                      <Col lg={3}>
+                        <FloatingLabel
+                          controlId="floatingSelect"
+                          label="State"
+                          className="mb-3"
+                        >
+                          <Form.Control
+                            type="text"
+                            value={state}
+                            placeholder=""
+                            disabled
+                          />
+                        </FloatingLabel>
+                      </Col>
+                      <Col lg={6}>
+                        <FloatingLabel
+                          controlId="floatingInput"
+                          label="Email"
+                          className="mb-3"
+                        >
+                          <Form.Control
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder=""
+                          />
+                        </FloatingLabel>
+                      </Col>
+                      <Col lg={3}>
+                        <FloatingLabel
+                          controlId="floatingSelect"
+                          label="Select City"
+                          className="mb-3"
+                        >
+                          <Form.Select
+                            aria-label="Floating label select example"
+                            onChange={(e) => {
+                              setSelectedCity(e.target.value);
+                            }}
+                          >
+                            {city.length > 0
+                              ? city.map((data) => {
+                                  return (
+                                    <option
+                                      value={data.Block + "-" + data.Name}
+                                    >
+                                      {data.Block + "-" + data.Name}
+                                    </option>
+                                  );
+                                })
+                              : ""}
+                          </Form.Select>
+                        </FloatingLabel>
+                      </Col>
 
-                  <Col lg={3}>
-                    {/* <DatePicker defaultValue={startDate} onChange={(date) => setStartDate(date)} /> */}
-                    {/* <FloatingLabel
+                      <Col lg={3}>
+                        <FloatingLabel
+                          controlId="floatingSelect"
+                          label="Status"
+                          className="mb-3"
+                        >
+                          <Form.Select
+                            aria-label=""
+                            value={status}
+                            onChange={(e) => {
+                              setStatus(e.target.value);
+                            }}
+                          >
+                            <option selected>Select</option>
+                            <option value="Active">Active</option>
+                            <option value="InActive">In Active</option>
+                          </Form.Select>
+                        </FloatingLabel>
+                      </Col>
+
+                      <Col lg={3}>
+                        {/* <DatePicker defaultValue={startDate} onChange={(date) => setStartDate(date)} /> */}
+                        {/* <FloatingLabel
                     controlId="floatingInput"
                     label="Start Date"
                     className="mb-3"
                   > */}
-                    <Space direction="vertical" size={12}>
-                      <DatePicker
-                        prestes={presets}
-                        defaultValue={!startDate ? null : moment(startDate)}
-                        value={!startDate ? null : moment(startDate)}
-                        format={"YYYY-MM-DD"}
-                        className="mx-0 mb-3 mb-lg-0"
-                        placeholder="Start Date"
-                        onChange={onChangeStartDate}
-                      />
-                    </Space>
-                    {/* <Form.Control type="text" placeholder="Start Date" /> */}
-                    {/* </FloatingLabel> */}
-                  </Col>
-                  <Col lg={3}>
-                    <Space direction="vertical" size={12}>
-                      <DatePicker
-                        disabled
-                        placeholder="End Date"
-                        defaultValue={!endDate ? null : moment(endDate)}
-                        value={!endDate ? null : moment(endDate)}
-                      />
-                    </Space>
-                    {/* <FloatingLabel
+                        <Space direction="vertical" size={12}>
+                          <DatePicker
+                            prestes={presets}
+                            defaultValue={!startDate ? null : moment(startDate)}
+                            value={!startDate ? null : moment(startDate)}
+                            format={"YYYY-MM-DD"}
+                            className="mx-0 mb-3 mb-lg-0"
+                            placeholder="Start Date"
+                            onChange={onChangeStartDate}
+                          />
+                        </Space>
+                        {/* <Form.Control type="text" placeholder="Start Date" /> */}
+                        {/* </FloatingLabel> */}
+                      </Col>
+                      <Col lg={3}>
+                        <Space direction="vertical" size={12}>
+                          <DatePicker
+                            disabled
+                            placeholder="End Date"
+                            defaultValue={!endDate ? null : moment(endDate)}
+                            value={!endDate ? null : moment(endDate)}
+                          />
+                        </Space>
+                        {/* <FloatingLabel
                     controlId="floatingInput"
                     label="End Date"
                     className="mb-3"
                   >
                     <Form.Control type="text" placeholder="End Date" />
                   </FloatingLabel> */}
-                  </Col>
-                  <Col lg={3}>
-                    <FloatingLabel
-                      controlId="floatingSelect"
-                      label="Select Membership"
-                      className="mb-3"
-                    >
-                      <Form.Select
-                        aria-label="Floating label select example"
-                        value={memberShip}
-                        onChange={(e) => onChangeMembership(e.target.value)}
-                      >
-                        <option selected>Select</option>
-                        <option value="1">1 Month</option>
-                        <option value="2">3 Months</option>
-                        <option value="3">6 Month</option>
-                        <option value="4">12 Month</option>
-                      </Form.Select>
-                    </FloatingLabel>
-                  </Col>
-                  <Col lg={3}>
-                    <FloatingLabel
-                      controlId="floatingInput"
-                      label="Amount Per Month"
-                      className="mb-3"
-                    >
-                      <Form.Control
-                        type="text"
-                        value={amountPerMonth}
-                        onChange={(e) => {
-                          setAmountPerMonth(e.target.value);
-                        }}
-                        placeholder=""
-                      />
-                    </FloatingLabel>
-                  </Col>
-                  <Col lg={4} className="ms-auto my-2">
-                    <Link
-                      to="/new-membership"
-                      className="btn btn-dark w-100 py-2 btn-lg"
-                      onClick={SaveForm}
-                    >
-                      {location.state == null
-                        ? "Add New Member"
-                        : "Update Member"}
-                    </Link>
+                      </Col>
+                      <Col lg={3}>
+                        <FloatingLabel
+                          controlId="floatingSelect"
+                          label="Select Membership"
+                          className="mb-3"
+                        >
+                          <Form.Select
+                            aria-label="Floating label select example"
+                            value={memberShip}
+                            onChange={(e) => onChangeMembership(e.target.value)}
+                          >
+                            <option selected>Select</option>
+                            <option value="1">1 Month</option>
+                            <option value="3">3 Months</option>
+                            <option value="6">6 Month</option>
+                            <option value="12">12 Month</option>
+                          </Form.Select>
+                        </FloatingLabel>
+                      </Col>
+                      <Col lg={3}>
+                        <FloatingLabel
+                          controlId="floatingInput"
+                          label="Amount Per Month"
+                          className="mb-3"
+                        >
+                          <Form.Control
+                            type="text"
+                            value={amountPerMonth}
+                            onChange={(e) => {
+                              setAmountPerMonth(e.target.value);
+                            }}
+                            placeholder=""
+                          />
+                        </FloatingLabel>
+                      </Col>
+                      <Col lg={4} className="ms-auto my-2">
+                        <Link
+                          to="/new-membership"
+                          className="btn btn-dark w-100 py-2 btn-lg"
+                          onClick={SaveForm}
+                        >
+                          {location.state == null
+                            ? "Add New Member"
+                            : "Update Member"}
+                        </Link>
+                      </Col>
+                    </Row>
                   </Col>
                 </Row>
-                  </Col>
-                </Row>
-                
-                  
               </Form>
             </Col>
           </Row>
