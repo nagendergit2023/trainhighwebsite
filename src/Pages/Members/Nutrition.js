@@ -1,113 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./Nutrition.css"; // 👈 custom styles
+import { Spin, notification } from "antd";
+import PostApiCall from "../../helpers/PostApi";
+import "./Nutrition.css"; // custom styling
 
-const Nutrition = () => {
-  const [openIndex, setOpenIndex] = useState(0);
+const Nutrition = ({ selectedMemberId }) => {
+  const [days, setDays] = useState([]);
+  const [loading, setLoading] = useState(true);
+  let memberId = JSON.parse(localStorage.getItem("user"))?.memberId;
 
-  const days = [
-    {
-      weekday: "Monday",
-      workoutName: "Cardio",
-      numberOfMeals: 7,
-      meals: {
-        breakfast: "Oatmeal with banana and peanut butter",
-        morningSnacks: "Greek yogurt with berries",
-        lunch: "Grilled chicken with brown rice and vegetables",
-        eveningSnacks: "Protein bar or handful of nuts",
-        dinner: "Salmon with sweet potatoes and steamed broccoli",
-        preWorkout: "Banana and black coffee",
-        postWorkout: "Protein shake with milk and oats",
-      },
-      calories: "4500",
-    },
-    {
-      weekday: "Tuesday",
-      workoutName: "Strength",
-      numberOfMeals: 7,
-      meals: {
-        breakfast: "Oatmeal with banana and peanut butter",
-        morningSnacks: "Greek yogurt with berries",
-        lunch: "Grilled chicken with brown rice and vegetables",
-        eveningSnacks: "Protein bar or handful of nuts",
-        dinner: "Salmon with sweet potatoes and steamed broccoli",
-        preWorkout: "Banana and black coffee",
-        postWorkout: "Protein shake with milk and oats",
-      },
-      calories: "5000",
-    },
-    {
-      weekday: "Wednesday",
-      workoutName: "Aerobics",
-      numberOfMeals: 4,
-      meals: {
-        breakfast: "Oatmeal with banana and peanut butter",
-        morningSnacks: "Greek yogurt with berries",
-        lunch: "Grilled chicken with brown rice and vegetables",
-        eveningSnacks: "Protein bar or handful of nuts",
-        dinner: "Salmon with sweet potatoes and steamed broccoli",
-        preWorkout: "Banana and black coffee",
-        postWorkout: "Protein shake with milk and oats",
-      },
-      calories: "6000",
-    },
-    {
-      weekday: "Thursday",
-      workoutName: "Yoga",
-      numberOfMeals: 6,
-      meals: {
-        breakfast: "Oatmeal with banana and peanut butter",
-        morningSnacks: "Greek yogurt with berries",
-        lunch: "Grilled chicken with brown rice and vegetables",
-        eveningSnacks: "Protein bar or handful of nuts",
-        dinner: "Salmon with sweet potatoes and steamed broccoli",
-        preWorkout: "Banana and black coffee",
-        postWorkout: "Protein shake with milk and oats",
-      },
-      calories: "6000",
-    },
-    {
-      weekday: "Friday",
-      workoutName: "Program",
-      numberOfMeals: 8,
-      meals: {
-        breakfast: "Oatmeal with banana and peanut butter",
-        morningSnacks: "Greek yogurt with berries",
-        lunch: "Grilled chicken with brown rice and vegetables",
-        eveningSnacks: "Protein bar or handful of nuts",
-        dinner: "Salmon with sweet potatoes and steamed broccoli",
-        preWorkout: "Banana and black coffee",
-        postWorkout: "Protein shake with milk and oats",
-      },
-      calories: "3000",
-    },
-    {
-      weekday: "Saturday",
-      workoutName: "Crossfit",
-      numberOfMeals: 5,
-      meals: {
-        breakfast: "Oatmeal with banana and peanut butter",
-        morningSnacks: "Greek yogurt with berries",
-        lunch: "Grilled chicken with brown rice and vegetables",
-        eveningSnacks: "Protein bar or handful of nuts",
-        dinner: "Salmon with sweet potatoes and steamed broccoli",
-        preWorkout: "Banana and black coffee",
-        postWorkout: "Protein shake with milk and oats",
-      },
-      calories: "3000",
-    },
-    {
-      weekday: "Sunday",
-      workoutName: "Cheatday",
-      numberOfMeals: null,
-      meals: null,
-      calories: null,
-    },
-  ];
+  // ------------------- Fetch Active Plan -------------------
+  useEffect(() => {
+    if (!memberId) return;
 
-  const toggle = (i) => {
-    setOpenIndex((prev) => (prev === i ? null : i));
-  };
+    PostApiCall.postRequest({ memberId: Number(memberId) }, "getActivePlan")
+      .then(async (res) => {
+        if (res.status === 200) {
+          const obj = await res.json();
+          if (obj) {
+            // obj.days may come as {1:{},2:{}} → convert to array
+            const dayArray = Object.values(obj).map((d) => ({
+              weekday: d.weekday,
+              workoutName: d.planName || "Workout",
+              numberOfMeals: d.numberOfMeals,
+              calories: d.calories,
+              meals: d.meals || null,
+              isCheatDay: d.isCheatDay,
+            }));
+            setDays(dayArray);
+          } else {
+            notification.warning({ description: "No active plan found" });
+          }
+        } else {
+          notification.error({ description: "Failed to fetch active plan" });
+        }
+        setLoading(false);
+      })
+      .catch(() => {
+        notification.error({ description: "Error fetching active plan" });
+        setLoading(false);
+      });
+  }, [memberId]);
+
+  const [openIndex, setOpenIndex] = useState(null);
+  const toggle = (i) => setOpenIndex((prev) => (prev === i ? null : i));
+
+  if (loading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center mt-5">
+        <Spin tip="Loading nutrition plan..." size="large" />
+      </div>
+    );
+  }
 
   return (
     <div className="container mb-5 mt-3">
@@ -116,28 +60,36 @@ const Nutrition = () => {
         {days.map((day, i) => {
           const isOpen = openIndex === i;
           return (
-            <div className="accordion-item custom-accordion-item" key={day.weekday}>
+            <div
+              className="accordion-item custom-accordion-item"
+              key={day.weekday}
+            >
               <h2 className="accordion-header" id={`heading-${i}`}>
                 <button
                   type="button"
                   aria-controls={`panel-${i}`}
                   aria-expanded={isOpen ? "true" : "false"}
-                  className={`accordion-button d-flex align-items-center ${isOpen ? "" : "collapsed"
-                    }`}
+                  className={`accordion-button d-flex align-items-center ${
+                    isOpen ? "" : "collapsed"
+                  }`}
                   onClick={() => toggle(i)}
                 >
                   <div className="day-left">
-                    <span className="day-name">{day.weekday.slice(0, 3).toUpperCase()}</span>
+                    <span className="day-name">
+                      {day.weekday.slice(0, 3).toUpperCase()}
+                    </span>
                     <div className="workout-info">
                       <div className="workout-left">
-                        <span className="workout-name">{day.workoutName}</span>
-                        {day.numberOfMeals && (
+                        <span className="workout-name">
+                          {day.isCheatDay ? "🍕 Cheat Day" : day.workoutName}
+                        </span>
+                        {!day.isCheatDay && day.numberOfMeals && (
                           <span className="workout-exercises">
                             {day.numberOfMeals} Meals
                           </span>
                         )}
                       </div>
-                      {day.calories && (
+                      {!day.isCheatDay && day.calories && (
                         <span className="workout-duration">
                           {day.calories} Cals
                         </span>
@@ -168,23 +120,28 @@ const Nutrition = () => {
                 id={`panel-${i}`}
                 role="region"
                 aria-labelledby={`heading-${i}`}
-                className={`accordion-collapse collapse-custom ${isOpen ? "open" : ""
-                  }`}
+                className={`accordion-collapse collapse-custom ${
+                  isOpen ? "open" : ""
+                }`}
               >
                 <div className="accordion-body">
-                  {day.meals ? (
+                  {day.isCheatDay ? (
+                    <p className="text-muted">Cheat day — no food planned.</p>
+                  ) : day.meals ? (
                     <ul className="space-y-1">
                       {Object.entries(day.meals).map(([mealName, mealDesc]) => (
                         <li key={mealName}>
                           <strong>
-                            {mealName.charAt(0).toUpperCase() + mealName.slice(1)}:
+                            {mealName.charAt(0).toUpperCase() +
+                              mealName.slice(1)}
+                            :
                           </strong>{" "}
                           {mealDesc}
                         </li>
                       ))}
                     </ul>
                   ) : (
-                    <p className="text-muted">Cheat day — no food planned.</p>
+                    <p className="text-muted">No meals planned for today.</p>
                   )}
                 </div>
               </div>

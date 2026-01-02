@@ -7,14 +7,14 @@ const MemberWorkoutCalendar = ({ memberId }) => {
   const [plans, setPlans] = useState([]);
 
   useEffect(() => {
-    GetApiCall.getRequest(`GetActiveWorkoutPlan/${memberId}`)
+    GetApiCall.getRequest(`GetWorkoutPlanByMember/${memberId}`)
       .then((res) => res.json())
       .then(setPlans);
   }, [memberId]);
 
   return (
     <div className="row">
-      {plans.map((day, i) => {
+      {plans?.days?.map((day, i) => {
         const today = moment().format("YYYY-MM-DD");
         const isToday = day.date === today;
 

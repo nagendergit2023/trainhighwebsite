@@ -6,6 +6,7 @@ import { notification } from "antd";
 import WorkoutEditor, { WEEK_TEMPLATE } from "./WorkoutEditor";
 import CopyWorkoutModal from "./CopyWorkoutModal";
 import TemplateLibrary from "./TemplateLibrary";
+import AIGeneratorModal from "./Templates/AIGeneratorModal";
 
 const WorkoutPlanner = ({ selectedMemberId }) => {
   const [days, setDays] = useState(WEEK_TEMPLATE);
@@ -19,6 +20,7 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
   const [history, setHistory] = useState([]);
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [showTemplateModal, setShowTemplateModal] = useState(false);
+  const [showAIModal, setShowAIModal] = useState(false);
 
   useEffect(() => {
     if (!selectedMemberId || !planStartDate) return;
@@ -173,6 +175,12 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
             >
               📚 Templates
             </button>
+            <button
+              className="btn btn-dark w-100"
+              onClick={() => setShowAIModal(true)}
+            >
+              🤖 AI Generate Template
+            </button>
           </div>
         </div>
       </div>
@@ -204,6 +212,12 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
         open={showTemplateModal}
         onApply={copyFromTemplate}
         onClose={() => setShowTemplateModal(false)}
+      />
+
+      <AIGeneratorModal
+        open={showAIModal}
+        onApply={copyFromTemplate}
+        onClose={() => setShowAIModal(false)}
       />
     </div>
   );
