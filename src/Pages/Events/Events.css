@@ -5,3 +5,66 @@
     width: 100%;
     margin-bottom: .5rem;
 }
+
+/* Year Tabs Container */
+.year-tabs {
+  border-bottom: none;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+/* Tab buttons */
+.year-tabs .nav-link {
+  border: none;
+  border-radius: 999px;
+  padding: 0.5rem 1.25rem;
+  font-weight: 500;
+  color: #555;
+  background: #f1f3f5;
+  transition: all 0.3s ease;
+}
+
+.year-tabs .nav-link:hover {
+  background: #e9ecef;
+  color: #000;
+}
+
+.year-tabs .nav-link.active {
+  background: #000;
+  color: #fff;
+}
+
+/* Mobile horizontal scroll */
+@media (max-width: 767px) {
+  .year-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 0.5rem;
+  }
+
+  .year-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .year-tabs .nav-item {
+    flex: 0 0 auto;
+  }
+}
+
+/* Dropdown fallback (extra small) */
+@media (max-width: 480px) {
+  .year-tabs-wrapper {
+    display: none;
+  }
+
+  .year-dropdown {
+    display: block;
+  }
+}
+
+/* Hide dropdown on larger screens */
+.year-dropdown {
+  display: none;
+}
+

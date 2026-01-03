@@ -9,7 +9,7 @@ function About() {
     {/* {window.location.pathname !== "/" ? (
           <Hero />
 ) : null}     */}
-    <section className="py-lg-5 py-3">      
+    <section className="py-lg-5 py-5">      
       <Container>
         <Row className="justify-content-center align-items-center">
           <Col lg={6}>

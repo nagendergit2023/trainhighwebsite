@@ -12,8 +12,18 @@ import addClasses from "../../assets/images/classes_5397250.png";
 function Admin() {
   return (
     <>
-      <Hero />
-      <section className="py-5 inner-section">
+      {/* <Hero /> */}
+      <section className="inner-section">
+        <Container>
+                <Row className="justify-content-center align-items-center">
+                  <Col lg={8} className="mb-5">
+                    <h2 className="section-title">Admin Panel</h2>
+                    <p className="text-center">
+                      Centralized control panel to manage membership signup, settings, security, and system operations efficiently, reliably, and at scale for modern enterprise platforms.
+                    </p>
+                  </Col>
+                  </Row>
+        </Container>
         <Container>
           <Row className="justify-content-center align-items-center">
             <Col lg={3} md={6} sm={6} xs={6}>

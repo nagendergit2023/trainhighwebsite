@@ -47,19 +47,28 @@ function CalculateBMI() {
     const a = parseInt(age);
 
     // VALIDATION FIX — ALWAYS RETURN A SAFE RESULT OBJECT
+    // if (!h || !w || !a || !gender || !activityLevel) {
+    //   setResult({
+    //     message: "Please fill all required fields correctly.",
+    //     bmiValue: 0,
+    //     bmr: 0,
+    //     tdee: 0,
+    //     bodyFat: 0,
+    //     visceralFat: 0,
+    //     whr: 0,
+    //     segmentalAnalysis: { ...DEFAULT_SEGMENTAL },
+    //   });
+    //   return;
+    // }
+
     if (!h || !w || !a || !gender || !activityLevel) {
-      setResult({
-        message: "Please fill all required fields correctly.",
-        bmiValue: 0,
-        bmr: 0,
-        tdee: 0,
-        bodyFat: 0,
-        visceralFat: 0,
-        whr: 0,
-        segmentalAnalysis: { ...DEFAULT_SEGMENTAL },
-      });
-      return;
-    }
+  Notiflix.Notify.failure(
+    "Please fill all required fields correctly."
+  );
+
+  setShowModal(false); // ensure modal does NOT open
+  return;
+}
 
     // BMI
     const bmiValue = (w / Math.pow(h / 100, 2)).toFixed(1);
@@ -122,7 +131,7 @@ function CalculateBMI() {
   };
 
   return (
-    <section className="py-lg-5 py-3">
+    <section className="py-lg-5 py-5">
       <Container>
         <Row className="justify-content-center mb-4">
           <Col lg={6} className="text-center">

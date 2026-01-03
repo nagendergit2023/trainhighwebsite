@@ -48,7 +48,7 @@ function ContactUs() {
     }
   };
   return (
-    <section>
+    <section className="py-lg-3 py-5">
       <Container>
         <Row className="justify-content-center">
           <Col lg={12} className="text-center my-4">
