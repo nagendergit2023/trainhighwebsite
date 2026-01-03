@@ -31,7 +31,7 @@ function ContactUs() {
             setMessage("");
             Notiflix.Loading.remove();
             notification.success({
-              message: `Thanks for your interest! We’ll be in touch shortly to help you get started.`,
+              message: `Thanks for your interest! We'll be in touch shortly to help you get started.`,
             });
           } else {
             notification.error({
