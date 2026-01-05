@@ -20,13 +20,13 @@ const ACTIVITY_FACTORS = {
   6: 1.9,
 };
 
-const DEFAULT_SEGMENTAL = {
-  leftArm: 0,
-  rightArm: 0,
-  leftLeg: 0,
-  rightLeg: 0,
-  trunk: 0,
-};
+// const DEFAULT_SEGMENTAL = {
+//   leftArm: 0,
+//   rightArm: 0,
+//   leftLeg: 0,
+//   rightLeg: 0,
+//   trunk: 0,
+// };
 
 function CalculateBMI() {
   const [height, setHeight] = useState("");
@@ -62,13 +62,11 @@ function CalculateBMI() {
     // }
 
     if (!h || !w || !a || !gender || !activityLevel) {
-  Notiflix.Notify.failure(
-    "Please fill all required fields correctly."
-  );
+      Notiflix.Notify.failure("Please fill all required fields correctly.");
 
-  setShowModal(false); // ensure modal does NOT open
-  return;
-}
+      setShowModal(false); // ensure modal does NOT open
+      return;
+    }
 
     // BMI
     const bmiValue = (w / Math.pow(h / 100, 2)).toFixed(1);

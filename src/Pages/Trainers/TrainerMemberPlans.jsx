@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Container, Nav } from "react-bootstrap";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import NutritionForm from "./Nutrition"; // existing component
-import WorkoutForm from "./WorkoutEditor";
+// import WorkoutForm from "./WorkoutEditor";
 import WorkoutPlanner from "./WorkoutPlanner";
 // import WorkoutForm from "./WorkoutForm"; (next step)
 
@@ -38,7 +38,6 @@ const TrainerMemberPlans = () => {
         onSelect={(k) => setActiveTab(k)}
         className="mb-4"
       >
-        
         <Nav.Item>
           <Nav.Link eventKey="workout">Workout Plan</Nav.Link>
         </Nav.Item>
