@@ -1,4 +1,3 @@
-import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 /*  CONSTANT  */
@@ -98,7 +97,6 @@ const WorkoutEditor = ({
 
   return (
     <>
-      {console.log(days, "days")}
       {days?.map((day, i) => (
         <div key={i} className="card shadow-sm mb-3">
           <div className="card-header fw-bold d-flex justify-content-between">

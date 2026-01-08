@@ -47,9 +47,9 @@ const CopyWorkoutModal = ({ open, onClose, history, onCopy }) => {
             >
               <div>
                 <strong>
-                  {h.planType?.toUpperCase() || "Plan" + " " + h?.version}
+                  {h.planType?.toUpperCase() || ("Plan" + " " + h?.version)}
                 </strong>{" "}
-                – {h.planStartDate}
+                - {h.planStartDate}
                 <br />
                 <small className="text-muted">
                   {new Date(h.createdAt).toLocaleDateString()}

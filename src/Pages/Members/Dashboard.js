@@ -2,11 +2,10 @@ import React from "react";
 import {
   RadialBarChart,
   RadialBar,
-  Legend,
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import MemberWorkoutCalendar from "./Workout/MemberWorkoutCalendar";
 import { Link } from "react-router-dom";
 

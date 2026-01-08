@@ -58,6 +58,7 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
 
   useEffect(() => {
     GetWorkoutPlanHistory();
+    // eslint-disable-next-line
   }, []);
   const GetWorkoutPlanHistory = () => {
     GetApiCall.getRequest(`GetWorkoutPlanHistory/${selectedMemberId}`)
@@ -66,8 +67,6 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
         setHistory(data);
       });
   };
-
-  console.log(history);
 
   /* SUBMIT */
   const submit = () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import GetApiCall from "../../helpers/GetApi"; // your helper
 import { notification } from "antd";
@@ -59,6 +59,7 @@ const Workout = () => {
         notification.error({ message: "Error fetching workout plan" });
         setLoading(false);
       });
+    // eslint-disable-next-line
   }, [memberId]);
 
   const toggle = (i) => {
