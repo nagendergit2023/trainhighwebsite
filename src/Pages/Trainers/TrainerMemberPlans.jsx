@@ -14,7 +14,7 @@ const TrainerMemberPlans = () => {
   const [activeTab, setActiveTab] = useState("nutrition");
 
   return (
-    <Container className="py-4">
+    <Container className="">
       {/* Header */}
       <div className="d-flex align-items-center justify-content-between mb-3">
         <div>

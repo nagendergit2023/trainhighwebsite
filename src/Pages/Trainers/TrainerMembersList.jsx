@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Col, Container, Row, Button } from "react-bootstrap";
+import { Card, Col, Container, Row, Button, Badge } from "react-bootstrap";
 import GetApiCall from "../../helpers/GetApi";
 import moment from "moment";
 import noimage from "../../assets/images/No_Image_Available.jpg";
@@ -18,16 +18,16 @@ const TrainerMembersList = () => {
 
   return (
     <>
-      <Hero />
-      <section className="py-5 inner-section">
+      <section className="inner-section pb-5">
         <Container>
-          <h3 className="mb-4 fw-bold">My Members</h3>
-
+          <h2 class="weekly-title text-center">My Clients</h2>
           <Row>
             {members.map((member) => (
               <Col lg={4} md={6} sm={12} key={member.fld_id} className="mb-4">
-                <Card className="h-100 shadow-sm border-0">
-                  <Card.Img
+                <Card className="h-100 shadow-sm border-0 d-flex">
+                  <Row className="g-0">
+                    {/* <Col xs={4}>
+                    <Card.Img
                     variant="top"
                     src={member.fld_image || noimage}
                     style={{
@@ -35,43 +35,55 @@ const TrainerMembersList = () => {
                       objectFit: "cover",
                     }}
                   />
-
-                  <Card.Body>
-                    <h5 className="fw-bold">{member.fld_name}</h5>
-                    <p className="mb-1 text-muted">
-                      📞 {member.fld_mobile_number}
-                    </p>
-                    <p className="mb-1">
+                    </Col> */}
+                    <Col xs={12}>
+                      <Card.Body>
+                        <h5 className="fw-bold d-flex justify-content-between">
+                          <span>{member.fld_name}</span>
+                          <Badge pill bg={member.fld_status !== "Active" ? "danger" : "success"} className="">{member.fld_status}</Badge>
+                        </h5>
+                        {/* <p className="mb-1 text-muted">
+                      📞 {member.fld_mobile_number}                      
+                    </p> */}
+                        {/* <p className="mb-1">
                       🏷 Membership: <strong>{member.fld_status}</strong>
-                    </p>
-                    <p className="mb-2">
+                    </p> */}
+                        {/* <p className="mb-2">
                       ⏳ Valid Till: {moment(member.fld_end_date).format("ll")}
-                    </p>
+                    </p> */}
 
-                    <div className="d-grid gap-2">
-                      <Button
-                        variant="warning"
-                        onClick={() =>
-                          navigate(`/trainer/member/${member.fld_id}/plans`, {
-                            state: member,
-                          })
-                        }
-                      >
-                        Manage Workout & Diet
-                      </Button>
-
-                      <Button
-                        variant="outline-secondary"
-                        onClick={() =>
-                          navigate(
-                            `/trainer/member/${member.fld_id}/attendance`
-                          )
-                        }
-                      >
-                        View Attendance
-                      </Button>
-                    </div>
-                  </Card.Body>
+                        <Row>
+                           <Col xs={6}>
+                            <Button
+                            className="w-100"
+                              variant="outline-secondary"
+                              onClick={() =>
+                                navigate(
+                                  `/trainers/member/${member.fld_id}/attendance`
+                                )
+                              }
+                            >
+                              View Attendance
+                            </Button>
+                          </Col>
+                          <Col xs={6}>
+                            <Button
+                            className="w-100"
+                              variant="warning"
+                              onClick={() =>
+                                navigate(`/trainers/member/${member.fld_id}/plans`, {
+                                  state: member,
+                                })
+                              }
+                            >
+                              Manage
+                            </Button>
+                          </Col>
+                         
+                        </Row>
+                      </Card.Body>
+                    </Col>
+                  </Row>
                 </Card>
               </Col>
             ))}

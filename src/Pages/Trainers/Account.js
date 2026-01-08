@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Account.css";
+import { Col, Row } from "react-bootstrap";
 
 const Account = () => {
   const [editing, setEditing] = useState(false);
@@ -53,12 +54,13 @@ const Account = () => {
 
               <hr />
 
-              <div className="text-start">
+              <div className="text-start mb-4">
                 <h5 className="mb-3">Account Information</h5>
 
                 <div className="row mb-2">
-                  <div className="col-sm-4 fw-bold">Last Check-In:</div>
-                  <div className="col-sm-8">
+                  <div className="col-12 d-flex gap-2">
+                    <span className="fw-bold">Last Check-In:</span>
+                    <span>
                     {editing ? (
                       <input
                         type="text"
@@ -71,13 +73,14 @@ const Account = () => {
                     ) : (
                       user.checkin
                     )}
-                  </div>
+                    </span></div>
                 </div>
 
                 <div className="row mb-2">
-                  <div className="col-sm-4 fw-bold">Email:</div>
-                  <div className="col-sm-8">
-                    {editing ? (
+                  <div className="col-12 d-flex gap-2">
+                    <span className="fw-bold">Email:</span>
+                    <span>
+                      {editing ? (
                       <input
                         type="email"
                         className="form-control"
@@ -88,13 +91,15 @@ const Account = () => {
                     ) : (
                       user.email
                     )}
-                  </div>
+                    </span>
+                    </div>
                 </div>
 
                 <div className="row mb-2">
-                  <div className="col-sm-4 fw-bold">Phone:</div>
-                  <div className="col-sm-8">
-                    {editing ? (
+                  <div className="col-12 d-flex gap-2">
+                    <span className="fw-bold">Phone:</span>
+                    <span>
+                      {editing ? (
                       <input
                         type="text"
                         className="form-control"
@@ -105,19 +110,23 @@ const Account = () => {
                     ) : (
                       user.phone
                     )}
-                  </div>
+                    </span>
+                    </div>
                 </div>
 
                 <div className="row mb-2">
-                  <div className="col-sm-4 fw-bold">Join Date:</div>
-                  <div className="col-sm-8">{user.joinDate}</div>
+                  <div className="col-12 d-flex gap-2">
+                    <span className="fw-bold">Join Date:</span>
+                    <span>{user.joinDate}</span>
+                  </div>                  
                 </div>
 
                 <hr />
                 <h5 className="mb-3">Fitness Stats</h5>
                 <div className="row mb-2">
-                  <div className="col-sm-4 fw-bold">Weight:</div>
-                  <div className="col-sm-8">
+                  <div className="col-12 d-flex gap-2">
+                    <span className="fw-bold">Weight:</span>
+                    <span>
                     {editing ? (
                       <input
                         type="text"
@@ -129,12 +138,15 @@ const Account = () => {
                     ) : (
                       user.weight
                     )}
-                  </div>
+                  </span>
+                    </div>
+                  
                 </div>
                 <div className="row mb-2">
-                  <div className="col-sm-4 fw-bold">Height:</div>
-                  <div className="col-sm-8">
-                    {editing ? (
+                  <div className="col-12 d-flex gap-2">
+<span className="fw-bold">Height:</span>
+<span>
+  {editing ? (
                       <input
                         type="text"
                         className="form-control"
@@ -145,44 +157,54 @@ const Account = () => {
                     ) : (
                       user.height
                     )}
+</span>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-4">
+              <div className="">
+                <Row>                
                 {editing ? (
-                  <button
+                 <Col xs={6}>
+                   <button
                     className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark mb-3"
                     onClick={handleSave}
                   >
                     Save
                   </button>
+                 </Col>
                 ) : (
                   <>
+                  <Col xs={6}>
                   <button
                     className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark mb-3"
                     onClick={handleEditToggle}
                   >
                     Edit Profile
                   </button>
+                  </Col>
+                  <Col xs={6}>
                   <button
                     className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-warning"
                     onClick={handleEditButton}
                   >
                     Logout
                   </button>
+                  </Col>
                   </>
                 )}
                 {editing && (
+                  <Col xs={6}>
                   <button
                     className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark"
                     onClick={handleEditToggle}
                   >
                     Cancel
                   </button>
+                  </Col>
                 )}
 
-                 
+                 </Row>
               </div>
             </div>
           </div>

@@ -7,6 +7,7 @@ import {
     ResponsiveContainer,
 } from "recharts";
 import { Container, Row, Col, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
     // Example monthly data
@@ -76,7 +77,7 @@ const Dashboard = () => {
                         </div>
                     </Col>
                     <Col lg={12}>
-                        <button type="submit" className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark">View Clients Stats</button>
+                        <Link to="/trainers/members" className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark">View All Clients</Link>
                     </Col>
                 </Row>
             </Container>

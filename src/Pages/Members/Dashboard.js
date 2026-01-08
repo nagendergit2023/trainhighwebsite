@@ -8,6 +8,7 @@ import {
 } from "recharts";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import MemberWorkoutCalendar from "./Workout/MemberWorkoutCalendar";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const userData =
@@ -21,8 +22,8 @@ const Dashboard = () => {
   ];
 
   return (
-    <section className="pt-0 pb-5 inner-section mt-3">
-      <Container className="pb-4">
+    <section className="inner-section mt-5">
+      <Container className="pb-5">
         <Row className="justify-content-center">
           <Col lg={12} md={12} className="mb-5">
             <h2 className="text-center fw-bold">Hi, {userData?.name}</h2>
@@ -85,12 +86,12 @@ const Dashboard = () => {
             </div>
           </Col>
           <Col lg={12}>
-            <button
-              type="submit"
+            <Link
+              to="/members/workout"
               className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark"
             >
               View Schedule
-            </button>
+            </Link>
           </Col>
         </Row>
       </Container>

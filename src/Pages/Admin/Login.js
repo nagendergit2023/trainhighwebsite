@@ -64,7 +64,7 @@ function Login() {
 
           notification.success({
             message: "OTP Sent",
-            description: "Please check your mobile/email.",
+            description: "The OTP was sent to the registered mobile number.",
           });
 
           setTimeout(() => otpInputs.current[0]?.focus(), 200);
@@ -160,13 +160,16 @@ function Login() {
           <Col lg={5}>
             <Card className="rounded shadow-sm">
               <Card.Body>
-                <h3 className="fw-bold">Hello,</h3>
-                <h3 className="mb-lg-4 fw-bold">Welcome Back!</h3>
+                
 
                 {!otpSent ? (
                   /* --------------------------
                      STEP 1 — ENTER MOBILE/EMAIL
                   -------------------------- */
+                  <>
+                  <h3 className="fw-bold">Hello,</h3>
+                <h3 className="mb-lg-4 fw-bold">Welcome Back!</h3>
+                  
                   <Form onSubmit={handleSendOtp}>
                     <FloatingLabel
                       controlId="floatingInput"
@@ -193,12 +196,15 @@ function Login() {
                       Back to website
                     </button>
                   </Form>
+                  </>
                 ) : (
                   /* --------------------------
                      STEP 2 — ENTER OTP
                   -------------------------- */
-                  <Form onSubmit={handleVerifyOtp}>
-                    <p className="text-muted mb-2">
+                  <>
+                  <h3 className="mb-lg-2 fw-bold">OTP Verification</h3>
+                   <Form onSubmit={handleVerifyOtp}>
+                    <p className="text-muted mb-3">
                       Enter the 6-digit OTP sent to:
                       <strong> {mobileNumber} </strong>
                     </p>
@@ -253,6 +259,8 @@ function Login() {
                       Back to website
                     </button>
                   </Form>
+                  </>
+                 
                 )}
               </Card.Body>
             </Card>

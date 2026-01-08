@@ -199,13 +199,13 @@ const NutritionForm = ({ selectedMemberId }) => {
       {/* Top Buttons */}
       <div className="d-flex gap-2 mb-3 flex-wrap">
         <button className="btn btn-success w-100" onClick={exportToWhatsApp}>
-          📲 Export Diet to WhatsApp
+          📲 Send Diet to WhatsApp
         </button>
         <button
           className="btn btn-outline-success w-100"
           onClick={() => setAiOpen(true)}
         >
-          🤖 AI Nutrition Generator
+          🤖 Select Nutrition Plans
         </button>
         <button
           className="btn btn-outline-primary w-100"
@@ -367,7 +367,7 @@ const NutritionForm = ({ selectedMemberId }) => {
 
       {!viewOnly && (
         <button className="btn btn-warning w-100 fw-bold mb-5" onClick={submit}>
-          💾 Save Nutrition Plan
+          Save
         </button>
       )}
 

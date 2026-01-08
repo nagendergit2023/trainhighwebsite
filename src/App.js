@@ -75,9 +75,9 @@ function App() {
         <Route path="/new-batch" element={<NewBatch />} />
         <Route path="/blogs" element={<Blogs />} />
 
-        <Route path="/trainer/members" element={<TrainerMembersList />} />
+        <Route path="/trainers/members" element={<TrainerMembersList />} />
         <Route
-          path="/trainer/member/:memberId/plans"
+          path="/trainers/member/:memberId/plans"
           element={<TrainerMemberPlans />}
         />
 

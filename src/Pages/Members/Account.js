@@ -5,6 +5,7 @@ import GetApiCall from "../../helpers/GetApi";
 import PostApiCall from "../../helpers/PostApi";
 import { notification } from "antd";
 import moment from "moment";
+import { Col, Row } from "react-bootstrap";
 
 const Account = () => {
   let userId = JSON?.parse(localStorage.getItem("user"))?.id;
@@ -122,29 +123,32 @@ const Account = () => {
 
               <hr />
 
-              <div className="text-start">
+              <div className="text-start mb-4">
                 <h5 className="mb-3">Account Information</h5>
 
                 <div className="row mb-2">
-                  <div className="col-sm-4 fw-bold">Last Check-In:</div>
-                  <div className="col-sm-8">
-                    {editing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="checkin"
-                        value={user.checkin || ""}
-                        readOnly
-                      />
-                    ) : (
-                      user.checkin
-                    )}
+                  <div className="col-12 d-flex gap-2">
+                    <span className="fw-bold">Last Check-In:</span>
+                    <span>
+                      {editing ? (
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="checkin"
+                          value={user.checkin || ""}
+                          readOnly
+                        />
+                      ) : (
+                        user.checkin
+                      )}
+                    </span>
                   </div>
                 </div>
 
                 <div className="row mb-2">
-                  <div className="col-sm-4 fw-bold">Email:</div>
-                  <div className="col-sm-8">
+                  <div className="col-12 d-flex gap-2">
+                    <span className="fw-bold">Email:</span>
+                  <span>
                     {editing ? (
                       <input
                         type="email"
@@ -156,12 +160,14 @@ const Account = () => {
                     ) : (
                       user.email
                     )}
+                    </span>
                   </div>
                 </div>
 
                 <div className="row mb-2">
-                  <div className="col-sm-4 fw-bold">Phone:</div>
-                  <div className="col-sm-8">
+                  <div className="col-12 d-flex gap-2">
+                    <span className="fw-bold">Phone:</span>
+                  <span>
                     {editing ? (
                       <input
                         type="text"
@@ -173,12 +179,14 @@ const Account = () => {
                     ) : (
                       user.phone
                     )}
+                    </span>
                   </div>
                 </div>
 
                 <div className="row mb-2">
-                  <div className="col-sm-4 fw-bold">Membership:</div>
-                  <div className="col-sm-8">
+                  <div className="col-12 d-flex gap-2">
+                    <span className="fw-bold">Membership:</span>
+                  <span>
                     {/* {editing ? (
                       <select
                         className="form-select"
@@ -193,20 +201,25 @@ const Account = () => {
                     ) : ( */}
                     {user.membership} months
                     {/* )} */}
+                    </span>
                   </div>
                 </div>
 
                 <div className="row mb-2">
-                  <div className="col-sm-4 fw-bold">Join Date:</div>
-                  <div className="col-sm-8">
+                  <div className="col-12 d-flex gap-2">
+                    <span className="fw-bold">Join Date:</span>
+                  <span>
                     {moment(user.joinDate).format("MM-DD-YYYY")}
+                    </span>
                   </div>
                 </div>
 
                 <div className="row mb-2">
-                  <div className="col-sm-4 fw-bold">End Date:</div>
-                  <div className="col-sm-8">
+                  <div className="col-12 d-flex gap-2">
+                    <span className="fw-bold">End Date:</span>
+                  <span>
                     {moment(user.endDate).format("MM-DD-YYYY")}
+                  </span>
                   </div>
                 </div>
 
@@ -214,8 +227,9 @@ const Account = () => {
                 <h5 className="mb-3">Fitness Stats</h5>
 
                 <div className="row mb-2">
-                  <div className="col-sm-4 fw-bold">Weight:</div>
-                  <div className="col-sm-8">
+                  <div className="col-12 d-flex gap-2">
+                    <span className="fw-bold">Weight:</span>
+                  <span>
                     {editing ? (
                       <input
                         type="text"
@@ -227,12 +241,14 @@ const Account = () => {
                     ) : (
                       user.weight
                     )}
+                    </span>
                   </div>
                 </div>
 
                 <div className="row mb-2">
-                  <div className="col-sm-4 fw-bold">Height:</div>
-                  <div className="col-sm-8">
+                  <div className="col-12 d-flex gap-2">
+                    <span className="fw-bold">Height:</span>
+                  <span>
                     {editing ? (
                       <input
                         type="text"
@@ -244,43 +260,54 @@ const Account = () => {
                     ) : (
                       user.height
                     )}
+                    </span>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-4">
+              <div className="">
+                <Row>
                 {editing ? (
+                  <Col xs={6}>
                   <button
                     className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark mb-3"
                     onClick={handleSave}
                   >
                     Save
                   </button>
+                  </Col>
                 ) : (
                   <>
+                  <Col xs={6}>
                     <button
                       className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark mb-3"
                       onClick={handleEditToggle}
                     >
                       Edit Profile
                     </button>
+                    </Col>
+                    <Col xs={6}>
                     <button
                       className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-warning"
                       onClick={handleEditButton}
                     >
                       Logout
                     </button>
+                    </Col>
                   </>
                 )}
 
                 {editing && (
+                  <Col xs={6}>
                   <button
                     className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark"
                     onClick={handleEditToggle}
                   >
                     Cancel
                   </button>
+                  </Col>
                 )}
+                </Row>
               </div>
             </div>
           </div>

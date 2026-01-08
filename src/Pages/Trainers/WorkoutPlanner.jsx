@@ -126,7 +126,7 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
   };
 
   return (
-    <div className="container-fluid px-4 mt-3">
+    <div className="container-fluid pb-5 mb-5">
       {/* PLAN META */}
       <div className="card p-3 shadow-sm mb-3">
         <div className="row g-3">
@@ -154,7 +154,7 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
             />
           </div>
 
-          <div className="col-md-4 d-flex align-items-end gap-2">
+          <div className="col-md-4">
             <button
               className="btn btn-outline-warning w-100"
               onClick={createNewPlan}
@@ -179,7 +179,7 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
               className="btn btn-dark w-100"
               onClick={() => setShowAIModal(true)}
             >
-              🤖 AI Generate Template
+              🤖 Generate Template
             </button>
           </div>
         </div>
@@ -194,7 +194,7 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
       />
 
       {/* SAVE */}
-      <div className="sticky-bottom bg-white pt-3">
+      <div className="sticky-bottom bg-white py-3">
         <button className="btn btn-warning w-100 fw-bold py-2" onClick={submit}>
           {isEditMode ? "Update Workout Plan" : "Create Workout Plan"}
         </button>
