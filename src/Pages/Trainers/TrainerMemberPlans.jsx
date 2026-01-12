@@ -1,20 +1,16 @@
-import React, { useState } from "react";
-import { Button, Container, Nav } from "react-bootstrap";
+import React from "react";
+import { Button, Container, Accordion } from "react-bootstrap";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import NutritionForm from "./Nutrition"; // existing component
-// import WorkoutForm from "./WorkoutEditor";
+import NutritionForm from "./Nutrition";
 import WorkoutPlanner from "./WorkoutPlanner";
-// import WorkoutForm from "./WorkoutForm"; (next step)
 
 const TrainerMemberPlans = () => {
   const { memberId } = useParams();
   const { state: member } = useLocation();
   const navigate = useNavigate();
 
-  const [activeTab, setActiveTab] = useState("nutrition");
-
   return (
-    <Container className="">
+    <Container className="pb-5">
       {/* Header */}
       <div className="d-flex align-items-center justify-content-between mb-3">
         <div>
@@ -27,41 +23,40 @@ const TrainerMemberPlans = () => {
           </Button>
 
           <h4 className="fw-bold mb-0">{member?.fld_name}</h4>
-          <small className="text-muted">Membership: {member?.fld_status}</small>
+          <small className="text-muted">
+            Membership: {member?.fld_status}
+          </small>
         </div>
       </div>
 
-      {/* Tabs */}
-      <Nav
-        variant="tabs"
-        activeKey={activeTab}
-        onSelect={(k) => setActiveTab(k)}
-        className="mb-4"
-      >
-        <Nav.Item>
-          <Nav.Link eventKey="workout">Workout Plan</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="nutrition">Nutrition Plan</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="history">Plan History</Nav.Link>
-        </Nav.Item>
-      </Nav>
+      {/* Accordion */}
+      <Accordion defaultActiveKey="1" alwaysOpen className="pb-5">
+        {/* Workout Plan */}
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>Workout Plan</Accordion.Header>
+          <Accordion.Body>
+            <WorkoutPlanner selectedMemberId={memberId} />
+          </Accordion.Body>
+        </Accordion.Item>
 
-      {/* Content */}
-      {activeTab === "nutrition" && (
-        <NutritionForm selectedMemberId={memberId} />
-      )}
+        {/* Nutrition Plan */}
+        <Accordion.Item eventKey="1">
+          <Accordion.Header>Nutrition Plan</Accordion.Header>
+          <Accordion.Body>
+            <NutritionForm selectedMemberId={memberId} />
+          </Accordion.Body>
+        </Accordion.Item>
 
-      {activeTab === "workout" && (
-        <WorkoutPlanner selectedMemberId={memberId} />
-        // <div className="text-muted">Workout form coming next 🚧</div>
-      )}
-
-      {activeTab === "history" && (
-        <div className="text-muted">Plan history UI coming next 🚧</div>
-      )}
+        {/* Plan History */}
+        {/* <Accordion.Item eventKey="2">
+          <Accordion.Header>Plan History</Accordion.Header>
+          <Accordion.Body>
+            <div className="text-muted">
+              Plan history UI coming next 🚧
+            </div>
+          </Accordion.Body>
+        </Accordion.Item> */}
+      </Accordion>
     </Container>
   );
 };

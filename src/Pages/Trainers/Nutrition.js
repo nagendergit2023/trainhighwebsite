@@ -195,23 +195,23 @@ const NutritionForm = ({ selectedMemberId }) => {
     );
 
   return (
-    <div className="container mb-5">
+    <div className="container">
       {/* Top Buttons */}
       <div className="d-flex gap-2 mb-3 flex-wrap">
-        <button className="btn btn-success w-100" onClick={exportToWhatsApp}>
-          📲 Send Diet to WhatsApp
-        </button>
+        {/* <button className="btn btn-success w-100" onClick={exportToWhatsApp}>
+          Send Diet to WhatsApp
+        </button> */}
         <button
           className="btn btn-outline-success w-100"
           onClick={() => setAiOpen(true)}
         >
-          🤖 Select Nutrition Plans
+          Select Plan
         </button>
         <button
           className="btn btn-outline-primary w-100"
           onClick={createNewPlan}
         >
-          ➕ Create New Plan
+          Create New Plan
         </button>
       </div>
 
@@ -366,7 +366,7 @@ const NutritionForm = ({ selectedMemberId }) => {
       </div>
 
       {!viewOnly && (
-        <button className="btn btn-warning w-100 fw-bold mb-5" onClick={submit}>
+        <button className="btn btn-warning w-100 fw-bold" onClick={submit}>
           Save
         </button>
       )}

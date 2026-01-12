@@ -125,12 +125,12 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
   };
 
   return (
-    <div className="container-fluid pb-5 mb-5">
+    <div className="">
       {/* PLAN META */}
       <div className="card p-3 shadow-sm mb-3">
         <div className="row g-3">
           <div className="col-md-4">
-            <label className="fw-bold">Plan Type</label>
+            <label className="fw-bold mb-1">Plan Type</label>
             <select
               className="form-select"
               value={planType}
@@ -155,7 +155,7 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
 
           <div className="col-md-4">
             <button
-              className="btn btn-outline-warning w-100"
+              className="btn btn-outline-warning w-100 mb-3"
               onClick={createNewPlan}
             >
               ➕ New Plan
@@ -168,7 +168,7 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
               🔁 Copy Plan
             </button>
 
-            <button
+            {/* <button
               className="btn btn-outline-secondary w-100"
               onClick={() => setShowTemplateModal(true)}
             >
@@ -179,7 +179,7 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
               onClick={() => setShowAIModal(true)}
             >
               🤖 Generate Template
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
@@ -193,7 +193,7 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
       />
 
       {/* SAVE */}
-      <div className="sticky-bottom bg-white py-3">
+      <div className="py-3">
         <button className="btn btn-warning w-100 fw-bold py-2" onClick={submit}>
           {isEditMode ? "Update Workout Plan" : "Create Workout Plan"}
         </button>
