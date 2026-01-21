@@ -134,31 +134,38 @@ function MembershipList() {
           Status: data.fld_status,
           Action: (
             <div className="d-flex align-items-center gap-2 justify-content-evenly">
-              <Link to="/new-membership" state={{ data: data, type: "renew" }}>
-                <Button variant="secondary" className="" size="sm">
-                  Renew Membership
-                </Button>
-              </Link>
-              <Link to="/new-membership" state={{ data: data, type: "update" }}>
-                <Button variant="secondary" className="" size="sm">
-                  Edit
-                </Button>
-              </Link>
-              <Link to="/new-membership" state={{ data: data, type: "renew" }}>
-                <Button variant="secondary" className="" size="sm">
-                  Transfer Membership
-                </Button>
-              </Link>
-              <Link to="/" state={{ data: data, type: "update" }}>
-                <Button variant="secondary" className="" size="sm">
-                  Assign Trainer
-                </Button>
-              </Link>
-              <Link to="/" state={{ data: data, type: "update" }}>
-                <Button variant="secondary" className="" size="sm">
-                  Change Trainer
-                </Button>
-              </Link>
+              <div className="dropdown">
+                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Manage
+                </button>
+                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <Link className="dropdown-item" to="/new-membership" state={{ data: data, type: "update" }}>
+                      Edit
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/new-membership" state={{ data: data, type: "renew" }}>
+                      Renew Membership
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/new-membership" state={{ data: data, type: "renew" }}>
+                      Transfer Membership
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/" state={{ data: data, type: "update" }}>
+                      Assign Trainer
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/" state={{ data: data, type: "update" }}>
+                      Change Trainer
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             </div>
           ),
         };
@@ -218,7 +225,7 @@ function MembershipList() {
                 scroll={{ x: "400", y: 800 }}
                 columns={data.columns}
                 dataSource={data.rows}
-                // onChange={onChange}/
+              // onChange={onChange}/
               />
             </Col>
           </Row>

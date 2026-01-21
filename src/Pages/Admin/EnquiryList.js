@@ -72,7 +72,7 @@ function EnquiryList() {
         sorter: (a, b) => a.StartDate - b.StartDate,
         width: "140px",
       },
-       {
+      {
         title: "End Date",
         dataIndex: "StartDate",
         sorter: (a, b) => a.StartDate - b.StartDate,
@@ -83,7 +83,7 @@ function EnquiryList() {
       //   sorter: (a, b) => a.EndDate - b.EndDate,
       //   width: "140px",
       // },
-      
+
       {
         title: "Status",
         dataIndex: "Status",
@@ -132,16 +132,23 @@ function EnquiryList() {
           Status: data.fld_status,
           Action: (
             <div className="d-flex align-items-center gap-2 justify-content-evenly">
-              <Link to="/new-membership" state={{ data: data, type: "renew" }}>
-                <Button variant="secondary" className="" size="sm">
-                  Renew
-                </Button>
-              </Link>
-              <Link to="/new-membership" state={{ data: data, type: "update" }}>
-                <Button variant="secondary" className="" size="sm">
-                  Edit
-                </Button>
-              </Link>
+              <div className="dropdown">
+                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Manage
+                </button>
+                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <Link className="dropdown-item" to="/new-membership" state={{ data: data, type: "renew" }}>
+                      Renew
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/new-membership" state={{ data: data, type: "update" }}>
+                      Edit
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             </div>
           ),
         };
@@ -181,8 +188,8 @@ function EnquiryList() {
                     >
                       Search
                     </Button>
-                    </Col>
-                    <Col lg={2}>
+                  </Col>
+                  <Col lg={2}>
                     <Button
                       variant="secondary"
                       className="w-100 py-3 mb-3 mb-lg-0"
@@ -201,7 +208,7 @@ function EnquiryList() {
                 scroll={{ x: "400", y: 800 }}
                 columns={data.columns}
                 dataSource={data.rows}
-                // onChange={onChange}/
+              // onChange={onChange}/
               />
             </Col>
           </Row>
