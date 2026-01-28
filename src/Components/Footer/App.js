@@ -33,7 +33,6 @@ import MembersAccount from "./Pages/Members/Account.js";
 import MembersWorkout from "./Pages/Members/Workout.js";
 import MembersNutrition from "./Pages/Members/Nutrition.js";
 import AppFooter from "./Components/Footer/AppFooter.js";
-import AppHeader from "./Components/Header/AppHeader.js"; 
 import EnquiryList from "./Pages/Admin/EnquiryList.js";
 import StaffList from "./Pages/Admin/StaffList.js";
 import TrainersDashboard from "./Pages/Trainers/Dashboard.js";
@@ -48,7 +47,7 @@ function App() {
   return (
     <>
     {window.location.pathname.startsWith("/members/") || window.location.pathname.startsWith("/trainers/") ? (
-  <AppHeader />
+  <AppFooter />
 ) : window.location.pathname !== "/home" ? (
   <Header />
 ) : null}

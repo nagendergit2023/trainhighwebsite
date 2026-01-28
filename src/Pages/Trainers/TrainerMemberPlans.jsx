@@ -12,15 +12,15 @@ const TrainerMemberPlans = () => {
   return (
     <Container className="pb-5">
       {/* Header */}
-      <div className="d-flex align-items-center justify-content-between mb-3">
+      <div className="d-flex align-items-center justify-content-between mb-3 mt-3">
         <div>
-          <Button
+          {/* <Button
             variant="link"
             className="p-0 me-3"
             onClick={() => navigate(-1)}
           >
             ← Back
-          </Button>
+          </Button> */}
 
           <h4 className="fw-bold mb-0">{member?.fld_name}</h4>
           <small className="text-muted">

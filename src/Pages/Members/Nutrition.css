@@ -87,9 +87,10 @@
 .chevron {
   transition: transform 0.25s ease;
   color: currentColor;
+  transform: scale(1.5);
 }
 .accordion-button:not(.collapsed) .chevron {
-  transform: rotate(180deg);
+  transform: rotate(180deg) scale(1.5);
 }
 
 /* Body: custom collapse animation using max-height */

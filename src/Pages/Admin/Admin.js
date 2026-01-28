@@ -4,6 +4,8 @@ import user from "../../assets/images/user_5397249.png";
 import dashboard from "../../assets/images/dashboard_5397249.png";
 import enquiry from "../../assets/images/question_4774995.png";
 import addClasses from "../../assets/images/classes_5397250.png";
+import staff from "../../assets/images/staff_5397249.png";
+
 
 function Admin() {
   return (
@@ -23,8 +25,8 @@ function Admin() {
           </Row>
         </Container>
         <Container>
-          <Row className="justify-content-center align-items-center">
-            <Col lg={3} md={6} sm={6} xs={6}>
+          <Row className="justify-content-start align-items-center">
+            <Col lg={3} md={6} sm={6} xs={6} className="mb-3">
               <Link to="/dashboard" className="text-decoration-none">
                 <Card className="text-center border-0 mb-3 mb-lg-0">
                   <Card.Body>
@@ -40,19 +42,19 @@ function Admin() {
                 </Card>
               </Link>
             </Col>
-            <Col lg={3} md={6} sm={6} xs={6}>
+            <Col lg={3} md={6} sm={6} xs={6} className="mb-3">
               <Link to="/membership-list" className="text-decoration-none">
                 <Card className="text-center border-0 mb-3 mb-lg-0">
                   <Card.Body>
                     <img alt="" src={user} className="w-lg-50 w-sm-100 mb-2" />
                     <Card.Title className="text-capitalize mb-0 h6">
-                      members list
+                      members
                     </Card.Title>
                   </Card.Body>
                 </Card>
               </Link>
             </Col>
-            <Col lg={3} md={6} sm={6} xs={6}>
+            <Col lg={3} md={6} sm={6} xs={6} className="mb-3">
               <Link to="/new-membership" className="text-decoration-none">
                 <Card className="text-center border-0 mb-3 mb-lg-0">
                   <Card.Body>
@@ -69,7 +71,7 @@ function Admin() {
               </Link>
             </Col>
 
-            <Col lg={3} md={6} sm={6} xs={6}>
+            <Col lg={3} md={6} sm={6} xs={6} className="mb-3">
               <Link to="/enquiry-list" className="text-decoration-none">
                 <Card className="text-center border-0 mb-3 mb-lg-0">
                   <Card.Body>
@@ -80,6 +82,23 @@ function Admin() {
                     />
                     <Card.Title className="text-capitalize mb-0 h6">
                       enquiry
+                    </Card.Title>
+                  </Card.Body>
+                </Card>
+              </Link>
+            </Col>
+
+            <Col lg={3} md={6} sm={6} xs={6} className="mb-3">
+              <Link to="/staff-list" className="text-decoration-none">
+                <Card className="text-center border-0 mb-3 mb-lg-0">
+                  <Card.Body>
+                    <img
+                      alt=""
+                      src={staff}
+                      className="w-lg-50 w-sm-100 mb-2"
+                    />
+                    <Card.Title className="text-capitalize mb-0 h6">
+                      staff
                     </Card.Title>
                   </Card.Body>
                 </Card>

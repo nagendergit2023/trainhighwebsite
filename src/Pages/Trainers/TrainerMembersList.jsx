@@ -63,7 +63,7 @@ const TrainerMembersList = () => {
                                 )
                               }
                             >
-                              View Attendance
+                            Attendance
                             </Button>
                           </Col>
                           <Col xs={6}>
