@@ -8,6 +8,7 @@ import About from "./Pages/About/About.js";
 import Contact from "./Pages/Contact/Contact.js";
 import Admin from "./Pages/Admin/Admin.js";
 import Dashboard from "./Pages/Admin/Dashboard.js";
+import Attendence from "./Pages/Admin/Attendence.js";
 // import ComingSoon from "./Pages/Home/ComingSoon.js";
 import NewMembership from "./Pages/Admin/NewMembership.js";
 import MembershipList from "./Pages/Admin/MembershipList.js";
@@ -65,6 +66,7 @@ function App() {
         <Route path="/franchise" element={<Franchise />} />
         <Route path="/admin-panel" element={<Admin />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/attendence" element={<Attendence />} />
         <Route path="/new-membership" element={<NewMembership />} />
         <Route path="/enquiry-list" element={<EnquiryList />} />
         <Route path="/membership-list" element={<MembershipList />} />
