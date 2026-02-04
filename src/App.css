@@ -241,6 +241,9 @@ a {
 }
 
 @media screen and (max-width: 768px) {
+  #root {
+ padding-bottom: 5rem;
+}
   .carousel-inner,
   .carousel-inner img {
     height: 75vh;
@@ -248,6 +251,10 @@ a {
   }
   .navbar-logo {
     width: 100px;
+    border-radius: 50%;
+  }
+  .navbar-logo-app-header {
+    width: 85px;
     border-radius: 50%;
   }
   .w-sm-100 {

@@ -103,8 +103,8 @@ const Account = () => {
   };
 
   return (
-    <div className="container pt-3 pb-5 profile-container">
-      <div className="row justify-content-center pb-5">
+    <div className="container pt-3 profile-container">
+      <div className="row justify-content-center">
         <div className="col-md-8">
           <div className="">
             <div className="text-center">
@@ -227,38 +227,46 @@ const Account = () => {
                 <h5 className="mb-3">Fitness Stats</h5>
 
                 <div className="row mb-2">
-                  <div className="col-12 d-flex gap-2">
+                  <div className="col-6 d-flex gap-2">
                     <span className="fw-bold">Weight:</span>
                   <span>
                     {editing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="weight"
-                        value={user.weight || ""}
-                        onChange={handleChange}
-                      />
+                     <div className="input-group">
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="weight"
+                            value={user.weight || ""}
+                            onChange={handleChange}
+                            maxLength={4}
+                          />
+                          <span className="input-group-text">kg</span>
+                        </div>
                     ) : (
-                      user.weight
+                      `${user.weight} kg`
                     )}
                     </span>
                   </div>
                 </div>
 
                 <div className="row mb-2">
-                  <div className="col-12 d-flex gap-2">
+                  <div className="col-6 d-flex gap-2">
                     <span className="fw-bold">Height:</span>
                   <span>
                     {editing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="height"
-                        value={user.height || ""}
-                        onChange={handleChange}
-                      />
+                      <div className="input-group">
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="height"
+                            value={user.height || ""}
+                            onChange={handleChange}
+                            maxLength={4}
+                          />
+                          <span className="input-group-text">cm</span>
+                        </div>
                     ) : (
-                      user.height
+                      `${user.height} cm`
                     )}
                     </span>
                   </div>

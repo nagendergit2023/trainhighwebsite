@@ -42,7 +42,17 @@
 }
 
 /* remove default ::after (bootstrap arrow) if present */
-.accordion-button::after { display: none; }
+/* .accordion-button::after { display: none; } */
+
+.accordion-button::after {
+  color: var(--theme-black);
+  background-size: 1.25rem;
+  transform: rotate(0deg);
+}
+
+.accordion-button:not(.collapsed)::after {
+  transform: rotate(180deg);
+}
 
 /* Left side of header */
 .day-left {

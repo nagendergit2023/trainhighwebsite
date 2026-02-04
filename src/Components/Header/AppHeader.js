@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import "./AppHeader.css";
+import image1 from "../../assets/images/train_high_gym_logo.png";
 
 const routeTitles = {
   "/": "Home",
@@ -39,9 +40,7 @@ const BottomAppBar = () => {
 
           {/* Dynamic Title */}
           <Col xs={8} className="text-center">
-            <h2 className="text-white text-capitalize mb-0">
-              {title}
-            </h2>
+            <img src={image1} className="navbar-logo-app-header" alt="Logo" />
           </Col>
 
           <Col xs={2}></Col>

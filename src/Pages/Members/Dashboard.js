@@ -56,12 +56,12 @@ const Dashboard = () => {
                 </RadialBarChart>
               </ResponsiveContainer>
             </div>
-            <MemberWorkoutCalendar
+            {/*<MemberWorkoutCalendar
               memberId={
                 4
-                // loggedInMemberId
+                //loggedInMemberId
               }
-            />
+            />*/}
             {/* Legend BELOW chart */}
             <div className="d-flex justify-content-center mt-0 flex-wrap gap-3">
               {data.map((item, index) => (

@@ -1,3 +1,20 @@
 .training-stats h1 {
     font-size: 100px;
 }
+
+.client-profile-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 4px solid var(--theme-golden);
+}
+
+.dropdown-toggle {
+        background-color: white;
+    border: none;
+    font-size: x-large;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}

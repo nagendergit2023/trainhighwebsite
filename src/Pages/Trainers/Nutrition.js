@@ -195,7 +195,7 @@ const NutritionForm = ({ selectedMemberId }) => {
     );
 
   return (
-    <div className="container">
+    <div className="">
       {/* Top Buttons */}
       <div className="d-flex gap-2 mb-3 flex-wrap">
         {/* <button className="btn btn-success w-100" onClick={exportToWhatsApp}>

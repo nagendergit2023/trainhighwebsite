@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Account.css";
 import { Col, Row } from "react-bootstrap";
+import { notification } from "antd";
 
 const Account = () => {
   const [editing, setEditing] = useState(false);
@@ -25,22 +26,24 @@ const Account = () => {
 
   const handleSave = () => {
     setEditing(false);
-    alert("Profile updated successfully!");
+    notification.success({
+      description: "Profile updated successfully!",
+    });
   };
 
   const handleEditButton = () => {
-  // your existing toggle logic
+    // your existing toggle logic
 
-  // logout logic
-  localStorage.clear();
-  sessionStorage.clear();
-  window.location.reload(); 
-  window.location.href = "/login";
-};
+    // logout logic
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.reload();
+    window.location.href = "/login";
+  };
 
   return (
-    <div className="container pt-3 pb-5 profile-container">
-      <div className="row justify-content-center pb-5">
+    <div className="container pt-3 profile-container">
+      <div className="row justify-content-center">
         <div className="col-md-8">
           <div className="">
             <div className="text-center">
@@ -61,18 +64,18 @@ const Account = () => {
                   <div className="col-12 d-flex gap-2">
                     <span className="fw-bold">Last Check-In:</span>
                     <span>
-                    {editing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="checkin"
-                        value={user.checkin}
-                        onChange={handleChange}                        
-                        readOnly
-                      />
-                    ) : (
-                      user.checkin
-                    )}
+                      {editing ? (
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="checkin"
+                          value={user.checkin}
+                          onChange={handleChange}
+                          readOnly
+                        />
+                      ) : (
+                        user.checkin
+                      )}
                     </span></div>
                 </div>
 
@@ -81,18 +84,18 @@ const Account = () => {
                     <span className="fw-bold">Email:</span>
                     <span>
                       {editing ? (
-                      <input
-                        type="email"
-                        className="form-control"
-                        name="email"
-                        value={user.email}
-                        onChange={handleChange}
-                      />
-                    ) : (
-                      user.email
-                    )}
+                        <input
+                          type="email"
+                          className="form-control"
+                          name="email"
+                          value={user.email}
+                          onChange={handleChange}
+                        />
+                      ) : (
+                        user.email
+                      )}
                     </span>
-                    </div>
+                  </div>
                 </div>
 
                 <div className="row mb-2">
@@ -100,111 +103,119 @@ const Account = () => {
                     <span className="fw-bold">Phone:</span>
                     <span>
                       {editing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="phone"
-                        value={user.phone}
-                        onChange={handleChange}
-                      />
-                    ) : (
-                      user.phone
-                    )}
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="phone"
+                          value={user.phone}
+                          onChange={handleChange}
+                        />
+                      ) : (
+                        user.phone
+                      )}
                     </span>
-                    </div>
+                  </div>
                 </div>
 
                 <div className="row mb-2">
                   <div className="col-12 d-flex gap-2">
                     <span className="fw-bold">Join Date:</span>
                     <span>{user.joinDate}</span>
-                  </div>                  
+                  </div>
                 </div>
 
                 <hr />
                 <h5 className="mb-3">Fitness Stats</h5>
                 <div className="row mb-2">
-                  <div className="col-12 d-flex gap-2">
+                  <div className="col-6 d-flex gap-2">
                     <span className="fw-bold">Weight:</span>
                     <span>
-                    {editing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="weight"
-                        value={user.weight}
-                        onChange={handleChange}
-                      />
-                    ) : (
-                      user.weight
-                    )}
-                  </span>
-                    </div>
-                  
+                      {editing ? (
+                        <div className="input-group">
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="weight"
+                            value={user.weight}
+                            onChange={handleChange}
+                            maxLength={4}
+                          />
+                          <span className="input-group-text">kg</span>
+                        </div>
+                      ) : (
+                        `${user.weight} kg`
+                      )}
+                    </span>
+                  </div>
+
                 </div>
                 <div className="row mb-2">
-                  <div className="col-12 d-flex gap-2">
-<span className="fw-bold">Height:</span>
-<span>
-  {editing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="height"
-                        value={user.height}
-                        onChange={handleChange}
-                      />
-                    ) : (
-                      user.height
-                    )}
-</span>
+                  <div className="col-6 d-flex gap-2">
+                    <span className="fw-bold">Height:</span>
+                    <span>
+                      {editing ? (
+                        <div className="input-group">
+                          <input
+                            type="text"
+                            className="form-control"
+                            name="height"
+                            value={user.height}
+                            onChange={handleChange}
+                            maxLength={4}
+                          />
+                          <span className="input-group-text">cm</span>
+                        </div>
+                      ) : (
+                        `${user.height} cm`
+                      )}
+                    </span>
                   </div>
                 </div>
               </div>
 
               <div className="">
-                <Row>                
-                {editing ? (
-                 <Col xs={6}>
-                   <button
-                    className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark mb-3"
-                    onClick={handleSave}
-                  >
-                    Save
-                  </button>
-                 </Col>
-                ) : (
-                  <>
-                  <Col xs={6}>
-                  <button
-                    className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark mb-3"
-                    onClick={handleEditToggle}
-                  >
-                    Edit Profile
-                  </button>
-                  </Col>
-                  <Col xs={6}>
-                  <button
-                    className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-warning"
-                    onClick={handleEditButton}
-                  >
-                    Logout
-                  </button>
-                  </Col>
-                  </>
-                )}
-                {editing && (
-                  <Col xs={6}>
-                  <button
-                    className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark"
-                    onClick={handleEditToggle}
-                  >
-                    Cancel
-                  </button>
-                  </Col>
-                )}
+                <Row>
+                  {editing ? (
+                    <Col xs={6}>
+                      <button
+                        className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark mb-3"
+                        onClick={handleSave}
+                      >
+                        Save
+                      </button>
+                    </Col>
+                  ) : (
+                    <>
+                      <Col xs={6}>
+                        <button
+                          className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark mb-3"
+                          onClick={handleEditToggle}
+                        >
+                          Edit Profile
+                        </button>
+                      </Col>
+                      <Col xs={6}>
+                        <button
+                          className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-warning"
+                          onClick={handleEditButton}
+                        >
+                          Logout
+                        </button>
+                      </Col>
+                    </>
+                  )}
+                  {editing && (
+                    <Col xs={6}>
+                      <button
+                        className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark"
+                        onClick={handleEditToggle}
+                      >
+                        Cancel
+                      </button>
+                    </Col>
+                  )}
 
-                 </Row>
+                </Row>
               </div>
             </div>
           </div>

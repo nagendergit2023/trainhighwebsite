@@ -28,7 +28,7 @@
   background: linear-gradient(90deg, #eef4ff 0%, #ffffff 100%);
   color: var(--theme-black);
   font-weight: 600;
-  padding: 1rem 1.25rem;
+  padding: .25rem 1.25rem;
   border: none;
   display:flex;
   gap: 0.75rem;
@@ -42,7 +42,7 @@
 }
 
 /* remove default ::after (bootstrap arrow) if present */
-.accordion-button::after { display: none; }
+/* .accordion-button::after { display: none; } */
 
 /* Left side of header */
 .day-left {

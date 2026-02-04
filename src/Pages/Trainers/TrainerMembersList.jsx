@@ -3,8 +3,10 @@ import { Card, Col, Container, Row, Button, Badge } from "react-bootstrap";
 import GetApiCall from "../../helpers/GetApi";
 import moment from "moment";
 import noimage from "../../assets/images/No_Image_Available.jpg";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Hero from "../../Components/Hero/Hero";
+import { BsThreeDots } from "react-icons/bs";
+import "./Members.css"
 
 const TrainerMembersList = () => {
   const [members, setMembers] = useState([]);
@@ -18,30 +20,54 @@ const TrainerMembersList = () => {
 
   return (
     <>
-      <section className="inner-section pb-5">
-        <Container>
-          <h2 class="weekly-title text-center">My Clients</h2>
+      <Container className="mb-5 mt-3">
+          <h2 class="weekly-title mb-4 text-center">My Clients</h2>
           <Row>
             {members.map((member) => (
-              <Col lg={4} md={6} sm={12} key={member.fld_id} className="mb-4">
-                <Card className="h-100 shadow-sm border-0 d-flex">
-                  <Row className="g-0">
-                    {/* <Col xs={4}>
-                    <Card.Img
-                    variant="top"
-                    src={member.fld_image || noimage}
-                    style={{
-                      height: "220px",
-                      objectFit: "cover",
-                    }}
-                  />
-                    </Col> */}
-                    <Col xs={12}>
-                      <Card.Body>
-                        <h5 className="fw-bold d-flex justify-content-between">
-                          <span>{member.fld_name}</span>
-                          <Badge pill bg={member.fld_status !== "Active" ? "danger" : "success"} className="">{member.fld_status}</Badge>
-                        </h5>
+              <Col lg={4} md={6} sm={12} key={member.fld_id} className="mb-3">
+                <Card className="h-100 border-1 d-flex">
+                  <Card.Body>
+                        <div className="fw-bold d-flex justify-content-between align-items-center">
+                          <div className="d-flex justify-content-start align-items-center gap-3">
+                            <Card.Img
+                            variant="top"
+                            src={member.fld_image || noimage}
+                            className="rounded-circle client-profile-img"
+                          />
+                          <span>
+                            <h5 className="d-block fw-bold">{member.fld_name}</h5>
+                            <Badge pill bg={member.fld_status !== "Active" ? "danger" : "success"} className="">{member.fld_status}</Badge>
+                          </span>
+                          </div>
+                          <span>
+                            
+                             <div className="dropdown">
+                                            <button 
+                                            className="dropdown-toggle" 
+                                            type="button" 
+                                            id="dropdownMenuButton1" 
+                                            data-bs-toggle="dropdown" 
+                                            aria-expanded="false">
+                                              <BsThreeDots />
+                                            </button>
+                                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                              <li>
+                                                <Link className="dropdown-item" 
+                                                to={`/trainers/member/${member.fld_id}/attendance`}>
+                                                  Attendence
+                                                </Link>
+                                              </li>
+                                              <li>
+                                                <Link className="dropdown-item"
+                                                 to={`/trainers/member/${member.fld_id}/plans`}
+                                                 state={member}>
+                                                  Manage
+                                                </Link>
+                                              </li>
+                                            </ul>
+                                          </div>
+                          </span>
+                        </div>
                         {/* <p className="mb-1 text-muted">
                       📞 {member.fld_mobile_number}                      
                     </p> */}
@@ -52,10 +78,10 @@ const TrainerMembersList = () => {
                       ⏳ Valid Till: {moment(member.fld_end_date).format("ll")}
                     </p> */}
 
-                        <Row>
-                           <Col xs={6}>
+                        {/* <Row>
+                          <Col xs={6}>
                             <Button
-                            className="w-100"
+                              className="w-100"
                               variant="outline-secondary"
                               onClick={() =>
                                 navigate(
@@ -63,12 +89,12 @@ const TrainerMembersList = () => {
                                 )
                               }
                             >
-                            Attendance
+                              Attendance
                             </Button>
                           </Col>
                           <Col xs={6}>
                             <Button
-                            className="w-100"
+                              className="w-100"
                               variant="warning"
                               onClick={() =>
                                 navigate(`/trainers/member/${member.fld_id}/plans`, {
@@ -79,11 +105,9 @@ const TrainerMembersList = () => {
                               Manage
                             </Button>
                           </Col>
-                         
-                        </Row>
+
+                        </Row> */}
                       </Card.Body>
-                    </Col>
-                  </Row>
                 </Card>
               </Col>
             ))}
@@ -93,7 +117,6 @@ const TrainerMembersList = () => {
             )}
           </Row>
         </Container>
-      </section>
     </>
   );
 };

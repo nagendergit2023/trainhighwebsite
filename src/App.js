@@ -44,6 +44,7 @@ import TrainersNutrition from "./Pages/Trainers/Nutrition.js";
 import NewBatch from "./Pages/BatchClasses/NewBatchClass.js";
 import TrainerMembersList from "./Pages/Trainers/TrainerMembersList.jsx";
 import TrainerMemberPlans from "./Pages/Trainers/TrainerMemberPlans.jsx";
+import TrainersTemplate from "./Pages/Trainers/TrainersTemplate.js";
 
 function App() {
   return (
@@ -78,7 +79,7 @@ function App() {
         <Route path="/trainers/profile" element={<TrainersProfile />} />
         <Route path="/trainers/dashboard" element={<TrainersDashboard />} />
         <Route path="/trainers/account" element={<TrainersAccount />} />
-        {/* <Route path="/trainers/workout" element={<TrainersWorkout />} /> */}
+        <Route path="/trainers/templates" element={<TrainersTemplate />} />
         <Route path="/trainers/nutrition" element={<TrainersNutrition />} />
         <Route path="/new-batch" element={<NewBatch />} />
         <Route path="/blogs" element={<Blogs />} />

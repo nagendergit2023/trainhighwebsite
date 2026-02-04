@@ -10,7 +10,7 @@ const TrainerMemberPlans = () => {
   const navigate = useNavigate();
 
   return (
-    <Container className="pb-5">
+    <Container>
       {/* Header */}
       <div className="d-flex align-items-center justify-content-between mb-3 mt-3">
         <div>

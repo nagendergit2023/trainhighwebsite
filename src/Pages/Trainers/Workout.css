@@ -42,7 +42,7 @@
 }
 
 /* remove default ::after (bootstrap arrow) if present */
-.accordion-button::after { display: none; }
+/* .accordion-button::after { display: none; } */
 
 /* Left side of header */
 .day-left {
