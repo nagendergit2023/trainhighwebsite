@@ -47,8 +47,8 @@ const Nutrition = ({ selectedMemberId }) => {
 
   if (loading) {
     return (
-      <div className="d-flex justify-content-center align-items-center mt-5">
-        <Spin tip="Loading nutrition plan..." size="large" />
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <Spin tip="Loading nutrition plan..." size="large" className="black-spin" />
       </div>
     );
   }
