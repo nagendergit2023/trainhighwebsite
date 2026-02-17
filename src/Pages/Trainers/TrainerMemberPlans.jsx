@@ -23,14 +23,12 @@ const TrainerMemberPlans = () => {
           </Button> */}
 
           <h4 className="fw-bold mb-0">{member?.fld_name}</h4>
-          <small className="text-muted">
-            Membership: {member?.fld_status}
-          </small>
+          <small className="text-muted">Membership: {member?.fld_status}</small>
         </div>
       </div>
 
       {/* Accordion */}
-      <Accordion defaultActiveKey="1" alwaysOpen className="pb-5">
+      <Accordion defaultActiveKey="0" alwaysOpen className="pb-5">
         {/* Workout Plan */}
         <Accordion.Item eventKey="0">
           <Accordion.Header>Workout Plan</Accordion.Header>

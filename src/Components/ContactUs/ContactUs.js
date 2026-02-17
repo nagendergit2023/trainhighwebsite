@@ -9,6 +9,7 @@ function ContactUs() {
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState(null);
   const [message, setMessage] = useState("");
+  const [type, setType] = useState("");
 
   const contactus = () => {
     if (name != "" && mobile != null && mobile != "" && email != "") {
@@ -20,6 +21,7 @@ function ContactUs() {
           email: "trainhighgym@gmail.com",
           senderemail: email,
           desciption: message,
+          type:type
         },
         "contactus"
       ).then((results) => {
@@ -55,7 +57,7 @@ function ContactUs() {
             <h1 className="section-title px-lg-0 px-3">get in touch with us</h1>
             <p>WE ARE ALWAYS READY TO HEAR FROM YOU</p>
           </Col>
-          <Col lg={4}>
+          <Col lg={3}>
             <div className="form-floating mb-3">
               <input
                 type="text"
@@ -68,7 +70,7 @@ function ContactUs() {
               <label for="floatingInput">Full Name *</label>
             </div>
           </Col>
-          <Col lg={4}>
+          <Col lg={3}>
             <div className="form-floating mb-3">
               <input
                 type="text"
@@ -81,7 +83,7 @@ function ContactUs() {
               <label for="floatingInput">Mobile Number *</label>
             </div>
           </Col>
-          <Col lg={4}>
+          <Col lg={3}>
             <div className="form-floating mb-3">
               <input
                 type="email"
@@ -92,6 +94,20 @@ function ContactUs() {
                 onChange={(e) => setEmail(e.target.value)}
               />
               <label for="floatingInput">Email address *</label>
+            </div>
+          </Col>
+          <Col lg={3}>
+            <div className="form-floating mb-3">
+              <select
+                className="form-control"
+                id="floatingInput"
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+              >
+                <option value="Franchise">Franchise</option>
+                <option value="Membership">Membership</option>
+              </select>
+              <label for="floatingInput">Enquiry For *</label>
             </div>
           </Col>
           <Col lg={12}>

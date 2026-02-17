@@ -37,7 +37,11 @@ function NewMembership() {
     "http://68.178.170.174:3309/trainhighgym-api/AddImage"
   );
   // const [previewUrl, setPreviewUrl] = useState("");
-
+  const [showBiometric, setShowBiometric] = useState(true);
+  const [biometricStatus, setBiometricStatus] = useState("");
+  const [selectedDevice, setSelectedDevice] = useState("");
+  const [trainer, setTrainer] = useState("");
+  const [staff, setStaff] = useState([]);
   const presets = [
     {
       label: "Yesterday",
@@ -55,6 +59,13 @@ function NewMembership() {
   const handlePincodeChange = async (e) => {
     const value = typeof e === "object" ? e.target.value : e;
     setPincode(value);
+
+    if (value.length !== 6) {
+      setCity([]);
+      setState("");
+      return;
+    }
+
     try {
       const response = await axios.get(
         `https://api.postalpincode.in/pincode/${value}`
@@ -74,10 +85,11 @@ function NewMembership() {
       }
     } catch (error) {
       console.error("Error fetching pincode data:", error);
-      setCity("");
+      setCity([]);
       setState("");
     }
   };
+
   const ImgUpload = ({ onChange, src, id }) => (
     <label
       htmlFor="photo-upload"
@@ -120,6 +132,7 @@ function NewMembership() {
       setAmountPerMonth(location.state.data.fld_amount_permnth);
       setOldmembershipid(location.state.data.fld_old_membership);
       setType(location.state.data.fld_type);
+      setTrainer(location.state.data.trainer_id);
     } else if (location.state !== null && location.state.type === "renew") {
       setName(location.state.data.fld_name);
       setMobile(location.state.data.fld_mobile_number);
@@ -135,11 +148,36 @@ function NewMembership() {
       setMembershipNumber(location.state.data.fld_membership_number);
       setStatus(location.state.data.fld_status);
       setOldmembershipid(location.state.data.fld_id);
+      setTrainer(location.state.data.trainer_id);
       setType("New");
       GetApiCall.getRequest("GetSerialNumber").then((results) => {
         results.json().then((obj) => {
           if (results.status === 200 || results.status === 201) {
             setApplicationNumber(obj.appNumber);
+          }
+        });
+      });
+    } else if (location.state !== null && location.state.type === "convert") {
+      const enquiry = location.state.enquiryData;
+
+      setName(enquiry.fld_name);
+      setMobile(enquiry.fld_phone);
+      setEmail(enquiry.fld_email);
+      setType("New");
+
+      // optional defaults
+      setStatus("Active");
+      setAddress("");
+      setPincode("");
+      setSelectedCity("");
+      setState("");
+
+      // generate new numbers
+      GetApiCall.getRequest("GetSerialNumber").then((results) => {
+        results.json().then((obj) => {
+          if (results.status === 200 || results.status === 201) {
+            setApplicationNumber(obj.appNumber);
+            setMembershipNumber(obj.membershipNumber);
           }
         });
       });
@@ -154,100 +192,71 @@ function NewMembership() {
       });
     }
   }, []);
-  const SaveForm = () => {
-    if (name !== "") {
-      if (mobile !== null) {
-        if (address !== "") {
-          if (email !== "") {
-            if (status !== "") {
-              if (amountPerMonth !== null) {
-                if (startDate !== null) {
-                  if (memberShip !== "" && memberShip != null) {
-                    PostApiCall.postRequest(
-                      {
-                        id: id,
-                        name: name,
-                        mobile: mobile,
-                        address: address,
-                        application: applicationNumber,
-                        membershipnumber: membershipNumber,
-                        membership: memberShip,
-                        pincode: pincode,
-                        state: state,
-                        city: selectedCity,
-                        startDate: startDate,
-                        endDate: endDate,
-                        email: email,
-                        userstatus: status,
-                        amount: amountPerMonth,
-                        type: type,
-                        oldmembership: oldmembershipid,
-                      },
-                      "AddUserDetails"
-                    ).then((results) => {
-                      results.json().then((obj) => {
-                        if (results.status === 200 || results.status === 201) {
-                          navigate("/tax-invoice", {
-                            state: obj,
-                          });
-                        }
-                      });
-                    });
-                  } else {
-                    notification.error({
-                      message: `Notification error`,
-                      description: "Please Select Membership Period",
-                    });
-                  }
-                } else {
-                  notification.error({
-                    message: `Notification error`,
-                    description: "Please Enter Start Date",
-                  });
-                }
-              } else {
-                notification.error({
-                  message: `Notification error`,
-                  description: "Please Enter Fee Per Month",
-                });
-              }
-            } else {
-              notification.error({
-                message: `Notification error`,
-                description: "Please Select Status Of Member",
-              });
-            }
-          } else {
-            notification.error({
-              message: `Notification error`,
-              description: "Please Enter Email",
-            });
-          }
-        } else {
-          notification.error({
-            message: `Notification error`,
-            description: "Please Enter Address",
-          });
-        }
-      } else {
-        notification.error({
-          message: `Notification error`,
-          description: "Please Enter Mobile Number",
-        });
+  const validateForm = () => {
+    if (!name.trim()) return "Please Enter Name";
+    if (!mobile || mobile.length !== 10)
+      return "Please Enter Valid Mobile Number";
+    if (!address.trim()) return "Please Enter Address";
+    if (!email.trim()) return "Please Enter Email";
+    if (!status) return "Please Select Status Of Member";
+    if (!amountPerMonth) return "Please Enter Fee Per Month";
+    if (!startDate) return "Please Enter Start Date";
+    if (!memberShip) return "Please Select Membership Period";
+
+    return null;
+  };
+
+  const SaveForm = async () => {
+    const error = validateForm();
+    if (error) {
+      notification.error({ message: "Validation Error", description: error });
+      return;
+    }
+
+    try {
+      const response = await PostApiCall.postRequest(
+        {
+          id,
+          name,
+          mobile,
+          address,
+          application: applicationNumber,
+          membershipnumber: membershipNumber,
+          membership: memberShip,
+          pincode,
+          state,
+          city: selectedCity,
+          startDate,
+          endDate,
+          email,
+          userstatus: status,
+          amount: amountPerMonth,
+          type,
+          oldmembership: oldmembershipid,
+        },
+        "AddUserDetails"
+      );
+
+      const obj = await response.json();
+
+      if (response.status === 200 || response.status === 201) {
+        setShowBiometric(true);
+        setBiometricStatus("PENDING_ENROLLMENT");
+        notification.success({ message: "Member Saved Successfully" });
       }
-    } else {
+    } catch (err) {
       notification.error({
-        message: `Notification error`,
-        description: "Please Enter Name",
+        message: "Server Error",
+        description: "Failed to save member",
       });
     }
   };
 
   const onChangeStartDate = (date) => {
-    setStartDate(date); // Update the start date
+    setStartDate(date);
+
     if (date && memberShip) {
-      const calculatedEndDate = moment(date).add(memberShip, "months");
-      setEndDate(calculatedEndDate);
+      setEndDate(dayjs(date).add(Number(memberShip), "month"));
     } else {
       setEndDate(null);
     }
@@ -257,8 +266,7 @@ function NewMembership() {
     setMemberShip(value);
 
     if (startDate && value) {
-      const calculatedEndDate = moment(startDate).add(value, "months");
-      setEndDate(calculatedEndDate);
+      setEndDate(dayjs(startDate).add(Number(value), "month"));
     } else {
       setEndDate(null);
     }
@@ -274,6 +282,31 @@ function NewMembership() {
       setEndDate(start.add(12, "month"));
     }
   };
+  const loadStaff = () => {
+    GetApiCall.getRequest("staff").then((res) =>
+      res.json().then((data) => setStaff(data.data))
+    );
+  };
+
+  useEffect(() => {
+    loadStaff();
+  }, []);
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const preview = URL.createObjectURL(file);
+    setSelectedLogo(preview);
+
+    const form = new FormData();
+    form.append("file", file);
+    form.append("filename", `UserLogo-${file.name.replace(/\s/g, "")}`);
+
+    fetch(ImageApiUrl, { method: "POST", body: form });
+
+    return () => URL.revokeObjectURL(preview);
+  };
+
   return (
     <>
       <Hero />
@@ -281,291 +314,340 @@ function NewMembership() {
         <Container>
           <Row className="justify-content-center align-items-center">
             <Col lg={12}>
-              <Form onSubmit={SaveForm}>
-                <Row>
-                  <Col lg={3}>
-                    <Row>
-                      <Col lg={12} className="text-center mb-3">
-                        <a href="#" className="customer-photo">
-                          <ImgUpload
-                            onChange={(e) => {
-                              e.preventDefault();
-                              const imageFile = e.target.files[0];
-                              setSelectedLogo(URL.createObjectURL(imageFile));
-                              const form = new FormData();
-                              let filename = `UserLogo-${imageFile.name.replace(
-                                / /g,
-                                ""
-                              )}`;
-                              form.append("file", imageFile);
-                              // form.append("foldername", "profileimages");
-                              form.append("filename", filename);
-                              let response = fetch(ImageApiUrl, {
-                                method: "POST",
-                                body: form,
+              {/* <Form onSubmit={SaveForm}> */}
+              <Row>
+                <Col lg={3}>
+                  <Row>
+                    <Col lg={12} className="text-center mb-3">
+                      <a href="#" className="customer-photo">
+                        <ImgUpload
+                          onChange={handleImageUpload}
+                          src={selectedLogo || uploadimage}
+                        />
+
+                        {/* <Image src={CustomerPhoto} thumbnail /> */}
+                      </a>
+                    </Col>
+                  </Row>
+                </Col>
+                <Col lg={9}>
+                  <Row>
+                    <Col lg={6}>
+                      <FloatingLabel
+                        controlId="floatingInput"
+                        label="Application Number"
+                        className="mb-3"
+                      >
+                        <Form.Control
+                          type="text"
+                          value={applicationNumber}
+                          disabled
+                          placeholder=""
+                        />
+                      </FloatingLabel>
+                    </Col>
+                    <Col lg={6}>
+                      <FloatingLabel
+                        controlId="floatingInput"
+                        label="Membership Number"
+                        className="mb-3"
+                      >
+                        <Form.Control
+                          type="text"
+                          value={membershipNumber}
+                          disabled
+                          placeholder=""
+                        />
+                      </FloatingLabel>
+                    </Col>
+                    <Col lg={6}>
+                      <FloatingLabel
+                        controlId="floatingInput"
+                        label="Full Name"
+                        className="mb-3"
+                      >
+                        <Form.Control
+                          type="text"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          placeholder=""
+                        />
+                      </FloatingLabel>
+                    </Col>
+                    <Col lg={6}>
+                      <FloatingLabel
+                        controlId="floatingInput"
+                        label="Mobile Number"
+                        className="mb-3"
+                      >
+                        <Form.Control
+                          type="text"
+                          value={mobile}
+                          onChange={(e) => setMobile(e.target.value)}
+                          placeholder=""
+                        />
+                      </FloatingLabel>
+                    </Col>
+                    <Col lg={6}>
+                      <FloatingLabel
+                        controlId="floatingInput"
+                        label="Full Address"
+                        className="mb-3"
+                      >
+                        <Form.Control
+                          type="text"
+                          value={address}
+                          onChange={(e) => setAddress(e.target.value)}
+                          placeholder=""
+                        />
+                      </FloatingLabel>
+                    </Col>
+                    <Col lg={3}>
+                      <FloatingLabel
+                        controlId="floatingInput"
+                        label="Pincode"
+                        className="mb-3"
+                      >
+                        <Form.Control
+                          type="text"
+                          value={pincode}
+                          onChange={handlePincodeChange}
+                          placeholder=""
+                        />
+                      </FloatingLabel>
+                    </Col>
+                    <Col lg={3}>
+                      <FloatingLabel
+                        controlId="floatingSelect"
+                        label="State"
+                        className="mb-3"
+                      >
+                        <Form.Control
+                          type="text"
+                          value={state}
+                          placeholder=""
+                          disabled
+                        />
+                      </FloatingLabel>
+                    </Col>
+                    <Col lg={6}>
+                      <FloatingLabel
+                        controlId="floatingInput"
+                        label="Email"
+                        className="mb-3"
+                      >
+                        <Form.Control
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder=""
+                        />
+                      </FloatingLabel>
+                    </Col>
+                    <Col lg={3}>
+                      <FloatingLabel
+                        controlId="floatingSelect"
+                        label="Select City"
+                        className="mb-3"
+                      >
+                        <Form.Select
+                          aria-label="Floating label select example"
+                          onChange={(e) => {
+                            setSelectedCity(e.target.value);
+                          }}
+                        >
+                          {city.length > 0
+                            ? city.map((data) => {
+                                return (
+                                  <option value={data.Block + "-" + data.Name}>
+                                    {data.Block + "-" + data.Name}
+                                  </option>
+                                );
                               })
-                                .then((response) => response.json())
-                                .then((data) => {});
-                            }}
-                            src={
-                              selectedLogo === "" ? uploadimage : selectedLogo
-                            }
-                          />
+                            : ""}
+                        </Form.Select>
+                      </FloatingLabel>
+                    </Col>
 
-                          {/* <Image src={CustomerPhoto} thumbnail /> */}
-                        </a>
-                      </Col>
-                    </Row>
-                  </Col>
-                  <Col lg={9}>
-                    <Row>
-                      <Col lg={6}>
-                        <FloatingLabel
-                          controlId="floatingInput"
-                          label="Application Number"
-                          className="mb-3"
+                    <Col lg={3}>
+                      <FloatingLabel
+                        controlId="floatingSelect"
+                        label="Status"
+                        className="mb-3"
+                      >
+                        <Form.Select
+                          aria-label=""
+                          value={status}
+                          onChange={(e) => {
+                            setStatus(e.target.value);
+                          }}
                         >
-                          <Form.Control
-                            type="text"
-                            value={applicationNumber}
-                            disabled
-                            placeholder=""
-                          />
-                        </FloatingLabel>
-                      </Col>
-                      <Col lg={6}>
-                        <FloatingLabel
-                          controlId="floatingInput"
-                          label="Membership Number"
-                          className="mb-3"
-                        >
-                          <Form.Control
-                            type="text"
-                            value={membershipNumber}
-                            disabled
-                            placeholder=""
-                          />
-                        </FloatingLabel>
-                      </Col>
-                      <Col lg={6}>
-                        <FloatingLabel
-                          controlId="floatingInput"
-                          label="Full Name"
-                          className="mb-3"
-                        >
-                          <Form.Control
-                            type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            placeholder=""
-                          />
-                        </FloatingLabel>
-                      </Col>
-                      <Col lg={6}>
-                        <FloatingLabel
-                          controlId="floatingInput"
-                          label="Mobile Number"
-                          className="mb-3"
-                        >
-                          <Form.Control
-                            type="text"
-                            value={mobile}
-                            onChange={(e) => setMobile(e.target.value)}
-                            placeholder=""
-                          />
-                        </FloatingLabel>
-                      </Col>
-                      <Col lg={6}>
-                        <FloatingLabel
-                          controlId="floatingInput"
-                          label="Full Address"
-                          className="mb-3"
-                        >
-                          <Form.Control
-                            type="text"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                            placeholder=""
-                          />
-                        </FloatingLabel>
-                      </Col>
-                      <Col lg={3}>
-                        <FloatingLabel
-                          controlId="floatingInput"
-                          label="Pincode"
-                          className="mb-3"
-                        >
-                          <Form.Control
-                            type="text"
-                            value={pincode}
-                            onChange={handlePincodeChange}
-                            placeholder=""
-                          />
-                        </FloatingLabel>
-                      </Col>
-                      <Col lg={3}>
-                        <FloatingLabel
-                          controlId="floatingSelect"
-                          label="State"
-                          className="mb-3"
-                        >
-                          <Form.Control
-                            type="text"
-                            value={state}
-                            placeholder=""
-                            disabled
-                          />
-                        </FloatingLabel>
-                      </Col>
-                      <Col lg={6}>
-                        <FloatingLabel
-                          controlId="floatingInput"
-                          label="Email"
-                          className="mb-3"
-                        >
-                          <Form.Control
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder=""
-                          />
-                        </FloatingLabel>
-                      </Col>
-                      <Col lg={3}>
-                        <FloatingLabel
-                          controlId="floatingSelect"
-                          label="Select City"
-                          className="mb-3"
-                        >
-                          <Form.Select
-                            aria-label="Floating label select example"
-                            onChange={(e) => {
-                              setSelectedCity(e.target.value);
-                            }}
-                          >
-                            {city.length > 0
-                              ? city.map((data) => {
-                                  return (
-                                    <option
-                                      value={data.Block + "-" + data.Name}
-                                    >
-                                      {data.Block + "-" + data.Name}
-                                    </option>
-                                  );
-                                })
-                              : ""}
-                          </Form.Select>
-                        </FloatingLabel>
-                      </Col>
+                          <option value="">Select</option>
+                          <option value="Active">Active</option>
+                          <option value="InActive">In Active</option>
+                        </Form.Select>
+                      </FloatingLabel>
+                    </Col>
 
-                      <Col lg={3}>
-                        <FloatingLabel
-                          controlId="floatingSelect"
-                          label="Status"
-                          className="mb-3"
-                        >
-                          <Form.Select
-                            aria-label=""
-                            value={status}
-                            onChange={(e) => {
-                              setStatus(e.target.value);
-                            }}
-                          >
-                            <option selected>Select</option>
-                            <option value="Active">Active</option>
-                            <option value="InActive">In Active</option>
-                          </Form.Select>
-                        </FloatingLabel>
-                      </Col>
-
-                      <Col lg={3}>
-                        {/* <DatePicker defaultValue={startDate} onChange={(date) => setStartDate(date)} /> */}
-                        {/* <FloatingLabel
+                    <Col lg={3}>
+                      {/* <DatePicker defaultValue={startDate} onChange={(date) => setStartDate(date)} /> */}
+                      {/* <FloatingLabel
                     controlId="floatingInput"
                     label="Start Date"
                     className="mb-3"
                   > */}
-                        <Space direction="vertical" size={12}>
-                          <DatePicker
-                            prestes={presets}
-                            defaultValue={!startDate ? null : moment(startDate)}
-                            value={!startDate ? null : moment(startDate)}
-                            format={"YYYY-MM-DD"}
-                            className="mx-0 mb-3 mb-lg-0"
-                            placeholder="Start Date"
-                            onChange={onChangeStartDate}
-                          />
-                        </Space>
-                        {/* <Form.Control type="text" placeholder="Start Date" /> */}
-                        {/* </FloatingLabel> */}
-                      </Col>
-                      <Col lg={3}>
-                        <Space direction="vertical" size={12}>
-                          <DatePicker
-                            disabled
-                            placeholder="End Date"
-                            defaultValue={!endDate ? null : moment(endDate)}
-                            value={!endDate ? null : moment(endDate)}
-                          />
-                        </Space>
-                        {/* <FloatingLabel
+                      <Space direction="vertical" size={12}>
+                        <DatePicker
+                          presets={presets}
+                          value={startDate ? dayjs(startDate) : null}
+                          format="YYYY-MM-DD"
+                          placeholder="Start Date"
+                          onChange={onChangeStartDate}
+                        />
+                      </Space>
+                      {/* <Form.Control type="text" placeholder="Start Date" /> */}
+                      {/* </FloatingLabel> */}
+                    </Col>
+                    <Col lg={3}>
+                      <Space direction="vertical" size={12}>
+                        <DatePicker
+                          disabled
+                          placeholder="End Date"
+                          defaultValue={!endDate ? null : moment(endDate)}
+                          value={!endDate ? null : moment(endDate)}
+                        />
+                      </Space>
+                      {/* <FloatingLabel
                     controlId="floatingInput"
                     label="End Date"
                     className="mb-3"
                   >
                     <Form.Control type="text" placeholder="End Date" />
                   </FloatingLabel> */}
-                      </Col>
-                      <Col lg={3}>
-                        <FloatingLabel
-                          controlId="floatingSelect"
-                          label="Select Membership"
-                          className="mb-3"
+                    </Col>
+                    <Col lg={3}>
+                      <FloatingLabel
+                        controlId="floatingSelect"
+                        label="Select Membership"
+                        className="mb-3"
+                      >
+                        <Form.Select
+                          aria-label="Floating label select example"
+                          value={memberShip}
+                          onChange={(e) => onChangeMembership(e.target.value)}
                         >
+                          <option selected>Select</option>
+                          <option value="1">1 Month</option>
+                          <option value="3">3 Months</option>
+                          <option value="6">6 Month</option>
+                          <option value="12">12 Month</option>
+                        </Form.Select>
+                      </FloatingLabel>
+                    </Col>
+                    <Col lg={3}>
+                      <FloatingLabel
+                        controlId="floatingInput"
+                        label="Amount Per Month"
+                        className="mb-3"
+                      >
+                        <Form.Control
+                          type="text"
+                          value={amountPerMonth}
+                          onChange={(e) => {
+                            setAmountPerMonth(e.target.value);
+                          }}
+                          placeholder=""
+                        />
+                      </FloatingLabel>
+                    </Col>
+                    <section className="mt-4 p-4 border rounded">
+                      <h5>{trainer ? "Change" : "Assign"} Trainer</h5>
+
+                      <FloatingLabel label="Select Trainer">
+                        <Form.Select
+                          value={trainer}
+                          onChange={(e) => setTrainer(e.target.value)}
+                        >
+                          <option>Select Trainer</option>
+                          {staff
+                            ?.filter((trainer) => trainer?.role != "Admin")
+                            .map((t) => (
+                              <option value={t.id}>
+                                {t.name} - {t.staff_code}
+                              </option>
+                            ))}
+                        </Form.Select>
+                      </FloatingLabel>
+
+                      <button
+                        className="btn btn-dark mt-3"
+                        onClick={() => {
+                          PostApiCall.postRequest(
+                            { memberId: id, trainerId: trainer },
+                            "AssignTrainer"
+                          ).then(() => {
+                            notification.success({
+                              message: "Trainer Assigned",
+                            });
+                          });
+                        }}
+                      >
+                        {trainer ? "Update" : "Assign"} Trainer
+                      </button>
+                    </section>
+                    {showBiometric && (
+                      <section className="mt-4 p-4 border rounded">
+                        <h5>Biometric Assignment</h5>
+
+                        <FloatingLabel label="Select Device" className="mb-3">
                           <Form.Select
-                            aria-label="Floating label select example"
-                            value={memberShip}
-                            onChange={(e) => onChangeMembership(e.target.value)}
+                            onChange={(e) => setSelectedDevice(e.target.value)}
                           >
-                            <option selected>Select</option>
-                            <option value="1">1 Month</option>
-                            <option value="3">3 Months</option>
-                            <option value="6">6 Month</option>
-                            <option value="12">12 Month</option>
+                            <option value="">Select Device</option>
+                            <option value="NCD8251400352">
+                              ESSL Face Device
+                            </option>
                           </Form.Select>
                         </FloatingLabel>
-                      </Col>
-                      <Col lg={3}>
-                        <FloatingLabel
-                          controlId="floatingInput"
-                          label="Amount Per Month"
-                          className="mb-3"
+
+                        <button
+                          className="btn btn-success w-100"
+                          onClick={() => {
+                            PostApiCall.postRequest(
+                              {
+                                memberId: id,
+                                deviceSn: selectedDevice,
+                              },
+                              "biometric/assign-user"
+                            ).then(() => {
+                              notification.success({
+                                message: "Biometric Enrollment",
+                                description:
+                                  "User sent to device. Please scan face/finger on machine.",
+                              });
+                            });
+                          }}
                         >
-                          <Form.Control
-                            type="text"
-                            value={amountPerMonth}
-                            onChange={(e) => {
-                              setAmountPerMonth(e.target.value);
-                            }}
-                            placeholder=""
-                          />
-                        </FloatingLabel>
-                      </Col>
-                      <Col lg={4} className="ms-auto my-2">
-                        <Link
-                          to="/new-membership"
-                          className="btn btn-dark w-100 py-2 btn-lg"
-                          onClick={SaveForm}
-                        >
-                          {location.state == null
-                            ? "Add New Member"
-                            : "Update Member"}
-                        </Link>
-                      </Col>
-                    </Row>
-                  </Col>
-                </Row>
-              </Form>
+                          Add Customer to Biometric Device
+                        </button>
+
+                        <p className="mt-3 text-warning">
+                          Status: {biometricStatus}
+                        </p>
+                      </section>
+                    )}
+                    <Col lg={4} className="ms-auto my-2">
+                      <button
+                        type="button"
+                        className="btn btn-dark w-100 py-2 btn-lg"
+                        onClick={SaveForm}
+                      >
+                        {location.state ? "Update Member" : "Add New Member"}
+                      </button>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
             </Col>
           </Row>
         </Container>
