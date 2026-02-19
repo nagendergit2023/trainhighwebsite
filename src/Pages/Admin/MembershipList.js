@@ -7,19 +7,31 @@ import {
   Form,
   Row,
 } from "react-bootstrap";
-import { Table } from "antd";
+import { Table, Tag } from "antd";
 import GetApiCall from "../../helpers/GetApi.js";
 import { Link, useNavigate } from "react-router-dom";
 import moment from "moment";
 import noimage from "../../assets/images/No_Image_Available.jpg";
 import { Image } from "antd";
 import Hero from "../../Components/Hero/Hero.js";
+import { Modal, notification } from "antd";
+import PostApiCall from "../../helpers/PostApi.js";
 
 function MembershipList() {
   let navigate = useNavigate();
   const [memberList, setMemberList] = useState([]);
   const [searchField, setSearchField] = useState("");
   const [searchFieldText, setSearchFieldText] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedMember, setSelectedMember] = useState(null);
+  const [staff, setStaff] = useState([]);
+  const [trainerId, setTrainerId] = useState("");
+  useEffect(() => {
+    GetApiCall.getRequest("staff").then((res) =>
+      res.json().then((data) => setStaff(data.data))
+    );
+  }, []);
+
   useEffect(() => {
     GetApiCall.getRequest("GetMemberList").then((results) => {
       results.json().then((obj) => {
@@ -30,6 +42,91 @@ function MembershipList() {
       });
     });
   }, []);
+  const openTrainerModal = (member) => {
+    setSelectedMember(member);
+    setTrainerId(member.trainer_id || "");
+    setIsModalOpen(true);
+  };
+
+  const assignTrainer = () => {
+    if (!trainerId) {
+      notification.error({ message: "Please select trainer" });
+      return;
+    }
+
+    PostApiCall.postRequest(
+      {
+        memberId: selectedMember.fld_id,
+        trainerId: trainerId,
+      },
+      "AssignTrainer"
+    ).then(() => {
+      notification.success({ message: "Trainer Assigned Successfully" });
+
+      // Update list locally
+      setMemberList((prev) =>
+        prev.map((m) =>
+          m.fld_id === selectedMember.fld_id
+            ? { ...m, trainer_id: trainerId }
+            : m
+        )
+      );
+
+      setIsModalOpen(false);
+    });
+  };
+  const isExpired = (endDate) => {
+    return moment(endDate).isBefore(moment(), "day");
+  };
+
+  const getTrainerName = (trainerId) => {
+    const trainer = staff.find((s) => s.id === trainerId);
+    return trainer ? trainer.name : null;
+  };
+
+  const today = moment();
+
+  const getExpiryInfo = (endDate) => {
+    const end = moment(endDate);
+    const diff = end.diff(today, "days");
+
+    if (diff < 0) {
+      return { status: "EXPIRED", days: diff };
+    }
+
+    if (diff <= 3) {
+      return { status: "EXPIRING_SOON", days: diff };
+    }
+
+    if (diff <= 7) {
+      return { status: "WARNING", days: diff };
+    }
+
+    return { status: "ACTIVE", days: diff };
+  };
+
+  const getStatusTag = (originalStatus, endDate) => {
+    const expiry = getExpiryInfo(endDate);
+
+    if (expiry.status === "EXPIRED") {
+      return <Tag color="red">Expired</Tag>;
+    }
+
+    if (expiry.status === "EXPIRING_SOON") {
+      return (
+        <Tag color="orange">
+          ⚠ Expiring in {expiry.days} day{expiry.days !== 1 && "s"}
+        </Tag>
+      );
+    }
+
+    if (expiry.status === "WARNING") {
+      return <Tag color="gold">Expiring in {expiry.days} days</Tag>;
+    }
+
+    return <Tag color="green">Active</Tag>;
+  };
+
   const data = {
     columns: [
       {
@@ -61,12 +158,12 @@ function MembershipList() {
         sorter: (a, b) => a.MobileNo - b.MobileNo,
         width: "180px",
       },
-      // {
-      //   title: "Address",
-      //   dataIndex: "Address",
-      //   sorter: (a, b) => a.Address - b.Address,
-      //   width: "140px",
-      // },
+      {
+        title: "Trainer",
+        dataIndex: "Trainer",
+        width: "150px",
+      },
+
       {
         title: "Start Date",
         dataIndex: "StartDate",
@@ -79,11 +176,11 @@ function MembershipList() {
         sorter: (a, b) => a.StartDate - b.StartDate,
         width: "140px",
       },
-      //   title: "Start Date",
-      //   dataIndex: "EndDate",
-      //   sorter: (a, b) => a.EndDate - b.EndDate,
-      //   width: "140px",
-      // },
+      {
+        title: "Days Left",
+        dataIndex: "DaysLeft",
+        width: "120px",
+      },
 
       {
         title: "Status",
@@ -98,31 +195,21 @@ function MembershipList() {
       },
     ],
     rows: memberList
-      .filter((filtered) => {
-        if (searchFieldText === "") {
-          return filtered;
-        }
-        if (
-          searchFieldText !== "" &&
-          String(filtered.fld_name).includes(searchFieldText)
-        ) {
-          return filtered;
-        }
-        if (
-          searchFieldText !== "" &&
-          String(filtered.fld_mobile_number).includes(searchFieldText)
-        ) {
-          return filtered;
-        }
-        if (
-          searchFieldText !== "" &&
-          String(filtered.fld_membership).includes(searchFieldText)
-        ) {
-          return filtered;
-        }
+      .filter((item) => {
+        if (!searchFieldText) return true;
+
+        const search = searchFieldText.toLowerCase();
+
+        return (
+          item.fld_name?.toLowerCase().includes(search) ||
+          item.fld_mobile_number?.toString().includes(search) ||
+          item.fld_membership_number?.toLowerCase().includes(search)
+        );
       })
       .map((data, i) => {
+        const expiry = getExpiryInfo(data.fld_end_date);
         return {
+          key: data.fld_id,
           SNo: i + 1,
           MemberImage: <Image width={100} src={noimage} />,
           MemberName: data.fld_name,
@@ -131,38 +218,71 @@ function MembershipList() {
           EndDate: moment(data.fld_end_date).format("ll"),
           MobileNo: data.fld_mobile_number,
           Membership: data.fld_membership_number,
-          Status: data.fld_status,
+
+          DaysLeft:
+            expiry.days < 0
+              ? "Expired"
+              : `${expiry.days} day${expiry.days !== 1 ? "s" : ""}`,
+
+          Status: getStatusTag(data.fld_status, data.fld_end_date),
+
+          Trainer: data.trainer_id ? (
+            <Tag color="blue">{getTrainerName(data.trainer_id)}</Tag>
+          ) : (
+            <Tag>Not Assigned</Tag>
+          ),
+          EndDateRaw: data.fld_end_date, // important for row highlight
+
           Action: (
             <div className="d-flex align-items-center gap-2 justify-content-evenly">
               <div className="dropdown">
-                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <button
+                  className="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
                   Manage
                 </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton1"
+                >
                   <li>
-                    <Link className="dropdown-item" to="/new-membership" state={{ data: data, type: "update" }}>
+                    <Link
+                      className="dropdown-item"
+                      to="/new-membership"
+                      state={{ data: data, type: "update" }}
+                    >
                       Edit
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/new-membership" state={{ data: data, type: "renew" }}>
+                    <Link
+                      className="dropdown-item"
+                      to="/new-membership"
+                      state={{ data: data, type: "renew" }}
+                    >
                       Renew Membership
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/new-membership" state={{ data: data, type: "renew" }}>
+                    <Link
+                      className="dropdown-item"
+                      to="/new-membership"
+                      state={{ data: data, type: "renew" }}
+                    >
                       Transfer Membership
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/" state={{ data: data, type: "update" }}>
-                      Assign Trainer
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" to="/" state={{ data: data, type: "update" }}>
-                      Change Trainer
-                    </Link>
+                    <button
+                      className="dropdown-item"
+                      onClick={() => openTrainerModal(data)}
+                    >
+                      {data.trainer_id ? "Change Trainer" : "Assign Trainer"}
+                    </button>
                   </li>
                 </ul>
               </div>
@@ -225,12 +345,44 @@ function MembershipList() {
                 scroll={{ x: "400", y: 800 }}
                 columns={data.columns}
                 dataSource={data.rows}
-              // onChange={onChange}/
+                rowClassName={(record) => {
+                  const expiry = getExpiryInfo(record.EndDateRaw);
+
+                  if (expiry.status === "EXPIRED") return "expired-row";
+                  if (expiry.status === "WARNING") return "warning-row";
+                  if (expiry.status === "EXPIRING_SOON") return "urgent-row";
+
+                  return "";
+                }}
+                // onChange={onChange}/
               />
             </Col>
           </Row>
         </Container>
       </section>
+      <Modal
+        title={selectedMember?.trainer_id ? "Change Trainer" : "Assign Trainer"}
+        open={isModalOpen}
+        onCancel={() => setIsModalOpen(false)}
+        onOk={assignTrainer}
+        okText="Save"
+      >
+        <FloatingLabel label="Select Trainer">
+          <Form.Select
+            value={trainerId}
+            onChange={(e) => setTrainerId(e.target.value)}
+          >
+            <option value="">Select Trainer</option>
+            {staff
+              ?.filter((s) => s.role !== "Admin")
+              .map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.name} - {t.staff_code}
+                </option>
+              ))}
+          </Form.Select>
+        </FloatingLabel>
+      </Modal>
     </>
   );
 }

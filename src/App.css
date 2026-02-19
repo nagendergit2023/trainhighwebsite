@@ -264,6 +264,10 @@ a {
     padding-bottom: 5rem;
   }
 
+@media screen and (max-width: 768px) {
+  #root {
+    padding-bottom: 5rem;
+  }
   .carousel-inner,
   .carousel-inner img {
     height: 75vh;
@@ -306,4 +310,16 @@ a {
   .ant-modal {
     padding-bottom: 6rem;
   }
+}
+}
+.expired-row {
+  background-color: #fff1f0 !important;
+}
+
+.warning-row {
+  background-color: #fffbe6 !important;
+}
+
+.urgent-row {
+  background-color: #ffe7ba !important;
 }

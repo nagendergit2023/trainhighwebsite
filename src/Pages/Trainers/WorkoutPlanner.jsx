@@ -45,21 +45,23 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
   }, [selectedMemberId, planType, planStartDate]);
 
   /* LOAD HISTORY */
-  useEffect(() => {
-    if (!selectedMemberId) return;
+  // useEffect(() => {
+  //   if (!selectedMemberId) return;
 
-    GetApiCall.getRequest(`GetWorkoutPlanByMember/${selectedMemberId}`)
-      .then((res) => res?.json())
-      .then((data) => {
-        console.log(data, "console data");
-        setDays(mergeWithWeekTemplate(data?.days));
-      });
+  //   GetApiCall.getRequest(`GetWorkoutPlanByMember/${selectedMemberId}`)
+  //     .then((res) => res?.json())
+  //     .then((data) => {
+  //       console.log(data, "console data");
+  //       setDays(mergeWithWeekTemplate(data?.days));
+  //     });
+  // }, [selectedMemberId]);
+
+  useEffect(() => {
+    if (selectedMemberId) {
+      GetWorkoutPlanHistory();
+    }
   }, [selectedMemberId]);
 
-  useEffect(() => {
-    GetWorkoutPlanHistory();
-    // eslint-disable-next-line
-  }, []);
   const GetWorkoutPlanHistory = () => {
     GetApiCall.getRequest(`GetWorkoutPlanHistory/${selectedMemberId}`)
       .then((res) => res?.json())
@@ -70,6 +72,12 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
 
   /* SUBMIT */
   const submit = () => {
+    if (!selectedMemberId || !planStartDate) {
+      notification.error({
+        description: "Please select member and start date",
+      });
+      return;
+    }
     PostApiCall.postRequest(
       {
         memberId: selectedMemberId,
@@ -87,6 +95,7 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
           ? "Workout plan updated"
           : "Workout plan created",
       });
+      GetWorkoutPlanHistory();
     });
   };
 
@@ -150,6 +159,7 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
               className="form-control"
               value={planStartDate}
               onChange={(e) => setPlanStartDate(e.target.value)}
+              disabled={isEditMode}
             />
           </div>
 
@@ -168,7 +178,7 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
               🔁 Copy Plan
             </button>
 
-            {/* <button
+            <button
               className="btn btn-outline-secondary w-100"
               onClick={() => setShowTemplateModal(true)}
             >
@@ -179,7 +189,7 @@ const WorkoutPlanner = ({ selectedMemberId }) => {
               onClick={() => setShowAIModal(true)}
             >
               🤖 Generate Template
-            </button> */}
+            </button>
           </div>
         </div>
       </div>

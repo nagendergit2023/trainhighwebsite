@@ -24,9 +24,8 @@ function Login() {
     sessionStorage.removeItem("access");
   }, []);
 
-  // -----------------------------
   // 🔹 TIMER COUNTDOWN
-  // -----------------------------
+
   useEffect(() => {
     let interval;
     if (otpSent && timer > 0) {
@@ -37,9 +36,8 @@ function Login() {
     return () => clearInterval(interval);
   }, [otpSent, timer]);
 
-  // -----------------------------
   // 🔹 SEND OTP
-  // -----------------------------
+
   const handleSendOtp = (e) => {
     e.preventDefault();
 
@@ -78,17 +76,15 @@ function Login() {
     });
   };
 
-  // -----------------------------
-  // 🔹 RESEND OTP
-  // -----------------------------
+  // RESEND OTP
+
   const handleResendOtp = () => {
     setTimer(60);
     handleSendOtp(new Event("resend"));
   };
 
-  // -----------------------------
-  // 🔹 VERIFY OTP
-  // -----------------------------
+  // VERIFY OTP
+
   const handleVerifyOtp = (e) => {
     e.preventDefault();
 
@@ -130,9 +126,8 @@ function Login() {
     });
   };
 
-  // -----------------------------
   // 🔹 OTP INPUT HANDLING
-  // -----------------------------
+
   const handleOtpChange = (value, index) => {
     if (!/^\d*$/.test(value)) return;
 
@@ -160,107 +155,104 @@ function Login() {
           <Col lg={5}>
             <Card className="rounded shadow-sm">
               <Card.Body>
-                
-
                 {!otpSent ? (
                   /* --------------------------
                      STEP 1 — ENTER MOBILE/EMAIL
                   -------------------------- */
                   <>
-                  <h3 className="fw-bold">Hello,</h3>
-                <h3 className="mb-lg-4 fw-bold">Welcome Back!</h3>
-                  
-                  <Form onSubmit={handleSendOtp}>
-                    <FloatingLabel
-                      controlId="floatingInput"
-                      label="Mobile Number"
-                      className="mb-3"
-                    >
-                      <Form.Control
-                        type="text"
-                        placeholder="Enter Mobile Number"
-                        value={mobileNumber}
-                        onChange={(e) => setMobileNumber(e.target.value)}
-                      />
-                    </FloatingLabel>
+                    <h3 className="fw-bold">Hello,</h3>
+                    <h3 className="mb-lg-4 fw-bold">Welcome Back!</h3>
 
-                    <button className="btn btn-dark rounded w-100 py-2 mb-2">
-                      Send OTP
-                    </button>
+                    <Form onSubmit={handleSendOtp}>
+                      <FloatingLabel
+                        controlId="floatingInput"
+                        label="Mobile Number"
+                        className="mb-3"
+                      >
+                        <Form.Control
+                          type="text"
+                          placeholder="Enter Mobile Number"
+                          value={mobileNumber}
+                          onChange={(e) => setMobileNumber(e.target.value)}
+                        />
+                      </FloatingLabel>
 
-                    <button
-                      className="btn btn-warning rounded w-100 py-2"
-                      onClick={goToWebsite}
-                      type="button"
-                    >
-                      Back to website
-                    </button>
-                  </Form>
+                      <button className="btn btn-dark rounded w-100 py-2 mb-2">
+                        Send OTP
+                      </button>
+
+                      <button
+                        className="btn btn-warning rounded w-100 py-2"
+                        onClick={goToWebsite}
+                        type="button"
+                      >
+                        Back to website
+                      </button>
+                    </Form>
                   </>
                 ) : (
                   /* --------------------------
                      STEP 2 — ENTER OTP
                   -------------------------- */
                   <>
-                  <h3 className="mb-lg-2 fw-bold">OTP Verification</h3>
-                   <Form onSubmit={handleVerifyOtp}>
-                    <p className="text-muted mb-3">
-                      Enter the 6-digit OTP sent to:
-                      <strong> {mobileNumber} </strong>
-                    </p>
+                    <h3 className="mb-lg-2 fw-bold">OTP Verification</h3>
+                    <Form onSubmit={handleVerifyOtp}>
+                      <p className="text-muted mb-3">
+                        Enter the 6-digit OTP sent to:
+                        <strong> {mobileNumber} </strong>
+                      </p>
 
-                    <div className="d-flex justify-content-between mb-3">
-                      {otp.map((digit, index) => (
-                        <input
-                          key={index}
-                          type="text"
-                          maxLength="1"
-                          className="form-control text-center mx-1"
-                          style={{
-                            width: "45px",
-                            fontSize: "24px",
-                            padding: "10px",
-                          }}
-                          value={digit}
-                          ref={(el) => (otpInputs.current[index] = el)}
-                          onChange={(e) =>
-                            handleOtpChange(e.target.value, index)
-                          }
-                          onKeyDown={(e) => handleOtpKeyDown(e, index)}
-                        />
-                      ))}
-                    </div>
+                      <div className="d-flex justify-content-between mb-3">
+                        {otp.map((digit, index) => (
+                          <input
+                            key={index}
+                            type="text"
+                            maxLength="1"
+                            className="form-control text-center mx-1"
+                            style={{
+                              width: "45px",
+                              fontSize: "24px",
+                              padding: "10px",
+                            }}
+                            value={digit}
+                            ref={(el) => (otpInputs.current[index] = el)}
+                            onChange={(e) =>
+                              handleOtpChange(e.target.value, index)
+                            }
+                            onKeyDown={(e) => handleOtpKeyDown(e, index)}
+                          />
+                        ))}
+                      </div>
 
-                    <button className="btn btn-dark w-100 py-2 mb-3">
-                      Verify OTP
-                    </button>
+                      <button className="btn btn-dark w-100 py-2 mb-3">
+                        Verify OTP
+                      </button>
 
-                    <div className="text-center mb-3">
-                      {timer > 0 ? (
-                        <span className="text-muted">
-                          Resend OTP in {timer}s
-                        </span>
-                      ) : (
-                        <button
-                          type="button"
-                          className="btn btn-link text-danger p-0"
-                          onClick={handleResendOtp}
-                        >
-                          Resend OTP
-                        </button>
-                      )}
-                    </div>
+                      <div className="text-center mb-3">
+                        {timer > 0 ? (
+                          <span className="text-muted">
+                            Resend OTP in {timer}s
+                          </span>
+                        ) : (
+                          <button
+                            type="button"
+                            className="btn btn-link text-danger p-0"
+                            onClick={handleResendOtp}
+                          >
+                            Resend OTP
+                          </button>
+                        )}
+                      </div>
 
-                    <button
-                      className="btn btn-warning rounded w-100 py-2"
-                      onClick={goToWebsite}
-                      type="button"
-                    >
-                      Back to website
-                    </button>
-                  </Form>
+                      <button
+                        className="btn btn-warning rounded w-100 py-2"
+                        onClick={goToWebsite}
+                        type="button"
+                      >
+                        Back to website
+                      </button>
+                    </Form>
                   </>
-                 
                 )}
               </Card.Body>
             </Card>

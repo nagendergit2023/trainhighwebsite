@@ -6,21 +6,82 @@ import {
   FloatingLabel,
   Form,
   Row,
+  Modal,
 } from "react-bootstrap";
-import { Table } from "antd";
+import { notification, Table } from "antd";
 import GetApiCall from "../../helpers/GetApi.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import moment from "moment";
-import noimage from "../../assets/images/No_Image_Available.jpg";
-import { Image } from "antd";
 import Hero from "../../Components/Hero/Hero.js";
+import PostApiCall from "../../helpers/PostApi.js";
+import Notiflix from "notiflix";
 
 function EnquiryList() {
+  let navigate = useNavigate();
   const [memberList, setMemberList] = useState([]);
   const [searchField, setSearchField] = useState("");
   const [searchFieldText, setSearchFieldText] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
+  const [formData, setFormData] = useState({
+    fld_name: "",
+    fld_phone: "",
+    fld_email: "",
+    fld_type: "",
+    fld_source: "Walk In",
+    fld_message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSaveEnquiry = async () => {
+    try {
+      // const response = await fetch("/api/enquiry/save", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(formData),
+      // });
+      Notiflix.Loading.circle();
+      PostApiCall.postRequest(formData, "UpdateEnquiries").then((results) => {
+        results.json().then((obj) => {
+          if (results.status === 200 || results.status === 201) {
+            setShowModal(false);
+            setFormData({
+              fld_name: "",
+              fld_phone: "",
+              fld_email: "",
+              fld_type: "",
+              fld_source: "Walk In",
+              fld_message: "",
+            });
+            GetApiCall.getRequest("GetEnquiries").then((results) => {
+              results.json().then((obj) => {
+                setMemberList(obj.data);
+              });
+            });
+            Notiflix.Loading.remove();
+            notification.success({
+              message: `Details Submitted Sucessfully`,
+            });
+          } else {
+            notification.error({
+              message: `Please Contact Team`,
+            });
+          }
+        });
+      });
+    } catch (error) {
+      console.error("Save enquiry error:", error);
+    }
+  };
+
   useEffect(() => {
-    GetApiCall.getRequest("GetMemberList").then((results) => {
+    GetApiCall.getRequest("GetEnquiries").then((results) => {
       results.json().then((obj) => {
         if (results.status === 200 || results.status === 201) {
           setMemberList(obj.data);
@@ -38,17 +99,6 @@ function EnquiryList() {
         width: "90px",
       },
       {
-        title: "ID",
-        dataIndex: "Membership",
-        sorter: (a, b) => a.Membership - b.Membership,
-        width: "120px",
-      },
-      // {
-      //   title: "Profile Photo",
-      //   dataIndex: "MemberImage",
-      //   width: "150px",
-      // },
-      {
         title: "Name",
         dataIndex: "MemberName",
         sorter: (a, b) => a.MemberName - b.MemberName,
@@ -60,30 +110,27 @@ function EnquiryList() {
         sorter: (a, b) => a.MobileNo - b.MobileNo,
         width: "180px",
       },
-      // {
-      //   title: "Address",
-      //   dataIndex: "Address",
-      //   sorter: (a, b) => a.Address - b.Address,
-      //   width: "140px",
-      // },
       {
-        title: "Start Date",
+        title: "Enquiry Date",
         dataIndex: "StartDate",
         sorter: (a, b) => a.StartDate - b.StartDate,
         width: "140px",
       },
       {
-        title: "End Date",
-        dataIndex: "StartDate",
-        sorter: (a, b) => a.StartDate - b.StartDate,
+        title: "Type",
+        dataIndex: "type",
         width: "140px",
       },
-      //   title: "Start Date",
-      //   dataIndex: "EndDate",
-      //   sorter: (a, b) => a.EndDate - b.EndDate,
-      //   width: "140px",
-      // },
-
+      {
+        title: "Source",
+        dataIndex: "source",
+        width: "140px",
+      },
+      {
+        title: "Message",
+        dataIndex: "message",
+        width: "140px",
+      },
       {
         title: "Status",
         dataIndex: "Status",
@@ -109,7 +156,7 @@ function EnquiryList() {
         }
         if (
           searchFieldText !== "" &&
-          String(filtered.fld_mobile_number).includes(searchFieldText)
+          String(filtered.fld_phone).includes(searchFieldText)
         ) {
           return filtered;
         }
@@ -123,29 +170,63 @@ function EnquiryList() {
       .map((data, i) => {
         return {
           SNo: i + 1,
-          MemberImage: <Image width={100} src={noimage} />,
+          type: data?.fld_type,
           MemberName: data.fld_name,
-          Address: data.fld_address,
-          StartDate: moment(data.fld_start_date).format("ll"),
-          MobileNo: data.fld_mobile_number,
-          Membership: data.membership_months,
+          source: data.fld_source,
+          StartDate: moment(data.fld_created_at).format("ll"),
+          MobileNo: data.fld_phone,
+          message: data.fld_message,
           Status: data.fld_status,
           Action: (
             <div className="d-flex align-items-center gap-2 justify-content-evenly">
               <div className="dropdown">
-                <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <button
+                  className="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
                   Manage
                 </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton1"
+                >
                   <li>
-                    <Link className="dropdown-item" to="/new-membership" state={{ data: data, type: "renew" }}>
+                    <Link
+                      className="dropdown-item"
+                      to="/new-membership"
+                      state={{ data: data, type: "renew" }}
+                    >
                       Renew
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/new-membership" state={{ data: data, type: "update" }}>
+                    <Link
+                      className="dropdown-item"
+                      to="/new-membership"
+                      state={{ data: data, type: "update" }}
+                    >
                       Edit
                     </Link>
+                  </li>
+                  <li>
+                    <button
+                      className="dropdown-item text-success"
+                      onClick={() =>
+                        navigate("/new-membership", {
+                          state: {
+                            type: "convert",
+                            enquiryData: data,
+                          },
+                        })
+                      }
+                      disabled={data.fld_is_converted === 1}
+                      title={data.fld_is_converted ? "Already Converted" : ""}
+                    >
+                      Convert to Member
+                    </button>
                   </li>
                 </ul>
               </div>
@@ -193,7 +274,7 @@ function EnquiryList() {
                     <Button
                       variant="secondary"
                       className="w-100 py-3 mb-3 mb-lg-0"
-                      onClick={() => setSearchFieldText(searchField)}
+                      onClick={() => setShowModal(true)}
                     >
                       Add New Enquiry
                     </Button>
@@ -205,15 +286,82 @@ function EnquiryList() {
               <Table
                 bordered={true}
                 striped
-                scroll={{ x: "400", y: 800 }}
+                scroll={{ x: "500", y: 800 }}
                 columns={data.columns}
                 dataSource={data.rows}
-              // onChange={onChange}/
+                // onChange={onChange}/
               />
             </Col>
           </Row>
         </Container>
       </section>
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Add New Enquiry</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <Form>
+            <FloatingLabel label="Name" className="mb-3">
+              <Form.Control
+                type="text"
+                name="fld_name"
+                value={formData.fld_name}
+                onChange={handleChange}
+              />
+            </FloatingLabel>
+
+            <FloatingLabel label="Mobile Number" className="mb-3">
+              <Form.Control
+                type="text"
+                name="fld_phone"
+                value={formData.fld_phone}
+                onChange={handleChange}
+              />
+            </FloatingLabel>
+
+            <FloatingLabel label="Email" className="mb-3">
+              <Form.Control
+                type="email"
+                name="fld_email"
+                value={formData.fld_email}
+                onChange={handleChange}
+              />
+            </FloatingLabel>
+
+            <FloatingLabel label="Enquiry Type" className="mb-3">
+              <Form.Select
+                name="fld_type"
+                value={formData.fld_type}
+                onChange={handleChange}
+              >
+                <option value="">Select Enquiry Type</option>
+                <option value="Franchise">Franchise</option>
+                <option value="Membership">Membership</option>
+              </Form.Select>
+            </FloatingLabel>
+
+            <FloatingLabel label="Message" className="mb-3">
+              <Form.Control
+                as="textarea"
+                style={{ height: "100px" }}
+                name="fld_message"
+                value={formData.fld_message}
+                onChange={handleChange}
+              />
+            </FloatingLabel>
+          </Form>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="secondary" onClick={handleSaveEnquiry}>
+            Save Enquiry
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
