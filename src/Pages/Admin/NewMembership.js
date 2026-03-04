@@ -34,7 +34,7 @@ function NewMembership() {
   const [email, setEmail] = useState("");
   const [amountPerMonth, setAmountPerMonth] = useState(null);
   const [ImageApiUrl] = useState(
-    "http://68.178.170.174:3309/trainhighgym-api/AddImage"
+    "http://68.178.170.174:3309/trainhighgym-api/AddImage",
   );
   // const [previewUrl, setPreviewUrl] = useState("");
   const [showBiometric, setShowBiometric] = useState(true);
@@ -68,7 +68,7 @@ function NewMembership() {
 
     try {
       const response = await axios.get(
-        `https://api.postalpincode.in/pincode/${value}`
+        `https://api.postalpincode.in/pincode/${value}`,
       );
 
       if (
@@ -135,6 +135,7 @@ function NewMembership() {
       setTrainer(location.state.data.trainer_id);
     } else if (location.state !== null && location.state.type === "renew") {
       setName(location.state.data.fld_name);
+      setId(location.state.data.fld_id);
       setMobile(location.state.data.fld_mobile_number);
       setAddress(location.state.data.fld_address);
       setPincode(location.state.data.fld_pincode);
@@ -234,7 +235,7 @@ function NewMembership() {
           type,
           oldmembership: oldmembershipid,
         },
-        "AddUserDetails"
+        "AddUserDetails",
       );
 
       const obj = await response.json();
@@ -284,7 +285,7 @@ function NewMembership() {
   };
   const loadStaff = () => {
     GetApiCall.getRequest("staff").then((res) =>
-      res.json().then((data) => setStaff(data.data))
+      res.json().then((data) => setStaff(data.data)),
     );
   };
 
@@ -560,41 +561,43 @@ function NewMembership() {
                         />
                       </FloatingLabel>
                     </Col>
-                    <section className="mt-4 p-4 border rounded">
-                      <h5>{trainer ? "Change" : "Assign"} Trainer</h5>
+                    {id && (
+                      <section className="mt-4 p-4 border rounded">
+                        <h5>{trainer ? "Change" : "Assign"} Trainer</h5>
 
-                      <FloatingLabel label="Select Trainer">
-                        <Form.Select
-                          value={trainer}
-                          onChange={(e) => setTrainer(e.target.value)}
-                        >
-                          <option>Select Trainer</option>
-                          {staff
-                            ?.filter((trainer) => trainer?.role != "Admin")
-                            .map((t) => (
-                              <option value={t.id}>
-                                {t.name} - {t.staff_code}
-                              </option>
-                            ))}
-                        </Form.Select>
-                      </FloatingLabel>
+                        <FloatingLabel label="Select Trainer">
+                          <Form.Select
+                            value={trainer}
+                            onChange={(e) => setTrainer(e.target.value)}
+                          >
+                            <option>Select Trainer</option>
+                            {staff
+                              ?.filter((trainer) => trainer?.role != "Admin")
+                              .map((t) => (
+                                <option value={t.id}>
+                                  {t.name} - {t.staff_code}
+                                </option>
+                              ))}
+                          </Form.Select>
+                        </FloatingLabel>
 
-                      <button
-                        className="btn btn-dark mt-3"
-                        onClick={() => {
-                          PostApiCall.postRequest(
-                            { memberId: id, trainerId: trainer },
-                            "AssignTrainer"
-                          ).then(() => {
-                            notification.success({
-                              message: "Trainer Assigned",
+                        <button
+                          className="btn btn-dark mt-3"
+                          onClick={() => {
+                            PostApiCall.postRequest(
+                              { memberId: id, trainerId: trainer },
+                              "AssignTrainer",
+                            ).then(() => {
+                              notification.success({
+                                message: "Trainer Assigned",
+                              });
                             });
-                          });
-                        }}
-                      >
-                        {trainer ? "Update" : "Assign"} Trainer
-                      </button>
-                    </section>
+                          }}
+                        >
+                          {trainer ? "Update" : "Assign"} Trainer
+                        </button>
+                      </section>
+                    )}
                     {showBiometric && (
                       <section className="mt-4 p-4 border rounded">
                         <h5>Biometric Assignment</h5>
@@ -618,7 +621,7 @@ function NewMembership() {
                                 memberId: id,
                                 deviceSn: selectedDevice,
                               },
-                              "biometric/assign-user"
+                              "biometric/assign-user",
                             ).then(() => {
                               notification.success({
                                 message: "Biometric Enrollment",

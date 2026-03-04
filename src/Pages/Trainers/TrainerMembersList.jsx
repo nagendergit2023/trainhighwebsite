@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Card, Col, Container, Row, Button, Badge } from "react-bootstrap";
+import { Card, Col, Container, Row, Badge } from "react-bootstrap";
 import GetApiCall from "../../helpers/GetApi";
-import moment from "moment";
 import noimage from "../../assets/images/No_Image_Available.jpg";
 import { Link, useNavigate } from "react-router-dom";
-import Hero from "../../Components/Hero/Hero";
 import { BsThreeDots } from "react-icons/bs";
 import "./Members.css";
 
@@ -69,6 +67,7 @@ const TrainerMembersList = () => {
                             <Link
                               className="dropdown-item"
                               to={`/trainers/member/${member.fld_id}/attendance`}
+                              state={member}
                             >
                               Attendence
                             </Link>

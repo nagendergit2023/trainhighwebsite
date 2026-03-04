@@ -19,12 +19,7 @@ const AINutritionGeneratorModal = ({ open, onClose, onApply }) => {
   };
 
   return (
-    <Modal
-      open={open}
-      onCancel={onClose}
-      footer={null}
-      title="AI Diet Generator"
-    >
+    <Modal open={open} onCancel={onClose} footer={null} title="Diet Generator">
       <select
         className="form-select mb-2"
         onChange={(e) => setForm({ ...form, goal: e.target.value })}
@@ -50,7 +45,11 @@ const AINutritionGeneratorModal = ({ open, onClose, onApply }) => {
         <option>Non-Veg</option>
       </select>
 
-      <Button type="primary" onClick={generate}>
+      <Button
+        type="primary"
+        className="btn btn-success w-100 d-flex justify-content-center align-items-center"
+        onClick={generate}
+      >
         Generate
       </Button>
 
@@ -67,7 +66,7 @@ const AINutritionGeneratorModal = ({ open, onClose, onApply }) => {
 
           <Button
             type="primary"
-            className="mt-2"
+            className="mt-2 btn btn-success w-100 d-flex justify-content-center align-items-center"
             onClick={() => onApply(preview)}
           >
             Copy to Nutrition Plan

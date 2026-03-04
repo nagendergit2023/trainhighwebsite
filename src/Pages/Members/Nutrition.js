@@ -3,22 +3,23 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Spin, notification } from "antd";
 import PostApiCall from "../../helpers/PostApi";
 import "./Nutrition.css"; // custom styling
+import GetApiCall from "../../helpers/GetApi";
 
 const Nutrition = ({ selectedMemberId }) => {
   const [days, setDays] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [noPlan, setNoPlan] = useState(false);
   let memberId = JSON.parse(localStorage.getItem("user"))?.memberId;
 
   // ------------------- Fetch Active Plan -------------------
   useEffect(() => {
     if (!memberId) return;
 
-    PostApiCall.postRequest({ memberId: Number(memberId) }, "getActivePlan")
+    GetApiCall.getRequest(`getActivePlan?memberId=${Number(memberId)}`)
       .then(async (res) => {
         if (res.status === 200) {
           const obj = await res.json();
-          if (obj) {
-            // obj.days may come as {1:{},2:{}} → convert to array
+          if (obj && Object.keys(obj).length > 0) {
             const dayArray = Object.values(obj).map((d) => ({
               weekday: d.weekday,
               workoutName: d.planName || "Workout",
@@ -28,8 +29,9 @@ const Nutrition = ({ selectedMemberId }) => {
               isCheatDay: d.isCheatDay,
             }));
             setDays(dayArray);
+            setNoPlan(false);
           } else {
-            notification.warning({ description: "No active plan found" });
+            setNoPlan(true);
           }
         } else {
           notification.error({ description: "Failed to fetch active plan" });
@@ -48,11 +50,40 @@ const Nutrition = ({ selectedMemberId }) => {
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center vh-100">
-        <Spin tip="Loading nutrition plan..." size="large" className="black-spin" />
+        <Spin
+          tip="Loading nutrition plan..."
+          size="large"
+          className="black-spin"
+        />
       </div>
     );
   }
+  if (!loading && noPlan) {
+    return (
+      <div className="d-flex flex-column justify-content-center align-items-center mt-5 text-center px-3">
+        <div style={{ fontSize: "70px" }}>🥗</div>
 
+        <h3 className="fw-bold mt-3">No Active Nutrition Plan</h3>
+
+        <p className="text-muted mt-2">
+          Your trainer hasn’t assigned a nutrition plan yet.
+          <br />
+          Please contact your trainer to get started.
+        </p>
+
+        <button
+          className="btn btn-dark mt-3 px-4"
+          onClick={() =>
+            notification.info({
+              description: "Please contact your trainer.",
+            })
+          }
+        >
+          Contact Trainer
+        </button>
+      </div>
+    );
+  }
   return (
     <div className="container mb-5 mt-3">
       <h2 className="text-center mb-4 weekly-title">Nutrition Planner</h2>
@@ -96,7 +127,7 @@ const Nutrition = ({ selectedMemberId }) => {
                       )}
                     </div>
                   </div>
-                  <div className="ms-auto chevron">
+                  {/* <div className="ms-auto chevron">
                     <svg
                       width="18"
                       height="18"
@@ -112,7 +143,7 @@ const Nutrition = ({ selectedMemberId }) => {
                         strokeLinejoin="round"
                       />
                     </svg>
-                  </div>
+                  </div> */}
                 </button>
               </h2>
 

@@ -1,227 +1,102 @@
-import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./Account.css";
-import { Col, Row } from "react-bootstrap";
-import { notification } from "antd";
+import React, { useEffect, useState } from "react";
+import { Card, Tag, Row, Col, Statistic, notification } from "antd";
+import { useNavigate } from "react-router-dom";
+import GetApiCall from "../../helpers/GetApi";
+import dayjs from "dayjs";
+import { Container } from "react-bootstrap";
 
 const Account = () => {
-  const [editing, setEditing] = useState(false);
-  const [user, setUser] = useState({
-    name: "Nagender Pal Singh",
-    checkin: "15-05-2023, 05:43 PM",
-    email: "nagender.singh@example.com",
-    phone: "+91-9953757733",
-    joinDate: "15-05-2023",
-    weight: "80 kg",
-    height: "180 cm",
-  });
+  const navigate = useNavigate();
+  const user = localStorage.getItem("user");
+  const trainerId = JSON.parse(user)?.staffId;
 
-  const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
+  const [data, setData] = useState({});
+  const [stats, setStats] = useState({});
 
-  const handleEditToggle = () => {
-    setEditing(!editing);
-  };
-
-  const handleSave = () => {
-    setEditing(false);
-    notification.success({
-      description: "Profile updated successfully!",
+  const fetchProfile = async () => {
+    const res = await GetApiCall.getRequest(`staff/${trainerId}`);
+    const json = await res.json();
+    setData(json.data[0] || {});
+    setStats({
+      totalMembers: json?.totalAssignedMembers,
+      activeMembers: json?.activeMembers,
     });
   };
 
-  const handleEditButton = () => {
-    // your existing toggle logic
+  useEffect(() => {
+    if (trainerId) fetchProfile();
+  }, []);
 
-    // logout logic
+  const handleLogout = () => {
     localStorage.clear();
     sessionStorage.clear();
-    window.location.reload();
-    window.location.href = "/login";
+    navigate("/login");
   };
 
   return (
-    <div className="container pt-3 profile-container">
-      <div className="row justify-content-center">
-        <div className="col-md-8">
-          <div className="">
-            <div className="text-center">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/147/147144.png"
-                alt="Profile"
-                className="rounded-circle mb-3 profile-img"
-              />
-              <h3 className="mb-1 fw-bold">{user.name}</h3>
-              <p className="text-muted">Gym Trainer</p>
-
-              <hr />
-
-              <div className="text-start mb-4">
-                <h5 className="mb-3">Account Information</h5>
-
-                <div className="row mb-2">
-                  <div className="col-12 d-flex gap-2">
-                    <span className="fw-bold">Last Check-In:</span>
-                    <span>
-                      {editing ? (
-                        <input
-                          type="text"
-                          className="form-control"
-                          name="checkin"
-                          value={user.checkin}
-                          onChange={handleChange}
-                          readOnly
-                        />
-                      ) : (
-                        user.checkin
-                      )}
-                    </span></div>
-                </div>
-
-                <div className="row mb-2">
-                  <div className="col-12 d-flex gap-2">
-                    <span className="fw-bold">Email:</span>
-                    <span>
-                      {editing ? (
-                        <input
-                          type="email"
-                          className="form-control"
-                          name="email"
-                          value={user.email}
-                          onChange={handleChange}
-                        />
-                      ) : (
-                        user.email
-                      )}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="row mb-2">
-                  <div className="col-12 d-flex gap-2">
-                    <span className="fw-bold">Phone:</span>
-                    <span>
-                      {editing ? (
-                        <input
-                          type="text"
-                          className="form-control"
-                          name="phone"
-                          value={user.phone}
-                          onChange={handleChange}
-                        />
-                      ) : (
-                        user.phone
-                      )}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="row mb-2">
-                  <div className="col-12 d-flex gap-2">
-                    <span className="fw-bold">Join Date:</span>
-                    <span>{user.joinDate}</span>
-                  </div>
-                </div>
-
-                <hr />
-                <h5 className="mb-3">Fitness Stats</h5>
-                <div className="row mb-2">
-                  <div className="col-6 d-flex gap-2">
-                    <span className="fw-bold">Weight:</span>
-                    <span>
-                      {editing ? (
-                        <div className="input-group">
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="weight"
-                            value={user.weight}
-                            onChange={handleChange}
-                            maxLength={4}
-                          />
-                          <span className="input-group-text">kg</span>
-                        </div>
-                      ) : (
-                        `${user.weight} kg`
-                      )}
-                    </span>
-                  </div>
-
-                </div>
-                <div className="row mb-2">
-                  <div className="col-6 d-flex gap-2">
-                    <span className="fw-bold">Height:</span>
-                    <span>
-                      {editing ? (
-                        <div className="input-group">
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="height"
-                            value={user.height}
-                            onChange={handleChange}
-                            maxLength={4}
-                          />
-                          <span className="input-group-text">cm</span>
-                        </div>
-                      ) : (
-                        `${user.height} cm`
-                      )}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="">
-                <Row>
-                  {editing ? (
-                    <Col xs={6}>
-                      <button
-                        className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark mb-3"
-                        onClick={handleSave}
-                      >
-                        Save
-                      </button>
-                    </Col>
-                  ) : (
-                    <>
-                      <Col xs={6}>
-                        <button
-                          className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark mb-3"
-                          onClick={handleEditToggle}
-                        >
-                          Edit Profile
-                        </button>
-                      </Col>
-                      <Col xs={6}>
-                        <button
-                          className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-warning"
-                          onClick={handleEditButton}
-                        >
-                          Logout
-                        </button>
-                      </Col>
-                    </>
-                  )}
-                  {editing && (
-                    <Col xs={6}>
-                      <button
-                        className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark"
-                        onClick={handleEditToggle}
-                      >
-                        Cancel
-                      </button>
-                    </Col>
-                  )}
-
-                </Row>
-              </div>
-            </div>
-          </div>
-        </div>
+    <Container>
+      <div className="my-4" style={{ textAlign: "center" }}>
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/147/147144.png"
+          alt="Trainer"
+          width={100}
+          style={{ borderRadius: "50%" }}
+        />
+        <h4 style={{ marginTop: 10 }}>{data.name}</h4>
+        <Tag color="blue">{data?.role}</Tag>
       </div>
-    </div>
+
+      {/* Professional Stats */}
+      <Card style={{ marginBottom: 15 }}>
+        <Row>
+          <Col span={12}>
+            <Statistic title="Total Members" value={stats.totalMembers || 0} />
+          </Col>
+          <Col span={12}>
+            <Statistic
+              title="Active Members"
+              value={stats.activeMembers || 0}
+            />
+          </Col>
+        </Row>
+      </Card>
+
+      {/* Account Info */}
+      <Card style={{ marginBottom: 15 }}>
+        <p>
+          <strong>Code:</strong> {data.staff_code}
+        </p>
+        <p>
+          <strong>Email:</strong> {data.email}
+        </p>
+        <p>
+          <strong>Phone:</strong> {data.mobile}
+        </p>
+        <p>
+          <strong>Join Date:</strong>{" "}
+          {dayjs(data.updated_at).format("DD MMM YYYY")}
+        </p>
+      </Card>
+
+      {/* Navigation Buttons */}
+      <button
+        className="btn btn-dark w-100 mb-3"
+        onClick={() => navigate("/trainers/members")}
+      >
+        View My Members
+      </button>
+
+      {/* <button
+        className="btn btn-dark w-100 mb-3"
+        onClick={() => navigate("/attendance-overview")}
+      >
+        Attendance Overview
+      </button> */}
+
+      <button className="btn btn-warning w-100" onClick={handleLogout}>
+        Logout
+      </button>
+    </Container>
   );
 };
 

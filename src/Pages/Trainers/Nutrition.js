@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { notification, Spin } from "antd";
 import AINutritionGeneratorModal from "./Nutrition.jsx/AINutritionGeneratorModal";
 import PostApiCall from "../../helpers/PostApi";
+import GetApiCall from "../../helpers/GetApi";
 
 const WEEK_DAYS = [
   "Monday",
@@ -43,15 +44,13 @@ const NutritionForm = ({ selectedMemberId }) => {
   const [activePlanLoaded, setActivePlanLoaded] = useState(false);
   const [currentPlanId, setCurrentPlanId] = useState(null);
 
-
   // ------------------- Fetch Active Plan & History -------------------
   useEffect(() => {
     if (!selectedMemberId) return;
 
     // Get Active Plan
-    PostApiCall.postRequest(
-      { memberId: Number(selectedMemberId) },
-      "getActivePlan"
+    GetApiCall.getRequest(
+      `getActivePlan?memberId=${Number(selectedMemberId)}`,
     ).then(async (res) => {
       if (res.status === 200) {
         const obj = await res.json();
@@ -65,13 +64,13 @@ const NutritionForm = ({ selectedMemberId }) => {
     });
 
     // Get History
-    PostApiCall.postRequest({ memberId: selectedMemberId }, "getHistory").then(
+    GetApiCall.getRequest(`getHistory?memberId=${selectedMemberId}`).then(
       async (res) => {
         if (res.status === 200) {
           const obj = await res.json();
           if (Array.isArray(obj)) setHistory(obj);
         }
-      }
+      },
     );
   }, [selectedMemberId]);
 
@@ -109,24 +108,24 @@ const NutritionForm = ({ selectedMemberId }) => {
     if (!selectedMemberId)
       return notification.error({ description: "Member not selected" });
     try {
-       const payload = {
-      memberId: selectedMemberId,
-      days,
-      comment: trainerComment,
-      planId: currentPlanId, // <-- send this for updates
-    };
+      const payload = {
+        memberId: selectedMemberId,
+        days,
+        comment: trainerComment,
+        planId: currentPlanId, // <-- send this for updates
+      };
 
-    const res = await PostApiCall.postRequest(payload, "SaveNutriTion");
-    const data = await res.json();
+      const res = await PostApiCall.postRequest(payload, "saveNutrition");
+      const data = await res.json();
 
-    if (res.status === 200 || res.status === 201) {
-      // Update currentPlanId if a new plan was created
-      if (!currentPlanId && data?.planId) setCurrentPlanId(data.planId);
+      if (res.status === 200 || res.status === 201) {
+        // Update currentPlanId if a new plan was created
+        if (!currentPlanId && data?.planId) setCurrentPlanId(data.planId);
 
-      notification.success({
-        description: "Nutrition plan saved successfully",
-      });
-    }
+        notification.success({
+          description: "Nutrition plan saved successfully",
+        });
+      }
     } catch {
       notification.error({ description: "Failed to save nutrition plan" });
     }
@@ -138,10 +137,10 @@ const NutritionForm = ({ selectedMemberId }) => {
       return aiDay ? aiDay : createEmptyDay(day);
     });
     setDays(cloneDays(mergedDays));
-    setTrainerComment(aiPlan.comment || "AI generated nutrition plan");
+    setTrainerComment(aiPlan.comment || "generated nutrition plan");
     setViewOnly(false);
     setAiOpen(false);
-    notification.success({ description: "AI nutrition plan applied" });
+    notification.success({ description: "nutrition plan applied" });
   };
 
   const exportToWhatsApp = () => {
@@ -170,7 +169,7 @@ const NutritionForm = ({ selectedMemberId }) => {
     setDays(WEEK_DAYS.map(createEmptyDay));
     setTrainerComment("");
     setViewOnly(false);
-    setCurrentPlanId(null)
+    setCurrentPlanId(null);
   };
 
   const loadFromHistory = (planId) => {
@@ -179,7 +178,7 @@ const NutritionForm = ({ selectedMemberId }) => {
       setDays(cloneDays(Object.values(selected?.days || {})));
       setTrainerComment(selected.comment || "");
       setViewOnly(false);
-        setCurrentPlanId(selected.planId); // <--- track ID
+      setCurrentPlanId(selected.planId); // <--- track ID
       notification.success({
         description: `Loaded version ${selected.planId}`,
       });
@@ -190,7 +189,11 @@ const NutritionForm = ({ selectedMemberId }) => {
   if (!activePlanLoaded)
     return (
       <div className="d-flex justify-content-center align-items-center vh-100">
-        <Spin tip="Loading nutrition plan..." size="large" className="black-spin" />
+        <Spin
+          tip="Loading nutrition plan..."
+          size="large"
+          className="black-spin"
+        />
       </div>
     );
 
@@ -198,14 +201,20 @@ const NutritionForm = ({ selectedMemberId }) => {
     <div className="">
       {/* Top Buttons */}
       <div className="d-flex gap-2 mb-3 flex-wrap">
-        {/* <button className="btn btn-success w-100" onClick={exportToWhatsApp}>
+        <button className="btn btn-success w-100" onClick={exportToWhatsApp}>
           Send Diet to WhatsApp
-        </button> */}
+        </button>
         <button
           className="btn btn-outline-success w-100"
           onClick={() => setAiOpen(true)}
         >
-          Select Plan
+          Generate Plan
+        </button>
+        <button
+          className="btn btn-outline-success w-100"
+          onClick={() => setAiOpen(true)}
+        >
+          Select Plan From Tempalates
         </button>
         <button
           className="btn btn-outline-primary w-100"

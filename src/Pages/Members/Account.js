@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Account.css";
-import GetApiCall from "../../helpers/GetApi";
 import PostApiCall from "../../helpers/PostApi";
-import { notification } from "antd";
-import moment from "moment";
+import { notification, Spin } from "antd";
 import { Col, Row } from "react-bootstrap";
+import dayjs from "dayjs";
 
 const Account = () => {
-  let userId = JSON?.parse(localStorage.getItem("user"))?.id;
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const userId = storedUser?.id;
+
+  const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(false);
+
   const [user, setUser] = useState({
     name: "",
     checkin: "",
@@ -20,33 +23,39 @@ const Account = () => {
     endDate: "",
     weight: "",
     height: "",
+    profileImage: "",
   });
 
   /* ================= LOAD PROFILE ================= */
-  const GetAccount = () => {
-    PostApiCall.postRequest(
-      {
-        userId: userId,
-      },
-      "GetAccount"
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setUser({
-          name: data.fld_name,
-          checkin: data.fld_last_checkin,
-          email: data.fld_email,
-          phone: data.fld_mobile,
-          membership: data.fld_membership,
-          joinDate: data.fld_start_date,
-          endDate: data.fld_end_date,
-          weight: data.fld_weight,
-          height: data.fld_height,
-        });
+  const getAccount = async () => {
+    try {
+      setLoading(true);
+
+      const res = await PostApiCall.postRequest({ userId }, "GetAccount");
+
+      const data = await res.json();
+
+      setUser({
+        name: data.fld_name,
+        checkin: data.fld_last_checkin,
+        email: data.fld_email,
+        phone: data.fld_mobile,
+        membership: data.fld_membership,
+        joinDate: data.fld_start_date,
+        endDate: data.fld_end_date,
+        weight: data.fld_weight,
+        height: data.fld_height,
+        profileImage: data.fld_profile_image,
       });
+    } catch (err) {
+      notification.error({ message: "Failed to load profile" });
+    } finally {
+      setLoading(false);
+    }
   };
+
   useEffect(() => {
-    GetAccount();
+    if (userId) getAccount();
   }, []);
 
   /* ================= HANDLE CHANGE ================= */
@@ -54,59 +63,72 @@ const Account = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handleEditToggle = () => {
-    setEditing(!editing);
-  };
-
   /* ================= SAVE PROFILE ================= */
-  const handleSave = () => {
-    PostApiCall.postRequest(
-      {
-        email: user.email,
-        phone: user.phone,
-        weight: user.weight,
-        height: user.height,
-        membership: user.membership,
-        userId: userId,
-      },
-      "UpdateAccount"
-    ).then(() => {
-      setEditing(false);
-      GetAccount();
+  const handleSave = async () => {
+    try {
+      setLoading(true);
+
+      await PostApiCall.postRequest(
+        {
+          email: user.email,
+          phone: user.phone,
+          weight: user.weight,
+          height: user.height,
+          userId,
+        },
+        "UpdateAccount",
+      );
+
       notification.success({
-        description: "Profile updated successfully!",
+        message: "Profile updated successfully",
       });
-    });
+
+      setEditing(false);
+      getAccount();
+    } catch (err) {
+      notification.error({ message: "Update failed" });
+    } finally {
+      setLoading(false);
+    }
   };
 
   /* ================= LOGOUT ================= */
-  const handleEditButton = () => {
+  const handleLogout = () => {
     localStorage.clear();
     sessionStorage.clear();
     window.location.href = "/login";
   };
 
+  /* ================= IMAGE UPLOAD ================= */
   const uploadImage = async (e) => {
-    const formData = new FormData();
-    formData.append("image", e.target.files[0]);
-    formData.append("id", 3);
+    try {
+      const file = e.target.files[0];
+      if (!file) return;
 
-    await fetch("http://localhost:5000/trainhighgym-api/uploadImage", {
-      method: "POST",
-      headers: {
-        "x-auth-token": `${sessionStorage.getItem("access")}`,
-      },
-      body: formData,
-    });
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("userId", userId);
 
-    // window.location.reload();
+      await fetch("http://localhost:5000/trainhighgym-api/uploadImage", {
+        method: "POST",
+        headers: {
+          "x-auth-token": sessionStorage.getItem("access"),
+        },
+        body: formData,
+      });
+
+      notification.success({ message: "Profile image updated" });
+      getAccount();
+    } catch (err) {
+      notification.error({ message: "Image upload failed" });
+    }
   };
 
   return (
     <div className="container pt-3 profile-container">
-      <div className="row justify-content-center">
-        <div className="col-md-8">
-          <div className="">
+      <Spin spinning={loading}>
+        <div className="row justify-content-center">
+          <div className="col-md-8">
             <div className="text-center">
               <img
                 src={
@@ -118,209 +140,143 @@ const Account = () => {
                 onClick={() => document.getElementById("imgUpload").click()}
               />
               <input id="imgUpload" type="file" hidden onChange={uploadImage} />
-              <h3 className="mb-1 fw-bold">{user.name}</h3>
+
+              <h3 className="fw-bold">{user.name}</h3>
               <p className="text-muted">Gym Member</p>
 
               <hr />
 
               <div className="text-start mb-4">
-                <h5 className="mb-3">Account Information</h5>
+                <p>
+                  <strong>Last Check-In:</strong> {user.checkin}
+                </p>
 
-                <div className="row mb-2">
-                  <div className="col-12 d-flex gap-2">
-                    <span className="fw-bold">Last Check-In:</span>
-                    <span>
-                      {editing ? (
-                        <input
-                          type="text"
-                          className="form-control"
-                          name="checkin"
-                          value={user.checkin || ""}
-                          readOnly
-                        />
-                      ) : (
-                        user.checkin
-                      )}
-                    </span>
-                  </div>
-                </div>
+                <p>
+                  <strong>Email:</strong>{" "}
+                  {editing ? (
+                    <input
+                      type="email"
+                      name="email"
+                      value={user.email || ""}
+                      onChange={handleChange}
+                      className="form-control"
+                    />
+                  ) : (
+                    user.email
+                  )}
+                </p>
 
-                <div className="row mb-2">
-                  <div className="col-12 d-flex gap-2">
-                    <span className="fw-bold">Email:</span>
-                  <span>
-                    {editing ? (
-                      <input
-                        type="email"
-                        className="form-control"
-                        name="email"
-                        value={user.email || ""}
-                        onChange={handleChange}
-                      />
-                    ) : (
-                      user.email
-                    )}
-                    </span>
-                  </div>
-                </div>
+                <p>
+                  <strong>Phone:</strong>{" "}
+                  {editing ? (
+                    <input
+                      type="text"
+                      name="phone"
+                      value={user.phone || ""}
+                      onChange={handleChange}
+                      className="form-control"
+                    />
+                  ) : (
+                    user.phone
+                  )}
+                </p>
 
-                <div className="row mb-2">
-                  <div className="col-12 d-flex gap-2">
-                    <span className="fw-bold">Phone:</span>
-                  <span>
-                    {editing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        name="phone"
-                        value={user.phone || ""}
-                        onChange={handleChange}
-                      />
-                    ) : (
-                      user.phone
-                    )}
-                    </span>
-                  </div>
-                </div>
+                <p>
+                  <strong>Membership:</strong> {user.membership} months
+                </p>
 
-                <div className="row mb-2">
-                  <div className="col-12 d-flex gap-2">
-                    <span className="fw-bold">Membership:</span>
-                  <span>
-                    {/* {editing ? (
-                      <select
-                        className="form-select"
-                        name="membership"
-                        value={user.membership || ""}
-                        onChange={handleChange}
-                      >
-                        <option>Basic</option>
-                        <option>Premium</option>
-                        <option>Elite</option>
-                      </select>
-                    ) : ( */}
-                    {user.membership} months
-                    {/* )} */}
-                    </span>
-                  </div>
-                </div>
+                <p>
+                  <strong>Join Date:</strong>{" "}
+                  {dayjs(user.joinDate).format("DD MMM YYYY")}
+                </p>
 
-                <div className="row mb-2">
-                  <div className="col-12 d-flex gap-2">
-                    <span className="fw-bold">Join Date:</span>
-                  <span>
-                    {moment(user.joinDate).format("MM-DD-YYYY")}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="row mb-2">
-                  <div className="col-12 d-flex gap-2">
-                    <span className="fw-bold">End Date:</span>
-                  <span>
-                    {moment(user.endDate).format("MM-DD-YYYY")}
-                  </span>
-                  </div>
-                </div>
+                <p>
+                  <strong>End Date:</strong>{" "}
+                  {dayjs(user.endDate).format("DD MMM YYYY")}
+                </p>
 
                 <hr />
-                <h5 className="mb-3">Fitness Stats</h5>
+                <h5>Fitness Stats</h5>
 
-                <div className="row mb-2">
-                  <div className="col-6 d-flex gap-2">
-                    <span className="fw-bold">Weight:</span>
-                  <span>
-                    {editing ? (
-                     <div className="input-group">
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="weight"
-                            value={user.weight || ""}
-                            onChange={handleChange}
-                            maxLength={4}
-                          />
-                          <span className="input-group-text">kg</span>
-                        </div>
-                    ) : (
-                      `${user.weight} kg`
-                    )}
-                    </span>
-                  </div>
-                </div>
+                <p>
+                  <strong>Weight:</strong>{" "}
+                  {editing ? (
+                    <input
+                      type="number"
+                      name="weight"
+                      value={user.weight || ""}
+                      onChange={handleChange}
+                      className="form-control"
+                    />
+                  ) : (
+                    `${user.weight || 0} kg`
+                  )}
+                </p>
 
-                <div className="row mb-2">
-                  <div className="col-6 d-flex gap-2">
-                    <span className="fw-bold">Height:</span>
-                  <span>
-                    {editing ? (
-                      <div className="input-group">
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="height"
-                            value={user.height || ""}
-                            onChange={handleChange}
-                            maxLength={4}
-                          />
-                          <span className="input-group-text">cm</span>
-                        </div>
-                    ) : (
-                      `${user.height} cm`
-                    )}
-                    </span>
-                  </div>
-                </div>
+                <p>
+                  <strong>Height:</strong>{" "}
+                  {editing ? (
+                    <input
+                      type="number"
+                      name="height"
+                      value={user.height || ""}
+                      onChange={handleChange}
+                      className="form-control"
+                    />
+                  ) : (
+                    `${user.height || 0} cm`
+                  )}
+                </p>
               </div>
 
-              <div className="">
-                <Row>
-                {editing ? (
-                  <Col xs={6}>
-                  <button
-                    className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark mb-3"
-                    onClick={handleSave}
-                  >
-                    Save
-                  </button>
-                  </Col>
-                ) : (
+              <Row className="mb-4">
+                {!editing ? (
                   <>
-                  <Col xs={6}>
-                    <button
-                      className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark mb-3"
-                      onClick={handleEditToggle}
-                    >
-                      Edit Profile
-                    </button>
+                    <Col xs={6}>
+                      <button
+                        className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark w-100"
+                        onClick={() => setEditing(true)}
+                      >
+                        Edit Profile
+                      </button>
                     </Col>
                     <Col xs={6}>
-                    <button
-                      className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-warning"
-                      onClick={handleEditButton}
-                    >
-                      Logout
-                    </button>
+                      <button
+                        className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-warning w-100"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </button>
+                    </Col>
+                  </>
+                ) : (
+                  <>
+                    <Col xs={6}>
+                      <button
+                        className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark w-100"
+                        onClick={() => {
+                          setEditing(false);
+                          getAccount();
+                        }}
+                      >
+                        Cancel
+                      </button>
+                    </Col>
+                    <Col xs={6}>
+                      <button
+                        className=" text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-warning w-100"
+                        onClick={handleSave}
+                      >
+                        Save
+                      </button>
                     </Col>
                   </>
                 )}
-
-                {editing && (
-                  <Col xs={6}>
-                  <button
-                    className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark"
-                    onClick={handleEditToggle}
-                  >
-                    Cancel
-                  </button>
-                  </Col>
-                )}
-                </Row>
-              </div>
+              </Row>
             </div>
           </div>
         </div>
-      </div>
+      </Spin>
     </div>
   );
 };
