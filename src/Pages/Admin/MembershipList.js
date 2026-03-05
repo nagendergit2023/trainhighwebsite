@@ -28,7 +28,7 @@ function MembershipList() {
   const [trainerId, setTrainerId] = useState("");
   useEffect(() => {
     GetApiCall.getRequest("staff").then((res) =>
-      res.json().then((data) => setStaff(data.data))
+      res.json().then((data) => setStaff(data.data)),
     );
   }, []);
 
@@ -59,7 +59,7 @@ function MembershipList() {
         memberId: selectedMember.fld_id,
         trainerId: trainerId,
       },
-      "AssignTrainer"
+      "AssignTrainer",
     ).then(() => {
       notification.success({ message: "Trainer Assigned Successfully" });
 
@@ -68,8 +68,8 @@ function MembershipList() {
         prev.map((m) =>
           m.fld_id === selectedMember.fld_id
             ? { ...m, trainer_id: trainerId }
-            : m
-        )
+            : m,
+        ),
       );
 
       setIsModalOpen(false);
@@ -267,7 +267,7 @@ function MembershipList() {
                       Renew Membership
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link
                       className="dropdown-item"
                       to="/new-membership"
@@ -275,7 +275,7 @@ function MembershipList() {
                     >
                       Transfer Membership
                     </Link>
-                  </li>
+                  </li> */}
                   <li>
                     <button
                       className="dropdown-item"

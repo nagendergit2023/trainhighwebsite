@@ -1,5 +1,6 @@
 // var urlString = "http://trainhighgym.com:3309/trainhighgym-api/";
 var urlString = "http://localhost:5000/trainhighgym-api/";
+var access = sessionStorage.getItem("access");
 
 const PostApiCall = {
   postRequest(userData, url) {
@@ -10,6 +11,7 @@ const PostApiCall = {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "*",
         "Content-Type": "application/json",
+        "x-auth-token": access,
       },
       body: JSON.stringify(userData),
     })

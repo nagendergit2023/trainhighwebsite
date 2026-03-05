@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { notification } from "antd";
-import PostApiCall from "../../helpers/PostApi";
-import GetApiCall from "../../helpers/GetApi";
+import PostApiCall from "../../../helpers/PostApi";
+import GetApiCall from "../../../helpers/GetApi";
 import WorkoutTemplateList from "./WorkoutTemplateList";
 
 const WEEK_DAYS = [
@@ -14,7 +14,7 @@ const WEEK_DAYS = [
   "Sunday",
 ];
 
-function TrainersTemplate() {
+function WorkoutTemplateMaster() {
   const trainerId = localStorage.getItem("userId");
   const [templateId, setTemplateId] = useState(null);
   const [templateName, setTemplateName] = useState("");
@@ -29,7 +29,7 @@ function TrainersTemplate() {
       workoutName: "",
       duration: "",
       exercises: [],
-    }))
+    })),
   );
 
   /* ADD EXERCISE */
@@ -59,6 +59,7 @@ function TrainersTemplate() {
 
     PostApiCall.postRequest(
       {
+        id: templateId,
         name: templateName,
         description,
         category,
@@ -66,7 +67,7 @@ function TrainersTemplate() {
         isGlobal,
         days,
       },
-      "UpdateWorkoutTemplates"
+      "UpdateWorkoutTemplates",
     ).then(() => {
       notification.success({ description: "Template saved successfully" });
       resetForm();
@@ -77,7 +78,7 @@ function TrainersTemplate() {
           workoutName: "",
           duration: "",
           exercises: [],
-        }))
+        })),
       );
     });
   };
@@ -103,7 +104,7 @@ function TrainersTemplate() {
                 exercises: [],
               }
             );
-          })
+          }),
         );
       });
   };
@@ -238,7 +239,7 @@ function TrainersTemplate() {
                               index,
                               exIndex,
                               "exerciseName",
-                              e.target.value
+                              e.target.value,
                             )
                           }
                         />
@@ -253,7 +254,7 @@ function TrainersTemplate() {
                               index,
                               exIndex,
                               "sets",
-                              e.target.value
+                              e.target.value,
                             )
                           }
                         />
@@ -268,10 +269,20 @@ function TrainersTemplate() {
                               index,
                               exIndex,
                               "reps",
-                              e.target.value
+                              e.target.value,
                             )
                           }
                         />
+                        <button
+                          className="btn btn-sm btn-danger"
+                          onClick={() => {
+                            const updated = [...days];
+                            updated[index].exercises.splice(exIndex, 1);
+                            setDays(updated);
+                          }}
+                        >
+                          ❌ Delete Exercise
+                        </button>
                       </div>
                     </div>
                   ))}
@@ -290,4 +301,4 @@ function TrainersTemplate() {
   );
 }
 
-export default TrainersTemplate;
+export default WorkoutTemplateMaster;

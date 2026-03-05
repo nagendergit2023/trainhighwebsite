@@ -34,7 +34,7 @@ import MembersAccount from "./Pages/Members/Account.js";
 import MembersWorkout from "./Pages/Members/Workout.js";
 import MembersNutrition from "./Pages/Members/Nutrition.js";
 import AppFooter from "./Components/Footer/AppFooter.js";
-import AppHeader from "./Components/Header/AppHeader.js"; 
+import AppHeader from "./Components/Header/AppHeader.js";
 import EnquiryList from "./Pages/Admin/EnquiryList.js";
 import StaffList from "./Pages/Admin/StaffList.js";
 import TrainersDashboard from "./Pages/Trainers/Dashboard.js";
@@ -44,16 +44,19 @@ import TrainersNutrition from "./Pages/Trainers/Nutrition.js";
 import NewBatch from "./Pages/BatchClasses/NewBatchClass.js";
 import TrainerMembersList from "./Pages/Trainers/TrainerMembersList.jsx";
 import TrainerMemberPlans from "./Pages/Trainers/TrainerMemberPlans.jsx";
-import TrainersTemplate from "./Pages/Trainers/TrainersTemplate.js";
+import TrainersTemplate from "./Pages/Trainers/Templates/WorkoutTemplateMaster.jsx";
+import TemplateMasterScreen from "./Pages/Trainers/Templates/TemplateMasterScreen.jsx";
+import MemberAttendanceHistory from "./Pages/Members/MemberAttendanceHistory.jsx";
 
 function App() {
   return (
     <>
-    {window.location.pathname.startsWith("/members/") || window.location.pathname.startsWith("/trainers/") ? (
-  <AppHeader />
-) : window.location.pathname !== "/home" ? (
-  <Header />
-) : null}
+      {window.location.pathname.startsWith("/members/") ||
+      window.location.pathname.startsWith("/trainers/") ? (
+        <AppHeader />
+      ) : window.location.pathname !== "/home" ? (
+        <Header />
+      ) : null}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -79,17 +82,20 @@ function App() {
         <Route path="/trainers/profile" element={<TrainersProfile />} />
         <Route path="/trainers/dashboard" element={<TrainersDashboard />} />
         <Route path="/trainers/account" element={<TrainersAccount />} />
-        <Route path="/trainers/templates" element={<TrainersTemplate />} />
+        <Route path="/trainers/templates" element={<TemplateMasterScreen />} />
         <Route path="/trainers/nutrition" element={<TrainersNutrition />} />
         <Route path="/new-batch" element={<NewBatch />} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/staff-list" element={<StaffList />} />
 
-
         <Route path="/trainers/members" element={<TrainerMembersList />} />
         <Route
           path="/trainers/member/:memberId/plans"
           element={<TrainerMemberPlans />}
+        />
+        <Route
+          path="/trainers/member/:memberId/attendance"
+          element={<MemberAttendanceHistory />}
         />
 
         {/* <Route

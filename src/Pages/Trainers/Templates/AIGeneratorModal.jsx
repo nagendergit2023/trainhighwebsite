@@ -36,7 +36,7 @@ const AIGeneratorModal = ({ open, onClose, onApply }) => {
       onCancel={onClose}
       footer={null}
       width={700}
-      title="🤖 AI Workout Generator"
+      title="Workout Generator"
     >
       {/* -------- FORM -------- */}
       {!generatedPlan && (

@@ -10,7 +10,7 @@ const GetApiCall = {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Headers": "*",
         "Content-Type": "application/json",
-        auth: access,
+        "x-auth-token": access,
       },
     });
   },

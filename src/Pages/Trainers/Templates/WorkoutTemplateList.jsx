@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import GetApiCall from "../../helpers/GetApi";
+import GetApiCall from "../../../helpers/GetApi";
 
 function WorkoutTemplateList({ onEdit }) {
   const [templates, setTemplates] = useState([]);
