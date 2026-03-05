@@ -92,7 +92,7 @@ function Footer() {
               <ul className="list-inline mt-0 mb-0">
                 <li className="list-inline-item">
                   <a
-                    className="btn btn-white btn-sm shadow px-2 text-instagram bg-dark social-icon-wrap"
+                    className="btn btn-white btn-sm shadow px-2 text-instagram bg-dark social-icon-wrap cursor-box copy"
                     href="https://instagram.com/trainhighgym?igshid=NjIwNzIyMDk2Mg=="
                     target="_blank"
                   >
@@ -101,7 +101,7 @@ function Footer() {
                 </li>
                 <li className="list-inline-item">
                   <a
-                    className="btn btn-white btn-sm shadow px-2 text-linkedin bg-dark social-icon-wrap"
+                    className="btn btn-white btn-sm shadow px-2 text-linkedin bg-dark social-icon-wrap cursor-box copy"
                     href="https://in.linkedin.com/in/train-high-gym-266a86370"
                     target="_blank"
                   >
@@ -110,7 +110,7 @@ function Footer() {
                 </li>
                 <li className="list-inline-item">
                   <a
-                    className="btn btn-white btn-sm shadow px-2 text-linkedin bg-dark social-icon-wrap"
+                    className="btn btn-white btn-sm shadow px-2 text-linkedin bg-dark social-icon-wrap cursor-box copy"
                     href="https://www.youtube.com/@TrainHighGym"
                     target="_blank"
                   >
@@ -119,7 +119,7 @@ function Footer() {
                 </li>
                 <li className="list-inline-item">
                   <a
-                    className="btn btn-white btn-sm shadow px-2 text-facebook bg-dark social-icon-wrap"
+                    className="btn btn-white btn-sm shadow px-2 text-facebook bg-dark social-icon-wrap cursor-box copy"
                     href="https://www.facebook.com/p/TRAIN-HIGH-GYM-61550363817019/"
                     target="_blank"
                   >

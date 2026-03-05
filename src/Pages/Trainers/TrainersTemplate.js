@@ -117,7 +117,9 @@ function TrainersTemplate() {
 
   return (
     <>
-      <WorkoutTemplateList onEdit={loadTemplate} />
+      <div className="mt-3 container">
+        <WorkoutTemplateList onEdit={loadTemplate} />
+      </div>
 
       <div className="mb-5 mt-3 container">
         <h2 className="weekly-title mb-4 text-center">Workout Templates</h2>
@@ -188,7 +190,7 @@ function TrainersTemplate() {
             {!day.isRestDay && (
               <>
                 <div className="row mt-2">
-                  <div className="col-md-6">
+                  <div className="col-md-6 mb-2">
                     <input
                       placeholder="Workout Name"
                       className="form-control"
@@ -201,7 +203,7 @@ function TrainersTemplate() {
                     />
                   </div>
 
-                  <div className="col-md-6">
+                  <div className="col-md-6 mb-2">
                     <input
                       placeholder="Duration (minutes)"
                       className="form-control"
@@ -226,7 +228,7 @@ function TrainersTemplate() {
 
                   {day.exercises.map((ex, exIndex) => (
                     <div className="row mt-2" key={exIndex}>
-                      <div className="col-md-4">
+                      <div className="col-md-4 mb-2">
                         <input
                           placeholder="Exercise"
                           className="form-control"
@@ -241,7 +243,7 @@ function TrainersTemplate() {
                           }
                         />
                       </div>
-                      <div className="col-md-4">
+                      <div className="col-6 mb-2">
                         <input
                           placeholder="Sets"
                           className="form-control"
@@ -256,7 +258,7 @@ function TrainersTemplate() {
                           }
                         />
                       </div>
-                      <div className="col-md-4">
+                      <div className="col-6 mb-2">
                         <input
                           placeholder="Reps"
                           className="form-control"

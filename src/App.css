@@ -259,6 +259,55 @@ a {
   height: 24px;
 }
 
+ .navbar-logo-app-header {
+    width: 85px;
+    border-radius: 50%;
+  }
+
+  .cursor-box {
+    width: 150px;
+    height: 150px;
+    background-color: #333;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    text-align: center;
+    padding: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.cursor-box::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    top: -100%;
+    left: -100%;
+    transition: all 0.5s ease;
+}
+
+.cursor-box:hover::before {
+    top: 100%;
+    left: 100%;
+}
+
+.copy {
+    cursor: pointer;
+    background: linear-gradient(145deg, #2a2a2a, #383838);
+    border: 2px solid #ffc107;
+    transition: all ease-in-out .3s;
+}
+.copy:hover {
+    transform: scale(1.05);
+    box-shadow: 2px 2px 0 #ffc1078c !important;
+}
+
+
 @media screen and (max-width: 768px) {
   #root .inner-section {
     padding-bottom: 5rem;
