@@ -47,6 +47,7 @@ import TrainerMemberPlans from "./Pages/Trainers/TrainerMemberPlans.jsx";
 import TrainersTemplate from "./Pages/Trainers/Templates/WorkoutTemplateMaster.jsx";
 import TemplateMasterScreen from "./Pages/Trainers/Templates/TemplateMasterScreen.jsx";
 import MemberAttendanceHistory from "./Pages/Members/MemberAttendanceHistory.jsx";
+import MachineMaster from "./Pages/Machines/MachineMaster.jsx";
 
 function App() {
   return (
@@ -73,6 +74,7 @@ function App() {
         <Route path="/attendence" element={<Attendence />} />
         <Route path="/new-membership" element={<NewMembership />} />
         <Route path="/enquiry-list" element={<EnquiryList />} />
+        <Route path="/machine-master" element={<MachineMaster />} />
         <Route path="/membership-list" element={<MembershipList />} />
         <Route path="/members/profile" element={<MembersProfile />} />
         <Route path="/members/dashboard" element={<MembersDashboard />} />

@@ -33,6 +33,7 @@ function NewMembership() {
   const [status, setStatus] = useState("");
   const [email, setEmail] = useState("");
   const [amountPerMonth, setAmountPerMonth] = useState(null);
+  const [machines, setMachines] = useState([]);
   const [ImageApiUrl] = useState(
     "http://68.178.170.174:3309/trainhighgym-api/AddImage",
   );
@@ -291,6 +292,15 @@ function NewMembership() {
 
   useEffect(() => {
     loadStaff();
+  }, []);
+  const loadMachines = () => {
+    GetApiCall.getRequest("Machines/GetMachines").then((res) =>
+      res.json().then((data) => setMachines(data)),
+    );
+  };
+
+  useEffect(() => {
+    loadMachines();
   }, []);
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -607,9 +617,11 @@ function NewMembership() {
                             onChange={(e) => setSelectedDevice(e.target.value)}
                           >
                             <option value="">Select Device</option>
-                            <option value="NCD8251400352">
-                              ESSL Face Device
-                            </option>
+                            {machines.map((m) => (
+                              <option key={m.id} value={m.serial_number}>
+                                {m.machine_name} ({m.serial_number})
+                              </option>
+                            ))}
                           </Form.Select>
                         </FloatingLabel>
 
