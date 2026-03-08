@@ -115,13 +115,13 @@ function MembershipList() {
     if (expiry.status === "EXPIRING_SOON") {
       return (
         <Tag color="orange">
-          ⚠ Expiring in {expiry.days} day{expiry.days !== 1 && "s"}
+          {expiry.days} day{expiry.days !== 1 && "s"} Left
         </Tag>
       );
     }
 
     if (expiry.status === "WARNING") {
-      return <Tag color="gold">Expiring in {expiry.days} days</Tag>;
+      return <Tag color="gold">{expiry.days} days Left</Tag>;
     }
 
     return <Tag color="green">Active</Tag>;
@@ -130,16 +130,16 @@ function MembershipList() {
   const data = {
     columns: [
       {
-        title: "S No.",
+        title: "#",
         dataIndex: "SNo",
         sorter: (a, b) => a.SNo - b.SNo,
-        width: "90px",
+        width: "60px",
       },
       {
         title: "ID",
         dataIndex: "Membership",
         sorter: (a, b) => a.Membership - b.Membership,
-        width: "120px",
+        width: "150px",
       },
       // {
       //   title: "Profile Photo",
@@ -150,37 +150,37 @@ function MembershipList() {
         title: "Name",
         dataIndex: "MemberName",
         sorter: (a, b) => a.MemberName - b.MemberName,
-        width: "180px",
+        width: "160px",
       },
       {
         title: "Mobile No.",
         dataIndex: "MobileNo",
         sorter: (a, b) => a.MobileNo - b.MobileNo,
-        width: "180px",
+        width: "125px",
       },
       {
         title: "Trainer",
         dataIndex: "Trainer",
-        width: "150px",
+        width: "140px",
       },
 
       {
         title: "Start Date",
         dataIndex: "StartDate",
         sorter: (a, b) => a.StartDate - b.StartDate,
-        width: "140px",
+        width: "120px",
       },
       {
         title: "End Date",
         dataIndex: "EndDate",
         sorter: (a, b) => a.StartDate - b.StartDate,
-        width: "140px",
-      },
-      {
-        title: "Days Left",
-        dataIndex: "DaysLeft",
         width: "120px",
       },
+      // {
+      //   title: "Days Left",
+      //   dataIndex: "DaysLeft",
+      //   width: "100px",
+      // },
 
       {
         title: "Status",
@@ -191,7 +191,7 @@ function MembershipList() {
       {
         title: "Actions",
         dataIndex: "Action",
-        width: "150px",
+        width: "110px",
       },
     ],
     rows: memberList
@@ -234,7 +234,7 @@ function MembershipList() {
           EndDateRaw: data.fld_end_date, // important for row highlight
 
           Action: (
-            <div className="d-flex align-items-center gap-2 justify-content-evenly">
+            <div className="d-flex align-items-center justify-content-start">
               <div className="dropdown">
                 <button
                   className="btn btn-secondary dropdown-toggle"
@@ -293,9 +293,13 @@ function MembershipList() {
   };
   return (
     <>
-      <Hero />
-      <section className="py-5 inner-section">
+      <section className="pb-5 inner-section">
         <Container>
+          <Row className="justify-content-center mb-3">
+                    <Col lg={9}>
+                      <h2 className="section-title">My Members</h2>
+                    </Col>
+                  </Row>
           <Row>
             <Col lg={12} className="mb-lg-4">
               <Form>
@@ -340,6 +344,7 @@ function MembershipList() {
             </Col>
             <Col lg={12}>
               <Table
+               size="small"
                 bordered={true}
                 striped
                 scroll={{ x: "400", y: 800 }}

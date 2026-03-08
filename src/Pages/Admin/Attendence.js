@@ -1,11 +1,18 @@
 
 import React from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
 
 function Attendence() {
   return (
-    <div className="container mb-5 mt-3">
-      <h2 className="text-center mb-4 weekly-title">Attendence</h2>
-      </div>
+    <section className="pb-5 inner-section">
+      <Container>
+        <Row className="justify-content-center mb-3">
+          <Col lg={9}>
+            <h2 className="section-title">Attendence</h2>
+          </Col>
+        </Row>
+      </Container>
+    </section>
   )
 }
 

@@ -318,6 +318,10 @@ function NewMembership() {
     return () => URL.revokeObjectURL(preview);
   };
 
+  const ViewMembersList = () => {
+    navigate("/membership-list");
+  };
+
   return (
     <>
       <Hero />
@@ -469,12 +473,12 @@ function NewMembership() {
                         >
                           {city.length > 0
                             ? city.map((data) => {
-                                return (
-                                  <option value={data.Block + "-" + data.Name}>
-                                    {data.Block + "-" + data.Name}
-                                  </option>
-                                );
-                              })
+                              return (
+                                <option value={data.Block + "-" + data.Name}>
+                                  {data.Block + "-" + data.Name}
+                                </option>
+                              );
+                            })
                             : ""}
                         </Form.Select>
                       </FloatingLabel>
@@ -571,87 +575,15 @@ function NewMembership() {
                         />
                       </FloatingLabel>
                     </Col>
-                    {id && (
-                      <section className="mt-4 p-4 border rounded">
-                        <h5>{trainer ? "Change" : "Assign"} Trainer</h5>
 
-                        <FloatingLabel label="Select Trainer">
-                          <Form.Select
-                            value={trainer}
-                            onChange={(e) => setTrainer(e.target.value)}
-                          >
-                            <option>Select Trainer</option>
-                            {staff
-                              ?.filter((trainer) => trainer?.role != "Admin")
-                              .map((t) => (
-                                <option value={t.id}>
-                                  {t.name} - {t.staff_code}
-                                </option>
-                              ))}
-                          </Form.Select>
-                        </FloatingLabel>
-
-                        <button
-                          className="btn btn-dark mt-3"
-                          onClick={() => {
-                            PostApiCall.postRequest(
-                              { memberId: id, trainerId: trainer },
-                              "AssignTrainer",
-                            ).then(() => {
-                              notification.success({
-                                message: "Trainer Assigned",
-                              });
-                            });
-                          }}
-                        >
-                          {trainer ? "Update" : "Assign"} Trainer
-                        </button>
-                      </section>
-                    )}
-                    {showBiometric && (
-                      <section className="mt-4 p-4 border rounded">
-                        <h5>Biometric Assignment</h5>
-
-                        <FloatingLabel label="Select Device" className="mb-3">
-                          <Form.Select
-                            onChange={(e) => setSelectedDevice(e.target.value)}
-                          >
-                            <option value="">Select Device</option>
-                            {machines.map((m) => (
-                              <option key={m.id} value={m.serial_number}>
-                                {m.machine_name} ({m.serial_number})
-                              </option>
-                            ))}
-                          </Form.Select>
-                        </FloatingLabel>
-
-                        <button
-                          className="btn btn-success w-100"
-                          onClick={() => {
-                            PostApiCall.postRequest(
-                              {
-                                memberId: id,
-                                deviceSn: selectedDevice,
-                              },
-                              "biometric/assign-user",
-                            ).then(() => {
-                              notification.success({
-                                message: "Biometric Enrollment",
-                                description:
-                                  "User sent to device. Please scan face/finger on machine.",
-                              });
-                            });
-                          }}
-                        >
-                          Add Customer to Biometric Device
-                        </button>
-
-                        <p className="mt-3 text-warning">
-                          Status: {biometricStatus}
-                        </p>
-                      </section>
-                    )}
-                    <Col lg={4} className="ms-auto my-2">
+                    <Col lg={12} className="ms-auto my-2 d-lg-flex gap-3">
+                      <button
+                        type="button"
+                        className="btn btn-warning w-100 py-2 btn-lg"
+                        onClick={ViewMembersList}
+                      >
+                        View Members List
+                      </button>
                       <button
                         type="button"
                         className="btn btn-dark w-100 py-2 btn-lg"
@@ -660,6 +592,103 @@ function NewMembership() {
                         {location.state ? "Update Member" : "Add New Member"}
                       </button>
                     </Col>
+                    {id && (
+                      <section className="mt-4 p-4 border rounded">
+                        <h5 className="mb-3 fw-bold">{trainer ? "Change" : "Assign"} Trainer</h5>
+
+                        <Row>
+                          <Col lg={6}>
+                            <FloatingLabel label="Select a trainer to assign">
+                              <Form.Select
+                                value={trainer}
+                                onChange={(e) => setTrainer(e.target.value)}
+                              >
+                                <option>Select Trainer</option>
+                                {staff
+                                  ?.filter((trainer) => trainer?.role != "Admin")
+                                  .map((t) => (
+                                    <option value={t.id}>
+                                      {t.name} - {t.staff_code}
+                                    </option>
+                                  ))}
+                              </Form.Select>
+                            </FloatingLabel>
+                          </Col>
+                          <Col lg={6}>
+                            <button
+                              className="btn btn-dark w-100 py-3"
+                              onClick={() => {
+                                PostApiCall.postRequest(
+                                  { memberId: id, trainerId: trainer },
+                                  "AssignTrainer",
+                                ).then(() => {
+                                  notification.success({
+                                    message: "Trainer Assigned",
+                                  });
+                                });
+                              }}
+                            >
+                              {trainer ? "Update" : "Assign"} Trainer
+                            </button>
+                          </Col>
+
+                        </Row>
+
+
+
+
+                      </section>
+                    )}
+
+                    {showBiometric && (
+                      <section className="mt-4 p-4 border rounded">
+                        <h5 className="mb-3 fw-bold">Biometric Assignment</h5>
+
+                        <Row>
+                          <Col lg={6}>
+                            <FloatingLabel label="Select a device to assign" className="mb-3">
+                              <Form.Select
+                                onChange={(e) => setSelectedDevice(e.target.value)}
+                              >
+                                <option value="">Select Device </option>
+                                {machines.map((m) => (
+                                  <option key={m.id} value={m.serial_number}>
+                                    {m.machine_name} ({m.serial_number})
+                                  </option>
+                                ))}
+                              </Form.Select>
+                            </FloatingLabel>
+                          </Col>
+                          <Col lg={6}>
+                            <button
+                              className="btn btn-success w-100 py-3"
+                              onClick={() => {
+                                PostApiCall.postRequest(
+                                  {
+                                    memberId: id,
+                                    deviceSn: selectedDevice,
+                                  },
+                                  "biometric/assign-user",
+                                ).then(() => {
+                                  notification.success({
+                                    message: "Biometric Enrollment",
+                                    description:
+                                      "User sent to device. Please scan face/finger on machine.",
+                                  });
+                                });
+                              }}
+                            >
+                              Add Customer to Biometric Device
+                            </button>
+                          </Col>
+                        </Row>
+
+                        <p className="mt-3 text-warning">
+                          Status: {biometricStatus ? biometricStatus : "N/A"}
+                        </p>
+                      </section>
+                    )}
+
                   </Row>
                 </Col>
               </Row>

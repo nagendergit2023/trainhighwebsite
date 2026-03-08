@@ -242,21 +242,14 @@ function EnquiryList() {
 
   return (
     <>
-      <Hero />
-
-      <section className="py-5 inner-section">
+      <section className="pb-5 inner-section">
         <Container>
+           <Row className="justify-content-center mb-3">
+                    <Col lg={9}>
+                      <h2 className="section-title">My Enquiries</h2>
+                    </Col>
+                  </Row>
           <Row>
-            <Col lg={12} className="mb-4">
-              <FloatingLabel label="Search by Name, Mobile or Membership">
-                <Form.Control
-                  type="text"
-                  value={searchField}
-                  onChange={(e) => setSearchField(e.target.value)}
-                />
-              </FloatingLabel>
-            </Col>
-
             <Col lg={12} className="mb-3 text-end">
               <Button
                 variant="dark"
@@ -269,6 +262,17 @@ function EnquiryList() {
                 + Add New Enquiry
               </Button>
             </Col>
+            <Col lg={12} className="mb-4">
+              <FloatingLabel label="Search by Name, Mobile or Membership">
+                <Form.Control
+                  type="text"
+                  value={searchField}
+                  onChange={(e) => setSearchField(e.target.value)}
+                />
+              </FloatingLabel>
+            </Col>
+
+            
 
             <Col lg={12}>
               <Table

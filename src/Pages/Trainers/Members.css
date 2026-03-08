@@ -10,9 +10,7 @@
 }
 
 .dropdown-toggle {
-  background-color: #ffffff;
   border: none;
-  font-size: x-large;
 }
 
 .dropdown-toggle::after {

@@ -60,8 +60,8 @@ function StaffList() {
 
   const columns = [
     { title: "S No.", render: (_, __, i) => i + 1 },
-    { title: "Name", dataIndex: "name" },
     { title: "Code", dataIndex: "staff_code" },
+    { title: "Name", dataIndex: "name" },
     { title: "Mobile", dataIndex: "mobile" },
     { title: "Email", dataIndex: "email" },
     { title: "Role", dataIndex: "role" },
@@ -85,9 +85,13 @@ function StaffList() {
 
   return (
     <>
-      <Hero />
-      <section className="py-5 inner-section">
+      <section className="pb-5 inner-section">
         <Container>
+          <Row className="justify-content-center mb-3">
+                              <Col lg={9}>
+                                <h2 className="section-title">My Staff</h2>
+                              </Col>
+                            </Row>
           <Row>
             <Col lg={12} className="mb-3 text-end">
               <Button variant="secondary" onClick={() => setShow(true)}>
