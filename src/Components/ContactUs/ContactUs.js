@@ -4,7 +4,12 @@ import PostApiCall from "../../helpers/PostApi";
 import { notification } from "antd";
 import Notiflix from "notiflix";
 
-function ContactUs() {
+function ContactUs({
+  title = "Get in touch with us",
+  subtitle = "WE ARE ALWAYS READY TO HEAR FROM YOU",
+  bgClass = "bg-white",
+  textClass = "text-black"
+}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState(null);
@@ -50,12 +55,12 @@ function ContactUs() {
     }
   };
   return (
-    <section className="py-lg-3 py-5">
+    <section className={`py-lg-3 py-5 ${bgClass}`}>
       <Container>
         <Row className="justify-content-center">
           <Col lg={12} className="text-center my-4">
-            <h1 className="section-title px-lg-0 px-3">get in touch with us</h1>
-            <p>WE ARE ALWAYS READY TO HEAR FROM YOU</p>
+            <h1 className={`section-title px-lg-0 px-3 ${textClass}`}>{title}</h1>
+            <p className={`${textClass}`}>{subtitle}</p>
           </Col>
           <Col lg={3}>
             <div className="form-floating mb-3">
@@ -126,7 +131,7 @@ function ContactUs() {
           <Col lg={3} className="text-end mb-5">
             <button
               onClick={() => contactus()}
-              className="w-100 py-2 btn-lg rounded btn btn-dark"
+              className="w-100 py-2 btn-lg rounded btn btn-dark border-white"
             >
               Submit
             </button>

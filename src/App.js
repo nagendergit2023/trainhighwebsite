@@ -48,8 +48,22 @@ import TrainersTemplate from "./Pages/Trainers/Templates/WorkoutTemplateMaster.j
 import TemplateMasterScreen from "./Pages/Trainers/Templates/TemplateMasterScreen.jsx";
 import MemberAttendanceHistory from "./Pages/Members/MemberAttendanceHistory.jsx";
 import MachineMaster from "./Pages/Machines/MachineMaster.jsx";
+import { useEffect } from "react";
 
 function App() {
+
+  useEffect(() => {
+  const root = document.getElementById("root");
+  const path = window.location.pathname;
+
+  if (!path.startsWith("/members/") && !path.startsWith("/trainers/")) {
+    root.classList.add("main-footer-layout");
+  } else {
+    root.classList.add("app-footer-layout");
+  }
+}, []);
+
+
   return (
     <>
       {window.location.pathname.startsWith("/members/") ||

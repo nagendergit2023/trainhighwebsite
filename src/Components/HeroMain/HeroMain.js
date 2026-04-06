@@ -9,7 +9,7 @@ function HeroMain() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const text = "one day free trial";
+  const text = "one day gym trial";
 
   useEffect(() => {
     let i = 0;
@@ -43,14 +43,16 @@ function HeroMain() {
     <div className="hero-section-main">
       <Container>
         <Row className="justify-content-center">
-          <Col lg={7} className="text-center position-relative">
+          <Col lg={8} className="text-center position-relative">
             <h2 className="section-title">
               {displayed}
               <span className="cursor">|</span>
             </h2>
-            <h5 className="my-4">
-              Take your time to get to know Train High Gym. The pass is FREE,
-              and we would love to show you around our Gym!
+            <h5 className="mt-4">
+              Take your time to get to know Train High Gym.
+            </h5>
+            <h5 className="mb-4">
+              We would love to show you around!
             </h5>
             <a
               className="btn btn-rounded-pill border btn-lg"
@@ -77,8 +79,8 @@ function HeroMain() {
           <Offcanvas.Title></Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <h4 className="mt-5">Get Your Free Pass</h4>
-          <p>Fill in your details to claim your free trial pass.</p>
+          <h4 className="mt-5">Get Your Pass</h4>
+          <p>Fill in your details to claim your trial pass.</p>
           <Form>
             <Form.Group className="mb-3 text-dark" controlId="formName">
               <Form.FloatingLabel label="Name">
@@ -91,6 +93,15 @@ function HeroMain() {
                 <Form.Control type="text" placeholder="Enter your mobile" />
               </Form.FloatingLabel>
             </Form.Group>
+
+            <div class="form-floating mb-3">
+              <select class="form-select" id="formLocation" aria-label="Train High Gym Locations">
+                <option selected>Select your nearest location</option>
+                <option value="1">Janakpuri</option>
+                <option value="2">Rajouri Garden</option>
+              </select>
+              <label for="formLocation">Locations</label>
+            </div>
 
             <Button
               type="submit"

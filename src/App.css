@@ -314,7 +314,10 @@ a {
   }
 
 @media screen and (max-width: 768px) {
-  #root {
+   #root.main-footer-layout {
+    padding-bottom: 0rem;
+  }
+  #root.app-footer-layout {
     padding-bottom: 5rem;
   }
   .carousel-inner,
