@@ -62,18 +62,21 @@ function HeroMain() {
     try {
       setLoading(true);
 
-      await PostApiCall.postRequest("contactus", {
-        name: formData.name,
-        mobile: formData.mobile,
-        desciption: `Trial Location: ${formData.location}`,
-        subject: "One Day Gym Trial",
-        type: "Trial",
-        source: "website",
-        email:
-          formData.location == "Janakpuri"
-            ? "trainhighgym@gmail.com"
-            : "trainhighrajouri@gmail.com",
-      });
+      await PostApiCall.postRequest(
+        {
+          name: formData.name,
+          mobile: formData.mobile,
+          desciption: `Trial Location: ${formData.location}`,
+          subject: "One Day Gym Trial",
+          type: "Trial",
+          source: "website",
+          email:
+            formData.location == "Janakpuri"
+              ? "trainhighgym@gmail.com"
+              : "trainhighrajouri@gmail.com",
+        },
+        "contactus",
+      );
 
       alert("Your trial pass request has been sent!");
       setFormData({ name: "", mobile: "", location: "" });
