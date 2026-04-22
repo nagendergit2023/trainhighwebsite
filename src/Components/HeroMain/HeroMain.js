@@ -7,6 +7,7 @@ import {
   Offcanvas,
   Form,
   Spinner,
+  FloatingLabel,
 } from "react-bootstrap";
 import axios from "axios";
 import "./HeroMain.css";
@@ -121,7 +122,7 @@ function HeroMain() {
         <Offcanvas.Header closeButton closeVariant="white" />
         <Offcanvas.Body>
           <h4 className="mt-5">Get Your Pass</h4>
-          <p>Fill in your details to claim your trial pass.</p>
+          <h6 className="mb-5">Fill in your details to claim your trial pass.</h6>
 
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3 text-dark">
@@ -149,15 +150,19 @@ function HeroMain() {
             </Form.Group>
 
             <Form.Group className="mb-3 text-dark">
-              <Form.Select
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
+              <FloatingLabel
+                controlId="floatingSelect"
+                label="Select your nearest location"
               >
-                <option value="">Select your nearest location</option>
-                <option value="Janakpuri">Janakpuri</option>
-                <option value="Rajouri Garden">Rajouri Garden</option>
-              </Form.Select>
+                <Form.Select
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                >
+                  <option value="Janakpuri">Janakpuri</option>
+                  <option value="Rajouri Garden">Rajouri Garden</option>
+                </Form.Select>
+              </FloatingLabel>
             </Form.Group>
 
             <Button
