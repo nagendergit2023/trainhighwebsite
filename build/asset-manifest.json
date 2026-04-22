@@ -1,10 +1,11 @@
 {
   "files": {
-    "main.css": "/static/css/main.ee8c9ce2.css",
-    "main.js": "/static/js/main.025a6369.js",
+    "main.css": "/static/css/main.4cbb73d4.css",
+    "main.js": "/static/js/main.675d154d.js",
     "static/js/977.6d989d55.chunk.js": "/static/js/977.6d989d55.chunk.js",
     "static/js/667.19b1bd66.chunk.js": "/static/js/667.19b1bd66.chunk.js",
     "static/js/453.b3dbfdc0.chunk.js": "/static/js/453.b3dbfdc0.chunk.js",
+    "static/media/FranchiseVideo.mp4": "/static/media/FranchiseVideo.6aceecc538f26755ca70.mp4",
     "static/media/DSC08888.jpg": "/static/media/DSC08888.149fca3dda14fdf156df.jpg",
     "static/media/about_trainhigh.png": "/static/media/about_trainhigh.789c901731cd49a52e43.png",
     "static/media/DSC09416.jpg": "/static/media/DSC09416.051f5848634b520425b7.jpg",
@@ -96,14 +97,14 @@
     "static/media/revicons.ttf": "/static/media/revicons.57fd05d4ae650374c8de.ttf",
     "static/media/revicons.woff": "/static/media/revicons.e8746a624ed098489406.woff",
     "index.html": "/index.html",
-    "main.ee8c9ce2.css.map": "/static/css/main.ee8c9ce2.css.map",
-    "main.025a6369.js.map": "/static/js/main.025a6369.js.map",
+    "main.4cbb73d4.css.map": "/static/css/main.4cbb73d4.css.map",
+    "main.675d154d.js.map": "/static/js/main.675d154d.js.map",
     "977.6d989d55.chunk.js.map": "/static/js/977.6d989d55.chunk.js.map",
     "667.19b1bd66.chunk.js.map": "/static/js/667.19b1bd66.chunk.js.map",
     "453.b3dbfdc0.chunk.js.map": "/static/js/453.b3dbfdc0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ee8c9ce2.css",
-    "static/js/main.025a6369.js"
+    "static/css/main.4cbb73d4.css",
+    "static/js/main.675d154d.js"
   ]
 }

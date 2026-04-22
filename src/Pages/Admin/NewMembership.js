@@ -32,10 +32,10 @@ function NewMembership() {
   const [selectedLogo, setSelectedLogo] = useState("");
   const [status, setStatus] = useState("");
   const [email, setEmail] = useState("");
-  const [amountPerMonth, setAmountPerMonth] = useState(null);
+  const [amountPerMonth, setAmountPerMonth] = useState(0);
   const [machines, setMachines] = useState([]);
   const [ImageApiUrl] = useState(
-    "http://68.178.170.174:3309/trainhighgym-api/AddImage",
+    "https://trainhighgym.com/trainhighgym-api//AddImage",
   );
   // const [previewUrl, setPreviewUrl] = useState("");
   const [showBiometric, setShowBiometric] = useState(true);
@@ -245,6 +245,7 @@ function NewMembership() {
         setShowBiometric(true);
         setBiometricStatus("PENDING_ENROLLMENT");
         notification.success({ message: "Member Saved Successfully" });
+        navigate("/membership-list");
       }
     } catch (err) {
       notification.error({
@@ -399,6 +400,7 @@ function NewMembership() {
                           type="text"
                           value={mobile}
                           onChange={(e) => setMobile(e.target.value)}
+                          maxLength={10}
                           placeholder=""
                         />
                       </FloatingLabel>
@@ -473,12 +475,12 @@ function NewMembership() {
                         >
                           {city.length > 0
                             ? city.map((data) => {
-                              return (
-                                <option value={data.Block + "-" + data.Name}>
-                                  {data.Block + "-" + data.Name}
-                                </option>
-                              );
-                            })
+                                return (
+                                  <option value={data.Block + "-" + data.Name}>
+                                    {data.Block + "-" + data.Name}
+                                  </option>
+                                );
+                              })
                             : ""}
                         </Form.Select>
                       </FloatingLabel>
@@ -594,7 +596,9 @@ function NewMembership() {
                     </Col>
                     {id && (
                       <section className="mt-4 p-4 border rounded">
-                        <h5 className="mb-3 fw-bold">{trainer ? "Change" : "Assign"} Trainer</h5>
+                        <h5 className="mb-3 fw-bold">
+                          {trainer ? "Change" : "Assign"} Trainer
+                        </h5>
 
                         <Row>
                           <Col lg={6}>
@@ -605,7 +609,9 @@ function NewMembership() {
                               >
                                 <option>Select Trainer</option>
                                 {staff
-                                  ?.filter((trainer) => trainer?.role != "Admin")
+                                  ?.filter(
+                                    (trainer) => trainer?.role != "Admin",
+                                  )
                                   .map((t) => (
                                     <option value={t.id}>
                                       {t.name} - {t.staff_code}
@@ -631,12 +637,7 @@ function NewMembership() {
                               {trainer ? "Update" : "Assign"} Trainer
                             </button>
                           </Col>
-
                         </Row>
-
-
-
-
                       </section>
                     )}
 
@@ -646,9 +647,14 @@ function NewMembership() {
 
                         <Row>
                           <Col lg={6}>
-                            <FloatingLabel label="Select a device to assign" className="mb-3">
+                            <FloatingLabel
+                              label="Select a device to assign"
+                              className="mb-3"
+                            >
                               <Form.Select
-                                onChange={(e) => setSelectedDevice(e.target.value)}
+                                onChange={(e) =>
+                                  setSelectedDevice(e.target.value)
+                                }
                               >
                                 <option value="">Select Device </option>
                                 {machines.map((m) => (
@@ -688,7 +694,6 @@ function NewMembership() {
                         </p>
                       </section>
                     )}
-
                   </Row>
                 </Col>
               </Row>

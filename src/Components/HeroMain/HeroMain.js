@@ -1,43 +1,90 @@
 import React, { useEffect, useState } from "react";
-import { Col, Container, Row, Button, Offcanvas, Form } from "react-bootstrap";
+import {
+  Col,
+  Container,
+  Row,
+  Button,
+  Offcanvas,
+  Form,
+  Spinner,
+} from "react-bootstrap";
+import axios from "axios";
 import "./HeroMain.css";
+import PostApiCall from "../../helpers/PostApi";
 
 function HeroMain() {
   const [show, setShow] = useState(false);
   const [displayed, setDisplayed] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    mobile: "",
+    location: "",
+  });
+
+  const text = "one day gym trial";
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  const text = "one day gym trial";
 
   useEffect(() => {
     let i = 0;
 
     function startTyping() {
-      setDisplayed(""); // clear text first
+      setDisplayed("");
       i = 0;
 
       const typingInterval = setInterval(() => {
         setDisplayed(text.slice(0, i + 1));
         i++;
-
-        if (i === text.length) {
-          clearInterval(typingInterval);
-        }
-      }, 70); // typing speed
+        if (i === text.length) clearInterval(typingInterval);
+      }, 70);
     }
 
-    // Start initial typing
     startTyping();
-
-    // Restart typing every 20 seconds (20000 ms)
-    const restartInterval = setInterval(() => {
-      startTyping();
-    }, 20000);
-
+    const restartInterval = setInterval(startTyping, 20000);
     return () => clearInterval(restartInterval);
   }, []);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!formData.name || !formData.mobile || !formData.location) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      await PostApiCall.postRequest("contactus", {
+        name: formData.name,
+        mobile: formData.mobile,
+        desciption: `Trial Location: ${formData.location}`,
+        subject: "One Day Gym Trial",
+        type: "Trial",
+        source: "website",
+        email:
+          formData.location == "Janakpuri"
+            ? "trainhighgym@gmail.com"
+            : "trainhighrajouri@gmail.com",
+      });
+
+      alert("Your trial pass request has been sent!");
+      setFormData({ name: "", mobile: "", location: "" });
+      handleClose();
+    } catch (error) {
+      alert("Something went wrong. Please try again.");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="hero-section-main">
@@ -51,9 +98,7 @@ function HeroMain() {
             <h5 className="mt-4">
               Take your time to get to know Train High Gym.
             </h5>
-            <h5 className="mb-4">
-              We would love to show you around!
-            </h5>
+            <h5 className="mb-4">We would love to show you around!</h5>
             <a
               className="btn btn-rounded-pill border btn-lg"
               onClick={handleShow}
@@ -64,50 +109,60 @@ function HeroMain() {
         </Row>
       </Container>
 
-      {/* Offcanvas Component */}
       <Offcanvas
         show={show}
         onHide={handleClose}
         placement="end"
         className="bg-dark text-white"
       >
-        <Offcanvas.Header
-          closeButton
-          className="btn-close-light"
-          closeVariant="white"
-        >
-          <Offcanvas.Title></Offcanvas.Title>
-        </Offcanvas.Header>
+        <Offcanvas.Header closeButton closeVariant="white" />
         <Offcanvas.Body>
           <h4 className="mt-5">Get Your Pass</h4>
           <p>Fill in your details to claim your trial pass.</p>
-          <Form>
-            <Form.Group className="mb-3 text-dark" controlId="formName">
+
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3 text-dark">
               <Form.FloatingLabel label="Name">
-                <Form.Control type="text" placeholder="Enter your name" />
+                <Form.Control
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Enter your name"
+                />
               </Form.FloatingLabel>
             </Form.Group>
 
-            <Form.Group className="mb-3 text-dark" controlId="formMobile">
+            <Form.Group className="mb-3 text-dark">
               <Form.FloatingLabel label="Mobile">
-                <Form.Control type="text" placeholder="Enter your mobile" />
+                <Form.Control
+                  type="text"
+                  name="mobile"
+                  value={formData.mobile}
+                  onChange={handleChange}
+                  placeholder="Enter your mobile"
+                />
               </Form.FloatingLabel>
             </Form.Group>
 
-            <div class="form-floating mb-3">
-              <select class="form-select" id="formLocation" aria-label="Train High Gym Locations">
-                <option selected>Select your nearest location</option>
-                <option value="1">Janakpuri</option>
-                <option value="2">Rajouri Garden</option>
-              </select>
-              <label for="formLocation">Locations</label>
-            </div>
+            <Form.Group className="mb-3 text-dark">
+              <Form.Select
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+              >
+                <option value="">Select your nearest location</option>
+                <option value="Janakpuri">Janakpuri</option>
+                <option value="Rajouri Garden">Rajouri Garden</option>
+              </Form.Select>
+            </Form.Group>
 
             <Button
               type="submit"
-              className="btn btn-dark btn-rounded-pill border btn-lg"
+              className="btn btn-dark btn-rounded-pill border btn-lg w-100"
+              disabled={loading}
             >
-              Submit
+              {loading ? <Spinner size="sm" /> : "Submit"}
             </Button>
           </Form>
         </Offcanvas.Body>
