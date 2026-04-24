@@ -24,7 +24,8 @@ function HeroMain() {
     location: "",
   });
 
-  const text = "one day gym trial";
+  // const text = "one day gym trial";
+  const text = "train high gym";
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -99,6 +100,20 @@ function HeroMain() {
               {displayed}
               <span className="cursor">|</span>
             </h2>
+             <h5 className="mt-4">
+              Take your time to get to know Train High Gym.
+            </h5>
+            <h5 className="mb-4">We would love to show you around!</h5>
+          </Col>
+        </Row>
+      </Container>
+      {/* <Container>
+        <Row className="justify-content-center">
+          <Col lg={8} className="text-center position-relative">
+            <h2 className="section-title">
+              {displayed}
+              <span className="cursor">|</span>
+            </h2>
             <h5 className="mt-4">
               Take your time to get to know Train High Gym.
             </h5>
@@ -111,7 +126,7 @@ function HeroMain() {
             </a>
           </Col>
         </Row>
-      </Container>
+      </Container> */}
 
       <Offcanvas
         show={show}
