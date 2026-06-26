@@ -6,10 +6,8 @@ import { DatePicker, Space, notification } from "antd";
 import dayjs from "dayjs";
 import axios from "axios";
 import GetApiCall from "../../helpers/GetApi.js";
-import moment from "moment";
 import Hero from "../../Components/Hero/Hero.js";
 import uploadimage from "../../assets/images/customer_photo.png";
-moment.locale("en");
 
 function NewMembership() {
   let location = useLocation();
@@ -46,15 +44,15 @@ function NewMembership() {
   const presets = [
     {
       label: "Yesterday",
-      value: moment().subtract(1, "day"),
+      value: dayjs().subtract(1, "day"),
     },
     {
       label: "Last Week",
-      value: moment().subtract(7, "day"),
+      value: dayjs().subtract(7, "day"),
     },
     {
       label: "Last Month",
-      value: moment().subtract(1, "month"),
+      value: dayjs().subtract(1, "month"),
     },
   ];
   const handlePincodeChange = async (e) => {
@@ -124,8 +122,17 @@ function NewMembership() {
       setState(location.state.data.fld_state);
       setSelectedCity(location.state.data.fld_city);
       setMemberShip(location.state.data.fld_membership);
-      setStartDate(location.state.data.fld_start_date);
-      setEndDate(location.state.data.fld_end_date);
+      setStartDate(
+        location.state.data.fld_start_date
+          ? dayjs(location.state.data.fld_start_date)
+          : null,
+      );
+
+      setEndDate(
+        location.state.data.fld_end_date
+          ? dayjs(location.state.data.fld_end_date)
+          : null,
+      );
       setApplicationNumber(location.state.data.fld_application_number);
       setMembershipNumber(location.state.data.fld_membership_number);
       setStatus(location.state.data.fld_status);
@@ -143,8 +150,17 @@ function NewMembership() {
       setState(location.state.data.fld_state);
       setSelectedCity(location.state.data.fld_city);
       setMemberShip(location.state.data.fld_membership);
-      setStartDate(moment(location.state.data.fld_start_date));
-      setEndDate(moment(location.state.data.fld_end_date));
+      setStartDate(
+        location.state.data.fld_start_date
+          ? dayjs(location.state.data.fld_start_date)
+          : null,
+      );
+
+      setEndDate(
+        location.state.data.fld_end_date
+          ? dayjs(location.state.data.fld_end_date)
+          : null,
+      );
       // setApplicationNumber(location.state.data.fld_application_number);
 
       setMembershipNumber(location.state.data.fld_membership_number);
@@ -195,11 +211,11 @@ function NewMembership() {
     }
   }, []);
   const validateForm = () => {
-    if (!name.trim()) return "Please Enter Name";
+    if (!name?.trim()) return "Please Enter Name";
     if (!mobile || mobile.length !== 10)
       return "Please Enter Valid Mobile Number";
-    if (!address.trim()) return "Please Enter Address";
-    if (!email.trim()) return "Please Enter Email";
+    if (!address?.trim()) return "Please Enter Address";
+    if (!email?.trim()) return "Please Enter Email";
     if (!status) return "Please Select Status Of Member";
     if (!amountPerMonth) return "Please Enter Fee Per Month";
     if (!startDate) return "Please Enter Start Date";
@@ -228,8 +244,8 @@ function NewMembership() {
           pincode,
           state,
           city: selectedCity,
-          startDate,
-          endDate,
+          startDate: startDate?.format("YYYY-MM-DD"),
+          endDate: endDate?.format("YYYY-MM-DD"),
           email,
           userstatus: status,
           amount: amountPerMonth,
@@ -259,7 +275,7 @@ function NewMembership() {
     setStartDate(date);
 
     if (date && memberShip) {
-      setEndDate(dayjs(date).add(Number(memberShip), "month"));
+      setEndDate(date.add(Number(memberShip), "month"));
     } else {
       setEndDate(null);
     }
@@ -267,24 +283,13 @@ function NewMembership() {
 
   const onChangeMembership = (value) => {
     setMemberShip(value);
-
     if (startDate && value) {
-      setEndDate(dayjs(startDate).add(Number(value), "month"));
+      setEndDate(startDate.add(Number(value), "month"));
     } else {
       setEndDate(null);
     }
   };
-  const end = (value, start) => {
-    if (value === "1") {
-      setEndDate(start.add(1, "month"));
-    } else if (value === "2") {
-      setEndDate(start.add(3, "month"));
-    } else if (value === "3") {
-      setEndDate(start.add(6, "month"));
-    } else if (value === "4") {
-      setEndDate(start.add(12, "month"));
-    }
-  };
+
   const loadStaff = () => {
     GetApiCall.getRequest("staff").then((res) =>
       res.json().then((data) => setStaff(data.data)),
@@ -516,7 +521,7 @@ function NewMembership() {
                       <Space direction="vertical" size={12}>
                         <DatePicker
                           presets={presets}
-                          value={startDate ? dayjs(startDate) : null}
+                          value={startDate}
                           format="YYYY-MM-DD"
                           placeholder="Start Date"
                           onChange={onChangeStartDate}
@@ -530,8 +535,9 @@ function NewMembership() {
                         <DatePicker
                           disabled
                           placeholder="End Date"
-                          defaultValue={!endDate ? null : moment(endDate)}
-                          value={!endDate ? null : moment(endDate)}
+                          // defaultValue={!endDate ? null : moment(endDate)}
+                          format="YYYY-MM-DD"
+                          value={endDate}
                         />
                       </Space>
                       {/* <FloatingLabel
