@@ -51,18 +51,16 @@ import MachineMaster from "./Pages/Machines/MachineMaster.jsx";
 import { useEffect } from "react";
 
 function App() {
-
   useEffect(() => {
-  const root = document.getElementById("root");
-  const path = window.location.pathname;
+    const root = document.getElementById("root");
+    const path = window.location.pathname;
 
-  if (!path.startsWith("/members/") && !path.startsWith("/trainers/")) {
-    root.classList.add("main-footer-layout");
-  } else {
-    root.classList.add("app-footer-layout");
-  }
-}, []);
-
+    if (!path.startsWith("/members/") && !path.startsWith("/trainers/")) {
+      root.classList.add("main-footer-layout");
+    } else {
+      root.classList.add("app-footer-layout");
+    }
+  }, []);
 
   return (
     <>
@@ -83,35 +81,162 @@ function App() {
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/frequently-asked-questions" element={<FAQs />} />
         <Route path="/franchise" element={<Franchise />} />
-        <Route path="/admin-panel" element={<Admin />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/attendence" element={<Attendence />} />
-        <Route path="/new-membership" element={<NewMembership />} />
-        <Route path="/enquiry-list" element={<EnquiryList />} />
-        <Route path="/machine-master" element={<MachineMaster />} />
-        <Route path="/membership-list" element={<MembershipList />} />
-        <Route path="/members/profile" element={<MembersProfile />} />
-        <Route path="/members/dashboard" element={<MembersDashboard />} />
-        <Route path="/members/account" element={<MembersAccount />} />
-        <Route path="/members/workout" element={<MembersWorkout />} />
-        <Route path="/members/nutrition" element={<MembersNutrition />} />
-        <Route path="/trainers/profile" element={<TrainersProfile />} />
-        <Route path="/trainers/dashboard" element={<TrainersDashboard />} />
-        <Route path="/trainers/account" element={<TrainersAccount />} />
-        <Route path="/trainers/templates" element={<TemplateMasterScreen />} />
-        <Route path="/trainers/nutrition" element={<TrainersNutrition />} />
+        <Route
+          path="/admin-panel"
+          element={
+            <PrivateRoute>
+              <Admin />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/attendence"
+          element={
+            <PrivateRoute>
+              <Attendence />
+            </PrivateRoute>
+          }
+        />
+        {/* <Route path="/new-membership" element={<NewMembership />} /> */}
+        <Route
+          path="/enquiry-list"
+          element={
+            <PrivateRoute>
+              <EnquiryList />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/machine-master"
+          element={
+            <PrivateRoute>
+              <MachineMaster />
+            </PrivateRoute>
+          }
+        />
+        {/* <Route path="/membership-list" element={<MembershipList />} /> */}
+        <Route
+          path="/members/profile"
+          element={
+            <PrivateRoute>
+              <MembersProfile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/members/dashboard"
+          element={
+            <PrivateRoute>
+              <MembersDashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/members/account"
+          element={
+            <PrivateRoute>
+              <MembersAccount />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/members/workout"
+          element={
+            <PrivateRoute>
+              <MembersWorkout />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/members/nutrition"
+          element={
+            <PrivateRoute>
+              <MembersNutrition />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/trainers/profile"
+          element={
+            <PrivateRoute>
+              <TrainersProfile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/trainers/dashboard"
+          element={
+            <PrivateRoute>
+              <TrainersDashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/trainers/account"
+          element={
+            <PrivateRoute>
+              <TrainersAccount />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/trainers/templates"
+          element={
+            <PrivateRoute>
+              <TemplateMasterScreen />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/trainers/nutrition"
+          element={
+            <PrivateRoute>
+              <TrainersNutrition />
+            </PrivateRoute>
+          }
+        />
         <Route path="/new-batch" element={<NewBatch />} />
         <Route path="/blogs" element={<Blogs />} />
-        <Route path="/staff-list" element={<StaffList />} />
+        <Route
+          path="/staff-list"
+          element={
+            <PrivateRoute>
+              <StaffList />{" "}
+            </PrivateRoute>
+          }
+        />
 
-        <Route path="/trainers/members" element={<TrainerMembersList />} />
+        <Route
+          path="/trainers/members"
+          element={
+            <PrivateRoute>
+              <TrainerMembersList />{" "}
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/trainers/member/:memberId/plans"
-          element={<TrainerMemberPlans />}
+          element={
+            <PrivateRoute>
+              <TrainerMemberPlans />{" "}
+            </PrivateRoute>
+          }
         />
         <Route
           path="/trainers/member/:memberId/attendance"
-          element={<MemberAttendanceHistory />}
+          element={
+            <PrivateRoute>
+              <MemberAttendanceHistory />{" "}
+            </PrivateRoute>
+          }
         />
 
         {/* <Route
