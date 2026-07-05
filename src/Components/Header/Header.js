@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navbar, Nav, Offcanvas, Container, Col } from "react-bootstrap";
+import { Navbar, Nav, Offcanvas, Container, Col, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import image1 from "../../assets/images/train_high_gym_logo.png";
 import "./Header.css";
@@ -9,11 +9,20 @@ import {
   BiLogoLinkedin,
 } from "react-icons/bi";
 import { AiOutlineYoutube } from "react-icons/ai";
+import { Dropdown } from "bootstrap/dist/js/bootstrap.bundle.min";
+import { FaChevronDown } from "react-icons/fa";
 
 function Header() {
   const [scroll, setScroll] = useState(false);
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const [visible, setVisible] = useState(true); // 👈 Track navbar visibility
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    // setUser(null);
+    window.location.href = "/login";
+  };
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -65,9 +74,8 @@ function Header() {
     <Navbar
       expand="lg"
       data-bs-theme="dark"
-      className={`py-0 bg-black ${scroll ? "shadow sticky-top" : ""} ${
-        visible ? "navbar-show" : "navbar-hide"
-      }`} // 👈 Toggle visibility classes
+      className={`py-0 bg-black ${scroll ? "shadow sticky-top" : ""} ${visible ? "navbar-show" : "navbar-hide"
+        }`} // 👈 Toggle visibility classes
       style={{
         transition:
           "transform 0.3s ease-in-out, background-color 0.3s ease-in-out",
@@ -77,8 +85,10 @@ function Header() {
         <Navbar.Brand href="/">
           <img src={image1} className="navbar-logo" alt="Logo" />
         </Navbar.Brand>
+        <div>
+        {/* <FaChevronDown size={24} className="ms-1" /> */}
         <Navbar.Toggle onClick={handleShow} />
-
+        </div>
         <Navbar.Offcanvas
           show={showOffcanvas}
           onHide={handleClose}
@@ -91,6 +101,7 @@ function Header() {
             closeVariant="white"
           >
             <Offcanvas.Title className="text-uppercase">Menu</Offcanvas.Title>
+            
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className="justify-content-end flex-grow-1 pe-3 text-uppercase fw-bold">
@@ -192,15 +203,66 @@ function Header() {
           </Offcanvas.Body>
         </Navbar.Offcanvas>
         {/* Desktop Login Button */}
-        {/* <div className="d-none d-lg-flex ms-auto">
-          <Link
-            to="/login"
-            className="btn btn-outline-light ms-3 px-4 py-2 fw-bold"
-            style={{ borderRadius: "30px" }}
-          >
-            Login
-          </Link>
-          </div> */}
+        <div className="d-none d-lg-flex ms-auto">
+
+          <Nav>
+            <NavDropdown
+              title={
+                <>
+                  THG-Janakpuri <FaChevronDown size={12} className="ms-1" />
+                </>
+              }
+              id="user-dropdown"
+              align="end"
+              className="btn border"
+              style={{ borderRadius: "30px" }}
+            >
+              <NavDropdown.Item as={Link} to="/dashboard">
+                Dashboard
+              </NavDropdown.Item>
+
+              <NavDropdown.Item as={Link} to="/membership-list">
+                Members
+              </NavDropdown.Item>
+
+              <NavDropdown.Item as={Link} to="/membership-list">
+                Batches & Classes
+              </NavDropdown.Item>
+
+              <NavDropdown.Item as={Link} to="/enquiry-list">
+                Enquiry
+              </NavDropdown.Item>
+
+              <NavDropdown.Item as={Link} to="/staff-list">
+                Staff
+              </NavDropdown.Item>
+
+              <NavDropdown.Item as={Link} to="/">
+                Attendence
+              </NavDropdown.Item>
+
+              <NavDropdown.Item as={Link} to="/dsr-report">
+                Daily Sales Report
+              </NavDropdown.Item>
+
+              <NavDropdown.Divider />
+
+              <NavDropdown.Item onClick={handleLogout}>
+                Logout
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+
+          {/* <Link
+      to="/login"
+      className="btn btn-outline-light ms-3 px-4 py-2 fw-bold"
+      style={{ borderRadius: "30px" }}
+    >
+      Login
+    </Link> */}
+
+        </div>
+
       </Container>
     </Navbar>
   );

@@ -307,6 +307,11 @@ a {
     box-shadow: 2px 2px 0 #ffc1078c !important;
 }
 
+.customTable .ant-table-body {
+  max-height: 400px;
+  min-height: 400px;
+  overflow-y: auto;
+}
 
 @media screen and (max-width: 768px) {
   #root .inner-section {

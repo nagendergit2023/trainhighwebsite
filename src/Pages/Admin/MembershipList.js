@@ -291,15 +291,20 @@ function MembershipList() {
         };
       }),
   };
+
+const handleSearch = () => {
+  setSearchFieldText(searchField);
+};
+
   return (
     <>
       <section className="pb-5 inner-section">
         <Container>
           <Row className="justify-content-center mb-3">
-                    <Col lg={9}>
-                      <h2 className="section-title">My Members</h2>
-                    </Col>
-                  </Row>
+            <Col lg={9}>
+              <h2 className="section-title">My Members</h2>
+            </Col>
+          </Row>
           <Row>
             <Col lg={12} className="mb-lg-4">
               <Form>
@@ -318,6 +323,12 @@ function MembershipList() {
                         onChange={(e) => {
                           setSearchField(e.target.value);
                         }}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            e.preventDefault();
+                            handleSearch();
+                          }
+                        }}
                       />
                     </FloatingLabel>
                   </Col>
@@ -325,7 +336,7 @@ function MembershipList() {
                     <Button
                       variant="secondary"
                       className="w-100 py-3 mb-3 mb-lg-0"
-                      onClick={() => setSearchFieldText(searchField)}
+                      onClick={handleSearch}
                     >
                       Search
                     </Button>
@@ -344,10 +355,11 @@ function MembershipList() {
             </Col>
             <Col lg={12}>
               <Table
-               size="small"
+                size="small"
                 bordered={true}
                 striped
-                scroll={{ x: "400", y: 800 }}
+                scroll={{ x: 400, y: 1000 }}
+                className="customTable"
                 columns={data.columns}
                 dataSource={data.rows}
                 rowClassName={(record) => {
@@ -359,7 +371,7 @@ function MembershipList() {
 
                   return "";
                 }}
-                // onChange={onChange}/
+              // onChange={onChange}/
               />
             </Col>
           </Row>

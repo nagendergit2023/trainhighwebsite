@@ -6,6 +6,7 @@ import enquiry from "../../assets/images/question_4774995.png";
 import addClasses from "../../assets/images/classes_5397250.png";
 import staff from "../../assets/images/staff_5397249.png";
 import attendence from "../../assets/images/attendence_5397249.png";
+import dsr from "../../assets/images/dsr_5397251.png";
 
 
 function Admin() {
@@ -117,6 +118,23 @@ function Admin() {
                     />
                     <Card.Title className="text-capitalize mb-0 h6">
                       attendence
+                    </Card.Title>
+                  </Card.Body>
+                </Card>
+              </Link>
+            </Col>
+
+             <Col lg={3} md={6} sm={6} xs={6} className="mb-3">
+              <Link to="/dsr-report" className="text-decoration-none">
+                <Card className="text-center border-0 mb-3 mb-lg-0">
+                  <Card.Body>
+                    <img
+                      alt=""
+                      src={dsr}
+                      className="w-lg-50 w-sm-100 mb-2"
+                    />
+                    <Card.Title className="text-capitalize mb-0 h6">
+                      Daily Sales Report
                     </Card.Title>
                   </Card.Body>
                 </Card>

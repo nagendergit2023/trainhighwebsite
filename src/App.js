@@ -48,6 +48,7 @@ import TrainersTemplate from "./Pages/Trainers/Templates/WorkoutTemplateMaster.j
 import TemplateMasterScreen from "./Pages/Trainers/Templates/TemplateMasterScreen.jsx";
 import MemberAttendanceHistory from "./Pages/Members/MemberAttendanceHistory.jsx";
 import MachineMaster from "./Pages/Machines/MachineMaster.jsx";
+import DsrReport from "./Pages/Admin/DsrReport.js";
 import { useEffect } from "react";
 
 function App() {
@@ -279,6 +280,14 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/dsr-report"
+          element={
+            <PrivateRoute>
+              <DsrReport />
+            </PrivateRoute>
+          }
+        />        
       </Routes>
       {/* <Footer /> */}
       {/* {window.location.pathname !== "/home" && !window.location.pathname.startsWith("/members/") ? (
