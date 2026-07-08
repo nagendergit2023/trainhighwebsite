@@ -480,6 +480,26 @@ function NewMembership() {
     );
   };
 
+  const getMembershipPeriodForApi = () => {
+    if (memberData.membershipPeriod !== "custom") {
+      return memberData.membershipPeriod;
+    }
+
+    if (!memberData.startDate || !memberData.endDate) {
+      return "";
+    }
+
+    const months = memberData.endDate.diff(memberData.startDate, "month");
+
+    if (months > 0) {
+      return String(months);
+    }
+
+    const days = memberData.endDate.diff(memberData.startDate, "day");
+
+    return `${days} Days`;
+  };
+
   const SaveForm = async () => {
     const error = validateForm();
     if (error) {
@@ -502,7 +522,7 @@ function NewMembership() {
           address: memberData.address,
           application: memberData.applicationNumber,
           membershipnumber: memberData.membershipNumber,
-          membership: memberData.membershipPeriod,
+          membership: getMembershipPeriodForApi(),
           pincode: memberData.pincode,
           state: memberData.state,
           city: memberData.selectedCity,
@@ -1194,7 +1214,8 @@ function NewMembership() {
                           <strong>{biometricStatus || "N/A"}</strong>
                         </p> */}
                         <p className="mt-2 text-muted text-sm">
-                          Assigned Devices: <strong>{memberData?.biometric_name || "N/A"}</strong>
+                          Assigned Devices:{" "}
+                          <strong>{memberData?.biometric_name || "N/A"}</strong>
                         </p>
                       </section>
                     )}

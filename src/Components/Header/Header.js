@@ -230,6 +230,9 @@ function Header() {
                 className="btn border"
                 style={{ borderRadius: "30px" }}
               >
+                <NavDropdown.Item as={Link} to="/admin-panel">
+                  Admin Panel
+                </NavDropdown.Item>
                 {canViewStaff && (
                   <NavDropdown.Item as={Link} to="/dashboard">
                     Dashboard
