@@ -1,5 +1,5 @@
 var urlString = "https://trainhighgym.com/trainhighgym-api/";
-// var urlString = "http://localhost:5000/trainhighgym-api/";
+// var urlString = "http://localhost:5000/";
 var access = sessionStorage.getItem("access");
 const GetApiCall = {
   getRequest(url) {

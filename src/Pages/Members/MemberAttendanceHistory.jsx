@@ -6,8 +6,10 @@ import { useLocation, useParams } from "react-router-dom";
 
 const { RangePicker } = DatePicker;
 
-const MemberAttendanceHistory = () => {
+const MemberAttendanceHistory = ({ id }) => {
   const { memberId } = useParams();
+
+  let finalMemberId = memberId ? memberId : id;
 
   const [data, setData] = useState([]);
   const [summary, setSummary] = useState({});
@@ -19,7 +21,7 @@ const MemberAttendanceHistory = () => {
   const fetchData = async (reset = false) => {
     setLoading(true);
 
-    let url = `attendance/memberHistory?memberId=${memberId}&page=${reset ? 1 : page}&limit=15`;
+    let url = `attendance/memberHistory?memberId=${finalMemberId}&page=${reset ? 1 : page}&limit=15`;
 
     if (dates) {
       url += `&fromDate=${dates[0].format("YYYY-MM-DD")}&toDate=${dates[1].format("YYYY-MM-DD")}`;
@@ -41,8 +43,8 @@ const MemberAttendanceHistory = () => {
   };
 
   useEffect(() => {
-    if (memberId) fetchData(true);
-  }, [memberId]);
+    if (finalMemberId) fetchData(true);
+  }, [finalMemberId]);
 
   const loadMore = () => {
     setPage((prev) => prev + 1);
@@ -54,7 +56,7 @@ const MemberAttendanceHistory = () => {
 
   return (
     <div style={{ padding: 12 }}>
-      <h2 class="weekly-title mb-4 text-center">Attendance History</h2>
+      <h2 class="weekly-title mb-4 text-center">Attendance</h2>
       <div className="d-flex align-items-center justify-content-between mb-3 mt-3">
         <div>
           {/* <Button
@@ -84,9 +86,9 @@ const MemberAttendanceHistory = () => {
           <Col span={12}>
             <Statistic title="IN" value={summary.totalIN || 0} />
           </Col>
-          <Col span={12}>
+          {/* <Col span={12}>
             <Statistic title="OUT" value={summary.totalOUT || 0} />
-          </Col>
+          </Col> */}
         </Row>
       </Card>
 

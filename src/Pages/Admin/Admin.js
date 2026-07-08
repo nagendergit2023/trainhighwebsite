@@ -8,8 +8,13 @@ import staff from "../../assets/images/staff_5397249.png";
 import attendence from "../../assets/images/attendence_5397249.png";
 import dsr from "../../assets/images/dsr_5397251.png";
 
-
 function Admin() {
+  const userData =
+    localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
+  const userRole = String(userData?.role || "").toUpperCase();
+  const userBranchId = userData?.branch_id || userData?.fld_branch_id || "";
+  const canViewStaff = userRole === "SUPER ADMIN" || userRole === "ADMIN";
+  const canViewAllBranches = userRole === "SUPER ADMIN";
   return (
     <>
       {/* <Hero /> */}
@@ -28,22 +33,24 @@ function Admin() {
         </Container>
         <Container>
           <Row className="justify-content-start align-items-center">
-            <Col lg={3} md={6} sm={6} xs={6} className="mb-3">
-              <Link to="/dashboard" className="text-decoration-none">
-                <Card className="text-center border-0 mb-3 mb-lg-0">
-                  <Card.Body>
-                    <img
-                      alt=""
-                      src={dashboard}
-                      className="w-lg-50 w-sm-100 mb-2"
-                    />
-                    <Card.Title className="text-capitalize mb-0 h6">
-                      Dashboard
-                    </Card.Title>
-                  </Card.Body>
-                </Card>
-              </Link>
-            </Col>
+            {canViewStaff && (
+              <Col lg={3} md={6} sm={6} xs={6} className="mb-3">
+                <Link to="/dashboard" className="text-decoration-none">
+                  <Card className="text-center border-0 mb-3 mb-lg-0">
+                    <Card.Body>
+                      <img
+                        alt=""
+                        src={dashboard}
+                        className="w-lg-50 w-sm-100 mb-2"
+                      />
+                      <Card.Title className="text-capitalize mb-0 h6">
+                        Dashboard
+                      </Card.Title>
+                    </Card.Body>
+                  </Card>
+                </Link>
+              </Col>
+            )}
             <Col lg={3} md={6} sm={6} xs={6} className="mb-3">
               <Link to="/membership-list" className="text-decoration-none">
                 <Card className="text-center border-0 mb-3 mb-lg-0">
@@ -89,23 +96,24 @@ function Admin() {
                 </Card>
               </Link>
             </Col>
-
-            <Col lg={3} md={6} sm={6} xs={6} className="mb-3">
-              <Link to="/staff-list" className="text-decoration-none">
-                <Card className="text-center border-0 mb-3 mb-lg-0">
-                  <Card.Body>
-                    <img
-                      alt=""
-                      src={staff}
-                      className="w-lg-50 w-sm-100 mb-2"
-                    />
-                    <Card.Title className="text-capitalize mb-0 h6">
-                      staff
-                    </Card.Title>
-                  </Card.Body>
-                </Card>
-              </Link>
-            </Col>
+            {canViewStaff && (
+              <Col lg={3} md={6} sm={6} xs={6} className="mb-3">
+                <Link to="/staff-list" className="text-decoration-none">
+                  <Card className="text-center border-0 mb-3 mb-lg-0">
+                    <Card.Body>
+                      <img
+                        alt=""
+                        src={staff}
+                        className="w-lg-50 w-sm-100 mb-2"
+                      />
+                      <Card.Title className="text-capitalize mb-0 h6">
+                        staff
+                      </Card.Title>
+                    </Card.Body>
+                  </Card>
+                </Link>
+              </Col>
+            )}
 
             <Col lg={3} md={6} sm={6} xs={6} className="mb-3">
               <Link to="/attendence" className="text-decoration-none">
@@ -123,23 +131,20 @@ function Admin() {
                 </Card>
               </Link>
             </Col>
-
-             <Col lg={3} md={6} sm={6} xs={6} className="mb-3">
-              <Link to="/dsr-report" className="text-decoration-none">
-                <Card className="text-center border-0 mb-3 mb-lg-0">
-                  <Card.Body>
-                    <img
-                      alt=""
-                      src={dsr}
-                      className="w-lg-50 w-sm-100 mb-2"
-                    />
-                    <Card.Title className="text-capitalize mb-0 h6">
-                      Daily Sales Report
-                    </Card.Title>
-                  </Card.Body>
-                </Card>
-              </Link>
-            </Col>
+            {canViewAllBranches && (
+              <Col lg={3} md={6} sm={6} xs={6} className="mb-3">
+                <Link to="/dsr-report" className="text-decoration-none">
+                  <Card className="text-center border-0 mb-3 mb-lg-0">
+                    <Card.Body>
+                      <img alt="" src={dsr} className="w-lg-50 w-sm-100 mb-2" />
+                      <Card.Title className="text-capitalize mb-0 h6">
+                        Daily Sales Report
+                      </Card.Title>
+                    </Card.Body>
+                  </Card>
+                </Link>
+              </Col>
+            )}
           </Row>
         </Container>
       </section>

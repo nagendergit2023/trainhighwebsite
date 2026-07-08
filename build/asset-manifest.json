@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.a48cc376.css",
-    "main.js": "/static/js/main.5c53d82f.js",
+    "main.css": "/static/css/main.81d4247d.css",
+    "main.js": "/static/js/main.0a8f0175.js",
     "static/js/977.6d989d55.chunk.js": "/static/js/977.6d989d55.chunk.js",
     "static/js/667.19b1bd66.chunk.js": "/static/js/667.19b1bd66.chunk.js",
     "static/js/453.b3dbfdc0.chunk.js": "/static/js/453.b3dbfdc0.chunk.js",
@@ -85,6 +85,7 @@
     "static/media/classes_5397250.png": "/static/media/classes_5397250.78e1d888cda06b99945f.png",
     "static/media/attendence_5397249.png": "/static/media/attendence_5397249.3f372c1ed681522163be.png",
     "static/media/question_4774995.png": "/static/media/question_4774995.12ba873811531d9476fe.png",
+    "static/media/dsr_5397251.png": "/static/media/dsr_5397251.c45a482fb7fb4c24d0a3.png",
     "static/media/user_5397249.png": "/static/media/user_5397249.2efdc39d46e8cc8c3edc.png",
     "static/media/staff_5397249.png": "/static/media/staff_5397249.c955af27688a50d81b05.png",
     "static/media/email_us_icon.jpg": "/static/media/email_us_icon.50d3717db9075a8a9a16.jpg",
@@ -97,14 +98,14 @@
     "static/media/revicons.ttf": "/static/media/revicons.57fd05d4ae650374c8de.ttf",
     "static/media/revicons.woff": "/static/media/revicons.e8746a624ed098489406.woff",
     "index.html": "/index.html",
-    "main.a48cc376.css.map": "/static/css/main.a48cc376.css.map",
-    "main.5c53d82f.js.map": "/static/js/main.5c53d82f.js.map",
+    "main.81d4247d.css.map": "/static/css/main.81d4247d.css.map",
+    "main.0a8f0175.js.map": "/static/js/main.0a8f0175.js.map",
     "977.6d989d55.chunk.js.map": "/static/js/977.6d989d55.chunk.js.map",
     "667.19b1bd66.chunk.js.map": "/static/js/667.19b1bd66.chunk.js.map",
     "453.b3dbfdc0.chunk.js.map": "/static/js/453.b3dbfdc0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a48cc376.css",
-    "static/js/main.5c53d82f.js"
+    "static/css/main.81d4247d.css",
+    "static/js/main.0a8f0175.js"
   ]
 }

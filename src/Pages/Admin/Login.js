@@ -110,9 +110,9 @@ function Login() {
           sessionStorage.setItem("access", obj.token);
           localStorage.setItem("user", JSON.stringify(obj.user));
           navigate(
-            obj.user?.role === "ADMIN"
+            obj.user?.role === "ADMIN" || obj.user?.role === "SUPER ADMIN" || obj.user?.role === "STAFF" 
               ? "/admin-panel"
-              : obj.user?.role === "STAFF" || obj.user?.role === "TRAINER"
+              :  obj.user?.role === "TRAINER"
               ? "/trainers/dashboard"
               : "/members/dashboard"
           );

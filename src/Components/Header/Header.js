@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Navbar, Nav, Offcanvas, Container, Col, NavDropdown } from "react-bootstrap";
+import {
+  Navbar,
+  Nav,
+  Offcanvas,
+  Container,
+  Col,
+  NavDropdown,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import image1 from "../../assets/images/train_high_gym_logo.png";
 import "./Header.css";
@@ -13,6 +20,12 @@ import { Dropdown } from "bootstrap/dist/js/bootstrap.bundle.min";
 import { FaChevronDown } from "react-icons/fa";
 
 function Header() {
+  const userData =
+    localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
+  const userRole = String(userData?.role || "").toUpperCase();
+  const userBranchId = userData?.branch_id || userData?.fld_branch_id || "";
+  const canViewStaff = userRole === "SUPER ADMIN" || userRole === "ADMIN";
+  const canViewAllBranches = userRole === "SUPER ADMIN";
   const [scroll, setScroll] = useState(false);
   const [showOffcanvas, setShowOffcanvas] = useState(false);
   const [visible, setVisible] = useState(true); // 👈 Track navbar visibility
@@ -74,8 +87,9 @@ function Header() {
     <Navbar
       expand="lg"
       data-bs-theme="dark"
-      className={`py-0 bg-black ${scroll ? "shadow sticky-top" : ""} ${visible ? "navbar-show" : "navbar-hide"
-        }`} // 👈 Toggle visibility classes
+      className={`py-0 bg-black ${scroll ? "shadow sticky-top" : ""} ${
+        visible ? "navbar-show" : "navbar-hide"
+      }`} // 👈 Toggle visibility classes
       style={{
         transition:
           "transform 0.3s ease-in-out, background-color 0.3s ease-in-out",
@@ -86,8 +100,8 @@ function Header() {
           <img src={image1} className="navbar-logo" alt="Logo" />
         </Navbar.Brand>
         <div>
-        {/* <FaChevronDown size={24} className="ms-1" /> */}
-        <Navbar.Toggle onClick={handleShow} />
+          {/* <FaChevronDown size={24} className="ms-1" /> */}
+          <Navbar.Toggle onClick={handleShow} />
         </div>
         <Navbar.Offcanvas
           show={showOffcanvas}
@@ -101,7 +115,6 @@ function Header() {
             closeVariant="white"
           >
             <Offcanvas.Title className="text-uppercase">Menu</Offcanvas.Title>
-            
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className="justify-content-end flex-grow-1 pe-3 text-uppercase fw-bold">
@@ -204,65 +217,65 @@ function Header() {
         </Navbar.Offcanvas>
         {/* Desktop Login Button */}
         <div className="d-none d-lg-flex ms-auto">
+          {userData ? (
+            <Nav>
+              <NavDropdown
+                title={
+                  <>
+                    THG-Janakpuri <FaChevronDown size={12} className="ms-1" />
+                  </>
+                }
+                id="user-dropdown"
+                align="end"
+                className="btn border"
+                style={{ borderRadius: "30px" }}
+              >
+                {canViewStaff && (
+                  <NavDropdown.Item as={Link} to="/dashboard">
+                    Dashboard
+                  </NavDropdown.Item>
+                )}
+                <NavDropdown.Item as={Link} to="/membership-list">
+                  Members
+                </NavDropdown.Item>
 
-          <Nav>
-            <NavDropdown
-              title={
-                <>
-                  THG-Janakpuri <FaChevronDown size={12} className="ms-1" />
-                </>
-              }
-              id="user-dropdown"
-              align="end"
-              className="btn border"
+                <NavDropdown.Item as={Link} to="/membership-list">
+                  Batches & Classes
+                </NavDropdown.Item>
+
+                <NavDropdown.Item as={Link} to="/enquiry-list">
+                  Enquiry
+                </NavDropdown.Item>
+                {canViewStaff && (
+                  <NavDropdown.Item as={Link} to="/staff-list">
+                    Staff
+                  </NavDropdown.Item>
+                )}
+                <NavDropdown.Item as={Link} to="/">
+                  Attendence
+                </NavDropdown.Item>
+                {canViewAllBranches && (
+                  <NavDropdown.Item as={Link} to="/dsr-report">
+                    Daily Sales Report
+                  </NavDropdown.Item>
+                )}
+                <NavDropdown.Divider />
+
+                <NavDropdown.Item onClick={handleLogout}>
+                  Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          ) : (
+            <Link
+              to="/login"
+              className="btn btn-outline-light ms-3 px-4 py-2 fw-bold"
               style={{ borderRadius: "30px" }}
             >
-              <NavDropdown.Item as={Link} to="/dashboard">
-                Dashboard
-              </NavDropdown.Item>
-
-              <NavDropdown.Item as={Link} to="/membership-list">
-                Members
-              </NavDropdown.Item>
-
-              <NavDropdown.Item as={Link} to="/membership-list">
-                Batches & Classes
-              </NavDropdown.Item>
-
-              <NavDropdown.Item as={Link} to="/enquiry-list">
-                Enquiry
-              </NavDropdown.Item>
-
-              <NavDropdown.Item as={Link} to="/staff-list">
-                Staff
-              </NavDropdown.Item>
-
-              <NavDropdown.Item as={Link} to="/">
-                Attendence
-              </NavDropdown.Item>
-
-              <NavDropdown.Item as={Link} to="/dsr-report">
-                Daily Sales Report
-              </NavDropdown.Item>
-
-              <NavDropdown.Divider />
-
-              <NavDropdown.Item onClick={handleLogout}>
-                Logout
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-
-          {/* <Link
-      to="/login"
-      className="btn btn-outline-light ms-3 px-4 py-2 fw-bold"
-      style={{ borderRadius: "30px" }}
-    >
-      Login
-    </Link> */}
-
+              Login
+            </Link>
+          )}
         </div>
-
       </Container>
     </Navbar>
   );

@@ -50,6 +50,7 @@ import MemberAttendanceHistory from "./Pages/Members/MemberAttendanceHistory.jsx
 import MachineMaster from "./Pages/Machines/MachineMaster.jsx";
 import DsrReport from "./Pages/Admin/DsrReport.js";
 import { useEffect } from "react";
+import BatchList from "./Pages/BatchClasses/BatchList.jsx";
 
 function App() {
   useEffect(() => {
@@ -205,6 +206,7 @@ function App() {
           }
         />
         <Route path="/new-batch" element={<NewBatch />} />
+        <Route path="/batches" element={<BatchList />} />
         <Route path="/blogs" element={<Blogs />} />
         <Route
           path="/staff-list"
@@ -287,7 +289,7 @@ function App() {
               <DsrReport />
             </PrivateRoute>
           }
-        />        
+        />
       </Routes>
       {/* <Footer /> */}
       {/* {window.location.pathname !== "/home" && !window.location.pathname.startsWith("/members/") ? (
