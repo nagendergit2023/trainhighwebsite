@@ -107,13 +107,24 @@ function MembershipList() {
       new Set(
         memberList
           .map((member) => member?.[field])
-          .filter((value) => value !== undefined && value !== null && value !== ""),
+          .filter(
+            (value) => value !== undefined && value !== null && value !== "",
+          ),
       ),
     );
 
-  const branchOptions = useMemo(() => uniqueOptions("fld_branch_id"), [memberList]);
-  const genderOptions = useMemo(() => uniqueOptions("fld_gender"), [memberList]);
-  const goalOptions = useMemo(() => uniqueOptions("fld_fitness_goal"), [memberList]);
+  const branchOptions = useMemo(
+    () => uniqueOptions("fld_branch_id"),
+    [memberList],
+  );
+  const genderOptions = useMemo(
+    () => uniqueOptions("fld_gender"),
+    [memberList],
+  );
+  const goalOptions = useMemo(
+    () => uniqueOptions("fld_fitness_goal"),
+    [memberList],
+  );
   const biometricOptions = useMemo(
     () => uniqueOptions("biometric_status"),
     [memberList],
@@ -187,12 +198,22 @@ function MembershipList() {
         item.fld_email?.toLowerCase().includes(search);
 
       if (!matchesSearch) return false;
-      if (filters.branchId && String(item.fld_branch_id) !== String(filters.branchId)) return false;
+      if (
+        filters.branchId &&
+        String(item.fld_branch_id) !== String(filters.branchId)
+      )
+        return false;
       if (filters.status && item.fld_status !== filters.status) return false;
       if (filters.gender && item.fld_gender !== filters.gender) return false;
-      if (filters.membership && String(item.fld_membership) !== filters.membership) return false;
-      if (filters.fitnessGoal && item.fld_fitness_goal !== filters.fitnessGoal) return false;
-      if (filters.biometricStatus === "not_linked" && item.biometric_status) return false;
+      if (
+        filters.membership &&
+        String(item.fld_membership) !== filters.membership
+      )
+        return false;
+      if (filters.fitnessGoal && item.fld_fitness_goal !== filters.fitnessGoal)
+        return false;
+      if (filters.biometricStatus === "not_linked" && item.biometric_status)
+        return false;
       if (
         filters.biometricStatus &&
         filters.biometricStatus !== "not_linked" &&
@@ -210,25 +231,36 @@ function MembershipList() {
       ) {
         return false;
       }
-      if (!isBetweenDates(item.fld_start_date, filters.startFrom, filters.startTo)) return false;
-      if (!isBetweenDates(item.fld_end_date, filters.endFrom, filters.endTo)) return false;
+      if (
+        !isBetweenDates(item.fld_start_date, filters.startFrom, filters.startTo)
+      )
+        return false;
+      if (!isBetweenDates(item.fld_end_date, filters.endFrom, filters.endTo))
+        return false;
       return true;
     });
   }, [filters, memberList, searchFieldText]);
 
   const data = {
     columns: [
-      { title: "#", dataIndex: "SNo", sorter: (a, b) => a.SNo - b.SNo, width: "60px" },
+      {
+        title: "#",
+        dataIndex: "SNo",
+        sorter: (a, b) => a.SNo - b.SNo,
+        width: "60px",
+      },
       {
         title: "ID",
         dataIndex: "Membership",
-        sorter: (a, b) => String(a.Membership).localeCompare(String(b.Membership)),
+        sorter: (a, b) =>
+          String(a.Membership).localeCompare(String(b.Membership)),
         width: "150px",
       },
       {
         title: "Name",
         dataIndex: "MemberName",
-        sorter: (a, b) => String(a.MemberName).localeCompare(String(b.MemberName)),
+        sorter: (a, b) =>
+          String(a.MemberName).localeCompare(String(b.MemberName)),
         width: "160px",
       },
       {
@@ -245,13 +277,15 @@ function MembershipList() {
       {
         title: "Start Date",
         dataIndex: "StartDate",
-        sorter: (a, b) => moment(a.StartDateRaw).valueOf() - moment(b.StartDateRaw).valueOf(),
+        sorter: (a, b) =>
+          moment(a.StartDateRaw).valueOf() - moment(b.StartDateRaw).valueOf(),
         width: "120px",
       },
       {
         title: "End Date",
         dataIndex: "EndDate",
-        sorter: (a, b) => moment(a.EndDateRaw).valueOf() - moment(b.EndDateRaw).valueOf(),
+        sorter: (a, b) =>
+          moment(a.EndDateRaw).valueOf() - moment(b.EndDateRaw).valueOf(),
         width: "120px",
       },
       { title: "Biometric", dataIndex: "Biometric", width: "140px" },
@@ -275,7 +309,17 @@ function MembershipList() {
         Gender: member.fld_gender || "-",
         FitnessGoal: member.fld_fitness_goal || "-",
         MembershipPeriod: member.fld_membership
-          ? `${member.fld_membership} Month${String(member.fld_membership) !== "1" ? "s" : ""}`
+          ? (() => {
+              const value = String(member.fld_membership).trim();
+
+              // Already contains a unit (Days, Months, Weeks, Years, etc.)
+              if (/[a-zA-Z]/.test(value)) {
+                return value;
+              }
+
+              // Pure numeric value -> treat as months
+              return `${value} Month${Number(value) > 1 ? "s" : ""}`;
+            })()
           : "-",
         Branch: member.fld_branch_id || "-",
         DaysLeft:
@@ -286,7 +330,9 @@ function MembershipList() {
               : `${expiry.days} day${expiry.days !== 1 ? "s" : ""}`,
         Status: getStatusTag(member.fld_status, member.fld_end_date),
         Trainer: member.trainer_id ? (
-          <Tag color="blue">{getTrainerName(member.trainer_id) || "Assigned"}</Tag>
+          <Tag color="blue">
+            {getTrainerName(member.trainer_id) || "Assigned"}
+          </Tag>
         ) : (
           <Tag>Not Assigned</Tag>
         ),
@@ -309,19 +355,33 @@ function MembershipList() {
               >
                 Manage
               </button>
-              <ul className="dropdown-menu" aria-labelledby={`member-actions-${member.fld_id}`}>
+              <ul
+                className="dropdown-menu"
+                aria-labelledby={`member-actions-${member.fld_id}`}
+              >
                 <li>
-                  <Link className="dropdown-item" to="/new-membership" state={{ data: member, type: "update" }}>
+                  <Link
+                    className="dropdown-item"
+                    to="/new-membership"
+                    state={{ data: member, type: "update" }}
+                  >
                     Edit
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" to="/new-membership" state={{ data: member, type: "renew" }}>
+                  <Link
+                    className="dropdown-item"
+                    to="/new-membership"
+                    state={{ data: member, type: "renew" }}
+                  >
                     Renew Membership
                   </Link>
                 </li>
                 <li>
-                  <button className="dropdown-item" onClick={() => openTrainerModal(member)}>
+                  <button
+                    className="dropdown-item"
+                    onClick={() => openTrainerModal(member)}
+                  >
                     {member.trainer_id ? "Change Trainer" : "Assign Trainer"}
                   </button>
                 </li>
@@ -367,7 +427,11 @@ function MembershipList() {
                     </FloatingLabel>
                   </Col>
                   <Col lg={2}>
-                    <Button variant="secondary" className="w-100 py-3 mb-3 mb-lg-0" onClick={handleSearch}>
+                    <Button
+                      variant="secondary"
+                      className="w-100 py-3 mb-3 mb-lg-0"
+                      onClick={handleSearch}
+                    >
                       Search
                     </Button>
                   </Col>
@@ -388,18 +452,27 @@ function MembershipList() {
                           <Form.Select
                             value={filters.branchId}
                             disabled={Boolean(currentBranchId)}
-                            onChange={(e) => handleFilterChange("branchId", e.target.value)}
+                            onChange={(e) =>
+                              handleFilterChange("branchId", e.target.value)
+                            }
                           >
                             <option value="">All Branches</option>
                             {branchOptions.map((branch) => (
-                              <option key={branch} value={branch}>{branch}</option>
+                              <option key={branch} value={branch}>
+                                {branch}
+                              </option>
                             ))}
                           </Form.Select>
                         </FloatingLabel>
                       </Col>
                       <Col lg={2} md={4}>
                         <FloatingLabel label="Status">
-                          <Form.Select value={filters.status} onChange={(e) => handleFilterChange("status", e.target.value)}>
+                          <Form.Select
+                            value={filters.status}
+                            onChange={(e) =>
+                              handleFilterChange("status", e.target.value)
+                            }
+                          >
                             <option value="">All Status</option>
                             <option value="Active">Active</option>
                             <option value="InActive">Inactive</option>
@@ -408,7 +481,12 @@ function MembershipList() {
                       </Col>
                       <Col lg={2} md={4}>
                         <FloatingLabel label="Expiry">
-                          <Form.Select value={filters.expiry} onChange={(e) => handleFilterChange("expiry", e.target.value)}>
+                          <Form.Select
+                            value={filters.expiry}
+                            onChange={(e) =>
+                              handleFilterChange("expiry", e.target.value)
+                            }
+                          >
                             <option value="">All Expiry</option>
                             <option value="EXPIRED">Expired</option>
                             <option value="EXPIRING_SOON">0-3 Days</option>
@@ -419,17 +497,29 @@ function MembershipList() {
                       </Col>
                       <Col lg={2} md={4}>
                         <FloatingLabel label="Gender">
-                          <Form.Select value={filters.gender} onChange={(e) => handleFilterChange("gender", e.target.value)}>
+                          <Form.Select
+                            value={filters.gender}
+                            onChange={(e) =>
+                              handleFilterChange("gender", e.target.value)
+                            }
+                          >
                             <option value="">All Gender</option>
                             {genderOptions.map((gender) => (
-                              <option key={gender} value={gender}>{gender}</option>
+                              <option key={gender} value={gender}>
+                                {gender}
+                              </option>
                             ))}
                           </Form.Select>
                         </FloatingLabel>
                       </Col>
                       <Col lg={2} md={4}>
                         <FloatingLabel label="Membership">
-                          <Form.Select value={filters.membership} onChange={(e) => handleFilterChange("membership", e.target.value)}>
+                          <Form.Select
+                            value={filters.membership}
+                            onChange={(e) =>
+                              handleFilterChange("membership", e.target.value)
+                            }
+                          >
                             <option value="">All Plans</option>
                             <option value="1">1 Month</option>
                             <option value="3">3 Months</option>
@@ -441,24 +531,38 @@ function MembershipList() {
                       </Col>
                       <Col lg={2} md={4}>
                         <FloatingLabel label="Trainer">
-                          <Form.Select value={filters.trainer} onChange={(e) => handleFilterChange("trainer", e.target.value)}>
+                          <Form.Select
+                            value={filters.trainer}
+                            onChange={(e) =>
+                              handleFilterChange("trainer", e.target.value)
+                            }
+                          >
                             <option value="">All Trainers</option>
                             <option value="assigned">Assigned</option>
                             <option value="unassigned">Unassigned</option>
                             {staff
                               ?.filter((s) => s.role !== "Admin")
                               .map((trainer) => (
-                                <option key={trainer.id} value={trainer.id}>{trainer.name}</option>
+                                <option key={trainer.id} value={trainer.id}>
+                                  {trainer.name}
+                                </option>
                               ))}
                           </Form.Select>
                         </FloatingLabel>
                       </Col>
                       <Col lg={2} md={4}>
                         <FloatingLabel label="Fitness Goal">
-                          <Form.Select value={filters.fitnessGoal} onChange={(e) => handleFilterChange("fitnessGoal", e.target.value)}>
+                          <Form.Select
+                            value={filters.fitnessGoal}
+                            onChange={(e) =>
+                              handleFilterChange("fitnessGoal", e.target.value)
+                            }
+                          >
                             <option value="">All Goals</option>
                             {goalOptions.map((goal) => (
-                              <option key={goal} value={goal}>{goal}</option>
+                              <option key={goal} value={goal}>
+                                {goal}
+                              </option>
                             ))}
                           </Form.Select>
                         </FloatingLabel>
@@ -467,43 +571,85 @@ function MembershipList() {
                         <FloatingLabel label="Biometric">
                           <Form.Select
                             value={filters.biometricStatus}
-                            onChange={(e) => handleFilterChange("biometricStatus", e.target.value)}
+                            onChange={(e) =>
+                              handleFilterChange(
+                                "biometricStatus",
+                                e.target.value,
+                              )
+                            }
                           >
                             <option value="">All Biometric</option>
                             <option value="not_linked">Not Linked</option>
                             {biometricOptions.map((status) => (
-                              <option key={status} value={status}>{status}</option>
+                              <option key={status} value={status}>
+                                {status}
+                              </option>
                             ))}
                           </Form.Select>
                         </FloatingLabel>
                       </Col>
                       <Col lg={2} md={4}>
                         <FloatingLabel label="Start From">
-                          <Form.Control type="date" value={filters.startFrom} onChange={(e) => handleFilterChange("startFrom", e.target.value)} />
+                          <Form.Control
+                            type="date"
+                            value={filters.startFrom}
+                            onChange={(e) =>
+                              handleFilterChange("startFrom", e.target.value)
+                            }
+                          />
                         </FloatingLabel>
                       </Col>
                       <Col lg={2} md={4}>
                         <FloatingLabel label="Start To">
-                          <Form.Control type="date" value={filters.startTo} onChange={(e) => handleFilterChange("startTo", e.target.value)} />
+                          <Form.Control
+                            type="date"
+                            value={filters.startTo}
+                            onChange={(e) =>
+                              handleFilterChange("startTo", e.target.value)
+                            }
+                          />
                         </FloatingLabel>
                       </Col>
                       <Col lg={2} md={4}>
                         <FloatingLabel label="Expiry From">
-                          <Form.Control type="date" value={filters.endFrom} onChange={(e) => handleFilterChange("endFrom", e.target.value)} />
+                          <Form.Control
+                            type="date"
+                            value={filters.endFrom}
+                            onChange={(e) =>
+                              handleFilterChange("endFrom", e.target.value)
+                            }
+                          />
                         </FloatingLabel>
                       </Col>
                       <Col lg={2} md={4}>
                         <FloatingLabel label="Expiry To">
-                          <Form.Control type="date" value={filters.endTo} onChange={(e) => handleFilterChange("endTo", e.target.value)} />
+                          <Form.Control
+                            type="date"
+                            value={filters.endTo}
+                            onChange={(e) =>
+                              handleFilterChange("endTo", e.target.value)
+                            }
+                          />
                         </FloatingLabel>
                       </Col>
                       <Col lg={2} md={4}>
-                        <Button variant="outline-secondary" className="w-100 h-100" onClick={resetFilters}>
+                        <Button
+                          variant="outline-secondary"
+                          className="w-100 h-100"
+                          onClick={resetFilters}
+                        >
                           Reset Filters
                         </Button>
                       </Col>
-                      <Col lg={10} md={8} className="d-flex align-items-center justify-content-end">
-                        <span className="text-muted small">Showing {data.rows.length} of {memberList.length} members</span>
+                      <Col
+                        lg={10}
+                        md={8}
+                        className="d-flex align-items-center justify-content-end"
+                      >
+                        <span className="text-muted small">
+                          Showing {data.rows.length} of {memberList.length}{" "}
+                          members
+                        </span>
                       </Col>
                     </Row>
                   </Col>
@@ -538,12 +684,17 @@ function MembershipList() {
         okText="Save"
       >
         <FloatingLabel label="Select Trainer">
-          <Form.Select value={trainerId} onChange={(e) => setTrainerId(e.target.value)}>
+          <Form.Select
+            value={trainerId}
+            onChange={(e) => setTrainerId(e.target.value)}
+          >
             <option value="">Select Trainer</option>
             {staff
               ?.filter((s) => s.role !== "Admin")
               .map((trainer) => (
-                <option key={trainer.id} value={trainer.id}>{trainer.name} - {trainer.staff_code}</option>
+                <option key={trainer.id} value={trainer.id}>
+                  {trainer.name} - {trainer.staff_code}
+                </option>
               ))}
           </Form.Select>
         </FloatingLabel>
