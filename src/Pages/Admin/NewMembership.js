@@ -424,7 +424,8 @@ function NewMembership() {
     if (!gender) return "Please Select Gender";
     if (!address?.trim()) return "Please Enter Address";
     // if (!email?.trim()) return "Please Enter Email";
-    if (!/^\S+@\S+\.\S+$/.test(email)) return "Please Enter Valid Email";
+    if (email?.trim() && !/^\S+@\S+\.\S+$/.test(email))
+      return "Please Enter Valid Email";
     if (!/^\d{6}$/.test(String(pincode || "")))
       return "Please Enter Valid 6 Digit Pincode";
     if (!status) return "Please Select Status Of Member";
