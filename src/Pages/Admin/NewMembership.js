@@ -91,7 +91,7 @@ function NewMembership() {
       ? Number(memberData.amountPerMonth || 0)
       : Number(memberData.amountPerMonth || 0);
   // * membershipMonths;
-  const payableAmount = Number(paymentSummary.balanceAmount || 0);
+  const payableAmount = Number(paymentSummary.balanceAmount || totalAmount);
   const remainingAmount = payableAmount - Number(payment.paidToday || 0);
   const balanceAmount = Math.max(
     payableAmount - Number(payment.paidToday || 0),
@@ -566,9 +566,9 @@ function NewMembership() {
         setShowBiometric(true);
         setBiometricStatus("PENDING_ENROLLMENT");
         notification.success({ message: "Member Saved Successfully" });
-        // navigate("/tax-invoice", {
-        //   state: obj,
-        // });
+        navigate("/membership-list", {
+          state: obj,
+        });
       }
     } catch (err) {
       notification.error({
