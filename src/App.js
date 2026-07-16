@@ -51,6 +51,11 @@ import MachineMaster from "./Pages/Machines/MachineMaster.jsx";
 import DsrReport from "./Pages/Admin/DsrReport.js";
 import { useEffect } from "react";
 import BatchList from "./Pages/BatchClasses/BatchList.jsx";
+import BatchManage from "./Pages/BatchClasses/BatchManage.jsx";
+import BatchCalendar from "./Pages/BatchClasses/BatchCalendar.jsx";
+import MemberBatchTicket from "./Pages/Members/MemberBatchTicket.jsx";
+import MemberClasses from "./Pages/Members/MemberClasses.jsx";
+import MemberClassHistory from "./Pages/Members/MemberClassHistory.jsx";
 
 function App() {
   useEffect(() => {
@@ -166,6 +171,30 @@ function App() {
           }
         />
         <Route
+          path="/members/batch-ticket/:id"
+          element={
+            <PrivateRoute>
+              <MemberBatchTicket />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/members/classes"
+          element={
+            <PrivateRoute>
+              <MemberClasses />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/members/classes/history"
+          element={
+            <PrivateRoute>
+              <MemberClassHistory />
+            </PrivateRoute>
+          }
+        />
+        <Route
           path="/trainers/profile"
           element={
             <PrivateRoute>
@@ -207,6 +236,9 @@ function App() {
         />
         <Route path="/new-batch" element={<NewBatch />} />
         <Route path="/batches" element={<BatchList />} />
+        <Route path="/batch/edit/:id" element={<NewBatch />} />
+        <Route path="/batch/manage/:id" element={<BatchManage />} />
+        <Route path="/batch-calendar" element={<BatchCalendar />} />
         <Route path="/blogs" element={<Blogs />} />
         <Route
           path="/staff-list"
@@ -306,3 +338,4 @@ function App() {
 }
 
 export default App;
+

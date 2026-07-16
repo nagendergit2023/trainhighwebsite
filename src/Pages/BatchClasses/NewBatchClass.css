@@ -1,20 +1,488 @@
+.batch-class-page .form-floating > .form-control,
+.batch-class-page .form-floating > .form-select {
+  min-height: 58px;
+}
+
+.batch-form-header,
+.batch-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 16px;
+}
+
+.batch-filter-panel {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 14px;
+  background: #fff;
+}
+
 .badge-select {
-  padding: 8px 18px;
-  border-radius: 30px;
-  border: 1px solid #ccc;
+  padding: 8px 16px;
+  border-radius: 22px;
+  border: 1px solid #ced4da;
   cursor: pointer;
-  transition: 0.25s;
+  transition: 0.2s;
   user-select: none;
   font-size: 14px;
   background: #f8f9fa;
+  color: #212529;
+}
+
+button.badge-select {
+  appearance: none;
 }
 
 .badge-select:hover {
-  border-color: var(--theme-black);
+  border-color: var(--theme-black, #111);
 }
 
 .badge-select.active {
-  background: var(--theme-black);
+  background: var(--theme-black, #111);
   color: white;
-  border-color: var(--theme-black);
+  border-color: var(--theme-black, #111);
 }
+
+.batch-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.batch-field-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #495057;
+}
+
+.batch-time-picker,
+.batch-number-input {
+  min-height: 42px;
+}
+
+.batch-card {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.batch-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.batch-meta-grid span {
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 7px 9px;
+  font-size: 13px;
+  color: #495057;
+  background: #f8f9fa;
+}
+
+.batch-detail-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f3f5;
+  font-size: 14px;
+}
+
+.batch-detail-row span {
+  color: #6c757d;
+}
+
+.batch-detail-row strong {
+  text-align: right;
+  font-weight: 600;
+}
+
+.batch-empty-state {
+  border: 1px dashed #ced4da;
+  border-radius: 8px;
+  padding: 36px;
+  text-align: center;
+  color: #6c757d;
+  background: #fff;
+}
+
+@media (max-width: 767px) {
+  .batch-form-header,
+  .batch-list-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .batch-detail-row {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .batch-detail-row strong {
+    text-align: left;
+  }
+}
+
+.batch-stat-box {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 16px;
+  background: #fff;
+}
+
+.batch-stat-box span {
+  display: block;
+  color: #6c757d;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.batch-stat-box strong {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.batch-member-pick-list {
+  max-height: 360px;
+  overflow: auto;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.batch-member-pick-list .form-check {
+  padding-top: 7px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid #f1f3f5;
+}
+
+.batch-member-pick-list .form-check:last-child {
+  border-bottom: 0;
+}
+
+.batch-calendar-sheet {
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 0;
+  padding: 42px 58px 52px;
+}
+
+.timetable-sheet {
+  min-width: 1100px;
+}
+
+.calendar-print-title {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.timetable-title h2 {
+  display: inline-block;
+  margin: 0;
+  color: #000;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 56px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.timetable-wrap {
+  overflow-x: auto;
+}
+
+.group-class-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  background: #f8df91;
+  color: #000;
+  border: 1.5px solid #8b815c;
+}
+
+.group-class-table th,
+.group-class-table td {
+  border: 1.5px solid #8b815c;
+  text-align: center;
+  vertical-align: top;
+  padding: 8px 7px;
+  min-height: 78px;
+  background: #f8df91;
+  font-weight: 900;
+}
+
+.group-class-table thead th {
+  font-size: 22px;
+  line-height: 1.1;
+  vertical-align: middle;
+  height: 56px;
+}
+
+.group-class-table thead th:first-child,
+.group-class-table tbody th {
+  width: 130px;
+}
+
+.group-class-table tbody th {
+  font-size: 17px;
+  vertical-align: middle;
+  line-height: 1.15;
+}
+
+.group-class-table td {
+  height: 74px;
+  font-size: 17px;
+  line-height: 1.24;
+}
+
+.timetable-class + .timetable-class {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(0, 0, 0, 0.25);
+}
+
+.timetable-class span {
+  display: block;
+}
+
+.calendar-empty {
+  color: #000;
+  opacity: 0.35;
+  text-align: center;
+  font-size: 13px;
+}
+.booking-ticket-card {
+  max-width: 760px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 28px;
+}
+
+.ticket-brand {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 13px;
+  color: #6c757d;
+  font-weight: 700;
+}
+
+.ticket-number {
+  display: inline-block;
+  border: 1px solid #111;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-weight: 700;
+  margin: 8px 0 20px;
+}
+
+.ticket-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.ticket-grid div {
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.ticket-grid span {
+  display: block;
+  color: #6c757d;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.ticket-grid strong {
+  font-size: 16px;
+}
+
+@page {
+  size: A4 landscape;
+  margin: 10mm;
+}
+
+@media print {
+  .no-print,
+  header,
+  footer,
+  .Header,
+  .Footer {
+    display: none !important;
+  }
+
+  .inner-section {
+    padding: 0 !important;
+  }
+
+  .batch-calendar-sheet,
+  .booking-ticket-card {
+    border: 0;
+    box-shadow: none;
+  }
+
+  .batch-calendar-sheet {
+    padding: 14mm 10mm;
+    min-width: 0;
+  }
+
+  .timetable-title h2 {
+    font-size: 44px;
+  }
+
+  .group-class-table thead th {
+    font-size: 18px;
+  }
+
+  .group-class-table tbody th,
+  .group-class-table td {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 991px) {
+  .batch-calendar-sheet {
+    padding: 24px;
+  }
+
+  .timetable-title h2 {
+    font-size: 38px;
+  }
+}
+
+@media (max-width: 575px) {
+  .ticket-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+.member-classes-page {
+  padding-bottom: 82px;
+}
+
+.member-history-card {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  background: #fff;
+  padding: 16px;
+  height: 100%;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.member-classes-page .batch-card {
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.member-classes-page .batch-list-header {
+  align-items: flex-start;
+}
+
+.batch-member-search {
+  max-width: 260px;
+}
+
+@media (max-width: 767px) {
+  .batch-member-search {
+    max-width: 100%;
+  }
+}
+
+.member-class-hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.member-date-panel {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  background: #fff;
+  padding: 14px;
+}
+
+.member-date-input {
+  max-width: 180px;
+}
+
+.member-date-strip {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.member-date-chip {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  background: #f8f9fa;
+  color: #212529;
+  padding: 10px 6px;
+  text-align: center;
+  transition: 0.2s;
+}
+
+.member-date-chip span,
+.member-date-chip strong {
+  display: block;
+}
+
+.member-date-chip span {
+  font-size: 12px;
+  color: #6c757d;
+  margin-bottom: 2px;
+}
+
+.member-date-chip strong {
+  font-size: 13px;
+}
+
+.member-date-chip.active {
+  background: #111;
+  border-color: #111;
+  color: #fff;
+}
+
+.member-date-chip.active span {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.member-filter-control,
+.member-classes-page .form-select {
+  min-height: 42px;
+}
+
+@media (max-width: 767px) {
+  .member-class-hero {
+    flex-direction: column;
+  }
+
+  .member-date-input {
+    max-width: 100%;
+  }
+
+  .member-date-strip {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.batch-review-text {
+  min-width: 220px;
+  max-width: 420px;
+  white-space: normal;
+}
+

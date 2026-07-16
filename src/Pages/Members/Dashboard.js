@@ -138,12 +138,24 @@ const Dashboard = () => {
           </Col>
 
           <Col lg={12} className="mt-4">
-            <Link
-              to="/members/workout"
-              className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark"
-            >
-              View Schedule
-            </Link>
+            <Row className="g-2">
+              <Col md={6}>
+                <Link
+                  to="/members/classes"
+                  className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-dark"
+                >
+                  Book Classes
+                </Link>
+              </Col>
+              <Col md={6}>
+                <Link
+                  to="/members/workout"
+                  className="text-capitalize py-lg-2 w-100 btn-lg rounded btn btn-outline-dark"
+                >
+                  View Workout
+                </Link>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>
@@ -152,3 +164,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

@@ -64,7 +64,7 @@ function Admin() {
               </Link>
             </Col>
             <Col lg={3} md={6} sm={6} xs={6} className="mb-3">
-              <Link to="/new-membership" className="text-decoration-none">
+              <Link to="/batches" className="text-decoration-none">
                 <Card className="text-center border-0 mb-3 mb-lg-0">
                   <Card.Body>
                     <img
