@@ -50,11 +50,11 @@ function TrainingHome() {
                         </Col>
                         <Col xs={6} md={6} lg={4}   className='mb-lg-4 mb-3 position-relative'>
                             <img className='img-fluid rounded' src={CalisthenicsTraining} />
-                            <h1 className='text-effect text-white'>Calesthanics</h1>
+                            <h1 className='text-effect text-white'>Calisthenics</h1>
                         </Col>
                         <Col xs={6} md={6} lg={4}   className='mb-lg-4 mb-3 position-relative'>
                             <img className='img-fluid rounded' src={GymnasticsTraining} />
-                            <h1 className='text-effect text-white'>Gymnatics</h1>
+                            <h1 className='text-effect text-white'>Gymnastics</h1>
                         </Col>
                         <Col xs={6} md={6} lg={4}   className='mb-lg-4 mb-3 position-relative'>
                             <img className='img-fluid rounded' src={PilatesTraining} />

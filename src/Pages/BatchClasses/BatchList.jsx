@@ -288,7 +288,7 @@ export default function BatchList() {
           </div>
 
           <div className="batch-filter-panel mb-4">
-            <Row className="g-2">
+            <Row className="g-2 justify-content-between">
               <Col lg={3} md={6}>
                 <FloatingLabel label="Search Classes">
                   <Form.Control

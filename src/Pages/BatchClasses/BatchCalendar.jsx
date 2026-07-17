@@ -196,9 +196,9 @@ export default function BatchCalendar() {
               ref={printRef}
               className="batch-calendar-sheet timetable-sheet"
             >
-              <div className="calendar-print-title timetable-title">
+              {/* <div className="calendar-print-title timetable-title">
                 <h2>GROUP CLASSES</h2>
-              </div>
+              </div> */}
               <div className="timetable-wrap">
                 <table className="group-class-table">
                   <thead>

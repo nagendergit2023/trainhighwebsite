@@ -17,7 +17,7 @@ import {
 } from "react-icons/bi";
 import { AiOutlineYoutube } from "react-icons/ai";
 import { Dropdown } from "bootstrap/dist/js/bootstrap.bundle.min";
-import { FaChevronDown } from "react-icons/fa";
+import { FaBars, FaChevronDown, FaUser, FaUserAlt, FaUserCircle } from "react-icons/fa";
 
 function Header() {
   const userData =
@@ -28,6 +28,7 @@ function Header() {
   const canViewAllBranches = userRole === "SUPER ADMIN";
   const [scroll, setScroll] = useState(false);
   const [showOffcanvas, setShowOffcanvas] = useState(false);
+  const [showOffcanvasUser, setShowOffcanvasUser] = useState(false);
   const [visible, setVisible] = useState(true); // 👈 Track navbar visibility
 
   const handleLogout = () => {
@@ -82,14 +83,15 @@ function Header() {
 
   const handleClose = () => setShowOffcanvas(false);
   const handleShow = () => setShowOffcanvas(true);
+  const handleCloseUser = () => setShowOffcanvasUser(false);
+  const handleShowUser = () => setShowOffcanvasUser(true);
 
   return (
     <Navbar
       expand="lg"
       data-bs-theme="dark"
-      className={`py-0 bg-black ${scroll ? "shadow sticky-top" : ""} ${
-        visible ? "navbar-show" : "navbar-hide"
-      }`} // 👈 Toggle visibility classes
+      className={`py-0 bg-black ${scroll ? "shadow sticky-top" : ""} ${visible ? "navbar-show" : "navbar-hide"
+        }`} // 👈 Toggle visibility classes
       style={{
         transition:
           "transform 0.3s ease-in-out, background-color 0.3s ease-in-out",
@@ -99,9 +101,13 @@ function Header() {
         <Navbar.Brand href="/">
           <img src={image1} className="navbar-logo" alt="Logo" />
         </Navbar.Brand>
-        <div>
-          {/* <FaChevronDown size={24} className="ms-1" /> */}
-          <Navbar.Toggle onClick={handleShow} />
+        <div className="d-flex">
+          <Navbar.Toggle onClick={handleShowUser}>
+            <FaUserCircle size={34} />
+          </Navbar.Toggle>
+          <Navbar.Toggle onClick={handleShow}>
+            <FaBars size={34} />
+          </Navbar.Toggle>
         </div>
         <Navbar.Offcanvas
           show={showOffcanvas}
@@ -215,6 +221,87 @@ function Header() {
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>
+        <Navbar.Offcanvas
+          show={showOffcanvasUser}
+          onHide={handleCloseUser}
+          placement="end"
+          className="text-bg-dark d-lg-none d-block"
+        >
+          <Offcanvas.Header
+            closeButton
+            className="btn-close-light"
+            closeVariant="white"
+          >
+            <Offcanvas.Title className="text-uppercase">{userRole}</Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <Nav className="flex-column text-uppercase fw-bold">
+              {userData ? (
+                <>
+                  <h2 className="py-2 fw-bold border-bottom" onClick={handleCloseUser}>
+                    THG-Janakpuri
+                  </h2>
+
+                  <Nav.Link as={Link} to="/admin-panel" onClick={handleCloseUser}>
+                    Admin Panel
+                  </Nav.Link>
+
+                  {canViewStaff && (
+                    <Nav.Link as={Link} to="/dashboard" onClick={handleCloseUser}>
+                      Dashboard
+                    </Nav.Link>
+                  )}
+
+                  <Nav.Link as={Link} to="/membership-list" onClick={handleCloseUser}>
+                    Members
+                  </Nav.Link>
+
+                  <Nav.Link as={Link} to="/batches" onClick={handleCloseUser}>
+                    Batches & Classes
+                  </Nav.Link>
+
+                  <Nav.Link as={Link} to="/enquiry-list" onClick={handleCloseUser}>
+                    Enquiry
+                  </Nav.Link>
+
+                  {canViewStaff && (
+                    <Nav.Link as={Link} to="/staff-list" onClick={handleCloseUser}>
+                      Staff
+                    </Nav.Link>
+                  )}
+
+                  <Nav.Link as={Link} to="/attendence" onClick={handleCloseUser}>
+                    Attendance
+                  </Nav.Link>
+
+                  {canViewAllBranches && (
+                    <Nav.Link as={Link} to="/dsr-report" onClick={handleCloseUser}>
+                      Daily Sales Report
+                    </Nav.Link>
+                  )}
+
+                  <hr />
+
+                  <Nav.Link
+                    onClick={handleLogout}
+                    className="text-danger"
+                    style={{ cursor: "pointer" }}
+                  >
+                    Logout
+                  </Nav.Link>
+                </>
+              ) : (
+                <Link
+                  to="/login"
+                  className="btn btn-outline-light ms-3 px-4 py-2 fw-bold"
+                  style={{ borderRadius: "30px" }}
+                >
+                  Login
+                </Link>
+              )}
+            </Nav>
+          </Offcanvas.Body>
+        </Navbar.Offcanvas>
         {/* Desktop Login Button */}
         <div className="d-none d-lg-flex ms-auto">
           {userData ? (
@@ -242,7 +329,7 @@ function Header() {
                   Members
                 </NavDropdown.Item>
 
-                <NavDropdown.Item as={Link} to="/membership-list">
+                <NavDropdown.Item as={Link} to="/batches">
                   Batches & Classes
                 </NavDropdown.Item>
 
@@ -254,7 +341,7 @@ function Header() {
                     Staff
                   </NavDropdown.Item>
                 )}
-                <NavDropdown.Item as={Link} to="/">
+                <NavDropdown.Item as={Link} to="/attendence">
                   Attendence
                 </NavDropdown.Item>
                 {canViewAllBranches && (

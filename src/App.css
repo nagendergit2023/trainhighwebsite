@@ -314,11 +314,9 @@ a {
 }
 
 @media screen and (max-width: 768px) {
-  #root .inner-section {
+    #root .inner-section {
     padding-bottom: 5rem;
   }
-
-@media screen and (max-width: 768px) {
    #root.main-footer-layout {
     padding-bottom: 0rem;
   }
@@ -367,8 +365,17 @@ a {
   .ant-modal {
     padding-bottom: 6rem;
   }
+
+  .navbar-toggler-icon.navbar-toggler-icon {
+    width: 2.5em;
+    height: 2.5em;
+  }
+
+  .navbar-toggler:focus.navbar-toggler:focus {
+    box-shadow: none;
+  }
 }
-}
+
 .expired-row {
   background-color: #fff1f0 !important;
 }

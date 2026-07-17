@@ -108,7 +108,7 @@ function Dashboard() {
 
 
     return (
-        <div className='container py-lg-5'>
+        <div className='container py-5'>
             <div className='row'>
                 {/* <Col lg={3} className='mb-3'>
                     <Link to="/dashboard" className="text-decoration-none">

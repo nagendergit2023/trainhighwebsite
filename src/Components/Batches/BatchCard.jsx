@@ -99,10 +99,10 @@ export default function BatchCard({
             <strong>{services}</strong>
           </div>
         )}
-        <div className="batch-detail-row">
+        {/* <div className="batch-detail-row">
           <span>Price</span>
           <strong>{price > 0 ? `Rs. ${price}` : "Included"}</strong>
-        </div>
+        </div> */}
 
         <div className="mt-3">
           <div className="d-flex justify-content-between small mb-1">
@@ -126,13 +126,13 @@ export default function BatchCard({
           {canManage && (
             <>
               <Button
-                variant="primary"
+                variant="dark"
                 onClick={() => navigate(`/batch/manage/${batchId}`)}
               >
                 Manage
               </Button>
               <Button
-                variant="warning"
+                variant="dark"
                 onClick={() => navigate(`/batch/edit/${batchId}`)}
               >
                 Edit
