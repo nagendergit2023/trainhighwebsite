@@ -20,7 +20,7 @@ const TrainerMembersList = () => {
   return (
     <>
       <Container className="mb-5 mt-3">
-        <h2 class="weekly-title mb-4 text-center">My Clients</h2>
+        <h2 className="weekly-title mb-4 text-center">My Clients</h2>
         <Row>
           {members.map((member) => (
             <Col lg={4} md={6} sm={12} key={member.fld_id} className="mb-3">

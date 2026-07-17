@@ -126,28 +126,28 @@ function Header() {
             <Nav className="justify-content-end flex-grow-1 pe-3 text-uppercase fw-bold">
               <Link
                 to="/trainings"
-                className="nav-link py-lg-0 py-3"
+                className="nav-link px-lg-3 mx-lg-2 py-lg-0 py-3"
                 onClick={handleClose}
               >
                 Trainings
               </Link>
               <Link
                 to="/why-to-join"
-                className="nav-link py-lg-0 py-3"
+                className="nav-link px-lg-3 mx-lg-2 py-lg-0 py-3"
                 onClick={handleClose}
               >
                 Why to Join
               </Link>
               <Link
                 to="/events"
-                className="nav-link py-lg-0 py-3"
+                className="nav-link px-lg-3 mx-lg-2 py-lg-0 py-3"
                 onClick={handleClose}
               >
                 Events
               </Link>
               <Link
                 to="/franchise"
-                className="nav-link py-lg-0 py-3"
+                className="nav-link px-lg-3 mx-lg-2 py-lg-0 py-3"
                 onClick={handleClose}
               >
                 Franchise
@@ -156,14 +156,14 @@ function Header() {
                 href="mailto:trainhighgym@gmail.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="nav-link py-lg-0 py-3"
+                className="nav-link px-lg-3 mx-lg-2 py-lg-0 py-3"
                 onClick={handleClose}
               >
                 Careers
               </a>
               <Link
                 to="/contact-us"
-                className="nav-link py-lg-0 py-3"
+                className="nav-link px-lg-3 mx-lg-2 py-lg-0 py-3"
                 onClick={handleClose}
               >
                 Contact Us
@@ -177,7 +177,7 @@ function Header() {
               >
                 Login
               </Link> */}
-              <Col lg={12} className="pt-4 d-lg-none d-block">
+              <Col lg={12} className="mx-lg-4 pt-4 d-lg-none d-block">
                 <p className="fw-bold">FOLLOW US</p>
                 <ul className="list-inline mt-0 mb-0">
                   <li className="list-inline-item">

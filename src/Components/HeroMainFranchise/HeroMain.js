@@ -83,7 +83,7 @@ useEffect(() => {
 
   return (
     <div className="hero-section-main-franchise">
-    <video class="hero-bg-video"
+    <video className="hero-bg-video"
         autoplay="autoplay"
         muted
         loop

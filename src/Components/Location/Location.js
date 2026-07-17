@@ -21,7 +21,7 @@ function Location() {
   const [selectedLocation, setSelectedLocation] = useState(locations[0]);
 
   return (
-    <section class="py-lg-5 py-5">
+    <section className="py-lg-5 py-5">
       <div className="container-fluid">
         <h2 className="section-title">Our Locations</h2>
         <p className="text-center px-lg-5 px-2 mb-5">
