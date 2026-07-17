@@ -100,10 +100,10 @@ function HeroMain() {
               {displayed}
               <span className="cursor">|</span>
             </h2>
-             <h5 className="mt-4">
+             <h2 className="mt-4">
               Take your time to get to know Train High Gym.
-            </h5>
-            <h5 className="mb-4">We would love to show you around!</h5>
+            </h2>
+            <h2 className="mb-4">We would love to show you around!</h2>
           </Col>
         </Row>
       </Container>
