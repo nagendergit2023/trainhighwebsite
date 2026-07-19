@@ -347,7 +347,7 @@ function MembershipList() {
           <div className="d-flex align-items-center justify-content-start">
             <div className="dropdown">
               <button
-                className="btn btn-secondary dropdown-toggle"
+                className="btn btn-secondary dropdown-toggle btn-sm"
                 type="button"
                 id={`member-actions-${member.fld_id}`}
                 data-bs-toggle="dropdown"
