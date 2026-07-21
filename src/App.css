@@ -313,6 +313,21 @@ a {
   overflow-y: auto;
 }
 
+.ant-table-wrapper table {
+font-size: smaller;
+}
+
+.ant-tag-green {
+    color: #389e0d;
+    background: #f6ffed;
+    border-color: #b7eb8f;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: stretch;
+    
+}
+
 @media screen and (max-width: 768px) {
     #root .inner-section {
     padding-bottom: 5rem;
