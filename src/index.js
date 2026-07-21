@@ -4,8 +4,7 @@ import App from "./App.js";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals.js";
 import { BrowserRouter } from "react-router-dom";
-import { initPushAlert } from "./helpers/pushAlert";
-
+// import { initPushAlert } from "./helpers/pushAlert";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -13,16 +12,15 @@ root.render(
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 reportWebVitals();
 
-initPushAlert();
+// initPushAlert();
 
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/service-worker.js").catch(() => {});
-  });
-}
-
+// if ("serviceWorker" in navigator) {
+//   window.addEventListener("load", () => {
+//     navigator.serviceWorker.register("/service-worker.js").catch(() => {});
+//   });
+// }

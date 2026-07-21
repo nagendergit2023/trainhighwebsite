@@ -8,6 +8,10 @@
       "type": "image/x-icon"
     },
     {
+      "src": "https://cdn.pushalert.co/icons/app-icon-89232-1.png?1784651523",
+      "sizes": "200x200"
+    },
+    {
       "src": "logo192.png",
       "type": "image/png",
       "sizes": "192x192"
@@ -18,10 +22,10 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "/members/dashboard",
+  "start_url": "https://trainhighgym.com/",
+  "id": "https://trainhighgym.com/",
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }
-
