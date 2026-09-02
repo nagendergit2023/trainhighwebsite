@@ -5,8 +5,8 @@ import { notification } from "antd";
 import Notiflix from "notiflix";
 
 function ContactUs({
-  title = "Get in touch with us",
-  subtitle = "WE ARE ALWAYS READY TO HEAR FROM YOU",
+  title = "Get in touch",
+  subtitle = "We are always ready to hear from you.",
   bgClass = "bg-white",
   textClass = "text-black"
 }) {
@@ -72,7 +72,7 @@ function ContactUs({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
-              <label for="floatingInput">Full Name *</label>
+              <label htmlFor="floatingInput">Full Name *</label>
             </div>
           </Col>
           <Col lg={3}>
@@ -85,7 +85,7 @@ function ContactUs({
                 value={mobile}
                 onChange={(e) => setMobile(e.target.value)}
               />
-              <label for="floatingInput">Mobile Number *</label>
+              <label htmlFor="floatingInput">Mobile Number *</label>
             </div>
           </Col>
           <Col lg={3}>
@@ -98,7 +98,7 @@ function ContactUs({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <label for="floatingInput">Email address *</label>
+              <label htmlFor="floatingInput">Email address *</label>
             </div>
           </Col>
           <Col lg={3}>
@@ -112,7 +112,7 @@ function ContactUs({
                 <option value="Franchise">Franchise</option>
                 <option value="Membership">Membership</option>
               </select>
-              <label for="floatingInput">Enquiry For *</label>
+              <label htmlFor="floatingInput">Enquiry For *</label>
             </div>
           </Col>
           <Col lg={12}>
@@ -125,7 +125,7 @@ function ContactUs({
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
               ></textarea>
-              <label for="floatingTextarea2">Message</label>
+              <label htmlFor="floatingTextarea2">Message</label>
             </div>
           </Col>
           <Col lg={3} className="text-end mb-5">

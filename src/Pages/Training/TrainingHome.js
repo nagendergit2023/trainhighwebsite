@@ -39,52 +39,52 @@ function TrainingHome() {
                 </Container>
 
                 <Container>
-                    <Row className="justify-content-center ">
-                        <Col xs={6} md={6} lg={4}   className='mb-lg-4 mb-3 position-relative'>
+                    <Row className="justify-content-center">
+                        <Col xs={12} lg={4}   className='mb-lg-4 mb-3 position-relative training-image-wrapper'>
                             <img className='img-fluid rounded' src={BoxingTraining} />
                             <h1 className='text-effect text-white'>Boxing</h1>
                         </Col>
-                        <Col xs={6} md={6} lg={4}   className='mb-lg-4 mb-3 position-relative'>
+                        <Col xs={12} lg={4}   className='mb-lg-4 mb-3 position-relative training-image-wrapper'>
                             <img className='img-fluid rounded' src={CrossfitTraining} />
                             <h1 className='text-effect text-white'>Crossfit</h1>
                         </Col>
-                        <Col xs={6} md={6} lg={4}   className='mb-lg-4 mb-3 position-relative'>
+                        <Col xs={12} lg={4}   className='mb-lg-4 mb-3 position-relative training-image-wrapper'>
                             <img className='img-fluid rounded' src={CalisthenicsTraining} />
                             <h1 className='text-effect text-white'>Calisthenics</h1>
                         </Col>
-                        <Col xs={6} md={6} lg={4}   className='mb-lg-4 mb-3 position-relative'>
-                            <img className='img-fluid rounded' src={GymnasticsTraining} />
+                        <Col xs={12} lg={4}   className='mb-lg-4 mb-3 position-relative training-image-wrapper'>
+                            <img className='img-fluid rounded' src={GymnasticsTraining} style={{ objectPosition: "bottom" }} />
                             <h1 className='text-effect text-white'>Gymnastics</h1>
                         </Col>
-                        <Col xs={6} md={6} lg={4}   className='mb-lg-4 mb-3 position-relative'>
+                        <Col xs={12} lg={4}   className='mb-lg-4 mb-3 position-relative training-image-wrapper'>
                             <img className='img-fluid rounded' src={PilatesTraining} />
                             <h1 className='text-effect text-white'>Pilates</h1>
                         </Col>
-                        <Col xs={6} md={6} lg={4}   className='mb-lg-4 mb-3 position-relative'>
+                        <Col xs={12} lg={4}   className='mb-lg-4 mb-3 position-relative training-image-wrapper'>
                             <img className='img-fluid rounded' src={StrengthTraining} />
                             <h1 className='text-effect text-white'>Strength</h1>
                         </Col>
-                        <Col xs={6} md={6} lg={4}   className='mb-lg-4 mb-3 position-relative'>
+                        <Col xs={12} lg={4}   className='mb-lg-4 mb-3 position-relative training-image-wrapper'>
                             <img className='img-fluid rounded' src={YogaTraining} />
                             <h1 className='text-effect text-white'>Yoga</h1>
                         </Col>
-                        <Col xs={6} md={6} lg={4}   className='mb-lg-4 mb-3 position-relative'>
+                        <Col xs={12} lg={4}   className='mb-lg-4 mb-3 position-relative training-image-wrapper'>
                             <img className='img-fluid rounded' src={RopeClimbing} />
                             <h1 className='text-effect text-white'>Ropes</h1>
                         </Col>
-                        <Col xs={6} md={6} lg={4}   className='mb-lg-4 mb-3 position-relative'>
+                        <Col xs={12} lg={4}   className='mb-lg-4 mb-3 position-relative training-image-wrapper'>
                             <img className='img-fluid rounded' src={WallClimbing} />
                             <h1 className='text-effect text-white'>Wall Climbing</h1>
                         </Col>                        
-                        <Col xs={6} md={6} lg={4}   className='mb-lg-4 mb-3 position-relative'>
+                        <Col xs={12} lg={4}   className='mb-lg-4 mb-3 position-relative training-image-wrapper'>
                             <img className='img-fluid rounded' src={Aerobics} />
                             <h1 className='text-effect text-white'>Group</h1>
                         </Col>
-                        <Col xs={6} md={6} lg={4}   className='mb-lg-4 mb-3 position-relative'>
+                        <Col xs={12} lg={4}   className='mb-lg-4 mb-3 position-relative training-image-wrapper'>
                             <img className='img-fluid rounded' src={TaekwondoTraining} />
                             <h1 className='text-effect text-white'>Taekwondo</h1>
                         </Col>
-                        <Col xs={6} md={6} lg={4}   className='mb-lg-4 mb-3 position-relative'>
+                        <Col xs={12} lg={4}   className='mb-lg-4 mb-3 position-relative training-image-wrapper'>
                             <img className='img-fluid rounded' src={KidsFitness} />
                             <h1 className='text-effect text-white'>Kids</h1>
                         </Col>

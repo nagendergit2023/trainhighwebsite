@@ -1,0 +1,64 @@
+/* --- Page Wrapper --- */
+.contact-container {
+  font-family: "Poppins", sans-serif;
+  color: #333;
+}
+
+/* --- Page Title --- */
+.page-title {
+  color: #0d6efd;
+  letter-spacing: 0.5px;
+}
+
+/* --- Location List --- */
+.location-list {
+  background: #ffffff;
+  border: 1px solid #e3e3e3;
+  transition: all 0.3s ease-in-out;
+}
+
+.location-item {
+  background: #f8f9fa;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.location-item:hover {
+  background: var(--theme-grey);
+  transform: translateX(3px);
+}
+
+.location-item.active {
+  background: var(--theme-black);
+  color: var(--theme-golden);
+  border-color: var(--theme-black);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.location-item.active p {
+  color: var(--theme-golden);
+}
+
+/* --- Map Container --- */
+.map-card {
+  height: 450px;
+  border: 1px solid #dee2e6;
+}
+
+.map-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 991px) {
+  .map-card {
+    height: 350px;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+}

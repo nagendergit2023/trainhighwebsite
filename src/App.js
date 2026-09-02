@@ -56,6 +56,7 @@ import BatchCalendar from "./Pages/BatchClasses/BatchCalendar.jsx";
 import MemberBatchTicket from "./Pages/Members/MemberBatchTicket.jsx";
 import MemberClasses from "./Pages/Members/MemberClasses.jsx";
 import MemberClassHistory from "./Pages/Members/MemberClassHistory.jsx";
+import LocationMicrosite from "./Pages/LocationMicrosite/LocationMicrosite.js";
 
 function App() {
   useEffect(() => {
@@ -288,6 +289,8 @@ function App() {
         <Route path="/cardio-training" element={<Cardio />} />
         <Route path="/crossfit-training" element={<Crossfit />} />
         <Route path="/strength-training" element={<Strength />} />
+
+        <Route path="/locations/:slug" element={<LocationMicrosite/>} />
 
         <Route
           path="/new-membership"

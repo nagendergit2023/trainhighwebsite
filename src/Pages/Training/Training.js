@@ -43,11 +43,11 @@ const responsive = {
   },
   desktop: {
     breakpoint: { max: 1200, min: 768 },
-    items: 5,
+    items: 4,
   },
   largeDesktop: {
     breakpoint: { max: 3000, min: 1200 },
-    items: 5,
+    items: 4,
   },
 };
 

@@ -18,6 +18,9 @@ import {
 import { AiOutlineYoutube } from "react-icons/ai";
 import { Dropdown } from "bootstrap/dist/js/bootstrap.bundle.min";
 import { FaBars, FaChevronDown, FaUser, FaUserAlt, FaUserCircle } from "react-icons/fa";
+import Locations from "../../Pages/LocationMicrosite/LocationMicrositeList.js";
+
+const branches = Object.values(Locations);
 
 function Header() {
   const userData =
@@ -124,13 +127,25 @@ function Header() {
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className="justify-content-end flex-grow-1 pe-3 text-uppercase fw-bold">
-              <Link
-                to="/trainings"
-                className="nav-link px-lg-3 mx-lg-2 py-lg-0 py-3"
-                onClick={handleClose}
+              <NavDropdown
+                title={
+                  <span className="d-flex align-items-center">
+                    LOCATIONS
+                    <FaChevronDown size={12} className="ms-2" />
+                  </span>
+                }
+                id="basic-nav-dropdown"
               >
-                Trainings
-              </Link>
+                {branches.map(branch => (
+                  <NavDropdown.Item
+                    as={Link}
+                    key={branch.id}
+                    to={`/locations/${branch.slug}`}
+                  >
+                    {branch.slug}
+                  </NavDropdown.Item>
+                ))}
+              </NavDropdown>
               <Link
                 to="/why-to-join"
                 className="nav-link px-lg-3 mx-lg-2 py-lg-0 py-3"
@@ -152,7 +167,7 @@ function Header() {
               >
                 Franchise
               </Link>
-              <a
+              {/* <a
                 href="mailto:trainhighgym@gmail.com"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -160,7 +175,7 @@ function Header() {
                 onClick={handleClose}
               >
                 Careers
-              </a>
+              </a> */}
               <Link
                 to="/contact-us"
                 className="nav-link px-lg-3 mx-lg-2 py-lg-0 py-3"

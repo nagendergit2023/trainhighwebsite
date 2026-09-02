@@ -328,6 +328,105 @@ font-size: smaller;
     
 }
 
+.dropdown-toggle.nav-link {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.location-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.location-image {
+  width: 100%;
+  transition: transform 0.5s ease;
+}
+
+.location-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85),
+    rgba(0, 0, 0, 0.25),
+    transparent
+  );
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.location-content {
+  text-align: center;
+  transform: translateY(20px);
+  transition: transform 0.35s ease;
+}
+
+.visit-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 18px;
+  border: 1px solid #fff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.visit-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+.location-image-wrapper:hover .location-image {
+  transform: scale(1.08);
+}
+
+.location-image-wrapper:hover .location-overlay {
+  opacity: 1;
+}
+
+.location-image-wrapper:hover .location-content {
+  transform: translateY(0);
+}
+
+.text-shadow-sm-light {
+  text-shadow: 2px 2px 5px rgba(255, 255, 255, 1);
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: var(--theme-golden) !important;
+}
+
+
+
+/* Mobile */
+@media (max-width: 991px) {
+  .location-overlay {
+    opacity: 1;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.8),
+      rgba(0, 0, 0, 0.15),
+      transparent
+    );
+  }
+
+  .location-content {
+    transform: translateY(0);
+  }
+
+  .location-image {
+    transform: none !important;
+  }
+}
+
 @media screen and (max-width: 768px) {
     #root .inner-section {
     padding-bottom: 5rem;
@@ -389,6 +488,16 @@ font-size: smaller;
   .navbar-toggler:focus.navbar-toggler:focus {
     box-shadow: none;
   }
+
+  .dropdown-toggle.nav-link {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.training-image-wrapper {
+height: 180px;
+overflow: hidden;
+}
 }
 
 .expired-row {

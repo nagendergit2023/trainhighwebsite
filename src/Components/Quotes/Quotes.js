@@ -8,7 +8,7 @@ function Quotes() {
         <Container>
             <Row className="justify-content-center align-items-center">
                 <Col lg={12} className="">
-                    <h2 className="text-center">"Yoga In Daily Routine To Stay Fit & Positive"</h2>
+                    <h1 className="text-center text-white text-uppercase">"TRAIN HIGH. LIVE HIGH."</h1>
                 </Col>
             </Row>
         </Container>
