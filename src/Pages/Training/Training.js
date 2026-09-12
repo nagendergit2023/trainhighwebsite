@@ -18,28 +18,28 @@ import GymnasticsTraining from "../../assets/images/trainings/gymnastics.jpg";
 import KidsFitness from "../../assets/images/trainings/kids_fitness.jpg";
 
 const items = [
-  { img: BoxingTraining, title: "Boxing" },
-  { img: CrossfitTraining, title: "Crossfit" },
-  { img: CalisthenicsTraining, title: "Calisthenics" },
-  { img: GymnasticsTraining, title: "Gymnastics" },
-  { img: PilatesTraining, title: "Pilates" },
-  { img: StrengthTraining, title: "Strength" },
-  { img: YogaTraining, title: "Yoga" },
-  { img: RopeClimbing, title: "Rope Climbing" },
-  { img: WallClimbing, title: "Wall Climbing" },
-  { img: Aerobics, title: "Group Classes" },
-  { img: TaekwondoTraining, title: "Taekwondo" },
-  { img: KidsFitness, title: "Kids Fitness" },
+  { img: BoxingTraining, title: "Boxing", slug: "boxing" },
+  { img: CrossfitTraining, title: "Crossfit", slug: "crossfit" },
+  { img: CalisthenicsTraining, title: "Calisthenics", slug: "calisthenics" },
+  { img: GymnasticsTraining, title: "Gymnastics", slug: "gymnastics" },
+  { img: PilatesTraining, title: "Pilates", slug: "pilates" },
+  { img: StrengthTraining, title: "Strength", slug: "strength-training" },
+  { img: YogaTraining, title: "Yoga", slug: "yoga" },
+  { img: RopeClimbing, title: "Rope Climbing", slug: "rope-climbing" },
+  { img: WallClimbing, title: "Wall Climbing", slug: "wall-climbing" },
+  { img: Aerobics, title: "Group Classes", slug: "group-classes" },
+  { img: TaekwondoTraining, title: "Taekwondo", slug: "taekwondo" },
+  { img: KidsFitness, title: "Kids Fitness", slug: "kids-fitness" },
 ];
 
 const responsive = {
   mobile: {
     breakpoint: { max: 480, min: 0 },
-    items: 2,
+    items: 1,
   },
   tablet: {
     breakpoint: { max: 768, min: 480 },
-    items: 3,
+    items: 2,
   },
   desktop: {
     breakpoint: { max: 1200, min: 768 },
@@ -76,8 +76,11 @@ function Training() {
             containerClass="pb-10"
             itemClass="px-2"
           >
-            {items.map((item, index) => (
-              <Link to="" key={index}>
+            {items.map((item) => (
+              <Link 
+              to={`/trainings/${item.slug}`}
+                  key={item.slug}
+                  >
                 <div className="shadow-xl overflow-hidden transition-transform position-relative">
                   <img
                     src={item.img}
@@ -85,9 +88,9 @@ function Training() {
                     className="rounded carousel-img"
                   />
                   <div className="py-4 ps-3 text-center bg-transparent text-white carousel-title">
-                    <h5 className="text-sm font-semibold tracking-wide">
+                    <h3 className="font-semibold tracking-wide">
                       {item.title}
-                    </h5>
+                    </h3>
                   </div>
                 </div>
               </Link>

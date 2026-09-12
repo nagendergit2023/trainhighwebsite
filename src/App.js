@@ -17,10 +17,13 @@ import TrainersProfile from "./Pages/Admin/TrainerProfileView.js";
 import Login from "./Pages/Admin/Login.js";
 import TaxInvoice from "./Pages/Admin/TaxInvoice.js";
 import Career from "./Pages/Career/Career.js";
-import Cardio from "./Pages/Training/Cardio.js";
+// import Cardio from "./Pages/Training/Cardio.js";
 import Boxing from "./Pages/Training/Boxing.js";
+import Calisthenics from "./Pages/Training/Calisthenics.js";
 import Crossfit from "./Pages/Training/Crossfit.js";
 import Strength from "./Pages/Training/Strength.js";
+import Gymnastics from "./Pages/Training/Gymnastics.js";
+
 import { PrivateRoute } from "./PrivateRoute";
 import Whyjoin from "./Pages/Whyjoin/Whyjoin.js";
 import Events from "./Pages/Events/Events.js";
@@ -57,6 +60,13 @@ import MemberBatchTicket from "./Pages/Members/MemberBatchTicket.jsx";
 import MemberClasses from "./Pages/Members/MemberClasses.jsx";
 import MemberClassHistory from "./Pages/Members/MemberClassHistory.jsx";
 import LocationMicrosite from "./Pages/LocationMicrosite/LocationMicrosite.js";
+import Taekwondo from "./Pages/Training/Taekwondo.js";
+import Yoga from "./Pages/Training/Yoga.js";
+import RopeClimbing from "./Pages/Training/RopeClimbing.js";
+import WallClimbing from "./Pages/Training/WallClimbing.js";
+import GroupClasses from "./Pages/Training/GroupClasses.js";
+import Pilates from "./Pages/Training/Pilates.js";
+import KidsFitness from "./Pages/Training/KidsFitness.js";
 
 function App() {
   useEffect(() => {
@@ -285,10 +295,18 @@ function App() {
         /> */}
         <Route path="/login" element={<Login />} />
 
-        <Route path="/boxing-training" element={<Boxing />} />
-        <Route path="/cardio-training" element={<Cardio />} />
-        <Route path="/crossfit-training" element={<Crossfit />} />
-        <Route path="/strength-training" element={<Strength />} />
+        <Route path="/trainings/boxing" element={<Boxing />} />
+        <Route path="/trainings/crossfit" element={<Crossfit />} />
+        <Route path="/trainings/calisthenics" element={<Calisthenics />} />
+        <Route path="/trainings/gymnastics" element={<Gymnastics />} />
+        <Route path="/trainings/pilates" element={<Pilates />} />
+        <Route path="/trainings/strength-training" element={<Strength />} />
+        <Route path="/trainings/yoga" element={<Yoga />} />
+        <Route path="/trainings/rope-climbing" element={<RopeClimbing />} />
+        <Route path="/trainings/wall-climbing" element={<WallClimbing />} />
+        <Route path="/trainings/group-classes" element={<GroupClasses />} />
+        <Route path="/trainings/kids-fitness" element={<KidsFitness />} />
+        <Route path="/trainings/taekwondo" element={<Taekwondo />} />        
 
         <Route path="/locations/:slug" element={<LocationMicrosite/>} />
 
@@ -328,8 +346,8 @@ function App() {
       </Routes>
       {/* <Footer /> */}
       {/* {window.location.pathname !== "/home" && !window.location.pathname.startsWith("/members/") ? (
-  <Footer />
-) : null} */}
+        <Footer />
+      ) : null} */}
       {!window.location.pathname.startsWith("/members/") &&
       !window.location.pathname.startsWith("/trainers/") ? (
         <Footer />

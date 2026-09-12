@@ -254,7 +254,7 @@ function Header() {
               {userData ? (
                 <>
                   <h2 className="py-2 fw-bold border-bottom" onClick={handleCloseUser}>
-                    THG-Janakpuri
+                    THG-{userData?.role}
                   </h2>
 
                   <Nav.Link as={Link} to="/admin-panel" onClick={handleCloseUser}>
@@ -324,7 +324,7 @@ function Header() {
               <NavDropdown
                 title={
                   <>
-                    THG-Janakpuri <FaChevronDown size={12} className="ms-1" />
+                    THG-{userData?.role} <FaChevronDown size={12} className="ms-1" />
                   </>
                 }
                 id="user-dropdown"
