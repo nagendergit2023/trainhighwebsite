@@ -13,7 +13,7 @@ function Gymnastics() {
           <Row className="justify-content-center mt-5">
             <Col lg={12}>
               <h2 className="section-title">Gymnastics</h2>
-              <p className="text-center px-lg-5 px-2 mb-5">
+              <p className="text-center px-lg-5 px-2 mb-4">
                 Develop exceptional body control, balance, mobility, and strength through expert gymnastics training.
               </p>
             </Col>

@@ -13,7 +13,7 @@ function KidsFitness() {
           <Row className="justify-content-center mt-5">
             <Col lg={12}>
               <h2 className="section-title">Kids Fitness</h2>
-              <p className="text-center px-lg-5 px-2 mb-5">
+              <p className="text-center px-lg-5 px-2 mb-4">
                 Fun, active, and engaging fitness programs designed to help children build strength, confidence, coordination, and healthy habits.
               </p>
             </Col>

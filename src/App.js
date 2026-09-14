@@ -47,7 +47,7 @@ import TrainersNutrition from "./Pages/Trainers/Nutrition.js";
 import NewBatch from "./Pages/BatchClasses/NewBatchClass.js";
 import TrainerMembersList from "./Pages/Trainers/TrainerMembersList.jsx";
 import TrainerMemberPlans from "./Pages/Trainers/TrainerMemberPlans.jsx";
-import TrainersTemplate from "./Pages/Trainers/Templates/WorkoutTemplateMaster.jsx";
+// import TrainersTemplate from "./Pages/Trainers/Templates/WorkoutTemplateMaster.jsx";
 import TemplateMasterScreen from "./Pages/Trainers/Templates/TemplateMasterScreen.jsx";
 import MemberAttendanceHistory from "./Pages/Members/MemberAttendanceHistory.jsx";
 import MachineMaster from "./Pages/Machines/MachineMaster.jsx";
@@ -67,6 +67,7 @@ import WallClimbing from "./Pages/Training/WallClimbing.js";
 import GroupClasses from "./Pages/Training/GroupClasses.js";
 import Pilates from "./Pages/Training/Pilates.js";
 import KidsFitness from "./Pages/Training/KidsFitness.js";
+import ScrollEffect from "./Components/ScrollEffect/ScrollEffect.js";
 
 function App() {
   useEffect(() => {
@@ -82,6 +83,8 @@ function App() {
 
   return (
     <>
+    <ScrollEffect/>
+
       {window.location.pathname.startsWith("/members/") ||
       window.location.pathname.startsWith("/trainers/") ? (
         <AppHeader />

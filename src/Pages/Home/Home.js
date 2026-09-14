@@ -22,8 +22,8 @@ function Home() {
       <Training />
       {/* <CalculateBMI /> */}
       {/* <Trainers /> */}
-      <LocationMicro />    
-      <Quotes />  
+      <LocationMicro />
+      <Quotes />
       <ContactUs />
     </>
   );

@@ -13,7 +13,7 @@ function WallClimbing() {
                 <Row className="justify-content-center mt-5">
                   <Col lg={12}>
                     <h2 className="section-title">Wall Climbing</h2>
-                    <p className="text-center px-lg-5 px-2 mb-5">
+                    <p className="text-center px-lg-5 px-2 mb-4">
                       Challenge your strength, agility, grip, and endurance as you climb beyond your limits.
                     </p>
                   </Col>
@@ -25,7 +25,7 @@ function WallClimbing() {
            <img  src={WallTraining} className="img-fluid w-100 rounded " alt="" />
           </Col>
           <Col lg={12}>
-            <div className="my-lg-2 my-4">
+            <div className="my-lg-5 my-4">
             <p className="text-justify">Wall climbing combines strength, agility, balance, coordination, grip, and problem-solving. Every route presents a different challenge, requiring you to think about where to place your hands and feet while controlling your body.</p>
             <p className="text-justify">Climbing engages the upper body, core, and lower body while challenging your ability to maintain balance and control. It can also be mentally engaging because successfully completing a route requires concentration and strategic movement.</p>
             <p className="text-justify">Whether you are attempting your first climb or working toward more challenging routes, wall climbing offers a unique way to train your body while having fun and pushing your limits.</p>

@@ -13,7 +13,7 @@ function Cardio() {
           <Row className="justify-content-center mt-5">
             <Col lg={12}>
               <h2 className="section-title">Calisthenics</h2>
-              <p className="text-center px-lg-5 px-2 mb-5">
+              <p className="text-center px-lg-5 px-2 mb-4">
                 Build incredible strength, balance, flexibility, and body control using nothing but your own body.
               </p>
             </Col>

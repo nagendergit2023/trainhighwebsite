@@ -12,7 +12,7 @@ function About() {
       <section className="py-lg-5 py-5">
         <Container>
           <Row className="justify-content-center align-items-center">
-            <Col lg={6}>
+            <Col lg={6} className="col-lg-6 mb-lg-0 mb-4">
               <img
                 src={AbouTrainHighGym}
                 className="img-fluid w-100 rounded "

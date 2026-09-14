@@ -13,7 +13,7 @@ function Strength() {
           <Row className="justify-content-center mt-5">
             <Col lg={12}>
               <h2 className="section-title">Strength</h2>
-              <p className="text-center px-lg-5 px-2 mb-5">
+              <p className="text-center px-lg-5 px-2 mb-4">
                 Build muscle, increase power, and unlock your full physical potential with focused strength training.
               </p>
             </Col>
@@ -29,7 +29,7 @@ function Strength() {
               />
             </Col>
             <Col lg={12}>
-              <div className="my-lg-2 my-4">
+              <div className="my-lg-5 my-4">
                 <p className="text-justify">
                   Strength training forms the foundation of many fitness goals. It helps build muscle, improve physical strength, increase power, support better movement, and develop a stronger physique.
                 </p>

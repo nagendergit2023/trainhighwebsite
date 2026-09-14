@@ -13,7 +13,7 @@ function Crossfit() {
           <Row className="justify-content-center mt-5">
             <Col lg={12}>
               <h2 className="section-title">Crossfit</h2>
-              <p className="text-center px-lg-5 px-2 mb-5">
+              <p className="text-center px-lg-5 px-2 mb-4">
                 High-intensity functional training designed to challenge your limits and build all-around performance.
               </p>
             </Col>

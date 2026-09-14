@@ -13,7 +13,7 @@ function GroupClasses() {
           <Row className="justify-content-center mt-5">
             <Col lg={12}>
               <h2 className="section-title">Group Classes</h2>
-              <p className="text-center px-lg-5 px-2 mb-5">
+              <p className="text-center px-lg-5 px-2 mb-4">
                 Join high-energy group workouts, stay motivated, and achieve your fitness goals together.
               </p>
             </Col>

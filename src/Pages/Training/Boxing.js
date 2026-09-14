@@ -13,7 +13,7 @@ function Boxing() {
                 <Row className="justify-content-center mt-5">
                   <Col lg={12}>
                     <h2 className="section-title">Boxing</h2>
-                    <p className="text-center px-lg-5 px-2 mb-5">
+                    <p className="text-center px-lg-5 px-2 mb-4">
                       Master the art of boxing with expert training, professional equipment, and a fighter’s mindset.
                     </p>
                   </Col>

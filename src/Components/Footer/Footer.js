@@ -14,7 +14,6 @@ function Footer() {
     <>
       <footer
         className="bg-black text-white pt-4 border-top"
-        style={{ marginTop: "-8px" }}
       >
         <Container>
           <Row className="justify-content-center align-items-start py-4">

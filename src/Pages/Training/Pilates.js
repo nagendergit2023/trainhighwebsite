@@ -13,7 +13,7 @@ function Pilates() {
           <Row className="justify-content-center mt-5">
             <Col lg={12}>
               <h2 className="section-title">Pilates</h2>
-              <p className="text-center px-lg-5 px-2 mb-5">
+              <p className="text-center px-lg-5 px-2 mb-4">
                 Build core strength, improve flexibility, and master controlled movement through purposeful Pilates training.
               </p>
             </Col>
