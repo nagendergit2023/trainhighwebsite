@@ -37,6 +37,10 @@ function StaffList() {
   const [showBiometric, setShowBiometric] = useState(false);
   const [selectedStaff, setSelectedStaff] = useState(null);
   const [selectedDevice, setSelectedDevice] = useState("");
+  const [searchText, setSearchText] = useState("");
+  const [branchFilter, setBranchFilter] = useState(
+    canViewAllBranches ? "" : userBranchId,
+  );
   const [formData, setFormData] = useState({
     ...emptyForm,
     fld_branch_id: userBranchId,
@@ -49,7 +53,6 @@ function StaffList() {
     (item) => normalizeBranchId(item) || item?.id || "",
     [],
   );
-
   const getBranchName = useCallback(
     (branchId) => {
       const branch = branches.find(
@@ -66,7 +69,40 @@ function StaffList() {
     },
     [branches, getBranchOptionId],
   );
+  const filteredStaff = useMemo(() => {
+    const search = searchText.trim().toLowerCase();
 
+    return staff.filter((item) => {
+      const branchId = normalizeBranchId(item);
+
+      // Branch filter
+      if (branchFilter && String(branchId) !== String(branchFilter)) {
+        return false;
+      }
+
+      // Search filter
+      if (!search) return true;
+
+      return (
+        String(item.staff_code || "")
+          .toLowerCase()
+          .includes(search) ||
+        String(item.name || "")
+          .toLowerCase()
+          .includes(search) ||
+        String(item.mobile || "")
+          .toLowerCase()
+          .includes(search) ||
+        String(item.email || "")
+          .toLowerCase()
+          .includes(search) ||
+        String(item.role || "")
+          .toLowerCase()
+          .includes(search) ||
+        String(getBranchName(branchId)).toLowerCase().includes(search)
+      );
+    });
+  }, [staff, searchText, branchFilter, getBranchName]);
   const normalizeList = (data) => {
     if (Array.isArray(data)) return data;
     if (Array.isArray(data?.data)) return data.data;
@@ -323,21 +359,81 @@ function StaffList() {
             </Col>
           </Row>
           <Row>
-            <Col lg={8} className="mb-3">
-              <p className="text-muted mb-0">
-                {canViewAllBranches
-                  ? "Showing staff from all branches."
-                  : `Showing staff from ${getBranchName(userBranchId)}.`}
-              </p>
+            <Col lg={12} className="mb-3">
+              <Row className="g-2">
+                {/* Search */}
+                <Col lg={5} md={6}>
+                  <FloatingLabel label="Search Staff">
+                    <Form.Control
+                      type="text"
+                      placeholder="Search"
+                      value={searchText}
+                      onChange={(e) => setSearchText(e.target.value)}
+                    />
+                  </FloatingLabel>
+                </Col>
+
+                {/* Branch */}
+                <Col lg={3} md={4}>
+                  <FloatingLabel label="Branch">
+                    <Form.Select
+                      value={branchFilter}
+                      onChange={(e) => setBranchFilter(e.target.value)}
+                      disabled={!canViewAllBranches}
+                    >
+                      {canViewAllBranches && (
+                        <option value="">All Branches</option>
+                      )}
+
+                      {branchOptions.map((branch) => {
+                        const branchId = getBranchOptionId(branch);
+
+                        return (
+                          <option key={branchId} value={branchId}>
+                            {getBranchName(branchId)}
+                          </option>
+                        );
+                      })}
+                    </Form.Select>
+                  </FloatingLabel>
+                </Col>
+
+                {/* Reset */}
+                <Col lg={2} md={2}>
+                  <Button
+                    variant="outline-secondary"
+                    className="w-100 h-100"
+                    onClick={() => {
+                      setSearchText("");
+                      setBranchFilter(canViewAllBranches ? "" : userBranchId);
+                    }}
+                  >
+                    Reset
+                  </Button>
+                </Col>
+
+                {/* Add */}
+                <Col lg={2} md={12}>
+                  <Button
+                    variant="secondary"
+                    className="w-100 h-100"
+                    onClick={openAddModal}
+                  >
+                    Add Staff
+                  </Button>
+                </Col>
+              </Row>
             </Col>
-            <Col lg={4} className="mb-3 text-end">
-              <Button variant="secondary" onClick={openAddModal}>
-                Add Staff
-              </Button>
+
+            <Col lg={12} className="mb-3">
+              <p className="text-muted mb-0">
+                Showing {filteredStaff.length} of {staff.length} staff
+                {branchFilter && ` — ${getBranchName(branchFilter)}`}
+              </p>
             </Col>
 
             <Col lg={12}>
-              <Table columns={columns} dataSource={staff} rowKey="id" />
+              <Table columns={columns} dataSource={filteredStaff} rowKey="id" />
             </Col>
           </Row>
         </Container>
