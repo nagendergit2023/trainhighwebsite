@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import {
   Button,
@@ -43,7 +43,22 @@ function Attendence() {
     totalDevices: 0,
     totalMembers: 0,
   });
+  const userData =
+    localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
 
+  const userRole = String(userData?.role || "").toUpperCase();
+
+  const userBranchId = userData?.branch_id || userData?.fld_branch_id || "";
+
+  const canViewAllBranches = userRole === "SUPER ADMIN";
+
+  const [branches, setBranches] = useState([]);
+  const [branchFilter, setBranchFilter] = useState(
+    canViewAllBranches ? "" : userBranchId,
+  );
+  const [appliedBranch, setAppliedBranch] = useState(
+    canViewAllBranches ? "" : userBranchId,
+  );
   const fetchData = useCallback(
     async (requestedPage = page) => {
       setLoading(true);
@@ -66,6 +81,9 @@ function Attendence() {
 
         if (appliedPunchType) {
           queryParams.append("punchType", appliedPunchType);
+        }
+        if (appliedBranch) {
+          queryParams.append("branchId", appliedBranch);
         }
 
         const response = await GetApiCall.getRequest(
@@ -126,6 +144,7 @@ function Attendence() {
     setAppliedDates(dates);
     setAppliedSearch(searchText);
     setAppliedPunchType(punchType);
+    setAppliedBranch(canViewAllBranches ? branchFilter : userBranchId);
   };
 
   const clearFilters = () => {
@@ -138,9 +157,71 @@ function Attendence() {
     setPunchType("");
     setAppliedPunchType("");
 
+    const defaultBranch = canViewAllBranches ? "" : userBranchId;
+
+    setBranchFilter(defaultBranch);
+    setAppliedBranch(defaultBranch);
+
     setPage(1);
   };
+  const loadBranches = useCallback(async () => {
+    try {
+      const response = await GetApiCall.getRequest("GetBranches");
+      const json = await response.json();
 
+      if (!response.ok) {
+        throw new Error(json.message || "Unable to fetch branches");
+      }
+
+      const list = Array.isArray(json)
+        ? json
+        : Array.isArray(json.data)
+          ? json.data
+          : Array.isArray(json.branches)
+            ? json.branches
+            : [];
+
+      setBranches(list);
+    } catch (error) {
+      console.error("Branch fetch error:", error);
+
+      setBranches([]);
+
+      notification.error({
+        message: "Branch Error",
+        description: error.message || "Unable to fetch branches",
+      });
+    }
+  }, []);
+  const loadBranches = useCallback(async () => {
+    try {
+      const response = await GetApiCall.getRequest("GetBranches");
+      const json = await response.json();
+
+      if (!response.ok) {
+        throw new Error(json.message || "Unable to fetch branches");
+      }
+
+      const list = Array.isArray(json)
+        ? json
+        : Array.isArray(json.data)
+          ? json.data
+          : Array.isArray(json.branches)
+            ? json.branches
+            : [];
+
+      setBranches(list);
+    } catch (error) {
+      console.error("Branch fetch error:", error);
+
+      setBranches([]);
+
+      notification.error({
+        message: "Branch Error",
+        description: error.message || "Unable to fetch branches",
+      });
+    }
+  }, []);
   const getPunchTypeTag = (value) => {
     const normalizedValue = String(value || "")
       .trim()
@@ -317,7 +398,7 @@ function Attendence() {
         <Card className="border-0 shadow-sm mb-4">
           <Card.Body>
             <Row className="g-3 align-items-end">
-              <Col lg={4} md={6}>
+              <Col lg={3} md={6}>
                 <FloatingLabel label="Search member or machine">
                   <Form.Control
                     type="text"
@@ -330,6 +411,49 @@ function Attendence() {
                       }
                     }}
                   />
+                </FloatingLabel>
+              </Col>
+
+              <Col lg={2} md={6}>
+                <FloatingLabel label="Branch">
+                  <Form.Select
+                    value={branchFilter}
+                    onChange={(event) => setBranchFilter(event.target.value)}
+                    disabled={!canViewAllBranches}
+                  >
+                    {canViewAllBranches && (
+                      <option value="">All Branches</option>
+                    )}
+
+                    {!canViewAllBranches && (
+                      <option value={userBranchId}>
+                        {userData?.branch_name || `Branch ${userBranchId}`}
+                      </option>
+                    )}
+
+                    {canViewAllBranches &&
+                      branches.map((branch) => {
+                        const branchId =
+                          branch?.fld_branch_id ||
+                          branch?.branch_id ||
+                          branch?.branchId ||
+                          branch?.id ||
+                          "";
+
+                        const branchName =
+                          branch?.fld_branch_name ||
+                          branch?.branch_name ||
+                          branch?.name ||
+                          branch?.location ||
+                          `Branch ${branchId}`;
+
+                        return (
+                          <option key={branchId} value={branchId}>
+                            {branchName}
+                          </option>
+                        );
+                      })}
+                  </Form.Select>
                 </FloatingLabel>
               </Col>
 
