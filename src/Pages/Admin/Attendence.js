@@ -164,35 +164,35 @@ function Attendence() {
 
     setPage(1);
   };
-  const loadBranches = useCallback(async () => {
-    try {
-      const response = await GetApiCall.getRequest("GetBranches");
-      const json = await response.json();
+  // const loadBranches = useCallback(async () => {
+  //   try {
+  //     const response = await GetApiCall.getRequest("GetBranches");
+  //     const json = await response.json();
 
-      if (!response.ok) {
-        throw new Error(json.message || "Unable to fetch branches");
-      }
+  //     if (!response.ok) {
+  //       throw new Error(json.message || "Unable to fetch branches");
+  //     }
 
-      const list = Array.isArray(json)
-        ? json
-        : Array.isArray(json.data)
-          ? json.data
-          : Array.isArray(json.branches)
-            ? json.branches
-            : [];
+  //     const list = Array.isArray(json)
+  //       ? json
+  //       : Array.isArray(json.data)
+  //         ? json.data
+  //         : Array.isArray(json.branches)
+  //           ? json.branches
+  //           : [];
 
-      setBranches(list);
-    } catch (error) {
-      console.error("Branch fetch error:", error);
+  //     setBranches(list);
+  //   } catch (error) {
+  //     console.error("Branch fetch error:", error);
 
-      setBranches([]);
+  //     setBranches([]);
 
-      notification.error({
-        message: "Branch Error",
-        description: error.message || "Unable to fetch branches",
-      });
-    }
-  }, []);
+  //     notification.error({
+  //       message: "Branch Error",
+  //       description: error.message || "Unable to fetch branches",
+  //     });
+  //   }
+  // }, []);
   const loadBranches = useCallback(async () => {
     try {
       const response = await GetApiCall.getRequest("GetBranches");
@@ -339,7 +339,9 @@ function Attendence() {
           : "-",
     },
   ];
-
+  useEffect(() => {
+    loadBranches();
+  }, [loadBranches]);
   return (
     <section className="pb-5 pt-4 inner-section">
       <Container>

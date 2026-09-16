@@ -19,16 +19,22 @@ function Branch() {
       <Container>
         <Row>
           <Col lg={12}>
-          <SEO location={location} />
+            <SEO location={location} />
+            {location?.section1}
+            {location?.section2}
+            {location?.section3}
+            {location?.section4}
+            {location?.section5}
+            {location?.section6}
 
-      <h1>{location.pageTitle}</h1>
+            <h1>{location.pageTitle}</h1>
 
-      <p>{location.address}</p>
+            <p>{location.address}</p>
 
-      <p>{location.phone}</p>
+            <p>{location.phone}</p>
 
-      <p>{location.email}</p>
-      </Col>
+            <p>{location.email}</p>
+          </Col>
         </Row>
       </Container>
     </section>
