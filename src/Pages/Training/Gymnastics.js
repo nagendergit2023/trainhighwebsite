@@ -1,6 +1,5 @@
-import React from 'react'
+import React from 'react';
 import { Container } from 'react-bootstrap';
-import Hero from '../../Components/Hero/Hero.js';
 import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import GymnasticsTraining from "../../assets/images/trainings/gymnastics.jpg";

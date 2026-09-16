@@ -1,64 +1,83 @@
-import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Image,
-  Tabs,
-  Tab,
-  Dropdown
-} from "react-bootstrap";
+import React, { useEffect, useMemo, useState } from "react";
+import { Container, Row, Col, Image } from "react-bootstrap";
 
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
+
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 
-/* ===========================
-   IMPORT IMAGES
-=========================== */
+import "./Events.css";
+
+/* =========================================================
+   IMPORT ALL EVENT IMAGES
+========================================================= */
+
 function importAllImages() {
   try {
     const r = require.context(
       "../../assets/images/events",
       true,
-      /\.(png|jpe?g|svg)$/
+      /\.(png|jpe?g|webp|svg)$/i
     );
 
     return r.keys().map((key) => ({
       path: key,
-      src: r(key).default || r(key)
+      src: r(key).default || r(key),
     }));
   } catch (error) {
-    console.error("Image import failed:", error);
+    console.error("Event image import failed:", error);
     return [];
   }
 }
 
-/* ===========================
+/* =========================================================
    IMPORT ALBUM METADATA
-=========================== */
+========================================================= */
+
 function importAlbumMeta() {
   try {
     const r = require.context(
       "../../assets/images/events",
       true,
-      /album-meta\.json$/
+      /album-meta\.json$/i
     );
 
     return r.keys().map((key) => ({
       path: key,
-      meta: r(key)
+      meta: r(key).default || r(key),
     }));
   } catch (error) {
-    console.error("Meta import failed:", error);
+    console.error("Album metadata import failed:", error);
     return [];
   }
 }
+
+/* =========================================================
+   FORMAT DATE
+========================================================= */
+
+function formatEventDate(date) {
+  if (!date) return "";
+
+  const parsedDate = new Date(date);
+
+  if (Number.isNaN(parsedDate.getTime())) {
+    return "";
+  }
+
+  return parsedDate.toLocaleDateString("en-IN", {
+    month: "short",
+    year: "numeric",
+  });
+}
+
+/* =========================================================
+   EVENT ALBUM COMPONENT
+========================================================= */
 
 const EventAlbums = () => {
   const [albumsByYear, setAlbumsByYear] = useState({});
@@ -67,85 +86,167 @@ const EventAlbums = () => {
   const [currentAlbum, setCurrentAlbum] = useState(null);
   const [photoIndex, setPhotoIndex] = useState(0);
 
-  /* ===========================
-     LOAD & GROUP ALBUMS
-  =========================== */
+  /* =======================================================
+     LOAD ALBUMS
+  ======================================================= */
+
   useEffect(() => {
     const allImages = importAllImages();
     const metaFiles = importAlbumMeta();
 
-    /* ---- Map metadata by year/folder ---- */
+    /* -------------------------------------------------------
+       MAP METADATA
+    ------------------------------------------------------- */
+
     const metaMap = {};
+
     metaFiles.forEach(({ path, meta }) => {
-      const match = path.match(/\.\/(\d{4})\/([^/]+)/);
+      const match = path.match(/\.\/(\d{4})\/([^/]+)\//);
+
       if (!match) return;
 
       const year = match[1];
       const folder = match[2];
+
       metaMap[`${year}/${folder}`] = meta;
     });
 
-    /* ---- Group images by year/folder ---- */
+    /* -------------------------------------------------------
+       GROUP IMAGES BY YEAR + FOLDER
+    ------------------------------------------------------- */
+
     const grouped = {};
+
     allImages.forEach(({ path, src }) => {
-      const match = path.match(/\.\/(\d{4})\/([^/]+)/);
+      const match = path.match(/\.\/(\d{4})\/([^/]+)\//);
+
       if (!match) return;
 
       const year = match[1];
       const folder = match[2];
 
-      if (!grouped[year]) grouped[year] = {};
-      if (!grouped[year][folder]) grouped[year][folder] = [];
+      if (!grouped[year]) {
+        grouped[year] = {};
+      }
+
+      if (!grouped[year][folder]) {
+        grouped[year][folder] = [];
+      }
 
       grouped[year][folder].push(src);
     });
 
-    /* ---- Format albums ---- */
+    /* -------------------------------------------------------
+       FORMAT ALBUMS
+    ------------------------------------------------------- */
+
     const formatted = {};
+
     Object.entries(grouped).forEach(([year, folders]) => {
       formatted[year] = Object.entries(folders)
         .map(([folder, images]) => {
           const meta = metaMap[`${year}/${folder}`] || {};
+
+          /* -----------------------------------------------
+             FIND THUMBNAIL
+          ------------------------------------------------ */
 
           const thumb =
             images.find((img) =>
               img.toLowerCase().includes("thumb")
             ) || images[0];
 
-          const galleryImages =
-            images.length > 1
-              ? images.filter((img) => img !== thumb)
-              : images;
+          /* -----------------------------------------------
+             REMOVE THUMBNAIL FROM GALLERY
+          ------------------------------------------------ */
+
+          let galleryImages = images.filter(
+            (img) => img !== thumb
+          );
+
+          /*
+             If there is only one image, use it in the
+             lightbox as well.
+          */
+
+          if (galleryImages.length === 0 && thumb) {
+            galleryImages = [thumb];
+          }
 
           return {
-            title: meta.title || folder.replace(/_/g, " "),
-            created: meta.created || "1970-01-01",
-            order: meta.order ?? 999,
+            id: `${year}-${folder}`,
+            folder,
+
+            title:
+              meta.title ||
+              folder
+                .replace(/[-_]/g, " ")
+                .replace(/\b\w/g, (letter) =>
+                  letter.toUpperCase()
+                ),
+
+            created: meta.created || `${year}-01-01`,
+
+            order:
+              typeof meta.order === "number"
+                ? meta.order
+                : 999,
+
             description: meta.description || "",
+
             thumb,
-            images: galleryImages
+
+            images: galleryImages,
           };
         })
         .sort((a, b) => {
           const dateDiff =
-            new Date(b.created) - new Date(a.created);
-          if (dateDiff !== 0) return dateDiff;
+            new Date(b.created) -
+            new Date(a.created);
+
+          if (dateDiff !== 0) {
+            return dateDiff;
+          }
+
           return a.order - b.order;
         });
     });
 
     setAlbumsByYear(formatted);
 
-    const latestYear = Object.keys(formatted)
-      .sort()
-      .reverse()[0];
+    /* -------------------------------------------------------
+       SELECT LATEST YEAR
+    ------------------------------------------------------- */
 
-    setActiveYear(latestYear || "");
+    const years = Object.keys(formatted)
+      .sort()
+      .reverse();
+
+    setActiveYear(years[0] || "");
   }, []);
 
-  /* ===========================
+  /* =======================================================
+     YEARS
+  ======================================================= */
+
+  const years = useMemo(() => {
+    return Object.keys(albumsByYear)
+      .sort()
+      .reverse();
+  }, [albumsByYear]);
+
+  /* =======================================================
+     CURRENT ALBUMS
+  ======================================================= */
+
+  const currentAlbums = useMemo(() => {
+    return albumsByYear[activeYear] || [];
+  }, [albumsByYear, activeYear]);
+
+  /* =======================================================
      OPEN ALBUM
-  =========================== */
+  ======================================================= */
+
   const openAlbum = (album) => {
     if (!album?.images?.length) return;
 
@@ -154,143 +255,218 @@ const EventAlbums = () => {
     setIsOpen(true);
   };
 
-  /* ===========================
+  /* =======================================================
+     CLOSE LIGHTBOX
+  ======================================================= */
+
+  const closeLightbox = () => {
+    setIsOpen(false);
+    setCurrentAlbum(null);
+    setPhotoIndex(0);
+  };
+
+  /* =======================================================
      LIGHTBOX SLIDES
-  =========================== */
-  const slides =
-    currentAlbum?.images.map((img, index) => ({
-      src: img,
+  ======================================================= */
+
+  const slides = useMemo(() => {
+    if (!currentAlbum?.images?.length) {
+      return [];
+    }
+
+    return currentAlbum.images.map((image, index) => ({
+      src: image,
+
       title: currentAlbum.title,
+
       description: currentAlbum.description
-        ? `${currentAlbum.description} — Photo ${index + 1}`
-        : `Photo ${index + 1}`
-    })) || [];
+        ? `${currentAlbum.description} • Photo ${index + 1
+        } of ${currentAlbum.images.length}`
+        : `Photo ${index + 1} of ${currentAlbum.images.length
+        }`,
+    }));
+  }, [currentAlbum]);
+
+  /* =======================================================
+     RENDER
+  ======================================================= */
 
   return (
     <section className="py-5 bg-light">
       <Container>
-        <Row className="justify-content-center">
-          <Col lg={9}>
-            <h2 className="section-title">Events & Celebrations</h2>
-            <p className="text-center px-lg-5 px-2 mb-5">
-              From get-togethers to grand celebrations, we craft
-              meaningful experiences with creativity and precision.
-            </p>
+        {/* =================================================
+            HEADER
+        ================================================= */}
+
+        <Row className="justify-content-center align-items-center">
+          <Col lg={12}>
+            <div className="my-lg-0 my-2">
+              <h2 className="section-title text-center">
+                Events &amp; Celebrations
+              </h2>
+
+              <p className="text-center px-lg-5 px-2 mb-3">
+                From get-togethers to grand celebrations, we craft meaningful experiences with creativity and precision.
+              </p>
+            </div>
           </Col>
         </Row>
 
-        {/* MOBILE YEAR DROPDOWN */}
-        <div className="text-center mb-4 d-md-none">
-          <Dropdown>
-            <Dropdown.Toggle variant="dark">
-              {activeYear}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {Object.keys(albumsByYear)
-                .sort()
-                .reverse()
-                .map((year) => (
-                  <Dropdown.Item
-                    key={year}
-                    active={year === activeYear}
-                    onClick={() => setActiveYear(year)}
-                  >
-                    {year}
-                  </Dropdown.Item>
-                ))}
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
+        {/* =================================================
+            YEAR NAVIGATION
+        ================================================= */}
 
-        {/* MOBILE ALBUM GRID */}
-        <div className="d-md-none">
-          <Row className="g-4 justify-content-center">
-            {albumsByYear[activeYear]?.map((album, index) => (
-              <Col key={index} xs={12} sm={10}>
-                <Card
-                  className="border-0 shadow-sm h-100"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => openAlbum(album)}
+        {years.length > 0 && (
+          <div
+            className="event-year-wrapper"
+            aria-label="Event years"
+          >
+            <div className="event-year-nav">
+              {years.map((year) => (
+                <button
+                  key={year}
+                  type="button"
+                  className={`event-year-btn ${activeYear === year
+                      ? "active"
+                      : ""
+                    }`}
+                  onClick={() =>
+                    setActiveYear(year)
+                  }
                 >
-                  <Image
-                    src={album.thumb}
-                    alt={album.title}
-                    fluid
-                    loading="lazy"
-                    style={{
-                      height: "240px",
-                      objectFit: "cover"
-                    }}
-                  />
-                  <Card.Body className="text-center">
-                    <Card.Title className="fw-semibold">
-                      {album.title}
-                    </Card.Title>
-                  </Card.Body>
-                </Card>
+                  {year}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* =================================================
+            MOBILE / DESKTOP GALLERY
+        ================================================= */}
+
+        {currentAlbums.length > 0 ? (
+          <Row className="event-gallery-grid">
+            {currentAlbums.map((album, index) => (
+              <Col
+                key={album.id}
+                xs={12}
+                md={6}
+                lg={4}
+                className="event-gallery-col"
+              >
+                <div className="location-card"
+                  onClick={() => openAlbum(album)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(event) => {
+                    if (
+                      event.key === "Enter" ||
+                      event.key === " "
+                    ) {
+                      event.preventDefault();
+                      openAlbum(album);
+                    }
+                  }}
+                  aria-label={`Open ${album.title} gallery`}
+                >
+                  {/* IMAGE */}
+                  <div className="location-image-wrapper">
+                    <Image
+                      variant="top"
+                      src={album.thumb}
+                      alt={album.title}
+                      loading={
+                        index < 3
+                          ? "eager"
+                          : "lazy"
+                      }
+                      className="w-100 img-fluid location-image"
+                    />
+
+                    {/* IMAGE GRADIENT */}
+                    <div className="location-overlay">
+
+                      {/* TOP INFO */}
+                      <div className="event-gallery-top">
+                        <span className="event-gallery-date">
+                          {formatEventDate(
+                            album.created
+                          )}
+                        </span>
+
+                        <span className="event-gallery-count">
+                          {/* <i className="bi bi-images"></i> */}
+                          <span>
+                            {String(album.images.length).padStart(2, "0")}
+                          </span>
+                        </span>
+                      </div>
+
+                      {/* OPEN BUTTON */}
+                      {/* <div className="event-gallery-open">
+                        <i className="bi bi-arrow-up-right"></i>
+                      </div> */}
+
+                      <div className="location-content">
+                        <p className="fw-semibold text-white">{album.title}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </Col>
             ))}
           </Row>
-        </div>
+        ) : (
+          <div className="event-empty-state">
+            <div className="event-empty-icon">
+              <i className="bi bi-images"></i>
+            </div>
 
-        {/* DESKTOP TABS */}
-        <div className="d-none d-md-block">
-          <Tabs
-            activeKey={activeYear}
-            onSelect={(k) => k && setActiveYear(k)}
-            className="mb-4"
-          >
-            {Object.keys(albumsByYear)
-              .sort()
-              .reverse()
-              .map((year) => (
-                <Tab eventKey={year} title={year} key={year}>
-                  <Row className="g-4 mt-3 justify-content-center">
-                    {albumsByYear[year].map((album, index) => (
-                      <Col key={index} lg={4} md={6}>
-                        <Card
-                          className="border-0 shadow-sm h-100"
-                          style={{ cursor: "pointer" }}
-                          onClick={() => openAlbum(album)}
-                        >
-                          <Image
-                            src={album.thumb}
-                            alt={album.title}
-                            fluid
-                            loading="lazy"
-                            style={{
-                              height: "240px",
-                              objectFit: "cover"
-                            }}
-                          />
-                          <Card.Body className="text-center">
-                            <Card.Title className="fw-semibold">
-                              {album.title}
-                            </Card.Title>
-                          </Card.Body>
-                        </Card>
-                      </Col>
-                    ))}
-                  </Row>
-                </Tab>
-              ))}
-          </Tabs>
-        </div>
+            <h3>No events available</h3>
 
-        {/* LIGHTBOX */}
+            <p>
+              Event albums will appear here once they
+              are added.
+            </p>
+          </div>
+        )}
+
+        {/* =================================================
+            LIGHTBOX
+        ================================================= */}
+
         <Lightbox
           open={isOpen}
-          close={() => {
-            setIsOpen(false);
-            setCurrentAlbum(null);
-          }}
+          close={closeLightbox}
           slides={slides}
           index={photoIndex}
-          preload={2}
-          plugins={[Thumbnails, Zoom, Fullscreen]}
-          zoom={{ maxZoomPixelRatio: 3 }}
+          preload={3}
+          plugins={[
+            Thumbnails,
+            Zoom,
+            Fullscreen,
+          ]}
+          animation={{
+            fade: 300,
+            swipe: 400,
+          }}
+          zoom={{
+            maxZoomPixelRatio: 3,
+            scrollToZoom: true,
+          }}
+          thumbnails={{
+            position: "bottom",
+            width: 100,
+            height: 70,
+            border: 0,
+            borderRadius: 8,
+            padding: 0,
+            gap: 8,
+          }}
           on={{
-            view: ({ index }) => setPhotoIndex(index)
+            view: ({ index }) =>
+              setPhotoIndex(index),
           }}
         />
       </Container>
