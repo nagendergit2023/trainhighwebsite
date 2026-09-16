@@ -47,6 +47,29 @@ function MembershipList() {
   const [staff, setStaff] = useState([]);
   const [trainerId, setTrainerId] = useState("");
 
+  const userRole = String(
+    userData?.role || userData?.fld_role || userData?.user_role || "",
+  ).toUpperCase();
+
+  const isAdmin = userRole == "SUPER ADMIN";
+  const branchOptions = useMemo(
+    () =>
+      Array.from(
+        new Map(
+          memberList
+            .filter((member) => member?.fld_branch_id && member?.branch_name)
+            .map((member) => [
+              String(member.fld_branch_id),
+              {
+                id: member.fld_branch_id,
+                name: member.branch_name,
+              },
+            ]),
+        ).values(),
+      ),
+    [memberList],
+  );
+
   useEffect(() => {
     GetApiCall.getRequest("staff").then((res) =>
       res.json().then((data) => setStaff(data.data || [])),
@@ -113,10 +136,10 @@ function MembershipList() {
       ),
     );
 
-  const branchOptions = useMemo(
-    () => uniqueOptions("fld_branch_id"),
-    [memberList],
-  );
+  // const branchOptions = useMemo(
+  //   () => uniqueOptions("fld_branch_id"),
+  //   [memberList],
+  // );
   const genderOptions = useMemo(
     () => uniqueOptions("fld_gender"),
     [memberList],
@@ -321,7 +344,7 @@ function MembershipList() {
               return `${value} Month${Number(value) > 1 ? "s" : ""}`;
             })()
           : "-",
-        Branch: member.fld_branch_id || "-",
+        Branch: member.branch_name || "-",
         DaysLeft:
           expiry.days === null
             ? "-"
@@ -451,15 +474,16 @@ function MembershipList() {
                         <FloatingLabel label="Branch">
                           <Form.Select
                             value={filters.branchId}
-                            disabled={Boolean(currentBranchId)}
+                            disabled={!isAdmin}
                             onChange={(e) =>
                               handleFilterChange("branchId", e.target.value)
                             }
                           >
+                            {console.log(branchOptions)}
                             <option value="">All Branches</option>
                             {branchOptions.map((branch) => (
-                              <option key={branch} value={branch}>
-                                {branch}
+                              <option key={branch.id} value={branch.id}>
+                                {branch.name}
                               </option>
                             ))}
                           </Form.Select>

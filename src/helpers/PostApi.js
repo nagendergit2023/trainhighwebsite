@@ -23,6 +23,25 @@ const PostApiCall = {
         return error;
       });
   },
+  deleteRequest(url) {
+    return fetch(urlString + url, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "*",
+        "Content-Type": "application/json",
+        "x-auth-token": access,
+      },
+    })
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        console.log("request failed", error);
+        return error;
+      });
+  },
 };
 
 export default PostApiCall;

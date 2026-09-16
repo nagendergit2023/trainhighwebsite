@@ -68,6 +68,7 @@ import GroupClasses from "./Pages/Training/GroupClasses.js";
 import Pilates from "./Pages/Training/Pilates.js";
 import KidsFitness from "./Pages/Training/KidsFitness.js";
 import ScrollEffect from "./Components/ScrollEffect/ScrollEffect.js";
+import { syncLoggedInPushAlertSubscriber } from "./helpers/pushAlertPersonalization";
 
 function App() {
   useEffect(() => {
@@ -79,11 +80,17 @@ function App() {
     } else {
       root.classList.add("app-footer-layout");
     }
+
+    syncLoggedInPushAlertSubscriber();
+    const timers = [2000, 5000, 10000].map((delay) =>
+      setTimeout(syncLoggedInPushAlertSubscriber, delay),
+    );
+    return () => timers.forEach(clearTimeout);
   }, []);
 
   return (
     <>
-    <ScrollEffect/>
+      <ScrollEffect />
 
       {window.location.pathname.startsWith("/members/") ||
       window.location.pathname.startsWith("/trainers/") ? (
@@ -309,9 +316,9 @@ function App() {
         <Route path="/trainings/wall-climbing" element={<WallClimbing />} />
         <Route path="/trainings/group-classes" element={<GroupClasses />} />
         <Route path="/trainings/kids-fitness" element={<KidsFitness />} />
-        <Route path="/trainings/taekwondo" element={<Taekwondo />} />        
+        <Route path="/trainings/taekwondo" element={<Taekwondo />} />
 
-        <Route path="/locations/:slug" element={<LocationMicrosite/>} />
+        <Route path="/locations/:slug" element={<LocationMicrosite />} />
 
         <Route
           path="/new-membership"
@@ -362,4 +369,3 @@ function App() {
 }
 
 export default App;
-

@@ -10,6 +10,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import PostApiCall from "../../helpers/PostApi";
 import { notification } from "antd";
+import { syncPushAlertSubscriber } from "../../helpers/pushAlertPersonalization";
 
 function Login() {
   const [mobileNumber, setMobileNumber] = useState("");
@@ -109,6 +110,7 @@ function Login() {
         if (results.status === 200 || results.status === 201) {
           sessionStorage.setItem("access", obj.token);
           localStorage.setItem("user", JSON.stringify(obj.user));
+          syncPushAlertSubscriber(obj.user);
           navigate(
             obj.user?.role === "ADMIN" || obj.user?.role === "SUPER ADMIN" || obj.user?.role === "STAFF" 
               ? "/admin-panel"
@@ -264,3 +266,4 @@ function Login() {
 }
 
 export default Login;
+

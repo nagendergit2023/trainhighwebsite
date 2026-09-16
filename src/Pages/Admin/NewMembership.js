@@ -42,6 +42,7 @@ function NewMembership() {
     id: null,
     type: "",
     oldMembershipId: null,
+    branchId: currentBranchId,
     applicationNumber: "",
     membershipNumber: "",
     name: "",
@@ -83,6 +84,13 @@ function NewMembership() {
   const [biometricStatus, setBiometricStatus] = useState("");
   const [showBiometric, setShowBiometric] = useState(true);
   const [paymentHistory, setPaymentHistory] = useState([]);
+  const [activeBranches, setActiveBranches] = useState([]);
+
+  const userRole = String(
+    userData?.role || userData?.fld_role || userData?.user_role || "",
+  ).toUpperCase();
+
+  const isAdmin = userRole == "SUPER ADMIN";
 
   // Financial Calculators
   const membershipMonths = Number(memberData.membershipPeriod || 0);
@@ -310,6 +318,11 @@ function NewMembership() {
         amountPerMonth: stateData.fld_amount_permnth || 0,
         trainerId: stateData.trainer_id || "",
         biometric_name: stateData?.biometric_name,
+        branchId:
+          stateData.fld_branch_id ||
+          stateData.branch_id ||
+          stateData.branchId ||
+          currentBranchId,
       });
       setPayment({
         discount: stateData.fld_discount || stateData.discount || 0,
@@ -351,6 +364,11 @@ function NewMembership() {
         trainerId: stateData.trainer_id || "",
         type: "New",
         biometric_name: stateData?.biometric_name,
+        branchId:
+          stateData.fld_branch_id ||
+          stateData.branch_id ||
+          stateData.branchId ||
+          currentBranchId,
       }));
       GetApiCall.getRequest("GetSerialNumber").then((res) =>
         res
@@ -384,6 +402,14 @@ function NewMembership() {
     }
   }, [location.state, handlePincodeChange, generateReceiptNumber]);
 
+  useEffect(() => {
+    if (!isAdmin && currentBranchId) {
+      setMemberData((prev) => ({
+        ...prev,
+        branchId: currentBranchId,
+      }));
+    }
+  }, [isAdmin, currentBranchId]);
   // Date management hooks updates
   const onChangeStartDate = (date) => {
     setMemberData((prev) => {
@@ -500,7 +526,24 @@ function NewMembership() {
 
     return `${days} Days`;
   };
+  const getActiveBranches = useCallback(async () => {
+    if (!isAdmin) return;
 
+    try {
+      const response = await GetApiCall.getRequest("GetBranches");
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setActiveBranches(data || data.data || []);
+      }
+    } catch (error) {
+      console.error("Error fetching active branches:", error);
+    }
+  }, [isAdmin]);
+  useEffect(() => {
+    getActiveBranches();
+  }, [getActiveBranches]);
   const SaveForm = async () => {
     const error = validateForm();
     if (error) {
@@ -549,9 +592,9 @@ function NewMembership() {
           paymentRemarks: payment.remarks,
           type: memberData.type,
           oldmembership: memberData.oldMembershipId,
-          branch_id: currentBranchId,
-          branchId: currentBranchId || null,
-          fld_branch_id: currentBranchId,
+          branch_id: memberData.branchId,
+          branchId: memberData.branchId || currentBranchId || null,
+          fld_branch_id: memberData.branchId,
           brandContextId: outletContext.brandId, // Multitenant mapping tracking
           outletContextId: outletContext.outletId, // Dynamic context tracking
         },
@@ -830,16 +873,36 @@ function NewMembership() {
                     </Col>
                     <Col lg={3}>
                       <FloatingLabel label="Branch" className="mb-3">
-                        <Form.Control
-                          type="text"
-                          value={
-                            userData?.branch_name ||
-                            userData?.branch ||
-                            currentBranchId ||
-                            "All Branches"
-                          }
-                          disabled
-                        />
+                        <Form.Select
+                          value={memberData.branchId || ""}
+                          onChange={(e) => {
+                            if (!isAdmin) return;
+
+                            handleDirectValueUpdate("branchId", e.target.value);
+                          }}
+                          disabled={!isAdmin}
+                        >
+                          {isAdmin ? (
+                            <>
+                              <option value="">Select Branch</option>
+
+                              {activeBranches.map((branch) => (
+                                <option
+                                  key={branch.fld_branch_id}
+                                  value={branch.fld_branch_id}
+                                >
+                                  {branch.fld_branch_name}
+                                </option>
+                              ))}
+                            </>
+                          ) : (
+                            <option value={currentBranchId}>
+                              {userData?.branch_name ||
+                                userData?.branch ||
+                                `Branch ${currentBranchId}`}
+                            </option>
+                          )}
+                        </Form.Select>
                       </FloatingLabel>
                     </Col>
                     <Col lg={6}>
