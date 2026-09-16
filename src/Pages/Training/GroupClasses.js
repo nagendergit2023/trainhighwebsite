@@ -1,5 +1,4 @@
-import React from 'react'
-import Hero from '../../Components/Hero/Hero.js';
+import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
