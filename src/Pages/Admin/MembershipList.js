@@ -9,7 +9,7 @@ import {
 } from "react-bootstrap";
 import { Image, Modal, notification, Table, Tag } from "antd";
 import GetApiCall from "../../helpers/GetApi.js";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import moment from "moment";
 import noimage from "../../assets/images/No_Image_Available.jpg";
 import PostApiCall from "../../helpers/PostApi.js";
@@ -31,17 +31,34 @@ const defaultFilters = {
 
 function MembershipList() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const userData =
     localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
   const currentBranchId = userData?.branch_id || "";
 
   const [memberList, setMemberList] = useState([]);
-  const [searchField, setSearchField] = useState("");
-  const [searchFieldText, setSearchFieldText] = useState("");
-  const [filters, setFilters] = useState({
-    ...defaultFilters,
-    branchId: currentBranchId || "",
-  });
+  const [searchField, setSearchField] = useState(
+    searchParams.get("search") || "",
+  );
+  const [searchFieldText, setSearchFieldText] = useState(
+    searchParams.get("search") || "",
+  );
+  const [filters, setFilters] = useState(() => ({
+    branchId: searchParams.get("branchId") || currentBranchId || "",
+
+    status: searchParams.get("status") || "",
+    gender: searchParams.get("gender") || "",
+    membership: searchParams.get("membership") || "",
+    trainer: searchParams.get("trainer") || "",
+    expiry: searchParams.get("expiry") || "",
+    biometricStatus: searchParams.get("biometricStatus") || "",
+    fitnessGoal: searchParams.get("fitnessGoal") || "",
+
+    startFrom: searchParams.get("startFrom") || "",
+    startTo: searchParams.get("startTo") || "",
+    endFrom: searchParams.get("endFrom") || "",
+    endTo: searchParams.get("endTo") || "",
+  }));
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
   const [staff, setStaff] = useState([]);
@@ -197,6 +214,21 @@ function MembershipList() {
     setSearchFieldText("");
     setFilters({ ...defaultFilters, branchId: currentBranchId || "" });
   };
+  useEffect(() => {
+    const params = {};
+
+    if (searchFieldText) {
+      params.search = searchFieldText;
+    }
+
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== "") {
+        params[key] = value;
+      }
+    });
+
+    setSearchParams(params, { replace: true });
+  }, [filters, searchFieldText, setSearchParams]);
 
   const isBetweenDates = (value, from, to) => {
     if (!from && !to) return true;
@@ -386,7 +418,11 @@ function MembershipList() {
                   <Link
                     className="dropdown-item"
                     to="/new-membership"
-                    state={{ data: member, type: "update" }}
+                    state={{
+                      data: member,
+                      type: "update",
+                      returnSearch: window.location.search,
+                    }}
                   >
                     Edit
                   </Link>
@@ -395,7 +431,11 @@ function MembershipList() {
                   <Link
                     className="dropdown-item"
                     to="/new-membership"
-                    state={{ data: member, type: "renew" }}
+                    state={{
+                      data: member,
+                      type: "renew",
+                      returnSearch: window.location.search,
+                    }}
                   >
                     Renew Membership
                   </Link>
@@ -462,7 +502,13 @@ function MembershipList() {
                     <Button
                       variant="secondary"
                       className="w-100 py-3 mb-3 mb-lg-0"
-                      onClick={() => navigate("/new-membership")}
+                      onClick={() =>
+                        navigate("/new-membership", {
+                          state: {
+                            returnSearch: window.location.search,
+                          },
+                        })
+                      }
                     >
                       Add New Member
                     </Button>

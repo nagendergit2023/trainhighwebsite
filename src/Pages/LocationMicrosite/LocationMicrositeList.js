@@ -1,7 +1,7 @@
 import HeroMain from "../../Components/HeroMain/HeroMain";
 import Training from "../Training/Training";
 import AboutUs from "../../Pages/About/About.js";
-import LocationMicro from "../../Components/LocationMicro/LocationMicro.js";
+// import LocationMicro from "../../Components/LocationMicro/LocationMicro.js";
 import Quotes from "../../Components/Quotes/Quotes.js";
 import ContactUs from "../../Components/ContactUs/ContactUs.js";
 
