@@ -649,7 +649,6 @@ function MembershipList() {
                             }
                           >
                             <option value="">All Biometric</option>
-                            <option value="not_linked">Not Linked</option>
                             {biometricOptions.map((status) => (
                               <option key={status} value={status}>
                                 {status}

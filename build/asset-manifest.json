@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.6c10d8a6.css",
-    "main.js": "/static/js/main.6b6eb31a.js",
+    "main.js": "/static/js/main.e0bd4983.js",
     "static/js/977.6d989d55.chunk.js": "/static/js/977.6d989d55.chunk.js",
     "static/js/667.19b1bd66.chunk.js": "/static/js/667.19b1bd66.chunk.js",
     "static/js/453.b3dbfdc0.chunk.js": "/static/js/453.b3dbfdc0.chunk.js",
@@ -84,6 +84,7 @@
     "static/media/train_high_gym_membership.jpg": "/static/media/train_high_gym_membership.e5eca1bbc34d4f79bce7.jpg",
     "static/media/trainers_coaches.jpg": "/static/media/trainers_coaches.4115fcd5ace98f3d39fc.jpg",
     "static/media/classes_5397250.png": "/static/media/classes_5397250.78e1d888cda06b99945f.png",
+    "static/media/inventory_5397250.png": "/static/media/inventory_5397250.e7c36fe6bf6fbad59b54.png",
     "static/media/attendence_5397249.png": "/static/media/attendence_5397249.3f372c1ed681522163be.png",
     "static/media/question_4774995.png": "/static/media/question_4774995.12ba873811531d9476fe.png",
     "static/media/dsr_5397251.png": "/static/media/dsr_5397251.c45a482fb7fb4c24d0a3.png",
@@ -100,13 +101,13 @@
     "static/media/revicons.woff": "/static/media/revicons.e8746a624ed098489406.woff",
     "index.html": "/index.html",
     "main.6c10d8a6.css.map": "/static/css/main.6c10d8a6.css.map",
-    "main.6b6eb31a.js.map": "/static/js/main.6b6eb31a.js.map",
+    "main.e0bd4983.js.map": "/static/js/main.e0bd4983.js.map",
     "977.6d989d55.chunk.js.map": "/static/js/977.6d989d55.chunk.js.map",
     "667.19b1bd66.chunk.js.map": "/static/js/667.19b1bd66.chunk.js.map",
     "453.b3dbfdc0.chunk.js.map": "/static/js/453.b3dbfdc0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6c10d8a6.css",
-    "static/js/main.6b6eb31a.js"
+    "static/js/main.e0bd4983.js"
   ]
 }
