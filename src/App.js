@@ -52,6 +52,7 @@ import TemplateMasterScreen from "./Pages/Trainers/Templates/TemplateMasterScree
 import MemberAttendanceHistory from "./Pages/Members/MemberAttendanceHistory.jsx";
 import MachineMaster from "./Pages/Machines/MachineMaster.jsx";
 import DsrReport from "./Pages/Admin/DsrReport.js";
+import InventoryReport from "./Pages/Admin/InventoryReport.js";
 import { useEffect } from "react";
 import BatchList from "./Pages/BatchClasses/BatchList.jsx";
 import BatchManage from "./Pages/BatchClasses/BatchManage.jsx";
@@ -353,6 +354,15 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/inventory-report"
+          element={
+            <PrivateRoute>
+              <InventoryReport />
+            </PrivateRoute>
+          }
+        />
+        
       </Routes>
       {/* <Footer /> */}
       {/* {window.location.pathname !== "/home" && !window.location.pathname.startsWith("/members/") ? (

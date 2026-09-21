@@ -16,9 +16,9 @@ function Branch() {
 
   return (
     <section>
-      <Container>
+      <Container fluid>
         <Row>
-          <Col lg={12}>
+          <Col lg={12} className="px-0">
             <SEO location={location} />
             {location?.section1}
             {location?.section2}
@@ -26,14 +26,6 @@ function Branch() {
             {location?.section4}
             {location?.section5}
             {location?.section6}
-
-            <h1>{location.pageTitle}</h1>
-
-            <p>{location.address}</p>
-
-            <p>{location.phone}</p>
-
-            <p>{location.email}</p>
           </Col>
         </Row>
       </Container>

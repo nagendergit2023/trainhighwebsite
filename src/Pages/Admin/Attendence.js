@@ -349,8 +349,8 @@ function Attendence() {
           <Col lg={12}>
             <h2 className="section-title mb-2">Attendance History</h2>
 
-            <p className="text-muted">
-              View member punches received from biometric machines.
+            <p className="text-muted text-center">
+              A complete overview of your attendance activity.
             </p>
           </Col>
         </Row>

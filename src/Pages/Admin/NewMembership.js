@@ -1038,13 +1038,17 @@ function NewMembership() {
                         <Form.Control
                           type="number"
                           value={totalAmount}
+                          className="mb-3"
                           disabled
                         />
                       </FloatingLabel>
                     </Col>
                     <Col lg={3}>
                       <FloatingLabel label="Receipt Number">
-                        <Form.Control value={payment.receiptNumber} disabled />
+                        <Form.Control 
+                        value={payment.receiptNumber} 
+                        className="mb-3"
+                        disabled />
                       </FloatingLabel>
                     </Col>
                     {/* <Col lg={3}>
@@ -1063,6 +1067,7 @@ function NewMembership() {
                         <Form.Control
                           type="number"
                           value={payableAmount}
+                          className="mb-3"
                           disabled
                         />
                       </FloatingLabel>
@@ -1075,6 +1080,7 @@ function NewMembership() {
                           value={payment.paidToday}
                           min="0"
                           onChange={handlePaymentChange}
+                          className="mb-3"
                         />
                       </FloatingLabel>
                     </Col>
@@ -1158,14 +1164,14 @@ function NewMembership() {
                     <Col lg={12} className="ms-auto my-4 d-lg-flex gap-3">
                       <button
                         type="button"
-                        className="btn btn-warning w-100 py-2 btn-lg"
+                        className="btn btn-warning w-100 py-2 btn-lg mb-3"
                         onClick={() => navigate("/membership-list")}
                       >
                         View Members List
                       </button>
                       <button
                         type="button"
-                        className="btn btn-dark w-100 py-2 btn-lg"
+                        className="btn btn-dark w-100 py-2 btn-lg mb-3"
                         onClick={SaveForm}
                       >
                         {location.state ? "Update Member" : "Add New Member"}
@@ -1182,6 +1188,7 @@ function NewMembership() {
                             <FloatingLabel label="Select a trainer to assign">
                               <Form.Select
                                 value={memberData.trainerId}
+                                className="mb-3"
                                 onChange={(e) =>
                                   handleDirectValueUpdate(
                                     "trainerId",
@@ -1202,7 +1209,7 @@ function NewMembership() {
                           </Col>
                           <Col lg={6}>
                             <button
-                              className="btn btn-dark w-100 h-100"
+                              className="btn btn-dark w-100 h-100 mb-3"
                               onClick={() => {
                                 PostApiCall.postRequest(
                                   {
@@ -1232,10 +1239,10 @@ function NewMembership() {
                           Biometric Synchronization
                         </h5>
                         <Row>
-                          <Col lg={6}>
+                          <Col lg={6} className="mb-3">
                             <FloatingLabel
                               label="Select Machine Terminal"
-                              className="mb-3"
+                              
                             >
                               <Form.Select
                                 onChange={(e) =>
@@ -1253,7 +1260,7 @@ function NewMembership() {
                           </Col>
                           <Col lg={6}>
                             <button
-                              className="btn btn-success w-100 h-75"
+                              className="btn btn-success w-100 h-75 mb-3"
                               onClick={() => {
                                 PostApiCall.postRequest(
                                   {

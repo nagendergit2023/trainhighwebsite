@@ -7,6 +7,7 @@ import addClasses from "../../assets/images/classes_5397250.png";
 import staff from "../../assets/images/staff_5397249.png";
 import attendence from "../../assets/images/attendence_5397249.png";
 import dsr from "../../assets/images/dsr_5397251.png";
+import inventory from "../../assets/images/inventory_5397250.png";
 
 function Admin() {
   const userData =
@@ -139,6 +140,20 @@ function Admin() {
                       <img alt="" src={dsr} className="w-lg-50 w-sm-100 mb-2" />
                       <Card.Title className="text-capitalize mb-0 h6">
                         Daily Sales Report
+                      </Card.Title>
+                    </Card.Body>
+                  </Card>
+                </Link>
+              </Col>
+            )}
+            {canViewAllBranches && (
+              <Col lg={3} md={6} sm={6} xs={6} className="mb-3">
+                <Link to="/inventory-report" className="text-decoration-none">
+                  <Card className="text-center border-0 mb-3 mb-lg-0">
+                    <Card.Body>
+                      <img alt="" src={inventory} className="w-lg-50 w-sm-100 mb-2" />
+                      <Card.Title className="text-capitalize mb-0 h6">
+                        Inventory
                       </Card.Title>
                     </Card.Body>
                   </Card>
