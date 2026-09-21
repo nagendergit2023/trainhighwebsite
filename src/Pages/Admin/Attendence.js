@@ -12,14 +12,29 @@ import {
 
 import { DatePicker, Empty, Statistic, Table, Tag, notification } from "antd";
 
-import dayjs from "dayjs";
-
 import GetApiCall from "../../helpers/GetApi.js";
 
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 const { RangePicker } = DatePicker;
+
+const IST_TIMEZONE = "UTC";
 
 function Attendence() {
   const pageSize = 15;
+  const formatIST = (value, format = "DD MMM YYYY, hh:mm A") => {
+    if (!value) return "-";
+
+    const date = dayjs.utc(value);
+
+    if (!date.isValid()) return "-";
+
+    return date.tz(IST_TIMEZONE).format(format);
+  };
 
   const [attendanceData, setAttendanceData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -69,26 +84,33 @@ function Attendence() {
           limit: String(pageSize),
         });
 
+        // Date filter
         if (Array.isArray(appliedDates) && appliedDates[0] && appliedDates[1]) {
-          queryParams.append("fromDate", appliedDates[0].format("YYYY-MM-DD"));
+          queryParams.set("fromDate", appliedDates[0].format("YYYY-MM-DD"));
 
-          queryParams.append("toDate", appliedDates[1].format("YYYY-MM-DD"));
+          queryParams.set("toDate", appliedDates[1].format("YYYY-MM-DD"));
         }
 
+        // Search filter
         if (appliedSearch?.trim()) {
-          queryParams.append("search", appliedSearch.trim());
+          queryParams.set("search", appliedSearch.trim());
         }
 
+        // Punch type filter
         if (appliedPunchType) {
-          queryParams.append("punchType", appliedPunchType);
-        }
-        if (appliedBranch) {
-          queryParams.append("branchId", appliedBranch);
+          queryParams.set("punchType", appliedPunchType);
         }
 
-        const response = await GetApiCall.getRequest(
-          `attendance/history?${queryParams.toString()}`,
-        );
+        // Branch filter
+        if (appliedBranch) {
+          queryParams.set("branchId", String(appliedBranch));
+        }
+
+        const url = `attendance/history?${queryParams.toString()}`;
+
+        console.log("Attendance API URL:", url);
+
+        const response = await GetApiCall.getRequest(url);
 
         const json = await response.json();
 
@@ -98,9 +120,12 @@ function Attendence() {
           );
         }
 
+        console.log("Attendance API response:", json);
+
         setAttendanceData(Array.isArray(json.data) ? json.data : []);
 
         setTotal(Number(json.total || 0));
+
         setPage(Number(json.page || requestedPage));
 
         setSummary({
@@ -132,7 +157,7 @@ function Attendence() {
         setLoading(false);
       }
     },
-    [page, appliedDates, appliedSearch, appliedPunchType],
+    [page, appliedDates, appliedSearch, appliedPunchType, appliedBranch],
   );
 
   useEffect(() => {
@@ -277,20 +302,14 @@ function Attendence() {
       width: 135,
       sorter: (a, b) =>
         dayjs(a.punch_time).valueOf() - dayjs(b.punch_time).valueOf(),
-      render: (value) =>
-        value && dayjs(value).isValid()
-          ? dayjs(value).format("DD MMM YYYY")
-          : "-",
+      render: (value) => formatIST(value, "DD MMM YYYY"),
     },
     {
       title: "Punch Time",
       dataIndex: "punch_time",
       key: "punchTime",
       width: 120,
-      render: (value) =>
-        value && dayjs(value).isValid()
-          ? dayjs(value).format("hh:mm:ss A")
-          : "-",
+      render: (value) => formatIST(value, "hh:mm:ss A"),
     },
     {
       title: "Type",
@@ -333,10 +352,7 @@ function Attendence() {
       dataIndex: "created_at",
       key: "createdAt",
       width: 190,
-      render: (value) =>
-        value && dayjs(value).isValid()
-          ? dayjs(value).format("DD MMM YYYY, hh:mm A")
-          : "-",
+      render: (value) => formatIST(value),
     },
   ];
   useEffect(() => {

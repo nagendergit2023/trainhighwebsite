@@ -73,8 +73,12 @@ function NewMembership() {
     transactionId: "",
     receiptNumber: "",
     remarks: "",
+    cashierName:
+      userData?.name ||
+      userData?.staff_name ||
+      userData?.mobile ||
+      "Current User",
   });
-
   // Feature Component Arrays & UI States
   const [citiesList, setCitiesList] = useState([]);
   const [staff, setStaff] = useState([]);
@@ -612,7 +616,8 @@ function NewMembership() {
           transactionId: payment.transactionId,
           paymentReference: payment.transactionId,
           receiptNumber: payment.receiptNumber,
-          cashier: cashierName,
+          cashier: payment.cashierName,
+          cashierName: payment.cashierName,
           cashierId,
           paymentRemarks: payment.remarks,
           type: memberData.type,
@@ -634,7 +639,9 @@ function NewMembership() {
         setShowBiometric(true);
         setBiometricStatus("PENDING_ENROLLMENT");
         notification.success({ message: "Member Saved Successfully" });
-        navigate("/membership-list", {
+        const returnSearch = location.state?.returnSearch || "";
+
+        navigate(`/membership-list${returnSearch}`, {
           state: obj,
         });
       }
@@ -1151,7 +1158,9 @@ function NewMembership() {
                     <Col lg={3} className="mt-3">
                       <FloatingLabel label="Collected by">
                         <Form.Control
-                          value={cashierName}
+                          type="text"
+                          name="cashierName"
+                          value={payment.cashierName}
                           disabled={!isAdmin}
                           onChange={handlePaymentChange}
                         />
@@ -1188,7 +1197,11 @@ function NewMembership() {
                       <button
                         type="button"
                         className="btn btn-warning w-100 py-2 btn-lg"
-                        onClick={() => navigate("/membership-list")}
+                        onClick={() =>
+                          navigate(
+                            `/membership-list${location.state?.returnSearch || ""}`,
+                          )
+                        }
                       >
                         View Members List
                       </button>
