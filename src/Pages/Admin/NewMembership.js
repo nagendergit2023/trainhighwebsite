@@ -415,7 +415,7 @@ function NewMembership() {
     setMemberData((prev) => {
       const parsedEnd =
         date && prev.membershipPeriod && prev.membershipPeriod !== "custom"
-          ? date.add(Number(prev.membershipPeriod), "month")
+          ? date.add(Number(prev.membershipPeriod), "month").subtract(1, "day")
           : null;
       return { ...prev, startDate: date, endDate: parsedEnd };
     });
@@ -425,7 +425,7 @@ function NewMembership() {
     setMemberData((prev) => {
       const parsedEnd =
         prev.startDate && value && value !== "custom"
-          ? prev.startDate.add(Number(value), "month")
+          ? prev.startDate.add(Number(value), "month").subtract(1, "day")
           : null;
       return { ...prev, membershipPeriod: value, endDate: parsedEnd };
     });
@@ -469,6 +469,7 @@ function NewMembership() {
   };
 
   const getSavedMemberId = (data) => {
+    console.log(data);
     if (Array.isArray(data)) return data[0]?.fld_id || data[0]?.id;
     return (
       data?.fld_id ||
@@ -479,32 +480,56 @@ function NewMembership() {
     );
   };
 
-  const saveMembershipPayment = async (savedMemberId, savedMembershipId) => {
-    if (!savedMemberId || Number(payment.paidToday || 0) <= 0) return;
+  const saveMembershipPayment = async (savedMemberId) => {
+    const paidAmount = Number(payment.paidToday || 0);
 
-    await PostApiCall.postRequest(
-      {
-        member_id: savedMemberId,
-        memberId: savedMemberId,
-        // membership_id:
-        //   savedMembershipId || memberData.id || memberData.membershipNumber,
-        // membershipId:
-        //   savedMembershipId || memberData.id || memberData.membershipNumber,
-        amount: Number(payment.paidToday || 0),
-        payment_date: payment.paymentDate?.format("YYYY-MM-DD"),
-        paymentDate: payment.paymentDate?.format("YYYY-MM-DD"),
-        payment_mode: payment.paymentMode,
-        paymentMode: payment.paymentMode,
-        transaction_id: payment.transactionId,
-        transactionId: payment.transactionId,
-        remarks: payment.remarks,
-        receipt_number: payment.receiptNumber,
-        receiptNumber: payment.receiptNumber,
-        created_by: cashierId,
-        createdBy: cashierId,
-      },
-      "AddMembershipPayments",
-    );
+    if (!savedMemberId || paidAmount <= 0) {
+      console.log("Payment not saved:", {
+        savedMemberId,
+        paidAmount,
+      });
+      return;
+    }
+
+    try {
+      const response = await PostApiCall.postRequest(
+        {
+          member_id: savedMemberId,
+          memberId: savedMemberId,
+
+          amount: paidAmount,
+
+          payment_date: payment.paymentDate?.format("YYYY-MM-DD"),
+          paymentDate: payment.paymentDate?.format("YYYY-MM-DD"),
+
+          payment_mode: payment.paymentMode,
+          paymentMode: payment.paymentMode,
+
+          transaction_id: payment.transactionId,
+          transactionId: payment.transactionId,
+
+          remarks: payment.remarks,
+
+          receipt_number: payment.receiptNumber,
+          receiptNumber: payment.receiptNumber,
+
+          created_by: cashierId,
+          createdBy: cashierId,
+        },
+        "AddMembershipPayments",
+      );
+
+      console.log("AddMembershipPayments response:", response);
+
+      if (!response || (response.status !== 200 && response.status !== 201)) {
+        throw new Error("Payment API failed");
+      }
+
+      console.log("Payment saved successfully");
+    } catch (error) {
+      console.error("Payment save failed:", error);
+      throw error;
+    }
   };
 
   const getMembershipPeriodForApi = () => {
@@ -1125,7 +1150,11 @@ function NewMembership() {
                     <Col lg={3} className="mt-3"></Col>
                     <Col lg={3} className="mt-3">
                       <FloatingLabel label="Collected by">
-                        <Form.Control value={cashierName} disabled />
+                        <Form.Control
+                          value={cashierName}
+                          disabled={!isAdmin}
+                          onChange={handlePaymentChange}
+                        />
                       </FloatingLabel>
                     </Col>
                     <Col lg={12} className="mt-3">
