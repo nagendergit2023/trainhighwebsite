@@ -80,7 +80,7 @@ function TaxInvoice() {
   };
   return (
     <>
-      <Hero />
+      {/* <Hero /> */}
       <section className="py-5 inner-section">
         <Container>
           <Col lg={12} className="text-center mb-4">

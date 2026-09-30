@@ -463,6 +463,7 @@ function MembershipList() {
           <Row className="justify-content-center mb-3">
             <Col lg={9}>
               <h2 className="section-title">My Members</h2>
+              <p className="text-center px-lg-3 px-2 mb-3">Create and assign a personalized membership plan with duration, benefits, and access details.</p>
             </Col>
           </Row>
           <Row>
@@ -478,6 +479,7 @@ function MembershipList() {
                     >
                       <Form.Control
                         type="text"
+                        placeholder="Search by Name, Membership ID, Application No, Email or Mobile"
                         value={searchField}
                         onChange={(e) => setSearchField(e.target.value)}
                         onKeyDown={(e) => {
@@ -491,7 +493,7 @@ function MembershipList() {
                   </Col>
                   <Col lg={2}>
                     <Button
-                      variant="secondary"
+                      variant="dark"
                       className="w-100 py-3 mb-3 mb-lg-0"
                       onClick={handleSearch}
                     >
@@ -500,7 +502,7 @@ function MembershipList() {
                   </Col>
                   <Col lg={2}>
                     <Button
-                      variant="secondary"
+                      variant="dark"
                       className="w-100 py-3 mb-3 mb-lg-0"
                       onClick={() =>
                         navigate("/new-membership", {

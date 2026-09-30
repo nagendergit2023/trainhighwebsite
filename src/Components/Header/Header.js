@@ -141,6 +141,7 @@ function Header() {
                     as={Link}
                     key={branch.id}
                     to={`/locations/${branch.slug}`}
+                    onClick={handleClose}
                   >
                     {branch.slug}
                   </NavDropdown.Item>
@@ -295,11 +296,17 @@ function Header() {
                     </Nav.Link>
                   )}
 
+                  {canViewAllBranches && (
+                  <Nav.Link as={Link} to="/inventory-report">
+                    Inventory
+                  </Nav.Link>
+                )}
+
                   <hr />
 
                   <Nav.Link
                     onClick={handleLogout}
-                    className="text-danger"
+                    className="text-danger fw-bold"
                     style={{ cursor: "pointer" }}
                   >
                     Logout
@@ -362,6 +369,11 @@ function Header() {
                 {canViewAllBranches && (
                   <NavDropdown.Item as={Link} to="/dsr-report">
                     Daily Sales Report
+                  </NavDropdown.Item>
+                )}
+                {canViewAllBranches && (
+                  <NavDropdown.Item as={Link} to="/inventory-report">
+                    Inventory
                   </NavDropdown.Item>
                 )}
                 <NavDropdown.Divider />

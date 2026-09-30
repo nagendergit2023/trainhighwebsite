@@ -8,7 +8,7 @@ function InventoryReport() {
                 <Container>
                     <Row className="justify-content-center mb-3">
                         <Col lg={9}>
-                            <h2 className="section-title">Inventory Report</h2>
+                            <h2 className="section-title">Inventory Management</h2>
                             <p className="text-muted text-center">
                                 Manage and monitor your inventory efficiently.
                             </p>

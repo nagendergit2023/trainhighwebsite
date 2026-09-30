@@ -1,15 +1,15 @@
 .parallax {
-    background-image: url("../../assets/images/train_high_gym_coming_soon___.jpg");
-    min-height: 80vh;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  background-image: url("../../assets/images/train_high_gym_coming_soon___.jpg");
+  min-height: 50vh;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .parallax h1 {
-   font-family: var(--theme-font-marker);
-  }
+.parallax h1 {
+  font-family: var(--theme-font-marker);
+}

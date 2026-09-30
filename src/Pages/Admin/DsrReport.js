@@ -20,4 +20,4 @@ function DsrReport() {
     )
 }
 
-export default DsrReport
+export default DsrReport;

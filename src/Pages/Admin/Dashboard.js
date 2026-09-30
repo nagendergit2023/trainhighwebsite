@@ -39,6 +39,12 @@ const dataMembers = [
   { name: "Inactive", uv: 25, fill: "#8884d8" },
 ];
 
+const dataStaff = [
+  { name: "Sales Team", uv: 10, fill: "#ffc658" },
+  { name: "Freelancer", uv: 20, fill: "#82ca9d" },
+  { name: "Payroll", uv: 5, fill: "#8884d8" },
+];
+
 const style = {
   top: '50%',
   right: 0,
@@ -110,7 +116,7 @@ function Dashboard() {
     return (
         <div className='container py-5'>
             <div className='row'>
-                {/* <Col lg={3} className='mb-3'>
+                <Col lg={3} className='mb-3'>
                     <Link to="/dashboard" className="text-decoration-none">
                         <Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
                             <Card.Body className="d-flex align-items-center justify-content-center gap-3">
@@ -135,7 +141,7 @@ function Dashboard() {
                             </Card.Body>
                         </Card>
                     </Link>
-                </Col> */}
+                </Col>
 
                 <Col lg={3} className='mb-3'>
                     <Link to="/dashboard" className="text-decoration-none">
@@ -202,11 +208,43 @@ function Dashboard() {
                     </Link>
                 </Col>
 
+                <Col lg={3} className='mb-3'>
+                    <Link to="/dashboard" className="text-decoration-none">
+                        <Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
+                            <Card.Body className="d-flex align-items-center justify-content-center gap-3">
+                                <FaRegUser className="card-icon mb-0" />
+                                <Card.Title className="text-capitalize mb-0 text-center">
+                                    <h6 className='mb-1'>Pending Payments</h6>
+                                    <p className='d-flex align-items-center justify-content-center mb-0 fw-bold'>
+                                        <CountUp end={totalInactiveMembers} duration={2.5} separator="," />
+                                        </p>
+                                </Card.Title>
+                            </Card.Body>
+                        </Card>
+                    </Link>
+                </Col>
+
+                <Col lg={3} className='mb-3'>
+                    <Link to="/dashboard" className="text-decoration-none">
+                        <Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
+                            <Card.Body className="d-flex align-items-center justify-content-center gap-3">
+                                <FaRegUser className="card-icon mb-0" />
+                                <Card.Title className="text-capitalize mb-0 text-center">
+                                    <h6 className='mb-1'>Enquiries</h6>
+                                    <p className='d-flex align-items-center justify-content-center mb-0 fw-bold'>
+                                        <CountUp end={totalInactiveMembers} duration={2.5} separator="," />
+                                        </p>
+                                </Card.Title>
+                            </Card.Body>
+                        </Card>
+                    </Link>
+                </Col>
+
                 <Col lg={12} className='mb-3'>
                     <Link to="/dashboard" className="text-decoration-none">
                         <Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
                             <Card.Body className="">
-                                <h5 className="text-dark mb-2">Monthly Overview</h5>
+                                <h5 className="text-dark mb-2">Monthly Sales</h5>
 
             {/* Responsive Chart Container */}
             <div style={{ width: "100%", height: 250 }}>
@@ -236,11 +274,11 @@ function Dashboard() {
                     </Link>
                 </Col>
 
-<Col lg={6}>
+<Col lg={6} className='mb-3'>
 
 <Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
                             <Card.Body className="">
-                                <h5 className="text-dark mb-2">Members Overview</h5>
+                                <h5 className="text-dark mb-2">Membership Overview</h5>
         <div style={{ width: "100%", height: 300 }}>
             <ResponsiveContainer>
               <RadialBarChart
@@ -277,10 +315,81 @@ function Dashboard() {
 
 </Col>
 
-<Col lg={6}>
+<Col lg={6} className='mb-3'>
 <Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
                             <Card.Body className="">
-                                <h5 className="text-dark mb-2">Monthly Overview</h5>
+                                <h5 className="text-dark mb-2">Quarterly Sales</h5>
+                                {/* Responsive Chart Container */}
+            <div style={{ width: "100%", height: 300 }}>
+              <ResponsiveContainer>
+                <AreaChart data={dataPerformance} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
+                      <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Area
+                    type="monotone"
+                    dataKey="value"
+                    stroke="#8884d8"
+                    fillOpacity={1}
+                    fill="url(#colorValue)"
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+                                
+                                </Card.Body>
+                                </Card>
+</Col>
+
+<Col lg={6} className='mb-3'>
+<Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
+                            <Card.Body className="">
+                                <h5 className="text-dark mb-2">Staff Overview</h5>
+        <div style={{ width: "100%", height: 300 }}>
+            <ResponsiveContainer>
+              <RadialBarChart
+                cx="50%"
+                cy="50%"
+                innerRadius="20%"
+                outerRadius="100%"
+                barSize={12}
+                data={dataStaff}
+              >
+                <RadialBar
+                  minAngle={15}
+                  label={{ position: "insideStart", fill: "#fff" }}
+                  background
+                  dataKey="uv"
+                />
+                <Legend
+                  iconSize={10}
+                  layout="vertical"
+                  verticalAlign="middle"
+                  align="right"
+                  wrapperStyle={{
+                    top: "50%",
+                    right: 0,
+                    transform: "translateY(-50%)",
+                    lineHeight: "24px",
+                  }}
+                />
+              </RadialBarChart>
+            </ResponsiveContainer>
+          </div>
+    </Card.Body>
+</Card>
+</Col>
+
+<Col lg={6} className='mb-3'>
+<Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
+                            <Card.Body className="">
+                                <h5 className="text-dark mb-2">YTD Sales</h5>
                                 {/* Responsive Chart Container */}
             <div style={{ width: "100%", height: 300 }}>
               <ResponsiveContainer>

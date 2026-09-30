@@ -26,7 +26,7 @@ function ContactUs({
           email: "trainhighgym@gmail.com",
           senderemail: email,
           desciption: message,
-          type:type
+          type: type
         },
         "contactus"
       ).then((results) => {
@@ -67,12 +67,12 @@ function ContactUs({
               <input
                 type="text"
                 className="form-control"
-                id="floatingInput"
+                id="floatingInputName"
                 placeholder="Full Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
-              <label htmlFor="floatingInput">Full Name *</label>
+              <label htmlFor="floatingInputName">Full Name *</label>
             </div>
           </Col>
           <Col lg={3}>
@@ -80,12 +80,12 @@ function ContactUs({
               <input
                 type="text"
                 className="form-control"
-                id="floatingInput"
+                id="floatingInputMobile"
                 placeholder="Mobile Number"
                 value={mobile}
                 onChange={(e) => setMobile(e.target.value)}
               />
-              <label htmlFor="floatingInput">Mobile Number *</label>
+              <label htmlFor="floatingInputMobile">Mobile Number *</label>
             </div>
           </Col>
           <Col lg={3}>
@@ -93,26 +93,26 @@ function ContactUs({
               <input
                 type="email"
                 className="form-control"
-                id="floatingInput"
+                id="floatingInputEmail"
                 placeholder="name@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <label htmlFor="floatingInput">Email address *</label>
+              <label htmlFor="floatingInputEmail">Email address *</label>
             </div>
           </Col>
           <Col lg={3}>
             <div className="form-floating mb-3">
               <select
                 className="form-control"
-                id="floatingInput"
+                id="floatingInputType"
                 value={type}
                 onChange={(e) => setType(e.target.value)}
               >
                 <option value="Franchise">Franchise</option>
                 <option value="Membership">Membership</option>
               </select>
-              <label htmlFor="floatingInput">Enquiry For *</label>
+              <label htmlFor="floatingInputType">Enquiry For *</label>
             </div>
           </Col>
           <Col lg={12}>

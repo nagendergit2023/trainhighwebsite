@@ -5,7 +5,7 @@ import Hero from "../../Components/Hero/Hero.js";
 function Services() {
   return (
     <>
-      <Hero />
+      {/* <Hero /> */}
       <section>
         <Container>
           <Row>

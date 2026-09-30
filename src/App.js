@@ -23,7 +23,6 @@ import Calisthenics from "./Pages/Training/Calisthenics.js";
 import Crossfit from "./Pages/Training/Crossfit.js";
 import Strength from "./Pages/Training/Strength.js";
 import Gymnastics from "./Pages/Training/Gymnastics.js";
-
 import { PrivateRoute } from "./PrivateRoute";
 import Whyjoin from "./Pages/Whyjoin/Whyjoin.js";
 import Events from "./Pages/Events/Events.js";
@@ -68,6 +67,7 @@ import WallClimbing from "./Pages/Training/WallClimbing.js";
 import GroupClasses from "./Pages/Training/GroupClasses.js";
 import Pilates from "./Pages/Training/Pilates.js";
 import KidsFitness from "./Pages/Training/KidsFitness.js";
+import TrainHighKidsChampionship from "./Pages/TrainHighKidsChampionship/TrainHighKidsChampionship.js";
 import ScrollEffect from "./Components/ScrollEffect/ScrollEffect.js";
 import { syncLoggedInPushAlertSubscriber } from "./helpers/pushAlertPersonalization";
 
@@ -94,7 +94,7 @@ function App() {
       <ScrollEffect />
 
       {window.location.pathname.startsWith("/members/") ||
-      window.location.pathname.startsWith("/trainers/") ? (
+        window.location.pathname.startsWith("/trainers/") ? (
         <AppHeader />
       ) : window.location.pathname !== "/home" ? (
         <Header />
@@ -362,14 +362,19 @@ function App() {
             </PrivateRoute>
           }
         />
-        
+
+        <Route
+          path="/train-high-championship"
+          element={<TrainHighKidsChampionship />}
+        />
+
       </Routes>
       {/* <Footer /> */}
       {/* {window.location.pathname !== "/home" && !window.location.pathname.startsWith("/members/") ? (
         <Footer />
       ) : null} */}
       {!window.location.pathname.startsWith("/members/") &&
-      !window.location.pathname.startsWith("/trainers/") ? (
+        !window.location.pathname.startsWith("/trainers/") ? (
         <Footer />
       ) : (
         <AppFooter />

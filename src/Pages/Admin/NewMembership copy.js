@@ -276,7 +276,7 @@ function NewMembership() {
   };
   return (
     <>
-      <Hero />
+      {/* <Hero /> */}
       <section className="py-5 inner-section">
         <Container>
           <Row className="justify-content-center align-items-center">

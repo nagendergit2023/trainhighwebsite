@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Col, Container, Row, Button, Offcanvas, Form } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import "./HeroMain.css";
 import FranchiseVideo from "../../assets/images/FranchiseVideo.mp4";
-import FranchiseVideoPoster from "../../assets/images/franchise_image.jpg"
+// import FranchiseVideoPoster from "../../assets/images/franchise_image.jpg"
 
 function HeroMain() {
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
   const [displayed, setDisplayed] = useState("");
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
 
   const text = "Elevate Fitness, Expand Your Business";
 
@@ -42,55 +42,53 @@ function HeroMain() {
   }, []);
 
   const smoothScrollTo = (targetId, duration = 1600, offset = 0) => {
-  const target = document.getElementById(targetId);
-  if (!target) return;
+    const target = document.getElementById(targetId);
+    if (!target) return;
 
-  const targetPosition =
-    target.getBoundingClientRect().top + window.pageYOffset - offset;
+    const targetPosition =
+      target.getBoundingClientRect().top + window.pageYOffset - offset;
 
-  const startPosition = window.pageYOffset;
-  const distance = targetPosition - startPosition;
+    const startPosition = window.pageYOffset;
+    const distance = targetPosition - startPosition;
 
-  let startTime = null;
+    let startTime = null;
 
-  const easeInOut = (t) => {
-    return t < 0.5
-      ? 2 * t * t
-      : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    const easeInOut = (t) => {
+      return t < 0.5
+        ? 2 * t * t
+        : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    };
+
+    const animation = (currentTime) => {
+      if (!startTime) startTime = currentTime;
+
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / duration, 1);
+
+      const run = startPosition + distance * easeInOut(progress);
+      window.scrollTo(0, run);
+
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animation);
+      }
+    };
+
+    requestAnimationFrame(animation);
   };
 
-  const animation = (currentTime) => {
-    if (!startTime) startTime = currentTime;
-
-    const timeElapsed = currentTime - startTime;
-    const progress = Math.min(timeElapsed / duration, 1);
-
-    const run = startPosition + distance * easeInOut(progress);
-    window.scrollTo(0, run);
-
-    if (timeElapsed < duration) {
-      requestAnimationFrame(animation);
-    }
-  };
-
-  requestAnimationFrame(animation);
-};
-
-useEffect(() => {
-  const video = document.querySelector(".hero-bg-video");
-  video?.play().catch(() => {});
-}, []);
+  useEffect(() => {
+    const video = document.querySelector(".hero-bg-video");
+    video?.play().catch(() => { });
+  }, []);
 
   return (
     <div className="hero-section-main-franchise">
-    <video className="hero-bg-video"
-        autoplay="autoplay"
+      <video className="hero-bg-video"
         muted
         loop
-        playsinline
-        preload="">
+        preload="true">
         <source src={FranchiseVideo} type="video/mp4" />
-    </video>
+      </video>
       <Container className="hero-content">
         <Row className="justify-content-center">
           <Col lg={12} className="text-center position-relative">

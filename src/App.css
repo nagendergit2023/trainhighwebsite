@@ -317,10 +317,7 @@ a {
 font-size: smaller;
 }
 
-.ant-tag-green {
-    color: #389e0d;
-    background: #f6ffed;
-    border-color: #b7eb8f;
+.ant-tag-green, .ant-tag-blue {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;

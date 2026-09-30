@@ -272,16 +272,16 @@ export default function BatchList() {
             {canManage && (
               <div className="d-flex gap-2 flex-wrap">
                 <Button
-                  variant="outline-secondary"
+                  variant="warning"
                   onClick={() => navigate("/batch-calendar")}
                 >
                   Calendar
                 </Button>
                 <Button
-                  variant="secondary"
+                  variant="dark"
                   onClick={() => navigate("/new-batch")}
                 >
-                  + New Batch
+                  + Add New Batch
                 </Button>
               </div>
             )}
@@ -294,6 +294,7 @@ export default function BatchList() {
                   <Form.Control
                     value={filters.search}
                     onChange={(e) => setFilter("search", e.target.value)}
+                     placeholder="Search Classes"
                   />
                 </FloatingLabel>
               </Col>

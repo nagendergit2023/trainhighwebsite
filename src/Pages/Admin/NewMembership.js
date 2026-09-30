@@ -758,9 +758,21 @@ function NewMembership() {
 
   return (
     <>
-      <Hero />
-      <section className="py-5 inner-section">
+      <section className="inner-section">
         <Container>
+          <Row className="justify-content-center align-items-center">
+                    <Col lg={12}>
+                      <div className="my-lg-0 my-2">
+                        <h2 className="section-title text-center">
+                          Add new membership
+                        </h2>
+          
+                        <p className="text-center px-lg-5 px-2 mb-5">
+                          Create and assign a personalized membership plan with duration, benefits, and access details.
+                        </p>
+                      </div>
+                    </Col>
+                  </Row>
           <Row className="justify-content-center align-items-center">
             <Col lg={12}>
               <Row>

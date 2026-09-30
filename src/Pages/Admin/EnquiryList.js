@@ -281,10 +281,23 @@ function EnquiryList() {
           <Row className="justify-content-center mb-3">
             <Col lg={9}>
               <h2 className="section-title">My Enquiries</h2>
+              <p className="text-muted text-center">
+                Track and manage prospective member enquiries, interactions, and follow-ups
+              </p>
             </Col>
           </Row>
           <Row>
-            <Col lg={12} className="mb-3 text-end">
+            <Col lg={9} className="mb-3">
+              <FloatingLabel label="Search by Name, Mobile or Membership">
+                <Form.Control
+                  type="text"
+                  value={searchField}
+                  onChange={(e) => setSearchField(e.target.value)}
+                  placeholder="Search by Name, Mobile or Membership"
+                />
+              </FloatingLabel>
+            </Col>
+            <Col lg={3} className="mb-3 text-end">
               <Button
                 variant="dark"
                 onClick={() => {
@@ -292,19 +305,12 @@ function EnquiryList() {
                   setIsEdit(false);
                   setShowModal(true);
                 }}
+                className="w-100 h-100"
               >
                 + Add New Enquiry
               </Button>
             </Col>
-            <Col lg={12} className="mb-4">
-              <FloatingLabel label="Search by Name, Mobile or Membership">
-                <Form.Control
-                  type="text"
-                  value={searchField}
-                  onChange={(e) => setSearchField(e.target.value)}
-                />
-              </FloatingLabel>
-            </Col>
+
 
             <Col lg={12}>
               <Table
