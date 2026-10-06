@@ -89,7 +89,11 @@ function MembershipList() {
 
   useEffect(() => {
     GetApiCall.getRequest("staff").then((res) =>
-      res.json().then((data) => setStaff(data.data || [])),
+      res
+        .json()
+        .then((data) =>
+          setStaff(data.data.filter((dat) => dat?.role == "TRAINER") || []),
+        ),
     );
   }, []);
 
@@ -463,7 +467,10 @@ function MembershipList() {
           <Row className="justify-content-center mb-3">
             <Col lg={9}>
               <h2 className="section-title">Enrollments</h2>
-              <p className="text-center px-lg-3 px-2 mb-3">Create and assign a personalized membership plan with duration, benefits, and access details.</p>
+              <p className="text-center px-lg-3 px-2 mb-3">
+                Create and assign a personalized membership plan with duration,
+                benefits, and access details.
+              </p>
             </Col>
           </Row>
           <Row>
