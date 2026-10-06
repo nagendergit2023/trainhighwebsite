@@ -365,16 +365,16 @@ function MembershipList() {
         FitnessGoal: member.fld_fitness_goal || "-",
         MembershipPeriod: member.fld_membership
           ? (() => {
-              const value = String(member.fld_membership).trim();
+            const value = String(member.fld_membership).trim();
 
-              // Already contains a unit (Days, Months, Weeks, Years, etc.)
-              if (/[a-zA-Z]/.test(value)) {
-                return value;
-              }
+            // Already contains a unit (Days, Months, Weeks, Years, etc.)
+            if (/[a-zA-Z]/.test(value)) {
+              return value;
+            }
 
-              // Pure numeric value -> treat as months
-              return `${value} Month${Number(value) > 1 ? "s" : ""}`;
-            })()
+            // Pure numeric value -> treat as months
+            return `${value} Month${Number(value) > 1 ? "s" : ""}`;
+          })()
           : "-",
         Branch: member.branch_name || "-",
         DaysLeft:
@@ -458,11 +458,11 @@ function MembershipList() {
 
   return (
     <>
-      <section className="pb-5 inner-section">
+      <section className="inner-section">
         <Container>
           <Row className="justify-content-center mb-3">
             <Col lg={9}>
-              <h2 className="section-title">My Members</h2>
+              <h2 className="section-title">Enrollments</h2>
               <p className="text-center px-lg-3 px-2 mb-3">Create and assign a personalized membership plan with duration, benefits, and access details.</p>
             </Col>
           </Row>

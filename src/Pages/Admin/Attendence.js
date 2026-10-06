@@ -359,7 +359,7 @@ function Attendence() {
     loadBranches();
   }, [loadBranches]);
   return (
-    <section className="pb-5 pt-4 inner-section">
+    <section className="inner-section">
       <Container>
         <Row className="mb-4">
           <Col lg={12}>
@@ -371,7 +371,7 @@ function Attendence() {
           </Col>
         </Row>
 
-        <Row className="g-3 mb-4">
+        {/* <Row className="g-3 mb-4">
           <Col xl={3} md={6}>
             <Card className="h-100 border-0 shadow-sm">
               <Card.Body>
@@ -380,10 +380,10 @@ function Attendence() {
             </Card>
           </Col>
 
-          <Col xl={2} md={6}>
+          <Col xl={3} md={6}>
             <Card className="h-100 border-0 shadow-sm">
               <Card.Body>
-                <Statistic title="Total IN" value={summary.totalIN} />
+                <Statistic title="Total Entires" value={summary.totalIN} />
               </Card.Body>
             </Card>
           </Col>
@@ -391,12 +391,12 @@ function Attendence() {
           <Col xl={2} md={6}>
             <Card className="h-100 border-0 shadow-sm">
               <Card.Body>
-                <Statistic title="Total OUT" value={summary.totalOUT} />
+                <Statistic title="Total Exits" value={summary.totalOUT} />
               </Card.Body>
             </Card>
           </Col>
 
-          <Col xl={2} md={6}>
+          <Col xl={3} md={6}>
             <Card className="h-100 border-0 shadow-sm">
               <Card.Body>
                 <Statistic title="Members" value={summary.totalMembers} />
@@ -411,7 +411,7 @@ function Attendence() {
               </Card.Body>
             </Card>
           </Col>
-        </Row>
+        </Row> */}
 
         <Card className="border-0 shadow-sm mb-4">
           <Card.Body>
@@ -432,7 +432,7 @@ function Attendence() {
                 </FloatingLabel>
               </Col>
 
-              <Col lg={2} md={6}>
+              <Col lg={3} md={6}>
                 <FloatingLabel label="Branch">
                   <Form.Select
                     value={branchFilter}
@@ -488,7 +488,7 @@ function Attendence() {
                 />
               </Col>
 
-              <Col lg={2} md={6}>
+              <Col lg={3} md={6}>
                 <FloatingLabel label="Punch Type">
                   <Form.Select
                     value={punchType}
@@ -520,6 +520,12 @@ function Attendence() {
                   >
                     Clear
                   </Button>
+                </div>
+              </Col>
+              <Col lg={9} md={6}>
+                <div className="d-flex justify-content-end align-items-center">
+                  <p className="mb-0">Total Attendence: </p>
+                  <Statistic value={summary.totalIN} />
                 </div>
               </Col>
             </Row>

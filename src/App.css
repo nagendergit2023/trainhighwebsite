@@ -247,7 +247,7 @@ a {
 
 .black-spin .ant-spin-dot-item {
   background-color: #111;
-  
+
 }
 
 .ant-spin>.ant-spin-dot {
@@ -259,52 +259,53 @@ a {
   height: 24px;
 }
 
- .navbar-logo-app-header {
-    width: 85px;
-    border-radius: 50%;
-  }
+.navbar-logo-app-header {
+  width: 85px;
+  border-radius: 50%;
+}
 
-  .cursor-box {
-    width: 150px;
-    height: 150px;
-    background-color: #333;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    text-align: center;
-    padding: 1rem;
-    position: relative;
-    overflow: hidden;
+.cursor-box {
+  width: 150px;
+  height: 150px;
+  background-color: #333;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  text-align: center;
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
 }
 
 .cursor-box::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-    top: -100%;
-    left: -100%;
-    transition: all 0.5s ease;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  top: -100%;
+  left: -100%;
+  transition: all 0.5s ease;
 }
 
 .cursor-box:hover::before {
-    top: 100%;
-    left: 100%;
+  top: 100%;
+  left: 100%;
 }
 
 .copy {
-    cursor: pointer;
-    background: linear-gradient(145deg, #2a2a2a, #383838);
-    border: 2px solid #ffc107;
-    transition: all ease-in-out .3s;
+  cursor: pointer;
+  background: linear-gradient(145deg, #2a2a2a, #383838);
+  border: 2px solid #ffc107;
+  transition: all ease-in-out .3s;
 }
+
 .copy:hover {
-    transform: scale(1.05);
-    box-shadow: 2px 2px 0 #ffc1078c !important;
+  transform: scale(1.05);
+  box-shadow: 2px 2px 0 #ffc1078c !important;
 }
 
 .customTable .ant-table-body {
@@ -314,15 +315,16 @@ a {
 }
 
 .ant-table-wrapper table {
-font-size: smaller;
+  font-size: smaller;
 }
 
-.ant-tag-green, .ant-tag-blue {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    max-width: stretch;
-    
+.ant-tag-green,
+.ant-tag-blue {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: stretch;
+
 }
 
 .dropdown-toggle.nav-link {
@@ -345,12 +347,10 @@ font-size: smaller;
 .location-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.85),
-    rgba(0, 0, 0, 0.25),
-    transparent
-  );
+  background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.85),
+      rgba(0, 0, 0, 0.25),
+      transparent);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -397,22 +397,26 @@ font-size: smaller;
   text-shadow: 2px 2px 5px rgba(255, 255, 255, 1);
 }
 
-.dropdown-item.active, .dropdown-item:active {
+.dropdown-item.active,
+.dropdown-item:active {
   background-color: var(--theme-golden) !important;
 }
 
-
+span.ant-statistic-content-value-int {
+  font-size: 15px;
+  font-family: 'Rubik';
+  display: inline-block;
+  margin-bottom: 10px;
+}
 
 /* Mobile */
 @media (max-width: 991px) {
   .location-overlay {
     opacity: 1;
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.8),
-      rgba(0, 0, 0, 0.15),
-      transparent
-    );
+    background: linear-gradient(to top,
+        rgba(0, 0, 0, 0.8),
+        rgba(0, 0, 0, 0.15),
+        transparent);
   }
 
   .location-content {
@@ -425,15 +429,18 @@ font-size: smaller;
 }
 
 @media screen and (max-width: 768px) {
-    #root .inner-section {
+  #root .inner-section {
     padding-bottom: 5rem;
   }
-   #root.main-footer-layout {
+
+  #root.main-footer-layout {
     padding-bottom: 0rem;
   }
+
   #root.app-footer-layout {
     padding-bottom: 5rem;
   }
+
   .carousel-inner,
   .carousel-inner img {
     height: 75vh;
@@ -487,14 +494,14 @@ font-size: smaller;
   }
 
   .dropdown-toggle.nav-link {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
 
-.training-image-wrapper {
-height: 180px;
-overflow: hidden;
-}
+  .training-image-wrapper {
+    height: 180px;
+    overflow: hidden;
+  }
 }
 
 .expired-row {

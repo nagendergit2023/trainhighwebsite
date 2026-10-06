@@ -280,7 +280,7 @@ function EnquiryList() {
         <Container>
           <Row className="justify-content-center mb-3">
             <Col lg={9}>
-              <h2 className="section-title">My Enquiries</h2>
+              <h2 className="section-title">Enquiries</h2>
               <p className="text-muted text-center">
                 Track and manage prospective member enquiries, interactions, and follow-ups
               </p>

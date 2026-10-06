@@ -269,7 +269,7 @@ function Header() {
                   )}
 
                   <Nav.Link as={Link} to="/membership-list" onClick={handleCloseUser}>
-                    Members
+                    Enrollments
                   </Nav.Link>
 
                   <Nav.Link as={Link} to="/batches" onClick={handleCloseUser}>
@@ -297,10 +297,10 @@ function Header() {
                   )}
 
                   {canViewAllBranches && (
-                  <Nav.Link as={Link} to="/inventory-report">
-                    Inventory
-                  </Nav.Link>
-                )}
+                    <Nav.Link as={Link} to="/inventory-report">
+                      Inventory
+                    </Nav.Link>
+                  )}
 
                   <hr />
 
@@ -348,7 +348,7 @@ function Header() {
                   </NavDropdown.Item>
                 )}
                 <NavDropdown.Item as={Link} to="/membership-list">
-                  Members
+                  Enrollments
                 </NavDropdown.Item>
 
                 <NavDropdown.Item as={Link} to="/batches">

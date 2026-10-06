@@ -6,7 +6,7 @@ import Notiflix from "notiflix";
 
 function ContactUs({
   title = "Get in touch",
-  subtitle = "We are always ready to hear from you.",
+  subtitle = "We’re here to help with your questions, feedback, and support needs.",
   bgClass = "bg-white",
   textClass = "text-black"
 }) {

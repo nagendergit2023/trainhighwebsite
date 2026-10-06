@@ -58,7 +58,7 @@ function Admin() {
                   <Card.Body>
                     <img alt="" src={user} className="w-lg-50 w-sm-100 mb-2" />
                     <Card.Title className="text-capitalize mb-0 h6">
-                      members
+                      Enrollments
                     </Card.Title>
                   </Card.Body>
                 </Card>

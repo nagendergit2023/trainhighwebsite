@@ -152,7 +152,7 @@ function StaffList() {
           return;
         }
       }
-    } catch (err) {}
+    } catch (err) { }
 
     if (userBranchId) {
       setBranches([
@@ -355,7 +355,10 @@ function StaffList() {
         <Container>
           <Row className="justify-content-center mb-3">
             <Col lg={9}>
-              <h2 className="section-title">My Staff</h2>
+              <h2 className="section-title">Staff</h2>
+              <p className="text-muted text-center">
+                Manage staff members, roles, responsibilities, schedules, and daily activities efficiently from one place.
+              </p>
             </Col>
           </Row>
           <Row>
