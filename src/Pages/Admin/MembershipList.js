@@ -519,7 +519,7 @@ function MembershipList() {
                         })
                       }
                     >
-                      Add New Member
+                      + Add New
                     </Button>
                   </Col>
 
@@ -617,8 +617,8 @@ function MembershipList() {
                             }
                           >
                             <option value="">All Trainers</option>
-                            <option value="assigned">Assigned</option>
-                            <option value="unassigned">Unassigned</option>
+                            {/* <option value="assigned">Assigned</option>
+                            <option value="unassigned">Unassigned</option> */}
                             {staff
                               ?.filter((s) => s.role !== "Admin")
                               .map((trainer) => (
@@ -771,7 +771,7 @@ function MembershipList() {
               ?.filter((s) => s.role !== "Admin")
               .map((trainer) => (
                 <option key={trainer.id} value={trainer.id}>
-                  {trainer.name} - {trainer.staff_code}
+                  {trainer.name} - {trainer.mobile}
                 </option>
               ))}
           </Form.Select>

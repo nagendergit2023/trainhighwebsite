@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { Card, CardBody, Col } from 'react-bootstrap';
-import CountUp from 'react-countup';
-import { AiOutlineDashboard } from 'react-icons/ai';
-import { FaIndianRupeeSign } from "react-icons/fa6";
-import { FaRegUser } from "react-icons/fa6";
-import { Link } from 'react-router-dom';
+
+import React, { useEffect, useState } from "react";
+import { Card, Col, Row } from "react-bootstrap";
+import CountUp from "react-countup";
+import { AiOutlineDashboard } from "react-icons/ai";
+import { FaIndianRupeeSign, FaRegUser } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 import {
-  AreaChart,
   Area,
+  AreaChart,
+  Legend,
+  RadialBar,
+  RadialBarChart,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  Tooltip,
-  ResponsiveContainer,
 } from "recharts";
-import { RadialBarChart, RadialBar, Legend } from 'recharts';
+import GetApiCall from "../../helpers/GetApi.js";
 
-const data = [
+const salesData = [
   { name: "Jan", value: 400 },
   { name: "Feb", value: 300 },
   { name: "Mar", value: 500 },
@@ -24,403 +27,340 @@ const data = [
   { name: "Jun", value: 450 },
 ];
 
-const dataPerformance = [
-  { name: "Jan", value: 400 },
-  { name: "Feb", value: 300 },
-  { name: "Mar", value: 500 },
-  { name: "Apr", value: 200 },
-  { name: "May", value: 600 },
-  { name: "Jun", value: 450 },
-];
-
-const dataMembers = [
-  { name: "Total", uv: 400, fill: "#ffc658" },
-  { name: "Active", uv: 375, fill: "#82ca9d" },
-  { name: "Inactive", uv: 25, fill: "#8884d8" },
-];
-
-const dataStaff = [
-  { name: "Sales Team", uv: 10, fill: "#ffc658" },
-  { name: "Freelancer", uv: 20, fill: "#82ca9d" },
-  { name: "Payroll", uv: 5, fill: "#8884d8" },
-];
-
-const style = {
-  top: '50%',
-  right: 0,
-  transform: 'translate(0, -50%)',
-  lineHeight: '24px',
+const initialStats = {
+  totalCollection: 0,
+  totalMembers: 0,
+  pendingRenewals: 0,
+  totalActiveMembers: 0,
+  totalInactiveMembers: 0,
+  totalEnquiries: 0,
+  pendingCollection: 0,
 };
 
+const normalizeStatus = (value) =>
+  String(value ?? "").trim().toUpperCase();
+
+const isSuccessful = (response) =>
+  response.status === 200 || response.status === 201;
+
+const extractRecords = (result) => {
+  if (Array.isArray(result)) return result;
+  if (Array.isArray(result?.data)) return result.data;
+  if (Array.isArray(result?.data?.data)) return result.data.data;
+  if (Array.isArray(result?.result)) return result.result;
+  if (Array.isArray(result?.enquiries)) return result.enquiries;
+  if (Array.isArray(result?.members)) return result.members;
+  return [];
+};
+
+const DashboardCard = ({ title, value, icon, currency = false }) => (
+  <Col xs={12} sm={6} xl={3} className="mb-3">
+    <Link to="/dashboard" className="text-decoration-none">
+      <Card className="h-100 text-center shadow-sm bg-light rounded">
+        <Card.Body className="d-flex align-items-center justify-content-center gap-3">
+          {icon}
+          <div className="text-center">
+            <h6 className="mb-1 text-dark">{title}</h6>
+            <p className="d-flex align-items-center justify-content-center mb-0 fw-bold text-dark">
+              {currency && <FaIndianRupeeSign className="me-1" />}
+              <CountUp
+                end={Number(value) || 0}
+                duration={2.5}
+                separator=","
+              />
+            </p>
+          </div>
+        </Card.Body>
+      </Card>
+    </Link>
+  </Col>
+);
+
+const SalesChart = ({ title, data, gradientId, height = 300 }) => (
+  <Card className="h-100 shadow-sm bg-light rounded">
+    <Card.Body>
+      <h5 className="text-dark mb-3">{title}</h5>
+      <div style={{ width: "100%", height }}>
+        <ResponsiveContainer>
+          <AreaChart
+            data={data}
+            margin={{ top: 10, right: 20, left: 0, bottom: 0 }}
+          >
+            <defs>
+              <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Area
+              type="monotone"
+              dataKey="value"
+              stroke="#8884d8"
+              fill={`url(#${gradientId})`}
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
+    </Card.Body>
+  </Card>
+);
+
+const OverviewChart = ({ title, data }) => (
+  <Card className="h-100 shadow-sm bg-light rounded">
+    <Card.Body>
+      <h5 className="text-dark mb-3">{title}</h5>
+      <div style={{ width: "100%", height: 300 }}>
+        <ResponsiveContainer>
+          <RadialBarChart
+            cx="40%"
+            cy="50%"
+            innerRadius="20%"
+            outerRadius="90%"
+            barSize={12}
+            data={data}
+          >
+            <RadialBar
+              minAngle={15}
+              background
+              dataKey="uv"
+              label={{ position: "insideStart", fill: "#fff" }}
+            />
+            <Legend
+              iconSize={10}
+              layout="vertical"
+              verticalAlign="middle"
+              align="right"
+              wrapperStyle={{ right: 0, lineHeight: "24px" }}
+            />
+            <Tooltip />
+          </RadialBarChart>
+        </ResponsiveContainer>
+      </div>
+    </Card.Body>
+  </Card>
+);
 
 function Dashboard() {
-  const [totalMembers, setTotalMembers] = useState(0);
-  const [pendingRenewals, setPendingRenewals] = useState(0);
-  const [totalActiveMembers, setTotalActiveMembers] = useState(0);
-  const [totalInactiveMembers, setTotalInactiveMembers] = useState(0);
-
-  // Simulate fetching member count (replace with your API call later)
-  useEffect(() => {
-    // Simulate a backend API request
-    const fetchCount = async () => {
-      // Example: simulate delay
-      await new Promise((res) => setTimeout(res, 1000));
-      // Example dynamic number
-      const fetchedCount = 500;
-      setTotalMembers(fetchedCount);
-    };
-
-    fetchCount();
-  }, []);
+  const [stats, setStats] = useState(initialStats);
 
   useEffect(() => {
-    // Simulate a backend API request
-    const fetchCount = async () => {
-      // Example: simulate delay
-      await new Promise((res) => setTimeout(res, 1000));
-      // Example dynamic number
-      const fetchedCount = 100;
-      setPendingRenewals(fetchedCount);
+    let cancelled = false;
+
+    const getUserScope = () => {
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+      return {
+        isSuperAdmin: normalizeStatus(user.role) === "SUPER ADMIN",
+        branchId: user.branch_id,
+      };
     };
 
-    fetchCount();
-  }, []);
+    const filterByBranch = (records, scope) => {
+      if (scope.isSuperAdmin) return records;
+      if (scope.branchId == null) return [];
 
-  useEffect(() => {
-    // Simulate a backend API request
-    const fetchCount = async () => {
-      // Example: simulate delay
-      await new Promise((res) => setTimeout(res, 1000));
-      // Example dynamic number
-      const fetchedCount = 475;
-      setTotalActiveMembers(fetchedCount);
+      return records.filter((record) => {
+        const recordBranch =
+          record.fld_branch_id ??
+          record.branch_id ??
+          record.fld_branchid;
+
+        return (
+          recordBranch != null &&
+          String(recordBranch) === String(scope.branchId)
+        );
+      });
     };
 
-    fetchCount();
-  }, []);
+    const fetchEnquiries = async () => {
+      try {
+        const scope = getUserScope();
+        const response = await GetApiCall.getRequest("GetEnquiries");
 
-  useEffect(() => {
-    // Simulate a backend API request
-    const fetchCount = async () => {
-      // Example: simulate delay
-      await new Promise((res) => setTimeout(res, 1000));
-      // Example dynamic number
-      const fetchedCount = 25;
-      setTotalInactiveMembers(fetchedCount);
+        if (!isSuccessful(response)) {
+          throw new Error(`GetEnquiries failed: ${response.status}`);
+        }
+
+        const result = await response.json();
+        const enquiries = extractRecords(result);
+        const filtered = filterByBranch(enquiries, scope);
+
+        console.log("Enquiry API response:", result);
+        console.log("Total enquiries returned:", enquiries.length);
+        console.log("Filtered enquiry count:", filtered.length);
+
+        if (!cancelled) {
+          setStats((previous) => ({
+            ...previous,
+            totalEnquiries: filtered.length,
+          }));
+        }
+      } catch (error) {
+        console.error("Error fetching enquiries:", error);
+
+        if (!cancelled) {
+          setStats((previous) => ({
+            ...previous,
+            totalEnquiries: 0,
+          }));
+        }
+      }
     };
 
-    fetchCount();
+    const fetchMembers = async () => {
+      try {
+        const scope = getUserScope();
+        const response = await GetApiCall.getRequest("GetMemberList");
+
+        if (!isSuccessful(response)) {
+          throw new Error(`GetMemberList failed: ${response.status}`);
+        }
+
+        const result = await response.json();
+        const members = filterByBranch(extractRecords(result), scope);
+
+        const active = members.filter(
+          (member) => normalizeStatus(member.fld_status) === "ACTIVE"
+        );
+
+        const expired = members.filter(
+          (member) => normalizeStatus(member.fld_status) === "EXPIRED"
+        );
+
+        const inactive = members.filter(
+          (member) => normalizeStatus(member.fld_status) === "INACTIVE"
+        );
+
+        const totalCollection = active.reduce(
+          (total, member) =>
+            total + (Number(member.fld_amount_permnth) || 0),
+          0
+        );
+
+        if (!cancelled) {
+          setStats((previous) => ({
+            ...previous,
+            totalCollection,
+            totalMembers: members.length,
+            pendingRenewals: expired.length,
+            totalActiveMembers: active.length,
+            totalInactiveMembers: inactive.length,
+          }));
+        }
+      } catch (error) {
+        console.error("Error fetching members:", error);
+      }
+    };
+
+    fetchEnquiries();
+    fetchMembers();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
+  const memberChartData = [
+    { name: "Total", uv: stats.totalMembers, fill: "#ffc658" },
+    { name: "Active", uv: stats.totalActiveMembers, fill: "#82ca9d" },
+    { name: "Inactive", uv: stats.totalInactiveMembers, fill: "#8884d8" },
+  ];
 
-    return (
-        <div className='container py-5'>
-            <div className='row'>
-                <Col lg={3} className='mb-3'>
-                    <Link to="/dashboard" className="text-decoration-none">
-                        <Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
-                            <Card.Body className="d-flex align-items-center justify-content-center gap-3">
-                                <AiOutlineDashboard className="card-icon mb-0" />
-                                <Card.Title className="text-capitalize mb-0 text-center">
-                                    <h6 className='mb-1'>Total Collection</h6>
-                                    <p className='d-flex align-items-center justify-content-center mb-0 fw-bold'><FaIndianRupeeSign /><span>10,00,000</span></p>
-                                </Card.Title>
-                            </Card.Body>
-                        </Card>
-                    </Link>
-                </Col>
-                <Col lg={3} className='mb-3'>
-                    <Link to="/dashboard" className="text-decoration-none">
-                        <Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
-                            <Card.Body className="d-flex align-items-center justify-content-center gap-3">
-                                <AiOutlineDashboard className="card-icon mb-0" />
-                                <Card.Title className="text-capitalize mb-0 text-center">
-                                    <h6 className='mb-1'>Pending Collection</h6>
-                                    <p className='d-flex align-items-center justify-content-center mb-0 fw-bold'><FaIndianRupeeSign /><span>80,000</span></p>
-                                </Card.Title>
-                            </Card.Body>
-                        </Card>
-                    </Link>
-                </Col>
+  const staffChartData = [
+    { name: "Sales Team", uv: 10, fill: "#ffc658" },
+    { name: "Freelancer", uv: 20, fill: "#82ca9d" },
+    { name: "Payroll", uv: 5, fill: "#8884d8" },
+  ];
 
-                <Col lg={3} className='mb-3'>
-                    <Link to="/dashboard" className="text-decoration-none">
-                        <Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
-                            <Card.Body className="d-flex align-items-center justify-content-center gap-3">
-                                <FaRegUser className="card-icon mb-0" />
-                                <Card.Title className="text-capitalize mb-0 text-center">
-                                    <h6 className='mb-1'>Total Members</h6>
-                                    <p className='d-flex align-items-center justify-content-center mb-0 fw-bold'>
-                                        <CountUp end={totalMembers} duration={2.5} separator="," />
-                                        </p>
-                                </Card.Title>
-                            </Card.Body>
-                        </Card>
-                    </Link>
-                </Col>
-                
-                <Col lg={3} className='mb-3'>
-                    <Link to="/dashboard" className="text-decoration-none">
-                        <Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
-                            <Card.Body className="d-flex align-items-center justify-content-center gap-3">
-                                <FaRegUser className="card-icon mb-0" />
-                                <Card.Title className="text-capitalize mb-0 text-center">
-                                    <h6 className='mb-1'>Pending Renewals</h6>
-                                    <p className='d-flex align-items-center justify-content-center mb-0 fw-bold'>
-                                        <CountUp end={pendingRenewals} duration={2.5} separator="," />
-                                        </p>
-                                </Card.Title>
-                            </Card.Body>
-                        </Card>
-                    </Link>
-                </Col>
+  const userIcon = <FaRegUser className="card-icon flex-shrink-0" />;
+  const dashboardIcon = (
+    <AiOutlineDashboard className="card-icon flex-shrink-0" />
+  );
 
+  return (
+    <div className="container py-5">
+      <Row>
+        <DashboardCard
+          title="Total Collection"
+          value={stats.totalCollection}
+          icon={dashboardIcon}
+          currency
+        />
+        <DashboardCard
+          title="Pending Collection"
+          value={stats.pendingCollection}
+          icon={dashboardIcon}
+          currency
+        />
+        <DashboardCard
+          title="Total Members"
+          value={stats.totalMembers}
+          icon={userIcon}
+        />
+        <DashboardCard
+          title="Pending Renewals"
+          value={stats.pendingRenewals}
+          icon={userIcon}
+        />
+        <DashboardCard
+          title="Active Members"
+          value={stats.totalActiveMembers}
+          icon={userIcon}
+        />
+        <DashboardCard
+          title="Inactive Members"
+          value={stats.totalInactiveMembers}
+          icon={userIcon}
+        />
+        <DashboardCard
+          title="Pending Payments"
+          value={0}
+          icon={userIcon}
+        />
+        <DashboardCard
+          title="Enquiries"
+          value={stats.totalEnquiries}
+          icon={userIcon}
+        />
 
-                <Col lg={3} className='mb-3'>
-                    <Link to="/dashboard" className="text-decoration-none">
-                        <Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
-                            <Card.Body className="d-flex align-items-center justify-content-center gap-3">
-                                <FaRegUser className="card-icon mb-0" />
-                                <Card.Title className="text-capitalize mb-0 text-center">
-                                    <h6 className='mb-1'>Active Members</h6>
-                                    <p className='d-flex align-items-center justify-content-center mb-0 fw-bold'>
-                                        <CountUp end={totalActiveMembers} duration={2.5} separator="," />
-                                        </p>
-                                </Card.Title>
-                            </Card.Body>
-                        </Card>
-                    </Link>
-                </Col>
-                
-                <Col lg={3} className='mb-3'>
-                    <Link to="/dashboard" className="text-decoration-none">
-                        <Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
-                            <Card.Body className="d-flex align-items-center justify-content-center gap-3">
-                                <FaRegUser className="card-icon mb-0" />
-                                <Card.Title className="text-capitalize mb-0 text-center">
-                                    <h6 className='mb-1'>Inactive Members</h6>
-                                    <p className='d-flex align-items-center justify-content-center mb-0 fw-bold'>
-                                        <CountUp end={totalInactiveMembers} duration={2.5} separator="," />
-                                        </p>
-                                </Card.Title>
-                            </Card.Body>
-                        </Card>
-                    </Link>
-                </Col>
+        <Col xs={12} className="mb-3">
+          <SalesChart
+            title="Monthly Sales"
+            data={salesData}
+            gradientId="monthlySalesGradient"
+            height={250}
+          />
+        </Col>
 
-                <Col lg={3} className='mb-3'>
-                    <Link to="/dashboard" className="text-decoration-none">
-                        <Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
-                            <Card.Body className="d-flex align-items-center justify-content-center gap-3">
-                                <FaRegUser className="card-icon mb-0" />
-                                <Card.Title className="text-capitalize mb-0 text-center">
-                                    <h6 className='mb-1'>Pending Payments</h6>
-                                    <p className='d-flex align-items-center justify-content-center mb-0 fw-bold'>
-                                        <CountUp end={totalInactiveMembers} duration={2.5} separator="," />
-                                        </p>
-                                </Card.Title>
-                            </Card.Body>
-                        </Card>
-                    </Link>
-                </Col>
+        <Col xs={12} lg={6} className="mb-3">
+          <OverviewChart title="Membership Overview" data={memberChartData} />
+        </Col>
 
-                <Col lg={3} className='mb-3'>
-                    <Link to="/dashboard" className="text-decoration-none">
-                        <Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
-                            <Card.Body className="d-flex align-items-center justify-content-center gap-3">
-                                <FaRegUser className="card-icon mb-0" />
-                                <Card.Title className="text-capitalize mb-0 text-center">
-                                    <h6 className='mb-1'>Enquiries</h6>
-                                    <p className='d-flex align-items-center justify-content-center mb-0 fw-bold'>
-                                        <CountUp end={totalInactiveMembers} duration={2.5} separator="," />
-                                        </p>
-                                </Card.Title>
-                            </Card.Body>
-                        </Card>
-                    </Link>
-                </Col>
+        <Col xs={12} lg={6} className="mb-3">
+          <SalesChart
+            title="Quarterly Sales"
+            data={salesData}
+            gradientId="quarterlySalesGradient"
+          />
+        </Col>
 
-                <Col lg={12} className='mb-3'>
-                    <Link to="/dashboard" className="text-decoration-none">
-                        <Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
-                            <Card.Body className="">
-                                <h5 className="text-dark mb-2">Monthly Sales</h5>
+        <Col xs={12} lg={6} className="mb-3">
+          <OverviewChart title="Staff Overview" data={staffChartData} />
+        </Col>
 
-            {/* Responsive Chart Container */}
-            <div style={{ width: "100%", height: 250 }}>
-              <ResponsiveContainer>
-                <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                  <defs>
-                    <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
-                    </linearGradient>
-                  </defs>
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Area
-                    type="monotone"
-                    dataKey="value"
-                    stroke="#8884d8"
-                    fillOpacity={1}
-                    fill="url(#colorValue)"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
-                            </Card.Body>
-                        </Card>
-                    </Link>
-                </Col>
-
-<Col lg={6} className='mb-3'>
-
-<Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
-                            <Card.Body className="">
-                                <h5 className="text-dark mb-2">Membership Overview</h5>
-        <div style={{ width: "100%", height: 300 }}>
-            <ResponsiveContainer>
-              <RadialBarChart
-                cx="50%"
-                cy="50%"
-                innerRadius="20%"
-                outerRadius="100%"
-                barSize={12}
-                data={dataMembers}
-              >
-                <RadialBar
-                  minAngle={15}
-                  label={{ position: "insideStart", fill: "#fff" }}
-                  background
-                  dataKey="uv"
-                />
-                <Legend
-                  iconSize={10}
-                  layout="vertical"
-                  verticalAlign="middle"
-                  align="right"
-                  wrapperStyle={{
-                    top: "50%",
-                    right: 0,
-                    transform: "translateY(-50%)",
-                    lineHeight: "24px",
-                  }}
-                />
-              </RadialBarChart>
-            </ResponsiveContainer>
-          </div>
-    </Card.Body>
-</Card>
-
-</Col>
-
-<Col lg={6} className='mb-3'>
-<Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
-                            <Card.Body className="">
-                                <h5 className="text-dark mb-2">Quarterly Sales</h5>
-                                {/* Responsive Chart Container */}
-            <div style={{ width: "100%", height: 300 }}>
-              <ResponsiveContainer>
-                <AreaChart data={dataPerformance} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                  <defs>
-                    <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
-                    </linearGradient>
-                  </defs>
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Area
-                    type="monotone"
-                    dataKey="value"
-                    stroke="#8884d8"
-                    fillOpacity={1}
-                    fill="url(#colorValue)"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
-                                
-                                </Card.Body>
-                                </Card>
-</Col>
-
-<Col lg={6} className='mb-3'>
-<Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
-                            <Card.Body className="">
-                                <h5 className="text-dark mb-2">Staff Overview</h5>
-        <div style={{ width: "100%", height: 300 }}>
-            <ResponsiveContainer>
-              <RadialBarChart
-                cx="50%"
-                cy="50%"
-                innerRadius="20%"
-                outerRadius="100%"
-                barSize={12}
-                data={dataStaff}
-              >
-                <RadialBar
-                  minAngle={15}
-                  label={{ position: "insideStart", fill: "#fff" }}
-                  background
-                  dataKey="uv"
-                />
-                <Legend
-                  iconSize={10}
-                  layout="vertical"
-                  verticalAlign="middle"
-                  align="right"
-                  wrapperStyle={{
-                    top: "50%",
-                    right: 0,
-                    transform: "translateY(-50%)",
-                    lineHeight: "24px",
-                  }}
-                />
-              </RadialBarChart>
-            </ResponsiveContainer>
-          </div>
-    </Card.Body>
-</Card>
-</Col>
-
-<Col lg={6} className='mb-3'>
-<Card className="text-center shadow-sm mb-3 mb-lg-0 bg-light rounded">
-                            <Card.Body className="">
-                                <h5 className="text-dark mb-2">YTD Sales</h5>
-                                {/* Responsive Chart Container */}
-            <div style={{ width: "100%", height: 300 }}>
-              <ResponsiveContainer>
-                <AreaChart data={dataPerformance} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                  <defs>
-                    <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
-                    </linearGradient>
-                  </defs>
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Area
-                    type="monotone"
-                    dataKey="value"
-                    stroke="#8884d8"
-                    fillOpacity={1}
-                    fill="url(#colorValue)"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
-                                
-                                </Card.Body>
-                                </Card>
-</Col>
-        
-            </div>
-        </div>
-    )
+        <Col xs={12} lg={6} className="mb-3">
+          <SalesChart
+            title="YTD Sales"
+            data={salesData}
+            gradientId="ytdSalesGradient"
+          />
+        </Col>
+      </Row>
+    </div>
+  );
 }
 
-export default Dashboard
+export default Dashboard;
