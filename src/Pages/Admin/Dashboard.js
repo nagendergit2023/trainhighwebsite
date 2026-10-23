@@ -59,7 +59,7 @@ const DashboardCard = ({ title, value, icon, currency = false }) => (
       <Card className="h-100 text-center shadow-sm bg-light rounded">
         <Card.Body className="d-flex align-items-center justify-content-center gap-3">
           {icon}
-          <div className="text-center">
+          <div className="text-capitalize mb-0 text-center card-title h5">
             <h6 className="mb-1 text-dark">{title}</h6>
             <p className="d-flex align-items-center justify-content-center mb-0 fw-bold text-dark">
               {currency && <FaIndianRupeeSign className="me-1" />}
