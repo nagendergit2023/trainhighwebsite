@@ -60,6 +60,7 @@ import MemberBatchTicket from "./Pages/Members/MemberBatchTicket.jsx";
 import MemberClasses from "./Pages/Members/MemberClasses.jsx";
 import MemberClassHistory from "./Pages/Members/MemberClassHistory.jsx";
 import LocationMicrosite from "./Pages/LocationMicrosite/LocationMicrosite.js";
+import LocationService from "./Pages/LocationMicrosite/LocationService.js";
 import Taekwondo from "./Pages/Training/Taekwondo.js";
 import Yoga from "./Pages/Training/Yoga.js";
 import RopeClimbing from "./Pages/Training/RopeClimbing.js";
@@ -319,6 +320,7 @@ function App() {
         <Route path="/trainings/kids-fitness" element={<KidsFitness />} />
         <Route path="/trainings/taekwondo" element={<Taekwondo />} />
 
+        <Route path="/locations/:slug/services/:serviceSlug" element={<LocationService />} />
         <Route path="/locations/:slug" element={<LocationMicrosite />} />
 
         <Route

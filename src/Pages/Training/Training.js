@@ -17,7 +17,7 @@ import CalisthenicsTraining from "../../assets/images/trainings/calisthenics.jpg
 import GymnasticsTraining from "../../assets/images/trainings/gymnastics.jpg";
 import KidsFitness from "../../assets/images/trainings/kids_fitness.jpg";
 
-const items = [
+export const trainingItems = [
   { img: BoxingTraining, title: "Boxing", slug: "boxing" },
   { img: CrossfitTraining, title: "Crossfit", slug: "crossfit" },
   { img: CalisthenicsTraining, title: "Calisthenics", slug: "calisthenics" },
@@ -51,13 +51,19 @@ const responsive = {
   },
 };
 
-function Training() {
+function Training({ locationSlug, locationName, serviceSlugs }) {
+  const visibleItems = serviceSlugs
+    ? trainingItems.filter((item) => serviceSlugs.includes(item.slug))
+    : trainingItems;
+
   return (
     <section className="bg-black text-white py-lg-5 py-5 trainings">
       <Container>
         <Row className="justify-content-center align-items-center">
           <Col lg={8} className="mb-3">
-            <h2 className="section-title">our trainings</h2>
+            <h2 className="section-title">
+              {locationSlug ? `Training at ${locationName}` : "our trainings"}
+            </h2>
             <p className="text-center">
               Choose training that matches your goals. Whether for
               muscle-building, fitness, perfect shape or learning something new,
@@ -76,9 +82,11 @@ function Training() {
             containerClass="pb-10"
             itemClass="px-2"
           >
-            {items.map((item) => (
+            {visibleItems.map((item) => (
               <Link 
-              to={`/trainings/${item.slug}`}
+              to={locationSlug
+                ? `/locations/${locationSlug}/services/${item.slug}`
+                : `/trainings/${item.slug}`}
                   key={item.slug}
                   >
                 <div className="shadow-xl overflow-hidden transition-transform position-relative">

@@ -31,12 +31,16 @@ function getRoutes() {
     return url.pathname;
   });
 
-  // Prerender the pages with deliberate page-specific SEO metadata. Other
-  // routes can remain regular React routes until they receive unique metadata.
-  const routes = ["/", "/locations/janakpuri", "/locations/rajouri-garden"];
-  const missingRoutes = routes.filter((route) => !sitemapRoutes.includes(route));
-  if (missingRoutes.length) {
-    throw new Error(`Add prerender routes to public/sitemap.xml: ${missingRoutes.join(", ")}`);
+  // Prerender the homepage and every location/service page. Other routes can
+  // remain regular React routes until they receive page-specific SEO metadata.
+  const routes = sitemapRoutes.filter(
+    (route) => route === "/" || route.startsWith("/locations/"),
+  );
+  if (
+    !routes.includes("/locations/janakpuri") ||
+    !routes.includes("/locations/rajouri-garden")
+  ) {
+    throw new Error("The sitemap must include both branch landing pages.");
   }
 
   return routes;
@@ -60,16 +64,23 @@ function findStaticFile(requestPath) {
     return directoryIndex;
   }
 
-  return path.join(buildDirectory, "index.html");
+  return null;
 }
 
-function createStaticServer() {
+function createStaticServer(spaShell) {
   return http.createServer((request, response) => {
     let filePath;
     try {
       filePath = findStaticFile(request.url || "/");
     } catch {
       response.writeHead(400).end("Bad request");
+      return;
+    }
+
+    const requestPath = new URL(request.url || "/", "http://localhost").pathname;
+    if (!filePath && path.extname(requestPath) === "") {
+      response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      response.end(spaShell);
       return;
     }
 
@@ -135,7 +146,8 @@ async function main() {
 
   const routes = getRoutes();
   const executablePath = await getBrowserExecutable();
-  const server = createStaticServer();
+  const spaShell = fs.readFileSync(indexPath, "utf8");
+  const server = createStaticServer(spaShell);
   await new Promise((resolve, reject) => {
     server.once("error", reject);
     server.listen(0, "127.0.0.1", resolve);

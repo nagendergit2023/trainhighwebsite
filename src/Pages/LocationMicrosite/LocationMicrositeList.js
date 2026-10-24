@@ -10,10 +10,23 @@ import RajouriGardenImage from "../../assets/images/locations/rajouri_Garden.jpg
 const absoluteAssetUrl = (asset) =>
   new URL(asset, "https://trainhighgym.com/").toString();
 
+const janakpuriServices = [
+  "boxing", "crossfit", "calisthenics", "gymnastics", "pilates",
+  "strength-training", "yoga", "rope-climbing", "wall-climbing",
+  "group-classes", "taekwondo", "kids-fitness",
+];
+
+const rajouriGardenServices = [
+  "boxing", "crossfit", "calisthenics", "gymnastics", "pilates",
+  "strength-training", "yoga", "rope-climbing", "wall-climbing",
+  "group-classes", "taekwondo", "kids-fitness",
+];
+
 const Locations = {
   janakpuri: {
     id: 1,
     slug: "janakpuri",
+    localityName: "Janakpuri",
     name: "Train High Gym - Janakpuri",
     heading: "Train High Gym in Janakpuri, New Delhi",
     pageTitle: "Gym in Janakpuri, New Delhi | Train High Gym",
@@ -34,10 +47,19 @@ const Locations = {
     },
     intro:
       "Visit our Janakpuri gym at A-3/30, Block A3. Explore fitness training and classes at Train High Gym, then contact our team to ask about membership or arranging a visit.",
+    // Keep this list branch-specific so the services shown here can differ
+    // from the Rajouri Garden branch when its offering is configured.
+    serviceSlugs: janakpuriServices,
     image: JanakpuriImage,
     section1: <HeroMain />,
     section2: <AboutUs />,
-    section3: <Training />,
+    section3: (
+      <Training
+        locationSlug="janakpuri"
+        locationName="Janakpuri"
+        serviceSlugs={janakpuriServices}
+      />
+    ),
     section5: <Quotes />,
     section6: <ContactUs />,
   },
@@ -45,6 +67,7 @@ const Locations = {
   "rajouri-garden": {
     id: 2,
     slug: "rajouri-garden",
+    localityName: "Rajouri Garden",
     name: "Train High Gym - Rajouri Garden",
     heading: "Train High Gym near Rajouri Garden, New Delhi",
     pageTitle: "Gym near Rajouri Garden, New Delhi | Train High Gym",
@@ -66,10 +89,18 @@ const Locations = {
     },
     intro:
       "Find Train High Gym at Ground Floor, ESI-Basaidarapur Metro Station, near Rajouri Garden. Explore fitness training and classes, then contact our team to ask about membership or arranging a visit.",
+    // This list is intentionally independent of Janakpuri's service list.
+    serviceSlugs: rajouriGardenServices,
     image: RajouriGardenImage,
     section1: <HeroMain />,
     section2: <AboutUs />,
-    section3: <Training />,
+    section3: (
+      <Training
+        locationSlug="rajouri-garden"
+        locationName="Rajouri Garden"
+        serviceSlugs={rajouriGardenServices}
+      />
+    ),
     section5: <Quotes />,
     section6: <ContactUs />,
   },
