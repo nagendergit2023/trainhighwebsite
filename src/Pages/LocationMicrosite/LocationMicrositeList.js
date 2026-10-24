@@ -24,6 +24,7 @@ const Locations = {
     phone: "+91-80767-51741",
     email: "trainhighgym@gmail.com",
     addressDisplay: "A-3/30, Block A3, Janakpuri, New Delhi, Delhi, 110058",
+    location: "https://maps.app.goo.gl/AgG9cM6fgHzg1VHV7",
     address: {
       streetAddress: "A-3/30, Block A3, Janakpuri",
       addressLocality: "New Delhi",
@@ -55,6 +56,7 @@ const Locations = {
     email: "trainhighgym@gmail.com",
     addressDisplay:
       "Ground Floor, ESI-Basaidarapur, Metro Station, Shivaji Enclave, Tagore Garden Extension, New Delhi, Delhi, 110027",
+    location: "https://maps.app.goo.gl/UKppZTT96nQq79hKA",
     address: {
       streetAddress: "Ground Floor, ESI-Basaidarapur Metro Station",
       addressLocality: "New Delhi",

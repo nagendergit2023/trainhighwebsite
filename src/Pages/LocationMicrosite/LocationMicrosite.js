@@ -28,17 +28,25 @@ function Branch() {
         <Row>
           <Col lg={12} className="px-0">
             <SEO location={location} />
-            <section className="py-4 bg-light" aria-labelledby="branch-page-title">
+            <section
+              className="py-4 bg-light"
+              aria-labelledby="branch-page-title"
+            >
               <Container>
-                <h1 id="branch-page-title" className="h2 fw-bold">{location.heading}</h1>
+                <h1 id="branch-page-title" className="h2 fw-bold">
+                  {location.heading}
+                </h1>
                 <p>{location.intro}</p>
                 <address className="mb-2">{location.addressDisplay}</address>
                 <div className="d-flex flex-wrap gap-3">
-                  <a href={`tel:${location.phone}`} aria-label={`Call ${location.name}`}>
+                  <a
+                    href={`tel:${location.phone}`}
+                    aria-label={`Call ${location.name}`}
+                  >
                     Call {location.phone}
                   </a>
                   <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.addressDisplay)}`}
+                    href={`${location.location}`}
                     target="_blank"
                     rel="noreferrer"
                   >
