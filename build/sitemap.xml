@@ -1,53 +1,28 @@
-<!-- 	created with www.mysitemapgenerator.com	 -->
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
-<loc>https://trainhighgym.com/</loc>
-<lastmod>2025-07-04T08:37:38+01:00</lastmod>
-<priority>1.0</priority>
-</url>
-<url>
-<loc>https://trainhighgym.com/trainings</loc>
-<lastmod>2025-07-04T08:37:38+01:00</lastmod>
-<priority>1.0</priority>
-</url>
-<url>
-<loc>https://trainhighgym.com/why-to-join</loc>
-<lastmod>2025-07-04T08:37:38+01:00</lastmod>
-<priority>1.0</priority>
-</url>
-<url>
-<loc>https://trainhighgym.com/events</loc>
-<lastmod>2025-07-04T08:37:38+01:00</lastmod>
-<priority>1.0</priority>
-</url>
-<url>
-<loc>https://trainhighgym.com/franchise</loc>
-<lastmod>2025-07-04T08:37:38+01:00</lastmod>
-<priority>1.0</priority>
-</url>
-<url>
-<loc>https://trainhighgym.com/careers</loc>
-<lastmod>2025-07-04T08:37:38+01:00</lastmod>
-<priority>1.0</priority>
-</url>
-<url>
-<loc>https://trainhighgym.com/contact-us</loc>
-<lastmod>2025-07-04T08:37:38+01:00</lastmod>
-<priority>1.0</priority>
-</url>
-<url>
-<loc>https://trainhighgym.com/frequently-asked-questions</loc>
-<lastmod>2025-07-04T08:37:38+01:00</lastmod>
-<priority>1.0</priority>
-</url>
-<url>
-<loc>https://trainhighgym.com/about-us</loc>
-<lastmod>2025-07-04T08:37:38+01:00</lastmod>
-<priority>1.0</priority>
-</url>
-<url>
-<loc>https://trainhighgym.com/blogs</loc>
-<lastmod>2025-07-04T08:37:38+01:00</lastmod>
-<priority>1.0</priority>
-</url>
+  <url><loc>https://trainhighgym.com/</loc></url>
+  <url><loc>https://trainhighgym.com/about-us</loc></url>
+  <url><loc>https://trainhighgym.com/contact-us</loc></url>
+  <url><loc>https://trainhighgym.com/trainings</loc></url>
+  <url><loc>https://trainhighgym.com/trainings/boxing</loc></url>
+  <url><loc>https://trainhighgym.com/trainings/crossfit</loc></url>
+  <url><loc>https://trainhighgym.com/trainings/calisthenics</loc></url>
+  <url><loc>https://trainhighgym.com/trainings/gymnastics</loc></url>
+  <url><loc>https://trainhighgym.com/trainings/pilates</loc></url>
+  <url><loc>https://trainhighgym.com/trainings/strength-training</loc></url>
+  <url><loc>https://trainhighgym.com/trainings/yoga</loc></url>
+  <url><loc>https://trainhighgym.com/trainings/rope-climbing</loc></url>
+  <url><loc>https://trainhighgym.com/trainings/wall-climbing</loc></url>
+  <url><loc>https://trainhighgym.com/trainings/group-classes</loc></url>
+  <url><loc>https://trainhighgym.com/trainings/kids-fitness</loc></url>
+  <url><loc>https://trainhighgym.com/trainings/taekwondo</loc></url>
+  <url><loc>https://trainhighgym.com/locations/janakpuri</loc></url>
+  <url><loc>https://trainhighgym.com/locations/rajouri-garden</loc></url>
+  <url><loc>https://trainhighgym.com/why-to-join</loc></url>
+  <url><loc>https://trainhighgym.com/events</loc></url>
+  <url><loc>https://trainhighgym.com/franchise</loc></url>
+  <url><loc>https://trainhighgym.com/careers</loc></url>
+  <url><loc>https://trainhighgym.com/frequently-asked-questions</loc></url>
+  <url><loc>https://trainhighgym.com/blogs</loc></url>
+  <url><loc>https://trainhighgym.com/train-high-championship</loc></url>
 </urlset>

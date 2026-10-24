@@ -6,14 +6,22 @@ import reportWebVitals from "./reportWebVitals.js";
 import { BrowserRouter } from "react-router-dom";
 // import { initPushAlert } from "./helpers/pushAlert";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
+const rootElement = document.getElementById("root");
+const app = (
   <React.StrictMode>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
+
+// Build-time prerendering places initial page markup in #root. Hydrate it so
+// visitors receive useful HTML before React becomes interactive.
+if (rootElement.hasChildNodes()) {
+  ReactDOM.hydrateRoot(rootElement, app);
+} else {
+  ReactDOM.createRoot(rootElement).render(app);
+}
 
 reportWebVitals();
 

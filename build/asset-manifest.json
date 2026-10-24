@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.6c10d8a6.css",
-    "main.js": "/static/js/main.e0bd4983.js",
-    "static/js/977.6d989d55.chunk.js": "/static/js/977.6d989d55.chunk.js",
-    "static/js/667.19b1bd66.chunk.js": "/static/js/667.19b1bd66.chunk.js",
-    "static/js/453.b3dbfdc0.chunk.js": "/static/js/453.b3dbfdc0.chunk.js",
+    "main.css": "/static/css/main.7d21c2ee.css",
+    "main.js": "/static/js/main.ce7f2183.js",
+    "static/js/977.c5ab9d53.chunk.js": "/static/js/977.c5ab9d53.chunk.js",
+    "static/js/667.2088b9ab.chunk.js": "/static/js/667.2088b9ab.chunk.js",
+    "static/js/453.9d625ad3.chunk.js": "/static/js/453.9d625ad3.chunk.js",
     "static/media/FranchiseVideo.mp4": "/static/media/FranchiseVideo.6aceecc538f26755ca70.mp4",
     "static/media/DSC08888.jpg": "/static/media/DSC08888.149fca3dda14fdf156df.jpg",
     "static/media/about_trainhigh.png": "/static/media/about_trainhigh.789c901731cd49a52e43.png",
@@ -100,14 +100,14 @@
     "static/media/revicons.ttf": "/static/media/revicons.57fd05d4ae650374c8de.ttf",
     "static/media/revicons.woff": "/static/media/revicons.e8746a624ed098489406.woff",
     "index.html": "/index.html",
-    "main.6c10d8a6.css.map": "/static/css/main.6c10d8a6.css.map",
-    "main.e0bd4983.js.map": "/static/js/main.e0bd4983.js.map",
-    "977.6d989d55.chunk.js.map": "/static/js/977.6d989d55.chunk.js.map",
-    "667.19b1bd66.chunk.js.map": "/static/js/667.19b1bd66.chunk.js.map",
-    "453.b3dbfdc0.chunk.js.map": "/static/js/453.b3dbfdc0.chunk.js.map"
+    "main.7d21c2ee.css.map": "/static/css/main.7d21c2ee.css.map",
+    "main.ce7f2183.js.map": "/static/js/main.ce7f2183.js.map",
+    "977.c5ab9d53.chunk.js.map": "/static/js/977.c5ab9d53.chunk.js.map",
+    "667.2088b9ab.chunk.js.map": "/static/js/667.2088b9ab.chunk.js.map",
+    "453.9d625ad3.chunk.js.map": "/static/js/453.9d625ad3.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6c10d8a6.css",
-    "static/js/main.e0bd4983.js"
+    "static/css/main.7d21c2ee.css",
+    "static/js/main.ce7f2183.js"
   ]
 }

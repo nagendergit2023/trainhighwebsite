@@ -1,4 +1,11 @@
 User-agent: *
-Disallow: 
+Allow: /
 Disallow: /cgi-bin/
+Disallow: /admin-panel
+Disallow: /dashboard
+Disallow: /enquiry-list
+Disallow: /staff-list
+Disallow: /members/
+Disallow: /trainers/
+Disallow: /login
 Sitemap: https://trainhighgym.com/sitemap.xml
