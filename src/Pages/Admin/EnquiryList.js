@@ -10,11 +10,12 @@ import {
   Badge,
 } from "react-bootstrap";
 import { notification, Table, Timeline } from "antd";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import moment from "moment";
 import Hero from "../../Components/Hero/Hero.js";
 import GetApiCall from "../../helpers/GetApi.js";
 import PostApiCall from "../../helpers/PostApi.js";
+import { FaBell, FaBellSlash } from "react-icons/fa";
 
 function EnquiryList() {
   const navigate = useNavigate();
@@ -114,8 +115,8 @@ function EnquiryList() {
       const status = normalizeStatusForApi(item.fld_status);
       const statusMatches = !statusFilter || (
         statusFilter === "open" ? status === "new" :
-        statusFilter === "follow-up" ? status === "contacted" :
-        statusFilter === "won" ? status === "converted" : status === "closed"
+          statusFilter === "follow-up" ? status === "contacted" :
+            statusFilter === "won" ? status === "converted" : status === "closed"
       );
       if (!statusMatches) return false;
 
@@ -142,7 +143,7 @@ function EnquiryList() {
 
   useEffect(() => {
     loadStaff();
-    GetApiCall.getRequest("GetBranches").then((res) => res.json()).then((data) => setBranches(normalizeList(data))).catch(() => {});
+    GetApiCall.getRequest("GetBranches").then((res) => res.json()).then((data) => setBranches(normalizeList(data))).catch(() => { });
   }, []);
 
   const getTrail = (lead) => {
@@ -187,12 +188,12 @@ function EnquiryList() {
     return () => clearInterval(timer);
   }, [memberList, branchFilter]);
 
-  const enableBrowserReminders = async () => {
-    if (!("Notification" in window)) return notification.warning({ message: "Browser notifications are not available here" });
-    const permission = await Notification.requestPermission();
-    if (permission === "granted") notification.success({ message: "Browser reminders enabled" });
-    else notification.info({ message: "Browser notifications were not enabled" });
-  };
+  // const enableBrowserReminders = async () => {
+  //   if (!("Notification" in window)) return notification.warning({ message: "Browser notifications are not available here" });
+  //   const permission = await Notification.requestPermission();
+  //   if (permission === "granted") notification.success({ message: "Browser reminders enabled" });
+  //   else notification.info({ message: "Browser notifications were not enabled" });
+  // };
 
   const saveLeadUpdate = async (lead, updates) => {
     const payload = {
@@ -305,7 +306,7 @@ function EnquiryList() {
       sorter: (a, b) => String(a.MobileNo).localeCompare(String(b.MobileNo)),
     },
     { title: "Branch", dataIndex: "Branch" },
-    { title: "Next Follow-up", dataIndex: "NextFollowUp" },
+    // { title: "Next Follow-up", dataIndex: "NextFollowUp" },
     {
       title: "Date",
       dataIndex: "StartDate",
@@ -334,7 +335,7 @@ function EnquiryList() {
       render: (status) => (
         <Badge
           bg={
-          status === "Won"
+            status === "Won"
               ? "success"
               : status === "Lost"
                 ? "danger"
@@ -350,36 +351,112 @@ function EnquiryList() {
     {
       title: "Actions",
       render: (_, record) => (
-        <div className="d-flex gap-2">
-          <Button size="sm" variant="outline-primary" onClick={() => { setFollowupLead(record.originalData); setFollowupNote(""); setFollowupStatus(""); setFollowupDate(getNextFollowupDate(record.originalData) ? moment(getNextFollowupDate(record.originalData)).format("YYYY-MM-DD") : ""); }}>Follow up</Button>
-          <Button
-            size="sm"
-            variant="secondary"
-            onClick={() => {
-              setFormData(record.originalData);
-              setIsEdit(true);
-              setShowModal(true);
-            }}
-          >
-            Edit
-          </Button>
+        <>
+          <div className="d-flex align-items-center justify-content-start">
+            <div className="dropdown">
+              <button
+                className="btn btn-secondary dropdown-toggle btn-sm"
+                type="button"
+                // id={`member-actions-${member.fld_id}`}
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Manage
+              </button>
+              <ul
+                className="dropdown-menu"
+              // aria-labelledby={`member-actions-${member.fld_id}`}
+              >
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    onClick={() => {
+                      setFollowupLead(record.originalData);
+                      setFollowupNote("");
+                      setFollowupStatus("");
+                      setFollowupDate(getNextFollowupDate(record.originalData) ? moment(getNextFollowupDate(record.originalData)).format("YYYY-MM-DD") : "");
+                    }}
+                  >
+                    Follow up
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    onClick={() => {
+                      setFormData(record.originalData);
+                      setIsEdit(true);
+                      setShowModal(true);
+                    }}
+                  >
+                    Edit
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className={`dropdown-item ${record.originalData.fld_is_converted === 1 ||
+                      normalizeStatusForApi(record.originalData.fld_status) === "converted"
+                      ? "disabled"
+                      : ""
+                      }`}
+                    to="/new-membership"
+                    onClick={(e) => {
+                      if (
+                        record.originalData.fld_is_converted === 1 ||
+                        normalizeStatusForApi(record.originalData.fld_status) === "converted"
+                      ) {
+                        e.preventDefault();
+                      }
+                    }}
+                    aria-disabled={
+                      record.originalData.fld_is_converted === 1 ||
+                      normalizeStatusForApi(record.originalData.fld_status) === "converted"
+                    }
+                    tabIndex={
+                      record.originalData.fld_is_converted === 1 ||
+                        normalizeStatusForApi(record.originalData.fld_status) === "converted"
+                        ? -1
+                        : 0
+                    }
+                  >
+                    Convert
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
 
-          <Button
-            size="sm"
-            variant="success"
-            onClick={() =>
-              navigate("/new-membership", {
-                state: {
-                  type: "convert",
-                  enquiryData: record.originalData,
-                },
-              })
-            }
-            disabled={record.originalData.fld_is_converted === 1 || normalizeStatusForApi(record.originalData.fld_status) === "converted"}
-          >
-            Convert
-          </Button>
-        </div>
+          {/* <div className="d-flex gap-2">
+            <Button size="sm" variant="outline-primary" onClick={() => { setFollowupLead(record.originalData); setFollowupNote(""); setFollowupStatus(""); setFollowupDate(getNextFollowupDate(record.originalData) ? moment(getNextFollowupDate(record.originalData)).format("YYYY-MM-DD") : ""); }}>Follow up</Button>
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={() => {
+                setFormData(record.originalData);
+                setIsEdit(true);
+                setShowModal(true);
+              }}
+            >
+              Edit
+            </Button>
+
+            <Button
+              size="sm"
+              variant="success"
+              onClick={() =>
+                navigate("/new-membership", {
+                  state: {
+                    type: "convert",
+                    enquiryData: record.originalData,
+                  },
+                })
+              }
+              disabled={record.originalData.fld_is_converted === 1 || normalizeStatusForApi(record.originalData.fld_status) === "converted"}
+            >
+              Convert
+            </Button>
+          </div> */}
+        </>
       ),
     },
   ];
@@ -419,6 +496,50 @@ function EnquiryList() {
   });
   const hasActiveFilters = Boolean(searchField || (canViewAllBranches && branchFilter) || statusFilter || assigneeFilter || typeFilter || sourceFilter || followupFilter);
 
+  const [remindersEnabled, setRemindersEnabled] = useState(false);
+
+  const toggleBrowserReminders = async () => {
+    if (!("Notification" in window)) {
+      notification.warning({
+        message: "Browser notifications are not available",
+      });
+      return;
+    }
+
+    if (remindersEnabled) {
+      setRemindersEnabled(false);
+      notification.info({
+        message: "Browser notifications disabled",
+      });
+      return;
+    }
+
+    try {
+      let permission = Notification.permission;
+
+      if (permission === "default") {
+        permission = await Notification.requestPermission();
+      }
+
+      if (permission === "granted") {
+        setRemindersEnabled(true);
+        notification.success({
+          message: "Browser notifications enabled",
+        });
+      } else {
+        setRemindersEnabled(false);
+        notification.info({
+          message: "Browser notifications disabled",
+          // description: "Allow notifications in your browser settings to enable reminders.",
+        });
+      }
+    } catch {
+      notification.error({
+        message: "Failed to set browser notifications",
+      });
+    }
+  };
+
   return (
     <>
       <section className="pb-5 inner-section">
@@ -432,16 +553,36 @@ function EnquiryList() {
             </Col>
           </Row>
           <Row>
-            {canViewAllBranches && <Col lg={3} className="mb-3"><FloatingLabel label="Filter by branch"><Form.Select value={branchFilter} onChange={(e) => setBranchFilter(e.target.value)}><option value="">All branches</option>{branches.map((item) => <option key={getBranchId(item)} value={getBranchId(item)}>{item.fld_branch_name || item.branch_name || item.name || item.location}</option>)}</Form.Select></FloatingLabel></Col>}
-            <Col lg={canViewAllBranches ? 5 : 8} className="mb-3">
+            {canViewAllBranches && <Col lg={3} className="mb-3">
+              <FloatingLabel label="Filter by branch">
+                <Form.Select value={branchFilter} onChange={(e) => setBranchFilter(e.target.value)}><option value="">All branches</option>{branches.map((item) => <option key={getBranchId(item)} value={getBranchId(item)}>{item.fld_branch_name || item.branch_name || item.name || item.location}</option>)}</Form.Select></FloatingLabel></Col>}
+            <Col lg={7} className="mb-3">
               <div className="d-flex align-items-center gap-2">
-                <FloatingLabel label="Search by Name, Mobile or Membership" className="flex-grow-1">
-                  <Form.Control type="text" value={searchField} onChange={(e) => setSearchField(e.target.value)} placeholder="Search by Name, Mobile or Membership" />
+                <FloatingLabel
+                  label="Search by Name, Mobile or Membership"
+                  className="flex-grow-1"
+                >
+                  <Form.Control
+                    type="text"
+                    value={searchField}
+                    onChange={(e) => setSearchField(e.target.value)}
+                    placeholder="Search by Name, Mobile or Membership"
+                  />
                 </FloatingLabel>
-                <Button variant="outline-dark" className="text-nowrap" onClick={enableBrowserReminders}>Enable reminders</Button>
+
+                <Button
+                  variant={remindersEnabled ? "success" : "dark"}
+                  className="d-flex align-items-center justify-content-center"
+                  style={{ height: "58px", minWidth: "58px" }}
+                  onClick={toggleBrowserReminders}
+                  title={remindersEnabled ? "Disable reminders" : "Enable reminders"}
+                  aria-label={remindersEnabled ? "Disable reminders" : "Enable reminders"}
+                >
+                  {remindersEnabled ? <FaBell size={20} /> : <FaBellSlash size={20} />}
+                </Button>
               </div>
             </Col>
-            <Col lg={4} className="mb-3 text-end">
+            <Col lg={2} className="mb-3 text-end">
               <Button
                 variant="dark"
                 onClick={() => {
@@ -451,7 +592,7 @@ function EnquiryList() {
                 }}
                 className="w-100 h-100"
               >
-                + Add New Enquiry
+                + Add New
               </Button>
             </Col>
             <Col xs={12} sm={6} md={4} lg={2} className="mb-3"><FloatingLabel label="Status"><Form.Select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}><option value="">All statuses</option><option value="open">Open</option><option value="follow-up">Follow-up</option><option value="won">Won</option><option value="lost">Lost</option></Form.Select></FloatingLabel></Col>
@@ -459,7 +600,7 @@ function EnquiryList() {
             <Col xs={12} sm={6} md={4} lg={2} className="mb-3"><FloatingLabel label="Enquiry type"><Form.Select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}><option value="">All types</option><option value="Membership">Membership</option><option value="Franchise">Franchise</option></Form.Select></FloatingLabel></Col>
             <Col xs={12} sm={6} md={4} lg={2} className="mb-3"><FloatingLabel label="Source"><Form.Select value={sourceFilter} onChange={(e) => setSourceFilter(e.target.value)}><option value="">All sources</option>{sources.map((source) => <option key={source} value={source}>{source}</option>)}</Form.Select></FloatingLabel></Col>
             <Col xs={12} sm={6} md={4} lg={2} className="mb-3"><FloatingLabel label="Follow-up timing"><Form.Select value={followupFilter} onChange={(e) => setFollowupFilter(e.target.value)}><option value="">Any timing</option><option value="overdue">Overdue</option><option value="today">Due today</option><option value="upcoming">Upcoming</option><option value="unscheduled">No date set</option></Form.Select></FloatingLabel></Col>
-            <Col xs={12} sm={6} md={4} lg={2} className="mb-3"><Button variant="link" className="h-100" disabled={!hasActiveFilters} onClick={() => { setSearchField(""); setBranchFilter(canViewAllBranches ? "" : String(branch || "")); setStatusFilter(""); setAssigneeFilter(""); setTypeFilter(""); setSourceFilter(""); setFollowupFilter(""); }}>Clear filters</Button></Col>
+            <Col xs={12} sm={6} md={4} lg={2} className="mb-3"><Button variant="dark" className="w-100 h-100" disabled={!hasActiveFilters} onClick={() => { setSearchField(""); setBranchFilter(canViewAllBranches ? "" : String(branch || "")); setStatusFilter(""); setAssigneeFilter(""); setTypeFilter(""); setSourceFilter(""); setFollowupFilter(""); }}>Clear filters</Button></Col>
             {filteredDueLeads.length > 0 && <Col lg={12} className="mb-3"><div className="alert alert-warning mb-0"><strong>{filteredDueLeads.length} follow-up{filteredDueLeads.length === 1 ? "" : "s"} due today or overdue.</strong> Due leads are listed first.</div></Col>}
 
 
@@ -474,7 +615,7 @@ function EnquiryList() {
                   pageSize: 10,
                   showSizeChanger: true,
                 }}
-                scroll={{ x: 800 }}
+                scroll={{ x: 1000, y: 1000 }}
               />
             </Col>
           </Row>
