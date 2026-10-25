@@ -409,6 +409,12 @@ span.ant-statistic-content-value-int {
   margin-bottom: 10px;
 }
 
+.inner-breadcrumb {
+  color: var(--theme-golden);
+  box-sizing: border-box;
+  display: inline;
+}
+
 /* Mobile */
 @media (max-width: 991px) {
   .location-overlay {

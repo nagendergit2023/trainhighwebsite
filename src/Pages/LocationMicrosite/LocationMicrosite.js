@@ -28,7 +28,7 @@ function Branch() {
         <Row>
           <Col lg={12} className="px-0">
             <SEO location={location} />
-            <section
+            {/* <section
               className="py-4 bg-light"
               aria-labelledby="branch-page-title"
             >
@@ -55,13 +55,14 @@ function Branch() {
                   <Link to="/contact-us">Ask about membership</Link>
                 </div>
               </Container>
-            </section>
+            </section> */}
             {location?.section1}
             {location?.section2}
             {location?.section3}
             {location?.section4}
             {location?.section5}
             {location?.section6}
+            {location?.section7}
           </Col>
         </Row>
       </Container>

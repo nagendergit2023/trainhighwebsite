@@ -113,16 +113,16 @@ function LocationService() {
         <script type="application/ld+json">{safeJsonLd(serviceSchema)}</script>
         <script type="application/ld+json">{safeJsonLd(breadcrumbSchema)}</script>
       </Helmet>
-      <section className="py-4 bg-light" aria-labelledby="location-service-title">
+      <section className="py-3 bg-light" aria-labelledby="location-service-title">
         <Container>
           <Row>
             <Col lg={12}>
-              <nav aria-label="Breadcrumb" className="mb-2">
-                <Link to={`/locations/${location.slug}`}>{location.name}</Link>
+              <nav aria-label="Breadcrumb" className="">
+                <Link to={`/locations/${location.slug}`} className="inner-breadcrumb">{location.name}</Link>
                 <span aria-hidden="true"> / </span>
                 <span>{service.title}</span>
               </nav>
-              <h1 id="location-service-title" className="fw-bold">
+              {/* <h1 id="location-service-title" className="fw-bold">
                 {service.title} at Train High Gym {location.localityName}
               </h1>
               <p>{metaDescription}</p>
@@ -130,7 +130,7 @@ function LocationService() {
               <div className="d-flex flex-wrap gap-3">
                 <a href={`tel:${location.phone}`}>Call {location.phone}</a>
                 <Link to={`/locations/${location.slug}`}>View all branch services</Link>
-              </div>
+              </div> */}
             </Col>
           </Row>
         </Container>

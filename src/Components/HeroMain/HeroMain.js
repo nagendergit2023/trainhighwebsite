@@ -9,11 +9,16 @@ import {
   Spinner,
   FloatingLabel,
 } from "react-bootstrap";
-import axios from "axios";
 import "./HeroMain.css";
 import PostApiCall from "../../helpers/PostApi";
 
-function HeroMain() {
+function HeroMain({ locationName }) {
+
+  // const { slug } = useParams();
+  // const [locationName, setLocationName] = useState(
+  //   localStorage.getItem("locationName") || ""
+  // );
+
   const [show, setShow] = useState(false);
   const [displayed, setDisplayed] = useState("");
   const [loading, setLoading] = useState(false);
@@ -24,13 +29,25 @@ function HeroMain() {
     location: "",
   });
 
+
+  // useEffect(() => {
+  //   const locationName = slug
+  //     ? slug.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase())
+  //     : "";
+
+  //   localStorage.setItem("locationName", locationName);
+  //   setLocationName(locationName);
+  // }, [slug]);
+
   // const text = "one day gym trial";
-  const text = "train high gym";
+  const text = `train high gym${locationName ? ` - ${locationName}` : ""}`;
+
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   useEffect(() => {
+
     let i = 0;
 
     function startTyping() {
@@ -47,7 +64,7 @@ function HeroMain() {
     startTyping();
     const restartInterval = setInterval(startTyping, 20000);
     return () => clearInterval(restartInterval);
-  }, []);
+  }, [text]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -95,12 +112,12 @@ function HeroMain() {
     <div className="hero-section-main">
       <Container>
         <Row className="justify-content-center">
-          <Col lg={8} className="text-center position-relative">
+          <Col lg={10} className="text-center position-relative">
             <h2 className="section-title">
               {displayed}
               <span className="cursor">|</span>
             </h2>
-             <h2 className="mt-4">
+            <h2 className="mt-4">
               Take your time to get to know Train High Gym.
             </h2>
             <h2 className="mb-4">We would love to show you around!</h2>

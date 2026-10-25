@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./Components/Header/Header.js";
@@ -73,6 +73,7 @@ import ScrollEffect from "./Components/ScrollEffect/ScrollEffect.js";
 import { syncLoggedInPushAlertSubscriber } from "./helpers/pushAlertPersonalization";
 
 function App() {
+  const { pathname } = useLocation();
   useEffect(() => {
     const root = document.getElementById("root");
     const path = window.location.pathname;
@@ -375,12 +376,13 @@ function App() {
       {/* {window.location.pathname !== "/home" && !window.location.pathname.startsWith("/members/") ? (
         <Footer />
       ) : null} */}
-      {!window.location.pathname.startsWith("/members/") &&
-        !window.location.pathname.startsWith("/trainers/") ? (
-        <Footer />
-      ) : (
-        <AppFooter />
-      )}
+      {pathname.startsWith("/locations") ? null :
+        pathname.startsWith("/members/") ||
+          pathname.startsWith("/trainers/") ? (
+          <AppFooter />
+        ) : (
+          <Footer />
+        )}
     </>
   );
 }

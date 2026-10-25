@@ -9,7 +9,10 @@ import {
 import TrainHighGymLogo from "../../assets/images/train_high_gym_logo.png";
 import moment from "moment";
 
-function Footer() {
+function Footer({ InstaURL }) {
+
+  const instagram = InstaURL || "https://www.instagram.com/trainhighgym_rajourigarden/";
+
   return (
     <>
       <footer
@@ -92,7 +95,7 @@ function Footer() {
                 <li className="list-inline-item">
                   <a
                     className="btn btn-white btn-sm shadow px-2 text-instagram bg-dark social-icon-wrap cursor-box copy"
-                    href="https://instagram.com/trainhighgym?igshid=NjIwNzIyMDk2Mg=="
+                    href={instagram}
                     target="_blank"
                   >
                     <BiLogoInstagram className="social-icon text-white" />

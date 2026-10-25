@@ -6,6 +6,8 @@ import Quotes from "../../Components/Quotes/Quotes.js";
 import ContactUs from "../../Components/ContactUs/ContactUs.js";
 import JanakpuriImage from "../../assets/images/locations/janakpuri.jpg";
 import RajouriGardenImage from "../../assets/images/locations/rajouri_Garden.jpg";
+import LocationMicro from "../../Components/LocationMicro/LocationMicro.js";
+import Footer from "../../Components/Footer/Footer.js";
 
 const absoluteAssetUrl = (asset) =>
   new URL(asset, "https://trainhighgym.com/").toString();
@@ -28,8 +30,8 @@ const Locations = {
     slug: "janakpuri",
     localityName: "Janakpuri",
     name: "Train High Gym - Janakpuri",
-    heading: "Train High Gym in Janakpuri, New Delhi",
-    pageTitle: "Gym in Janakpuri, New Delhi | Train High Gym",
+    heading: "Train High Gym - Janakpuri, Delhi",
+    pageTitle: "Train High Gym - Gym in Delhi, Janakpuri, Delhi, 110058",
     metaDescription:
       "Visit Train High Gym in Janakpuri, New Delhi. Find our A-3/30 Block A3 location, explore fitness training and classes, and contact the team about visiting or membership.",
     canonicalUrl: "https://trainhighgym.com/locations/janakpuri",
@@ -51,7 +53,11 @@ const Locations = {
     // from the Rajouri Garden branch when its offering is configured.
     serviceSlugs: janakpuriServices,
     image: JanakpuriImage,
-    section1: <HeroMain />,
+    section1: (
+      <HeroMain
+        locationSlug="janakpuri"
+        locationName="Janakpuri"
+      />),
     section2: <AboutUs />,
     section3: (
       <Training
@@ -60,8 +66,13 @@ const Locations = {
         serviceSlugs={janakpuriServices}
       />
     ),
+    section4: <LocationMicro />,
     section5: <Quotes />,
     section6: <ContactUs />,
+    section7: (
+      <Footer
+        InstaURL="https://www.instagram.com/trainhighgym/"
+      />),
   },
 
   "rajouri-garden": {
@@ -69,14 +80,14 @@ const Locations = {
     slug: "rajouri-garden",
     localityName: "Rajouri Garden",
     name: "Train High Gym - Rajouri Garden",
-    heading: "Train High Gym near Rajouri Garden, New Delhi",
-    pageTitle: "Gym near Rajouri Garden, New Delhi | Train High Gym",
+    heading: "Train High Gym - Rajouri Garden, Delhi",
+    pageTitle: "Train High Gym - Gym in Delhi, Rajouri Garden, Delhi, 110027",
     metaDescription:
       "Visit Train High Gym near Rajouri Garden, New Delhi, at Ground Floor, ESI-Basaidarapur Metro Station. Explore fitness training and classes, and contact the team about membership or a visit.",
     canonicalUrl: "https://trainhighgym.com/locations/rajouri-garden",
     ogImage: absoluteAssetUrl(RajouriGardenImage),
-    phone: "+91-80767-51741",
-    email: "trainhighgym@gmail.com",
+    phone: "+91-92114-57555",
+    email: "trainhighrajouri@gmail.com",
     addressDisplay:
       "Ground Floor, ESI-Basaidarapur, Metro Station, Shivaji Enclave, Tagore Garden Extension, New Delhi, Delhi, 110027",
     location: "https://maps.app.goo.gl/UKppZTT96nQq79hKA",
@@ -92,7 +103,11 @@ const Locations = {
     // This list is intentionally independent of Janakpuri's service list.
     serviceSlugs: rajouriGardenServices,
     image: RajouriGardenImage,
-    section1: <HeroMain />,
+    section1: (
+      <HeroMain
+        locationSlug="rajouri-garden"
+        locationName="Rajouri Garden"
+      />),
     section2: <AboutUs />,
     section3: (
       <Training
@@ -101,8 +116,13 @@ const Locations = {
         serviceSlugs={rajouriGardenServices}
       />
     ),
+    section4: <LocationMicro />,
     section5: <Quotes />,
     section6: <ContactUs />,
+    section7: (
+      <Footer
+        InstaURL="https://www.instagram.com/trainhighgym_rajourigarden/"
+      />),
   },
 };
 
