@@ -321,7 +321,7 @@ function App() {
         <Route path="/trainings/kids-fitness" element={<KidsFitness />} />
         <Route path="/trainings/taekwondo" element={<Taekwondo />} />
 
-        <Route path="/locations/:slug/services/:serviceSlug" element={<LocationService />} />
+        <Route path="/locations/:slug/trainings/:serviceSlug" element={<LocationService />} />
         <Route path="/locations/:slug" element={<LocationMicrosite />} />
 
         <Route

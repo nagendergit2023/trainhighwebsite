@@ -71,40 +71,40 @@ function Training({ locationSlug, locationName, serviceSlugs }) {
             </p>
           </Col>
           <Col lg={12}>
-          <Carousel
-            responsive={responsive}
-            autoPlay
-            autoPlaySpeed={2500}
-            infinite
-            arrows
-            showDots={false}
-            transitionDuration={500}
-            containerClass="pb-10"
-            itemClass="px-2"
-          >
-            {visibleItems.map((item) => (
-              <Link 
-              to={locationSlug
-                ? `/locations/${locationSlug}/services/${item.slug}`
-                : `/trainings/${item.slug}`}
+            <Carousel
+              responsive={responsive}
+              autoPlay
+              autoPlaySpeed={2500}
+              infinite
+              arrows
+              showDots={false}
+              transitionDuration={500}
+              containerClass="pb-10"
+              itemClass="px-2"
+            >
+              {visibleItems.map((item) => (
+                <Link
+                  to={locationSlug
+                    ? `/locations/${locationSlug}/trainings/${item.slug}`
+                    : `/trainings/${item.slug}`}
                   key={item.slug}
-                  >
-                <div className="shadow-xl overflow-hidden transition-transform position-relative">
-                  <img
-                    src={item.img}
-                    alt={item.title}
-                    className="rounded carousel-img"
-                  />
-                  <div className="py-4 ps-3 text-center bg-transparent text-white carousel-title">
-                    <h3 className="font-semibold tracking-wide">
-                      {item.title}
-                    </h3>
+                >
+                  <div className="shadow-xl overflow-hidden transition-transform position-relative">
+                    <img
+                      src={item.img}
+                      alt={item.title}
+                      className="rounded carousel-img"
+                    />
+                    <div className="py-4 ps-3 text-center bg-transparent text-white carousel-title">
+                      <h3 className="font-semibold tracking-wide">
+                        {item.title}
+                      </h3>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
-          </Carousel>
-        </Col>
+                </Link>
+              ))}
+            </Carousel>
+          </Col>
         </Row>
       </Container>
     </section>

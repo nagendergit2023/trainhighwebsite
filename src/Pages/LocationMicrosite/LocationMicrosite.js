@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Locations from "./LocationMicrositeList.js";
 import SEO from "./seo.jsx";
 import { Col, Container, Row } from "react-bootstrap";
@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 function Branch() {
+  const { pathname } = useLocation();
   const { slug } = useParams();
 
   const location = Locations[slug];
@@ -61,7 +62,7 @@ function Branch() {
             {location?.section3}
             {location?.section4}
             {location?.section5}
-            {location?.section6}
+            {pathname.startsWith("/locations") && location?.section6}
             {location?.section7}
           </Col>
         </Row>
