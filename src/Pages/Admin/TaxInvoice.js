@@ -5,10 +5,11 @@ import PostApiCall from "../../helpers/PostApi.js";
 import { useLocation } from "react-router-dom";
 import Hero from "../../Components/Hero/Hero.js";
 import moment from "moment";
+import { FaIndianRupeeSign } from "react-icons/fa6";
 
 function TaxInvoice() {
   let location = useLocation();
-  const [invoiceDate, setInvoiceDate] = useState(null);
+  const [invoiceDate, setInvoiceDate] = useState("27/10/2026");
   const [amount, setAmount] = useState(null);
   const [totalamount, setTotalAmount] = useState(null);
   const [cgst, setCgst] = useState(null);
@@ -76,44 +77,63 @@ function TaxInvoice() {
       .from(element)
       .set(opt)
       .save()
-      .then(() => {});
+      .then(() => { });
   };
   return (
     <>
       {/* <Hero /> */}
-      <section className="py-5 inner-section">
+      <section className="inner-section">
         <Container>
-          <Col lg={12} className="text-center mb-4">
-            <Button className="btn btn-dark w-25" onClick={DownloadInvoicePdf}>
-              Download
-            </Button>
-          </Col>
           <Row
-            className="border"
+            className="border m-auto"
             id="orderform"
             style={{
-              // width: "100%",
+              width: "80%",
               height: "100%",
               padding: "30px",
             }}
           >
-            <Col className="mt-3">
-              <img src={TrainHighGymLogo} className="w-25" alt="logo" />
+            <Col lg={12}>
+              <h4 className="fw-bold text-center">TAX INVOICE</h4>
             </Col>
-            <Col className="mt-3 text-end">
-              <h4 className="fw-bold mb-2">INVOICE</h4>
-              <p className="mb-2">GSTIN - {Gst} </p>
-
-              <p className="mb-2">
+            <Col lg={12}>
+              <hr />
+            </Col>
+            <Col lg={8} className="mt-3">
+              <div className="d-flex gap-2">
+                <img src={TrainHighGymLogo} className="w-25" alt="logo" />
+                <div>
+                  <h5 className="fw-bold mb-0">TRAIN HIGH GYM</h5>
+                  <p className="mb-0 small">
+                    Ground Floor, ESI-Basaidarapur Metro Station,
+                  </p>
+                  <p className="mb-0 small">
+                    New Delhi - 110027
+                  </p>
+                  <p className="mb-0 small">
+                    Phone: +91-9211457555
+                  </p>
+                  <p className="mb-0 small">
+                    Email: trainhighrajouri@gmail.com
+                  </p>
+                  <p className="mb-0 small">GSTIN - {Gst} </p>
+                </div>
+              </div>
+            </Col>
+            <Col lg={4} className="mt-3 text-end small">
+              <p className="mb-0">
                 Invoice Date - {moment(invoiceDate).format("MM-DD-YYYY")}
               </p>
-
-              <p className="mb-2">Invoice Number - {invoiceNumber}</p>
+              <p className="mb-0">Invoice Number - {invoiceNumber}</p>
+              <p className="mb-0">Payment Mode - </p>
+              <p className="mb-0">Sales Rep - </p>
+              <p className="mb-0 fw-bold">Balance Due - <span className="text-danger">₹ {(Number(amount) || 0).toFixed(2)}</span></p>
             </Col>
             <Col lg={12}>
               <hr />
             </Col>
             <Col lg={12}>
+              <p className="fw-bold text-center">BILLED TO</p>
               <p className="mb-2">
                 <span
                   className="d-inline-block fw-bold"
@@ -150,7 +170,7 @@ function TaxInvoice() {
                 </span>{" "}
                 - {mobile}
               </p>
-              <p className="mb-2">
+              {/* <p className="mb-2">
                 <span
                   className="d-inline-block fw-bold"
                   style={{ width: "150px" }}
@@ -159,50 +179,130 @@ function TaxInvoice() {
                 </span>{" "}
                 - {"  "}
                 {email}
-              </p>
+              </p> */}
             </Col>
             <Col lg={12}>
               <hr />
             </Col>
             <Col lg={12}>
-              <p className="fw-bold text-center">Payment Summary</p>
-              <Table striped>
-                <tbody>
+              <p className="fw-bold text-center">PAYMENT SUMMARY</p>
+              <Table striped bordered>
+                <thead className="fw-bold small">
                   <tr>
-                    <td>Subtotal</td>
-                    <td className="text-end fw-bold">
-                      Rs. <span>{amount}</span>
-                    </td>
+                    <td className="text-center text-wrap">ITEM DESCRIPTION</td>
+                    <td className="text-center">ACTIVATION DATE</td>
+                    <td className="text-center">EXPIRY DATE</td>
+                    <td className="text-center align-top">PRICE</td>
+                    <td className="text-center">DISCOUNTED PRICE</td>
+                    <td className="text-center">TAX RATE</td>
+                    <td className="text-center">TAX AMOUNT</td>
+                    <td className="text-center">NET AMOUNT</td>
                   </tr>
+                </thead>
+                <tbody className="small text-center">
                   <tr>
-                    <td>SGST 5%</td>
-                    <td className="text-end fw-bold">
-                      Rs. <span>{sgst}</span>
+                    <td>Membership - 12 Months</td>
+                    {/* <td>{moment(invoiceDate).format("MM-DD-YYYY")}</td> */}
+                    <td>27/10/2026</td>
+                    {/* <td>{moment(invoiceDate).format("MM-DD-YYYY")}</td> */}
+                    <td>26/10/2027</td>
+                    <td>₹<span>{(Number(amount) || 0).toFixed(2)}</span></td>
+                    <td className="">
+                      ₹<span>{(Number(amount) || 0).toFixed(2)}</span>
                     </td>
-                  </tr>
-                  <tr>
-                    <td>CGST 5%</td>
-                    <td className="text-end fw-bold">
-                      Rs. <span>{cgst}</span>
+                    <td>{Gst}</td>
+                    <td className="">
+                      ₹<span>{(Number(sgst || 0) + Number(cgst || 0)).toFixed(2)}</span>
                     </td>
-                  </tr>
-                  <tr>
-                    <td className="fw-bold">Total</td>
-                    <td className="text-end fw-bold">
-                      Rs. <span>{totalamount}</span>
+                    <td className="">
+                      ₹<span>{(Number(totalamount) || 0).toFixed(2)}</span>
                     </td>
                   </tr>
                 </tbody>
               </Table>
             </Col>
+            <Col>
+              <Row>
+                <Col lg={8} className="d-flex align-items-center">
+                  <div>
+                    <h5 className="fw-bold mb-0 small">Terms & Conditions:</h5>
+                    <ol className="small">
+                      <li>Payment is due immediately upon receipt.</li>
+                      <li>This is a computer generated document, no signature required.</li>
+                    </ol>
+                  </div>
+                </Col>
+                <Col lg={4}>
+                  <Table className="small float-end">
+                    <tr>
+                      <td>Subtotal</td>
+                      <td className="text-end fw-bold">
+                        ₹<span>{(Number(amount) || 0).toFixed(2)}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>SGST 2.5%</td>
+                      <td className="text-end">
+                        ₹<span>{(Number(sgst) || 0).toFixed(2)}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>CGST 2.5%</td>
+                      <td className="text-end">
+                        ₹<span>{(Number(cgst) || 0).toFixed(2)}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="fw-bold">Total</td>
+                      <td className="text-end fw-bold">
+                        ₹<span>{(Number(totalamount) || 0).toFixed(2)}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="fw-bold">Payment Made</td>
+                      <td className="text-end fw-bold">
+                        (-) ₹<span>{(Number(totalamount) || 0).toFixed(2)}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="fw-bold">Credit Applied</td>
+                      <td className="text-end fw-bold">
+                        (-) ₹<span>{(Number(totalamount) || 0).toFixed(2)}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="fw-bold">Balance Due</td>
+                      <td className="text-end fw-bold text-danger">
+                        ₹<span className="text-danger">{(Number(totalamount) || 0).toFixed(2)}</span>
+                      </td>
+                    </tr>
+                  </Table>
+                </Col>
+              </Row>
+            </Col>
+            <Col lg={12}>
+              <hr />
+            </Col>
             <Col lg={12} className="mt-3">
-              <p className="small">
-                This is a computer generated invoice no signature required.
+              <p className="small text-center mb-0">
+                If you have any questions about this invoice, please contact
+              </p>
+              <p className="small text-center mb-0">
+                Phone: +91-9211457555, Email: trainhighrajouri@gmail.com
               </p>
             </Col>
           </Row>
         </Container>
-      </section>
+        <Container>
+          <Row>
+            <Col lg={12} className="text-center mt-4">
+              <Button className="btn btn-dark w-25" onClick={DownloadInvoicePdf}>
+                Download
+              </Button>
+            </Col>
+          </Row>
+        </Container>
+      </section >
     </>
   );
 }
