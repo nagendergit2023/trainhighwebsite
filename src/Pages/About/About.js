@@ -15,8 +15,8 @@ function About() {
             <Col lg={6} className="col-lg-6 mb-lg-0 mb-4">
               <img
                 src={AbouTrainHighGym}
-                className="img-fluid w-100 rounded "
-                alt=""
+                className="img-fluid w-100 rounded"
+                alt="Members training with modern strength equipment at Train High Gym"
               />
             </Col>
             <Col lg={6}>
@@ -28,7 +28,7 @@ function About() {
                 </h2>
                 <p className="text-justify mb-lg-1 mb-3">
                   The ultimate fitness destination in Janakpuri, New Delhi.
-                  Spanning an impressive 20,000 square feet, Train High Gym is
+                  Spanning an impressive 20,000 sq. ft, Train High Gym is
                   one of the largest and most advanced fitness facilities in
                   India. With Cutting-Edge Equipment, Expert Trainers, and a
                   Welcoming Environment, we aim to provide a Premium Fitness

@@ -7,7 +7,6 @@ import ContactUs from "../../Components/ContactUs/ContactUs.js";
 import JanakpuriImage from "../../assets/images/locations/janakpuri.jpg";
 import RajouriGardenImage from "../../assets/images/locations/rajouri_Garden.jpg";
 import LocationMicro from "../../Components/LocationMicro/LocationMicro.js";
-import Footer from "../../Components/Footer/Footer.js";
 import ContactInfo from "../../Components/ContactInfo/ContactInfo.js";
 
 const absoluteAssetUrl = (asset) =>
@@ -74,11 +73,7 @@ const Locations = {
         address="A-3/30, Block A3, Janakpuri, New Delhi - 110058"
         contact="+91-80767 51741"
         email="trainhighgym@gmail.com" />),
-    section7: <ContactUs />,
-    section8: (
-      <Footer
-        InstaURL="https://www.instagram.com/trainhighgym/"
-      />),
+    section7: <ContactUs />
   },
 
   "rajouri-garden": {
@@ -129,11 +124,7 @@ const Locations = {
         address="Ground Floor, ESI-Basaidarapur Metro Station, New Delhi - 110027"
         contact="+91-9211457555"
         email="trainhighrajouri@gmail.com" />),
-    section7: <ContactUs />,
-    section8: (
-      <Footer
-        InstaURL="https://www.instagram.com/trainhighgym_rajourigarden/"
-      />),
+    section7: <ContactUs />
   },
 };
 
