@@ -184,7 +184,7 @@ function EnquiryList() {
         if (
           sourceFilter &&
           String(item.fld_source || "").toLowerCase() !==
-            sourceFilter.toLowerCase()
+          sourceFilter.toLowerCase()
         )
           return false;
 
@@ -235,7 +235,7 @@ function EnquiryList() {
     GetApiCall.getRequest("GetBranches")
       .then((res) => res.json())
       .then((data) => setBranches(normalizeList(data)))
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   const getTrail = (lead) => {
@@ -276,7 +276,7 @@ function EnquiryList() {
           moment(dueDate).isSameOrBefore(today, "day") &&
           (!branchFilter ||
             String(lead.fld_branch_id || lead.branch_id) ===
-              String(branchFilter))
+            String(branchFilter))
         );
       });
       setDueLeadIds(due.map((lead) => String(lead.id || lead.fld_id)));
@@ -507,7 +507,7 @@ function EnquiryList() {
               </button>
               <ul
                 className="dropdown-menu"
-                // aria-labelledby={`member-actions-${member.fld_id}`}
+              // aria-labelledby={`member-actions-${member.fld_id}`}
               >
                 <li>
                   <Link
@@ -519,8 +519,8 @@ function EnquiryList() {
                       setFollowupDate(
                         getNextFollowupDate(record.originalData)
                           ? moment(
-                              getNextFollowupDate(record.originalData),
-                            ).format("YYYY-MM-DD")
+                            getNextFollowupDate(record.originalData),
+                          ).format("YYYY-MM-DD")
                           : "",
                       );
                     }}
@@ -542,13 +542,12 @@ function EnquiryList() {
                 </li>
                 <li>
                   <Link
-                    className={`dropdown-item ${
-                      record.originalData.fld_is_converted === 1 ||
+                    className={`dropdown-item ${record.originalData.fld_is_converted === 1 ||
                       normalizeStatusForApi(record.originalData.fld_status) ===
-                        "converted"
-                        ? "disabled"
-                        : ""
-                    }`}
+                      "converted"
+                      ? "disabled"
+                      : ""
+                      }`}
                     to="/new-membership"
                     onClick={(e) => {
                       if (
@@ -563,11 +562,11 @@ function EnquiryList() {
                     aria-disabled={
                       record.originalData.fld_is_converted === 1 ||
                       normalizeStatusForApi(record.originalData.fld_status) ===
-                        "converted"
+                      "converted"
                     }
                     tabIndex={
                       record.originalData.fld_is_converted === 1 ||
-                      normalizeStatusForApi(record.originalData.fld_status) ===
+                        normalizeStatusForApi(record.originalData.fld_status) ===
                         "converted"
                         ? -1
                         : 0
@@ -1010,6 +1009,8 @@ function EnquiryList() {
                     <option value="">Select Staff</option>
                     {staff
                       ?.filter((person) => {
+                        if (person.role !== "STAFF") return false;
+                        if (!person.name?.includes("SALES")) return false;
                         if (canViewAllBranches) return true;
 
                         return (
@@ -1175,8 +1176,8 @@ function EnquiryList() {
                       <small className="text-muted">
                         {moment(event.assigned_at).isValid()
                           ? moment(event.assigned_at).format(
-                              "MMM D, YYYY h:mm A",
-                            )
+                            "MMM D, YYYY h:mm A",
+                          )
                           : "Assignment date unavailable"}
                         {event.assigned_by_user_id
                           ? ` · Assigned by user #${event.assigned_by_user_id}`
