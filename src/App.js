@@ -376,13 +376,12 @@ function App() {
       {/* {window.location.pathname !== "/home" && !window.location.pathname.startsWith("/members/") ? (
         <Footer />
       ) : null} */}
-      {pathname.startsWith("/locations") ? null :
-        pathname.startsWith("/members/") ||
-          pathname.startsWith("/trainers/") ? (
-          <AppFooter />
-        ) : (
-          <Footer />
-        )}
+      {pathname.startsWith("/members/") ||
+        pathname.startsWith("/trainers/") ? (
+        <AppFooter />
+      ) : (
+        <Footer />
+      )}
     </>
   );
 }
